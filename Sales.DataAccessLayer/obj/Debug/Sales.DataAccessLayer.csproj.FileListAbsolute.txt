@@ -1,0 +1,7 @@
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.csprojResolveAssemblyReference.cache
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.dll
+E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.pdb

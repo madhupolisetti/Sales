@@ -1,0 +1,4 @@
+E:\Git\Sales.Smscountry.com\Sales.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Git\Sales.Smscountry.com\Sales.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Git\Sales.Smscountry.com\Sales.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.dll
+E:\Git\Sales.Smscountry.com\Sales.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.pdb

@@ -1,0 +1,14 @@
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.pdb
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\OrdersManagement.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Newtonsoft.Json.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\log4net.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\OrdersManagement.pdb
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\bin\Debug\log4net.xml
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.csprojResolveAssemblyReference.cache
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.dll
+E:\Git\Sales.Smscountry.com\Sales.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.pdb

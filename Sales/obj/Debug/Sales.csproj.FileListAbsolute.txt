@@ -1,0 +1,10 @@
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.dll.config
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.dll
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.pdb
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.BussinessLogicLayer.dll
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.DataAccessLayer.dll
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.BussinessLogicLayer.pdb
+E:\Git\Sales.Smscountry.com\Sales\bin\Sales.DataAccessLayer.pdb
+E:\Git\Sales.Smscountry.com\Sales\obj\Debug\Sales.csprojResolveAssemblyReference.cache
+E:\Git\Sales.Smscountry.com\Sales\obj\Debug\Sales.dll
+E:\Git\Sales.Smscountry.com\Sales\obj\Debug\Sales.pdb

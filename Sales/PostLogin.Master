@@ -1,0 +1,526 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PostLogin.master.cs" Inherits="Sales.PostLogin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta charset="utf-8" />
+    <title></title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <meta content="" name="description" />
+    <meta content="" name="author" />
+    <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,sales600,700&subset=all" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+    <link href="CssFiles/font-awesome/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="CssFiles/toastr.min.css" rel="stylesheet" />
+    <link href="/CssFiles/simple-line-icons.min.css" rel="stylesheet" />
+    <link href="/CssFiles/bootstrap.min.css" rel="stylesheet" />
+    <link href="/assets/global/css/components.css" rel="stylesheet" />
+    <link href="/CssFiles/layout.css" rel="stylesheet" />
+    <link href="CssFiles/toastr.min.css" rel="stylesheet" />
+    <link href="/CssFiles/blue.min.css" rel="stylesheet" />
+    <link href="/assets/global/css/custom.css" rel="stylesheet" />
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+    <style type="text/css">
+        .ulcolor {
+            background-color: black;
+        }
+
+        .aspNetHidden {
+            margin-top: 0px;
+        }
+
+
+
+        .page-header.navbar .page-logo .logo-default {
+            margin: 12px 0 0 !important;
+        }
+
+        .page-sidebar-closed .page-header.navbar .menu-toggler {
+            background-image: url("/assets/MenuIcons/sms-small.png");
+            background-position: center center;
+            background-repeat: no-repeat;
+            cursor: pointer;
+            display: block;
+            height: 24px;
+            width: 24px;
+            opacity: 1;
+        }
+
+        .portlet {
+            margin-bottom: 10px !important;
+        }
+
+        .label-aqua {
+            background-color: #21bede !important;
+            color: #fff;
+        }
+
+        .color-green {
+            color: #fff !important;
+            background-color: #17c4bb !important;
+        }
+
+        .table {
+            margin-bottom: 1px !important;
+        }
+
+        .results-icns li {
+            padding: 2px 0px 7px 0px !important;
+        }
+        /*.page-header.navbar .top-menu .navbar-nav > li.dropdown > .dropdown-toggle{padding:15px !important;}*/
+        /*button styles starts*/
+
+        /*button styles ends*/
+    </style>
+
+    <asp:ContentPlaceHolder ID="CSS" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body class="page-header-fixed page-sidebar-closed-hide-logo page-container-bg-solid page-sidebar-closed">
+    <input type="hidden" id="accessRole" value="<%= accessRole%>" />
+
+
+
+    <div class="page-header navbar navbar-fixed-top">
+        <!-- BEGIN HEADER INNER -->
+        <div class="page-header-inner">
+            <!-- BEGIN LOGO -->
+            <div class="page-logo">
+                <a href="DashBoard.aspx">
+                    <img src="assets/MenuIcons/logo.png" alt="logo" class="logo-default" />
+                </a>
+                <div class="menu-toggler sidebar-toggler">
+                    <!-- DOC: Remove the above "hide" to enable the sidebar toggler button on header -->
+                </div>
+            </div>
+            <!-- END LOGO -->
+            <!-- BEGIN RESPONSIVE MENU TOGGLER -->
+            <a href="javascript:;" class="menu-toggler responsive-toggler" data-toggle="collapse" data-target=".navbar-collapse"></a>
+
+            <div class="page-top">
+                <div class="page-bar pull-left mb-0 margin-top-10 margin-left-5">
+                    <ul class="page-breadcrumb">
+                        <%--               <li>
+                        <i class="icon-home"></i>
+                        <a href="Dashboard.aspx">Home</a>
+                        <i class="fa fa-angle-right"></i>
+                    </li>
+                    <li>
+                        <span class="bold font-grey-gallery">Account LookUp</span>
+                    </li>--%>
+
+                        <!---sales orders-->
+                        <li>
+                            <i class="icon-home"></i>
+                            <a href="Dashboard.aspx">Home</a>
+                            <i class="fa fa-angle-right"></i>
+                        </li>
+                        <li>
+                            <label  id ="label_header_navigation">
+                                <a href="QuotationDetails.aspx" id="lable_href_name">Quotation</a>
+                                <i class="fa fa-angle-right"></i>
+                            </label>
+                        </li>
+                        <li>
+                            <span class="bold font-grey-gallery" id="span_page_name"></span>
+                        </li>
+
+                    </ul>
+                </div>
+                <!-- BEGIN TOP NAVIGATION MENU -->
+                <%--<h3 class="pull-left margin-left-20 bold font-grey-gallery" id="page_heading"></h3>--%>
+                <%--<label class='margin-left-20 margin-top-25' style='color:#808080; font-size:16px;' id="AccountName"></label>--%>
+
+                <div class="top-menu" style="margin-top: 5px;">
+
+                    <ul class="nav navbar-nav pull-right">
+                        <%--<li><a href="LogOut.aspx"><i class="icon-key"></i>Log Out</a></li>--%>
+                        <li class="dropdown dropdown-user">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                                <img alt="" class="img-circle" src="images/user.png" />
+                                <span class="username username-hide-on-mobile"><%=Session["EmployeeName"]%></span>
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-default">
+                                <li>
+                                    <a href="MyProfile.aspx">
+                                        <i class="icon-user"></i>My Profile </a>
+                                </li>
+
+                                <li>
+                                    <a href="LogOut.aspx">
+                                        <i class="icon-key"></i>Log Out </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <!-- Notifications li Starts -->
+                        <li class="dropdown dropdown-extended dropdown-notification" id="header_notification_bar">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="icon-bell"></i>
+                                <span class="badge badge-default"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="external font-grey-mint">
+
+                                    <label id="lblNotifications" class="pull-left"></label>
+                                    <label style="display: none;" id="lblHistoryNotifications" class="pull-left bold">History</label>
+                                    <label class="pull-right">
+                                        <i id="getNotificatios" class="fa fa-envelope-o margin-right-5 font-blue"></i>
+                                        <i id="getNotificationHistory" class="fa fa-history"></i>
+                                    </label>
+                                </li>
+                                <li>
+                                    <ul class="dropdown-menu-list" id="notificationList" data-handle-color="#637283"></ul>
+                                    <ul class="dropdown-menu-list" id="notificationHistory" style="display: none;" data-handle-color="#637283"></ul>
+                                </li>
+
+                            </ul>
+                        </li>
+
+                        <!-- END USER LOGIN DROPDOWN -->
+                    </ul>
+                </div>
+                <!-- END TOP NAVIGATION MENU -->
+            </div>
+            <!-- END PAGE TOP -->
+        </div>
+        <!-- END HEADER INNER -->
+    </div>
+    <!-- END HEADER -->
+    <div class="clearfix">
+    </div>
+    <div class="page-container">
+        <div id="login" class="page-sidebar-wrapper">
+            <div class="page-sidebar navbar-collapse collapse" id="MenuBar1">
+                <ul class="page-sidebar-menu page-sidebar-menu-hover-submenu page-sidebar-menu-closed" data-keep-expanded="false" data-auto-scroll="true" data-slide-speed="200">
+                    <li class="nav-item start">
+                        <a href="Dashboard.aspx" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/Dashboard.png" selectedsrc="assets/SelectedMenuIcons/Dashboard_select.png" />
+                            <img src="assets/SelectedMenuIcons/Dashboard_select.png" style="display: none" />
+                            <span class="title">Dashboard</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start">
+                        <a href="AccountLookUp.aspx" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/accountlookup.png" selectedsrc="assets/SelectedMenuIcons/accountlookup_select.png" />
+                            <span class="title">AccountLookUp</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item start" id="lstSalesOrders">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/SalesOrder.png" selectedsrc="assets/SelectedMenuIcons/SalesOrder_select.png" />
+                            <span class="title">Sales Orders</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start " id="QuotationSmartView" style="display: none;">
+                                <a href="QuotationDetails.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/Quotations-SmartView.png" selectedsrc="assets/SelectedMenuIcons/Quotations-SmartView_select.png" width="18" />
+                                    <span class="title">Quotation</span>
+                                </a>
+                            </li>
+
+                            <li class="nav-item start" id="InvoiceSmartView" style="display: none;">
+                                <a href="InvoiceSearch.aspx" class="nav-link slectclick">
+
+                                    <img src="assets/MenuIcons/Invoice_SmartView_SubModule.png" selectedsrc="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png" width="18" />
+                                    <span class="title">Invoice</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start " id="lstPaymentSmartView" style="display: none;">
+                                <a href="PaymentsDetails.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/Payments_SmartView.png" selectedsrc="assets/SelectedMenuIcons/Payments_SmartView_select.png" width="18" />
+                                    <span class="title">Payments</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start " id="lstOrderSearchDetails" style="display: none;">
+                                <a href="OrderSearch.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/OrderSearchDetails.png" selectedsrc="assets/SelectedMenuIcons/OrderSearchDetails_select.png" width="18" />
+                                    <span class="title">Activations</span>
+                                </a>
+                            </li>
+                              <li class="nav-item start " id="lstBalanceExpiryDetails" style="display: none;">
+                                <a href="BalanceExpiryTrack.aspx" class="nav-link  ">
+                                        <img src="assets/MenuIcons/balance_expire.png" selectedsrc="assets/SelectedMenuIcons/balance_expire_select.png" width="18" />
+                                   <span class=""></span>
+                                    <span class="title ">BalanceExpiry</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item start" id="TokenManagement">
+                        <a href="TokenManagement.aspx" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/token_management.png" selectedsrc="assets/SelectedMenuIcons/token_management-w.png" />
+
+                            <span class="title">Token Management</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start ">
+                                <a href="starredToken.aspx" class="nav-link">
+                                    <i class="fa fa-star"></i>
+                                    <span class="title">Starred Tokens</span>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="spamToken.aspx" class="nav-link ">
+                                    <i class="icon icon-shield "></i>
+                                    <span class="title">Spam Tokens</span>
+                                </a>
+                            </li>
+                            <%--  <li class="nav-item">
+                                            <a href="" class="nav-link ">
+                                    <i class="fa fa-cubes"></i>
+                                                <span class="title">Token Count</span>
+                                            </a>
+                                        </li>--%>
+                        </ul>
+                        <%-- <ul class="sub-menu">
+                                         <li class="nav-item start ">
+                                            <a href="CreateToken.aspx" class="nav-link">                                             
+                                    <img src="assets/MenuIcons/CreateToken.png" width="18"/>
+                                                <span class="title">Create Token</span>
+                                            </a>
+                                        </li>
+                                           <li class="nav-item start " id="TokenManagement">
+                                            <a href="TokenManagement.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/Payments_SmartView.png" width="18"/>
+                                                <span class="title">Token Management</span>
+                                            </a>
+                                        </li>
+
+                                    </ul>--%>
+                    </li>
+                    
+                    <li class="nav-item start">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/Network_Mgmt.png" selectedsrc="assets/SelectedMenuIcons/Network_Mgmt_select.png" />
+                            <span class="title">Network Management</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start">
+                                <a href="SmsRoutesDisplay.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/SMS_Route.png" selectedsrc="assets/SelectedMenuIcons/SMS_Route_select.png" width="18" />
+                                    <span class="title">Sms Routing</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start">
+                                <a href="VoiceRoutesDisplay.aspx" class="nav-link ">
+
+                                    <img src="assets/MenuIcons/Voice_Route.png" selectedsrc="assets/SelectedMenuIcons/Voice_Route_select.png" />
+                                    <span class="title">Voice Routing</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    
+                    <!--<li class="nav-item start" id="senderIdMenu">
+                                    <a href="SenderIds.aspx" class="nav-link ">                                     
+                            <img src="assets/MenuIcons/SenderID_Module.png" selectedsrc="assets/SelectedMenuIcons/SenderID_Module_select.png" />
+                                        <span class="title">Sender Names</span>
+                                    </a>
+                                </li>-->
+                    <li class="nav-item start" id="unprosessed">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/Unprocessed_Request.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Request_select.png" />
+                            <span class="title">UnProcessed</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start">
+                                <a href="UnprocessedBulkSmsRequests.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/Unprocessed_Messages.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Messages_select.png" width="18" />
+                                    <span class="title">Bulk Messages </span>
+                                </a>
+                            </li>
+                            <li class="nav-item start">
+                                <a href="UnprocessedScamMessages.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/SCAM_message.png" selectedsrc="assets/SelectedMenuIcons/SCAM_message_select.png" width="18" />
+                                    <span class="title">Scam Messages </span>
+
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="nav-item start" id="management">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/Management.png" selectedsrc="assets/SelectedMenuIcons/Management_select.png" />
+                            <span class="title">Configuartion</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start" id="SenderIds">
+                                <a href="SenderIds.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/sendaernames.png" selectedsrc="assets/SelectedMenuIcons/sendaernames_active.png" width="18" />
+                                    <span class="title">Sender Names</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start" id="ManageGateway">
+                                <a href="ManageGateway.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/manage_gateways.png" selectedsrc="assets/SelectedMenuIcons/manage_gateways_active.png" width="18" />
+                                    <span class="title">Manage Gateways</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start" id="ManageTemplates">
+                                <a href="ManageTemplates.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/manage_templates.png" selectedsrc="assets/SelectedMenuIcons/manage_templates_active.png" width="18" />
+                                    <span class="title">Manage Templates</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start" id="ConfigurationSettings">
+                                <a href="ConfigurationSettings.aspx" class="nav-link ">
+                                    <img src="assets/MenuIcons/Service_(3).png" selectedsrc="assets/SelectedMenuIcons/Service_(3)_select.png" width="18" />
+                                    <span class="title">Settings</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                     <li class="nav-item start" id="Reports">
+                        <a href="javascript:;" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/Unprocessed_Request.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Request_select.png" />
+                            <span class="title"> All Reports</span>
+                            <span class="selected"></span>
+                        </a>
+                        <ul class="sub-menu">
+                            <li class="nav-item start">
+                                <a href="SmsUsageReports.aspx" class="nav-link ">
+                                    <img src="assets/SelectedMenuIcons/SMS_Route_select.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Messages_select.png" width="18" />
+                                    <span class="title">Sms Reports </span>
+                                </a>
+                            </li>
+                            <li class="nav-item start">
+                                <a href="VoiceUsageReportsAll.aspx" class="nav-link ">
+                                    <img src="assets/SelectedMenuIcons/Voice_Route_select.png"  selectedsrc="assets/SelectedMenuIcons/SCAM_message_select.png" width="18" />
+                                    <span class="title">Voice Reports </span>
+
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    
+                    <li class="nav-item">
+                        <a href="NumberManagement.aspx" class="nav-link nav-toggle">
+                            <img src="assets/MenuIcons/NumberAccess.png" selectedsrc="assets/SelectedMenuIcons/NumberAccess_select.png" />
+                            <span class="title">Number Management</span>
+                            <span class="selected"></span>
+                        </a>
+                    </li>
+                    
+                </ul>
+            </div>
+        </div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server">
+        </asp:ContentPlaceHolder>
+
+
+    </div>
+
+    <div class="page-footer page-footer-fixed">
+        <div class="page-footer-inner">
+            <%= System.DateTime.Now.Year %> © SMSCountry
+        </div>
+        <div class="scroll-to-top">
+            <i class="icon-arrow-up"></i>
+        </div>
+    </div>
+    <input type="hidden" id="hdnAbsolutePath" value='<%= absolutePath %>' />
+</body>
+
+<script src="JsFiles/jquery-1.11.0.min.js"></script>
+<script src="JsFiles/toastr.min.js"></script>
+<script src="assets/global/scripts/jquery.slimscroll.min.js"></script>
+<script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="assets/global/scripts/metronic.js"></script>
+<script src="/JsFiles/layout.js"></script>
+<%--<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
+<script src="JsFiles/jquery-ui.js"></script>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".dropdown-toggle").dropdown();
+        var accessRole = $("#accessRole").val();
+        localStorage.setItem('AbsolutePath', $("#hdnAbsolutePath").val());
+        
+        var url = window.location.pathname;
+        var filename = url.substring(url.lastIndexOf('/') + 1);
+        $('#MenuBar1 a').each(function () {
+            var src = $(this).find('img').attr('src');
+            var hidd = $(this).find('img').attr("selectedsrc");
+            var paresrc = $(this).parentsUntil(".nav-item start active").find('img').attr('src');
+            if (filename == $(this).attr('href')) {
+                $(this).find('img').attr('src', $(this).find('img').attr("selectedsrc"));
+                var parentsrc = $(this).parent().parent().parent().children().children().attr('src');
+                var selectedsrc = $(this).parent().parent().parent().children().children().attr('selectedsrc');
+                $(this).parent().parent().parent().children().children().attr('src', selectedsrc);
+                $(this).parentsUntil("#MenuBar1").addClass('active');
+            }
+        })
+
+
+
+    });
+    
+
+    function ErrorNotifier(msg) {
+        var arr = msg.split('-')
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "timeOut": "7000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+
+        }
+        toastr.error(msg);
+
+    }
+
+    function SuccessNotifier(msg) {
+        var arr = msg.split('-')
+        toastr.options = {
+            "closeButton": true,
+            "debug": true,
+            "newestOnTop": false,
+            "progressBar": false,
+            "positionClass": "toast-top-center",
+            "preventDuplicates": false,
+            "timeOut": "7000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+
+        }
+
+
+        toastr.success(msg);
+
+    }
+
+    jQuery(document).ready(function () {
+        // initiate layout and plugins
+        Metronic.init(); // init metronic core components
+        Layout.init(); // init current layout
+
+    });
+</script>
+<asp:contentplaceholder id="Scripts" runat="server">
+    </asp:contentplaceholder>
+
+
+</html>
