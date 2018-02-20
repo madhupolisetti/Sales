@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Sales
+namespace Orders
 {
     public partial class Quotations : System.Web.UI.Page
     {

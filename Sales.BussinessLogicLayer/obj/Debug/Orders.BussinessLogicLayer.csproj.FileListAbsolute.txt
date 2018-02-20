@@ -1,0 +1,13 @@
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.pdb
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Newtonsoft.Json.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\OrdersManagement.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\log4net.dll
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Sales.BussinessLogicLayer\bin\Debug\OrdersManagement.pdb
+E:\Sales\Sales.BussinessLogicLayer\obj\Debug\Orders.BussinessLogicLayer.csprojResolveAssemblyReference.cache
+E:\Sales\Sales.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.dll
+E:\Sales\Sales.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.pdb

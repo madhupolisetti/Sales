@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Sales.UserDefinedClasses
+namespace Orders.UserDefinedClasses
 {
     public class Class1
     {

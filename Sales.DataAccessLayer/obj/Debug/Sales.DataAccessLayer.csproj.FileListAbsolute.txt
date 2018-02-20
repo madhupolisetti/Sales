@@ -5,3 +5,10 @@ E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\bin\Debug\Sales.UserDefinedCla
 E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.csprojResolveAssemblyReference.cache
 E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.dll
 E:\Git\Sales.Smscountry.com\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.pdb
+E:\Sales\Sales.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Sales\Sales.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Sales\Sales.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Sales.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.csprojResolveAssemblyReference.cache
+E:\Sales\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.dll
+E:\Sales\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.pdb

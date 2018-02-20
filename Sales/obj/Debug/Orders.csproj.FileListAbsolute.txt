@@ -1,0 +1,11 @@
+E:\Sales\Sales\bin\Sales.dll.config
+E:\Sales\Sales\bin\Sales.dll
+E:\Sales\Sales\bin\Sales.pdb
+E:\Sales\Sales\bin\Newtonsoft.Json.dll
+E:\Sales\Sales\bin\Sales.BussinessLogicLayer.dll
+E:\Sales\Sales\bin\Sales.DataAccessLayer.dll
+E:\Sales\Sales\bin\Sales.BussinessLogicLayer.pdb
+E:\Sales\Sales\bin\Sales.DataAccessLayer.pdb
+E:\Sales\Sales\obj\Debug\Orders.csprojResolveAssemblyReference.cache
+E:\Sales\Sales\obj\Debug\Sales.dll
+E:\Sales\Sales\obj\Debug\Sales.pdb

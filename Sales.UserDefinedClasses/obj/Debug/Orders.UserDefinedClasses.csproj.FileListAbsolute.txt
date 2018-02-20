@@ -1,0 +1,4 @@
+E:\Sales\Sales.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Sales.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Sales.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Sales.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.pdb

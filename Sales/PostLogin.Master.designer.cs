@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Sales {
+namespace Orders {
     
     
     public partial class PostLogin {

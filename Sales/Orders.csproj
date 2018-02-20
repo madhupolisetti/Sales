@@ -11,7 +11,7 @@
     <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Sales</RootNamespace>
+    <RootNamespace>Orders</RootNamespace>
     <AssemblyName>Sales</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <UseIISExpress>true</UseIISExpress>
@@ -39,6 +39,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -265,8 +269,16 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AjaxHandlers\Accounts.ashx.cs">
+      <DependentUpon>Accounts.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AjaxHandlers\Quotations.ashx.cs">
+      <DependentUpon>Quotations.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="CommonClasses\MyConf.cs" />
     <Compile Include="PostLogin.Master.cs">
       <DependentUpon>PostLogin.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PostLogin.Master.designer.cs">
       <DependentUpon>PostLogin.Master</DependentUpon>
@@ -359,6 +371,8 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="JsFiles\DateTimePicker\Client.lnk" />
+    <Content Include="AjaxHandlers\Quotations.ashx" />
+    <Content Include="AjaxHandlers\Accounts.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -367,13 +381,13 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sales.BussinessLogicLayer\Sales.BussinessLogicLayer.csproj">
+    <ProjectReference Include="..\Sales.BussinessLogicLayer\Orders.BussinessLogicLayer.csproj">
       <Project>{2910626b-6be8-417f-bac3-20cc73c874e0}</Project>
-      <Name>Sales.BussinessLogicLayer</Name>
+      <Name>Orders.BussinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sales.DataAccessLayer\Sales.DataAccessLayer.csproj">
+    <ProjectReference Include="..\Sales.DataAccessLayer\Orders.DataAccessLayer.csproj">
       <Project>{9d430d5a-935d-4c9c-9f0e-74ee015d67bc}</Project>
-      <Name>Sales.DataAccessLayer</Name>
+      <Name>Orders.DataAccessLayer</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup>

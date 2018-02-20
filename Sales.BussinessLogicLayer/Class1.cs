@@ -7,7 +7,7 @@ using OrdersManagement.Core;
 using OrdersManagement.Exceptions;
 using OrdersManagement.Model;
 
-namespace Sales.BussinessLogicLayer
+namespace Orders.BussinessLogicLayer
 {
     public class Class1
     {
