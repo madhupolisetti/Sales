@@ -49,7 +49,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sales.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
+    <ProjectReference Include="..\Orders.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
       <Project>{8cf647f0-48cf-4be4-91a8-5f29f64fac94}</Project>
       <Name>Orders.UserDefinedClasses</Name>
     </ProjectReference>

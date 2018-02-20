@@ -51,11 +51,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sales.DataAccessLayer\Orders.DataAccessLayer.csproj">
+    <ProjectReference Include="..\Orders.DataAccessLayer\Orders.DataAccessLayer.csproj">
       <Project>{9d430d5a-935d-4c9c-9f0e-74ee015d67bc}</Project>
       <Name>Orders.DataAccessLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sales.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
+    <ProjectReference Include="..\Orders.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
       <Project>{8cf647f0-48cf-4be4-91a8-5f29f64fac94}</Project>
       <Name>Orders.UserDefinedClasses</Name>
     </ProjectReference>

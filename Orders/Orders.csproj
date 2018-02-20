@@ -381,11 +381,11 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Sales.BussinessLogicLayer\Orders.BussinessLogicLayer.csproj">
+    <ProjectReference Include="..\Orders.BussinessLogicLayer\Orders.BussinessLogicLayer.csproj">
       <Project>{2910626b-6be8-417f-bac3-20cc73c874e0}</Project>
       <Name>Orders.BussinessLogicLayer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Sales.DataAccessLayer\Orders.DataAccessLayer.csproj">
+    <ProjectReference Include="..\Orders.DataAccessLayer\Orders.DataAccessLayer.csproj">
       <Project>{9d430d5a-935d-4c9c-9f0e-74ee015d67bc}</Project>
       <Name>Orders.DataAccessLayer</Name>
     </ProjectReference>
