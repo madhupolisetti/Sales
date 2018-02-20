@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Orders.DataAccessLayer
+namespace Orders.UserDefinedClasses
 {
     class ProcedureParameters
     {
