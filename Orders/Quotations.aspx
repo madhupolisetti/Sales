@@ -224,8 +224,8 @@
                                 </td>
                                 <td>
                                     <select id="ddlProducts" class="form-control">
-                                        <option id="BlueKite"> BlueKite </option>
-                                        <option id="GrpTalk"> GrpTalk </option>
+                                        <option id="BlueKite">BlueKite </option>
+                                        <option id="GrpTalk">GrpTalk </option>
                                     </select>
 
                                 </td>
@@ -290,23 +290,80 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
-    <%--<script src="JsFiles/jsPluginTable.js"></script>--%>
     <script src="JsFiles/daterangepicker.js"></script>
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
-    <%--<script src="Scripts/quotationdetails.js?type=v2"></script>
-    <script src="Scripts/Quotations.js"></script>--%>
+    <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
+
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
             });
+            var ordersClient = new OrdersClient();
+            var quotationSearchData = {};
+            quotationSearchData.AccountId = 1;
+            quotationSearchData.ProductId = 1;
+            quotationSearchData.QuotationId = 0;
+            quotationSearchData.QuotationNumber = "";
+            quotationSearchData.EmployeeId = 0;
+            quotationSearchData.OwnerShipId = 0;
+            quotationSearchData.ChannelId = 2;
+            quotationSearchData.BillingModeId = 0;
+            quotationSearchData.FromDateTime = "2018-01-01";
+            quotationSearchData.ToDateTime = "2018-02-28";
+            quotationSearchData.PageNumber = 1;
+            quotationSearchData.Limit = 10;
+            ordersClient.GetQuotations(quotationSearchData, function (res) {
+                if(res.Success == true)
+                {
+                    if (res.Quotations.length > 0)
+                    {
+                        var quotationsData = renderQuotations(res.Quotations);
+                        $("#data").html(quotationsData);
+                    }
+                    else
+                    {
 
-            $("#btnSubmit").click(function () {
-
+                    }
+                }
+                else {
+                    ErrorNotifier(res.Message);
+                }
             });
+            function renderQuotations(Quotations) {
+                var quotations = "";
+                for (var i = 0; i < Quotations.length; i++)
+                {
+                    
+                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool css-checkbox' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode='" + Quotations[i]["BillingMode"] + "'><label class='css-label' for='" + Quotations[i].Id + "'></label></td>";
+                    quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
+                    quotations += "<td>" + Quotations[i].AccountName + "</td>";
+                    quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";
+                    quotations += "<td>Company</td>";
+                    quotations += "<td>Mobile</td>";
+                    quotations += "<td class='font-blue-soft'>MailId</td>";
+                    quotations += "<td>" + Quotations[i].Country + "</td>";
+                    quotations += "<td>" + Quotations[i].CreatedTime + "</td>";
+                    quotations += "<td class='alert-warning'>" + Quotations[i].QuotationNumber + "</td>";
+                    var amount = parseFloat(Quotations[i].OrderAmount);
+                    var currencyName = Quotations[i].Currency;
+                    var taxMessage = ""
+                    quotations += "<td><a href='javascript:;' class='font-grey-gallery'><label class='bold' data-toggle='tooltip' title='" + taxMessage + "'>" + amount + " " + currencyName + "</label></a></td>";
+                    quotations += "<td><span class='label label-sm label-warning'>" + Quotations[i].StatusId + "</span></td></tr>";
+                }
+                return quotations;
+                //if (btnchkstatus == "Pending") {
+                //    str += "<td><span class='label label-sm label-warning'>" + Quotations[i].Status + "</span></td></tr>";
+                //}
+                //else {
+                //    str += "<td><span class='label label-sm label-info'>" + Quotations[i].Status + "</span></td></tr>";
+                //}
+            }
+            
+            
         });
     </script>
 

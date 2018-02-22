@@ -270,6 +270,8 @@
     <Content Include="JsFiles\toastr.min.js" />
     <Content Include="JsFiles\ui-buttons.min.js" />
     <Content Include="Quotations.aspx" />
+    <Content Include="Scripts\OrdersClient.js" />
+    <Content Include="Scripts\OrdersManagement.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>

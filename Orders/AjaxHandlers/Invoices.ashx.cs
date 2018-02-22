@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-using Orders;
-using Orders.Core;
-using Orders.Model;
+using OrdersManagement.Core;
+using OrdersManagement.Exceptions;
+using OrdersManagement.Model;
 using Newtonsoft.Json.Linq;
 
 namespace Orders.AjaxHandlers
@@ -39,7 +39,7 @@ namespace Orders.AjaxHandlers
             }
             catch (System.Threading.ThreadAbortException e)
             { }
-            catch (Orders.Exceptions.QuotationException e)
+            catch (OrdersManagement.Exceptions.QuotationException e)
             {
                 GenerateErrorResponse(500, e.Message);
             }
@@ -54,7 +54,7 @@ namespace Orders.AjaxHandlers
             bool onlyActive = true;
             if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
-            Client client = new Client(responseFormat: ResponseFormat.JSON);
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client("JSON");
             context.Response.Write(client.GetInvoiceStatuses(onlyActive: onlyActive));
         }
         private void GenerateErrorResponse(int statusCode, string message)
