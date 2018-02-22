@@ -33,6 +33,9 @@
     <Reference Include="log4net">
       <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="OrdersManagement">
+      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -45,7 +48,6 @@
     <Compile Include="Accounts.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="DataAccess.cs" />
-    <Compile Include="ProcedureParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

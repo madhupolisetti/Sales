@@ -7,3 +7,9 @@ E:\Git\Orders\Sales\Orders.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses
 E:\Git\Orders\Sales\Orders.UserDefinedClasses\obj\Debug\Orders.UserDefinedClasses.csprojResolveAssemblyReference.cache
 E:\Git\Orders\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.dll
 E:\Git\Orders\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Orders.UserDefinedClasses\obj\Debug\Orders.UserDefinedClasses.csprojResolveAssemblyReference.cache
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\Newtonsoft.Json.dll
+E:\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.pdb

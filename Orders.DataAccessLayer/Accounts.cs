@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Data.SqlClient;
 using log4net;
+using Orders.UserDefinedClasses;
+
 namespace Orders.DataAccessLayer
 {
-    class Accounts : DataAccess
+    public class Accounts : DataAccess
     {
 
         private SqlConnection _sqlConnection = null;
@@ -21,34 +23,80 @@ namespace Orders.DataAccessLayer
 
         }
 
-        public dynamic GetProductInformation(byte productId)
+        public DataSet GetProductInformation(byte productId)
         {
-            //try
-            //{
-            //    this._sqlCommand = new SqlCommand(StoredProcedure.GET_QUOTATION_STATUSES, this._sqlConnection);
-            //    this._sqlCommand.Parameters.Add(ProcedureParameter.IS_ONLY_ACTIVE, SqlDbType.Bit).Value = onlyActive;
-            //    this._helper.PopulateCommonOutputParameters(ref this._sqlCommand);
-            //    this._da = new SqlDataAdapter(this._sqlCommand);
-            //    this._da.Fill(this._ds = new DataSet());
-            //    if (!this._sqlCommand.IsSuccess())
-            //        return this.ErrorResponse();
-            //    if (this._ds.Tables.Count > 0)
-            //        this._ds.Tables[0].TableName = Label.QUOTATION_STATUSES;
-            //    this._ds.Tables.Add(this._helper.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
-            //    this._helper.ParseDataSet(this._ds, tablePreferences);
-            //    return this._helper.GetResponse();
-            //}
-            //catch (Exception e)
-            //{
-            //    Logger.Error(string.Format("Unable to fetch QuotationStatuses. {0}", e.ToString()));
-            //    throw new QuotationException(string.Format("Unable to fetch QuotationStatuses. {0}", e.Message));
-            //}
-            //finally
-            //{
-            //    this.Clean();
-            //}
-            return 1;
+            try
+            {
+                this._sqlCommand = new SqlCommand(StoredProcedure.GET_PRODUCT_DETAILS, this._sqlConnection);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = productId;
+                this.PopulateCommonOutputParameters(ref this._sqlCommand);
+                _da = new SqlDataAdapter(_sqlCommand);
+                _ds = new DataSet();
+                _da.Fill(_ds);
+
+
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(string.Format("Unable to fetch QuotationStatuses. {0}", e.ToString()));
+                //throw new QuotationException(string.Format("Unable to fetch QuotationStatuses. {0}", e.Message));
+            }
+            finally
+            {
+
+            }
+            return _ds;
         }
 
+        public void CreateAccountProduct(AccountProducts accountProperty)
+        {
+            try
+            {
+                this._sqlCommand = new SqlCommand(StoredProcedure.CREATE_ACCOUNT_PRODUCT, this._sqlConnection);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = accountProperty.ProductId;
+                this.PopulateCommonOutputParameters(ref this._sqlCommand);
+                _da = new SqlDataAdapter(_sqlCommand);
+                _ds = new DataSet();
+                _da.Fill(_ds);
+
+
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(string.Format("Unable to fetch QuotationStatuses. {0}", e.ToString()));
+                //throw new QuotationException(string.Format("Unable to fetch QuotationStatuses. {0}", e.Message));
+            }
+            finally
+            {
+
+            }
+
+
+        }
+
+        internal void PopulateCommonOutputParameters(ref System.Data.SqlClient.SqlCommand sqlCommand)
+        {
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(ProcedureParameters.SUCCESS, System.Data.SqlDbType.Bit).Direction = System.Data.ParameterDirection.Output;
+            sqlCommand.Parameters.Add(ProcedureParameters.MESSAGE, System.Data.SqlDbType.VarChar, 1000).Direction = System.Data.ParameterDirection.Output;
+        }
+        internal DataTable ConvertOutputParametersToDataTable(System.Data.SqlClient.SqlParameterCollection parameters)
+        {
+            DataTable outputParameters = new DataTable("OutputParameters");
+            for (int iterator = 0; iterator <= parameters.Count - 1; iterator++)
+            {
+                if (parameters[iterator].Direction.Equals(ParameterDirection.Output))
+                {
+                    outputParameters.Columns.Add(parameters[iterator].ParameterName.Replace("@", ""));
+                }
+            }
+            DataRow row = outputParameters.NewRow();
+            foreach (DataColumn column in outputParameters.Columns)
+            {
+                row[column.ColumnName] = parameters["@" + column.ColumnName].Value;
+            }
+            outputParameters.Rows.Add(row);
+            return outputParameters;
+        }
     }
 }

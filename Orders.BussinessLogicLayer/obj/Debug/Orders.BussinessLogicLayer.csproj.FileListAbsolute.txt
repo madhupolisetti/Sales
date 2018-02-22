@@ -24,3 +24,16 @@ E:\Git\Orders\Sales\Orders.BussinessLogicLayer\bin\Debug\log4net.xml
 E:\Git\Orders\Sales\Orders.BussinessLogicLayer\obj\Debug\Orders.BussinessLogicLayer.csprojResolveAssemblyReference.cache
 E:\Git\Orders\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.dll
 E:\Git\Orders\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.pdb
+E:\Sales\Orders.BussinessLogicLayer\obj\Debug\Orders.BussinessLogicLayer.csprojResolveAssemblyReference.cache
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.BussinessLogicLayer.pdb
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Newtonsoft.Json.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\OrdersManagement.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\log4net.dll
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\OrdersManagement.pdb
+E:\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.dll
+E:\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.pdb
