@@ -6,7 +6,39 @@ using System.Threading.Tasks;
 
 namespace Orders.UserDefinedClasses
 {
-    class ProcedureParameters
+    public static class ProcedureParameters
     {
+        public const string PRODUCT_ID = "@ProductId";
+        public const string IS_ONLY_ACTIVE = "@IsOnlyActive";
+        public const string SERVICE_ID = "@ServiceId";
+        public const string DISPLAY_NAME = "@DisplayName";
+        public const string META_DATA_CODE = "@MetaDataCode";
+        public const string ARE_MULTIPLE_ENTRIES_ALLOWED = "@AreMultipleEntriesAllowed";
+        public const string INCLUDE_SERVICE_PROPERTIES = "@IncludeServiceProperties";
+        public const string SERVICE_PROPERTIES = "@ServiceProperties";
+        public const string SERVICE_PROPERTY_DETAILS = "@ServicePropertyDetails";
+        public const string SERVICE_PROPERTY_ID = "@ServicePropertyId";
+
+        public const string QUOTATION_ID = "@QuotationId";
+        public const string QUOTATION_NUMBER = "@QuotationNumber";
+        public const string ACCOUNT_ID = "@AccountId";
+        public const string EMPLOYEE_ID = "@EmployeeId";
+        public const string OWNERSHIP_ID = "@OwnerShipId";
+        public const string STATUS_ID = "@StatusId";
+        public const string CHANNEL_ID = "@ChannelId";
+        public const string IP_ADDRESS = "@IpAddress";
+        public const string BILLING_MODE_ID = "@BillingModeId";
+        public const string FROM_DATE_TIME = "@FromDateTime";
+        public const string TO_DATE_TIME = "@ToDateTime";
+        public const string PAGE_NUMBER = "@PageNumber";
+        public const string LIMIT = "@Limit";
+        public const string META_DATA = "@MetaData";
+        public const string STATE_ID = "@StateId";
+        public const string ORDER_AMOUNT = "@OrderAmount";
+        public const string IS_POSTPAID_QUOTATION = "@IsPostPaidQuotation";
+
+        public const string SUCCESS = "@Success";
+        public const string MESSAGE = "@Message";
+
     }
 }
