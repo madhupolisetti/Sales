@@ -30,9 +30,21 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
+=======
+    <Reference Include="log4net">
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="OrdersManagement">
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+>>>>>>> aba2f0eab0b45bbbb4748ce54d8a9f46e75dc50c
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -43,11 +55,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Compile Include="AccountProducts.cs" />
     <Compile Include="Class1.cs" />
     <Compile Include="ProcedureParameters.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="OrdersStoredProcedure.cs" />
+=======
+    <Compile Include="Helper.cs" />
+    <Compile Include="Label.cs" />
+    <Compile Include="Logger.cs" />
+    <Compile Include="ProcedureParameter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResponseFormat.cs" />
+    <Compile Include="StringValueAttribute.cs" />
+>>>>>>> aba2f0eab0b45bbbb4748ce54d8a9f46e75dc50c
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

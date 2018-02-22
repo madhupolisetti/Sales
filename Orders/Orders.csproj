@@ -44,7 +44,11 @@
       <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement">
+<<<<<<< HEAD
       <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+=======
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+>>>>>>> aba2f0eab0b45bbbb4748ce54d8a9f46e75dc50c
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -217,6 +221,7 @@
     <Content Include="CssFiles\style.css" />
     <Content Include="CssFiles\toastr.min.css" />
     <Content Include="fonts\fontawesome-webfont.svg" />
+    <Content Include="Global.asax" />
     <Content Include="JsFiles\addImage.js" />
     <Content Include="JsFiles\app.min.js" />
     <Content Include="JsFiles\base64.js" />
@@ -269,17 +274,31 @@
     <Content Include="JsFiles\toastr.min.js" />
     <Content Include="JsFiles\ui-buttons.min.js" />
     <Content Include="Quotations.aspx" />
+    <Content Include="Scripts\OrdersClient.js" />
+    <Content Include="Scripts\OrdersManagement.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjaxHandlers\Accounts.ashx.cs">
       <DependentUpon>Accounts.ashx</DependentUpon>
     </Compile>
+    <Compile Include="AjaxHandlers\Invoices.ashx.cs">
+      <DependentUpon>Invoices.ashx</DependentUpon>
+    </Compile>
     <Compile Include="AjaxHandlers\Quotations.ashx.cs">
       <DependentUpon>Quotations.ashx</DependentUpon>
     </Compile>
+<<<<<<< HEAD
     <Compile Include="CommonClasses\Label.cs" />
+=======
+    <Compile Include="AjaxHandlers\Services.ashx.cs">
+      <DependentUpon>Services.ashx</DependentUpon>
+    </Compile>
+>>>>>>> aba2f0eab0b45bbbb4748ce54d8a9f46e75dc50c
     <Compile Include="CommonClasses\MyConf.cs" />
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
     <Compile Include="PostLogin.Master.cs">
       <DependentUpon>PostLogin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -377,6 +396,8 @@
     <Content Include="JsFiles\DateTimePicker\Client.lnk" />
     <Content Include="AjaxHandlers\Quotations.ashx" />
     <Content Include="AjaxHandlers\Accounts.ashx" />
+    <Content Include="AjaxHandlers\Invoices.ashx" />
+    <Content Include="AjaxHandlers\Services.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -393,6 +414,13 @@
       <Project>{9d430d5a-935d-4c9c-9f0e-74ee015d67bc}</Project>
       <Name>Orders.DataAccessLayer</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Orders.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
+      <Project>{8cf647f0-48cf-4be4-91a8-5f29f64fac94}</Project>
+      <Name>Orders.UserDefinedClasses</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Logs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
