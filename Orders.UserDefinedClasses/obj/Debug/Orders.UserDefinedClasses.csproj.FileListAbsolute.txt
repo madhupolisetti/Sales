@@ -17,3 +17,6 @@ E:\Sales\Orders.UserDefinedClasses\bin\Debug\Sales.UserDefinedClasses.pdb
 E:\Sales\Orders.UserDefinedClasses\bin\Debug\Newtonsoft.Json.dll
 E:\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.dll
 E:\Sales\Orders.UserDefinedClasses\obj\Debug\Sales.UserDefinedClasses.pdb
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\log4net.dll
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\OrdersManagement.dll
+E:\Sales\Orders.UserDefinedClasses\bin\Debug\OrdersManagement.pdb
