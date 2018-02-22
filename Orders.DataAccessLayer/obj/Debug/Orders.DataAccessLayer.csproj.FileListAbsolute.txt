@@ -7,3 +7,12 @@ E:\Sales\Sales.DataAccessLayer\obj\Debug\Orders.DataAccessLayer.csprojResolveAss
 E:\Sales\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.dll
 E:\Sales\Sales.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.pdb
 E:\Git\Orders\Sales\Orders.DataAccessLayer\obj\Debug\Orders.DataAccessLayer.csprojResolveAssemblyReference.cache
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.dll
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\Sales.DataAccessLayer.pdb
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.dll
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\Newtonsoft.Json.dll
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\OrdersManagement.dll
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\Sales.UserDefinedClasses.pdb
+E:\Git\Orders\Sales\Orders.DataAccessLayer\bin\Debug\OrdersManagement.pdb
+E:\Git\Orders\Sales\Orders.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.dll
+E:\Git\Orders\Sales\Orders.DataAccessLayer\obj\Debug\Sales.DataAccessLayer.pdb
