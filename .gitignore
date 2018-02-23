@@ -20,3 +20,15 @@
 /Orders.DataAccessLayer/obj
 /Orders.UserDefinedClasses/bin
 /Orders.UserDefinedClasses/obj
+/Orders/packages.config
+/Orders.BussinessLogicLayer/packages.config
+/Orders.DataAccessLayer/packages.config
+/Orders.UserDefinedClasses/packages.config
+/packages
+/Orders.BussinessLogicLayer/Orders.BussinessLogicLayer.csproj
+/Orders.DataAccessLayer/Orders.DataAccessLayer.csproj
+/Orders.DataAccessLayer/Orders.DataAccessLayer.csproj.user
+/Orders.UserDefinedClasses/Orders.UserDefinedClasses.csproj
+/Orders.UserDefinedClasses/Orders.UserDefinedClasses.csproj.user
+/Orders/Orders.csproj.user
+/Orders/Orders.csproj

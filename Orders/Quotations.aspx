@@ -297,16 +297,29 @@
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-
+            var quotationSearchData = {};
+            var dateRange = "";
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
             });
-            
-
+            dateRange = $("#daterangetext").val();
+            quotationSearchData.AccountId = 0;
+            quotationSearchData.ProductId = 1;
+            quotationSearchData.QuotationId = 0;
+            quotationSearchData.QuotationNumber = "";
+            quotationSearchData.EmployeeId = 0;
+            quotationSearchData.OwnerShipId = 0;
+            quotationSearchData.ChannelId = 2;
+            quotationSearchData.BillingModeId = 0;
+            quotationSearchData.PageNumber = 1;
+            quotationSearchData.Mobile = $("#txtmblnum").val();
+            quotationSearchData.Email = $("#txtemail").val();
+            quotationSearchData.Limit = $("#dropPages").val();
+            getQuotations();
 
             $("#btnsearch").click(function () {
-                var quotationSearchData = {};
+                dateRange = $("#daterangetext").val();
                 quotationSearchData.AccountId = 0;
                 quotationSearchData.ProductId = 1;
                 quotationSearchData.QuotationId = 0;
@@ -315,36 +328,35 @@
                 quotationSearchData.OwnerShipId = 0;
                 quotationSearchData.ChannelId = 2;
                 quotationSearchData.BillingModeId = $("#ddlBillMode").val();
-                quotationSearchData.FromDateTime = "2018-01-01";
-                quotationSearchData.ToDateTime = "2018-02-28";
                 quotationSearchData.PageNumber = 1;
-                quotationSearchData.Limit = 10;
-
+                quotationSearchData.Mobile = $("#txtmblnum").val();
+                quotationSearchData.Email = $("#txtemail").val();
+                quotationSearchData.Limit = $("#dropPages").val();
+                getQuotations();
             });
 
             function getQuotations() {
-            var ordersClient = new OrdersClient();
-            var quotationSearchData = {};
-                quotationSearchData.AccountId = 0;
-            quotationSearchData.ProductId = 1;
-            quotationSearchData.QuotationId = 0;
-            quotationSearchData.QuotationNumber = "";
-            quotationSearchData.EmployeeId = 0;
-            quotationSearchData.OwnerShipId = 0;
-            quotationSearchData.ChannelId = 2;
-            quotationSearchData.BillingModeId = 0;
-            quotationSearchData.FromDateTime = "2018-01-01";
-            quotationSearchData.ToDateTime = "2018-02-28";
-            quotationSearchData.PageNumber = 1;
-            quotationSearchData.Limit = 10;
-            ordersClient.GetQuotations(quotationSearchData, function (res) {
+
+                if (dateRange == "This Month") {
+                    quotationSearchData.FromDateTime = "2018-02-01";
+                    quotationSearchData.FromDateTime = "2018-02-28";
+                }
+                else {
+                    var fromDateT0date = dateRange.split("-");
+                    quotationSearchData.FromDateTime = fromDateT0date[0];
+                    quotationSearchData.ToDateTime = fromDateT0date[1];
+                }
+
+                var ordersClient = new OrdersClient();
+                    
+                ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
                         var quotationsData = renderQuotations(res.Quotations);
                         $("#data").html(quotationsData);
                     }
-                        else {
-
+                    else {
+                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
                     }
                 }
                 else {

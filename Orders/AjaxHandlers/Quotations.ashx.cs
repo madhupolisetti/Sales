@@ -83,6 +83,8 @@ namespace Orders.AjaxHandlers
             byte productId = 0;
             int quotationId = 0;
             string quotationNumber = string.Empty;
+            string mobile = string.Empty;
+            string email = string.Empty;
             int accountId = 0;
             int employeeId = 0;
             int ownerShipId = 0;
@@ -123,10 +125,14 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("PageNumber must be a number"));
             if (searchData.SelectToken("Limit") != null && !byte.TryParse(searchData.SelectToken("Limit").ToString(), out limit))
                 GenerateErrorResponse(400, string.Format("Limit must be a number"));
+            if (searchData.SelectToken("Mobile") != null)
+                mobile = searchData.SelectToken("Mobile").ToString();
+            if (searchData.SelectToken("Email") != null)
+                mobile = searchData.SelectToken("Email").ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
-                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit));
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,mobile:mobile,email:email));
         }
         private void GetQuotationDetails(HttpContext context)
         {
