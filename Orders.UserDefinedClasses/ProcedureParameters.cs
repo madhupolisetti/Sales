@@ -19,6 +19,7 @@ namespace Orders.UserDefinedClasses
         public const string SERVICE_PROPERTY_DETAILS = "@ServicePropertyDetails";
         public const string SERVICE_PROPERTY_ID = "@ServicePropertyId";
 
+        
         public const string QUOTATION_ID = "@QuotationId";
         public const string QUOTATION_NUMBER = "@QuotationNumber";
         public const string ACCOUNT_ID = "@AccountId";
@@ -36,6 +37,15 @@ namespace Orders.UserDefinedClasses
         public const string STATE_ID = "@StateId";
         public const string ORDER_AMOUNT = "@OrderAmount";
         public const string IS_POSTPAID_QUOTATION = "@IsPostPaidQuotation";
+
+        public const string NAME = "@Name";
+        public const string MOBILE = "@Mobile";
+        public const string EMAIL = "@Email";
+        public const string PRODUCT_USER_ID = "@ProductUserId";
+        public const string ADDRESS = "@Address";
+        public const string GSTIN = "@GSTIN";
+        public const string COUNTRY_ID = "@CountryId";
+        public const string OWNER_EMAIL = "@OwnerEmail";
 
         public const string SUCCESS = "@Success";
         public const string MESSAGE = "@Message";

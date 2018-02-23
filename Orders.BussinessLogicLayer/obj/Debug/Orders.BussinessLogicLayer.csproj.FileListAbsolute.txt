@@ -34,6 +34,6 @@ E:\Sales\Orders.BussinessLogicLayer\bin\Debug\log4net.dll
 E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.DataAccessLayer.pdb
 E:\Sales\Orders.BussinessLogicLayer\bin\Debug\Sales.UserDefinedClasses.pdb
 E:\Sales\Orders.BussinessLogicLayer\bin\Debug\OrdersManagement.pdb
+E:\Sales\Orders.BussinessLogicLayer\bin\Debug\log4net.xml
 E:\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.dll
 E:\Sales\Orders.BussinessLogicLayer\obj\Debug\Sales.BussinessLogicLayer.pdb
-E:\Sales\Orders.BussinessLogicLayer\bin\Debug\log4net.xml

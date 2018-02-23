@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Newtonsoft.Json.Linq;
-
+using Orders.CommonClasses;
 
 namespace Orders.AjaxHandlers
 {
@@ -26,7 +26,7 @@ namespace Orders.AjaxHandlers
             {
                 switch (context.Request["Action"].ToString())
                 {
-                    case "GetAccountDetails":
+                    case "CreateOrUpdateAccountDetails":
                         GetAccountDetails(context);
                         break;
                 }
@@ -38,6 +38,7 @@ namespace Orders.AjaxHandlers
         public void GetAccountDetails(HttpContext context)
         {
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
+            context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["mobileNumber"])));
 
         }
 

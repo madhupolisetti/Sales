@@ -13,7 +13,7 @@ namespace Orders.DataAccessLayer
     public class Accounts : DataAccess
     {
 
-        private SqlConnection _sqlConnection = null;
+        private SqlConnection _sqlConnection = new SqlConnection();
         private SqlCommand _sqlCommand = null;
         private SqlDataAdapter _da = null;
         private DataSet _ds = null;
@@ -23,11 +23,13 @@ namespace Orders.DataAccessLayer
 
         }
 
-        public DataSet GetProductInformation(byte productId)
+        public DataSet GetProductInformation(byte productId, out bool success)
         {
             try
             {
+                _sqlConnection = Connection;
                 this._sqlCommand = new SqlCommand(StoredProcedure.GET_PRODUCT_DETAILS, this._sqlConnection);
+                this._sqlCommand.CommandType = CommandType.StoredProcedure;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = productId;
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
                 _da = new SqlDataAdapter(_sqlCommand);
@@ -35,6 +37,7 @@ namespace Orders.DataAccessLayer
                 _da.Fill(_ds);
 
 
+
             }
             catch (Exception e)
             {
@@ -45,19 +48,33 @@ namespace Orders.DataAccessLayer
             {
 
             }
+            success = Convert.ToBoolean(_sqlCommand.Parameters[ProcedureParameters.SUCCESS].Value);
             return _ds;
         }
 
-        public void CreateAccountProduct(AccountProducts accountProperty)
+        public void CreateAccountProduct(AccountProducts accountProperty, out decimal accountId)
         {
             try
             {
+                _sqlConnection = Connection;
                 this._sqlCommand = new SqlCommand(StoredProcedure.CREATE_ACCOUNT_PRODUCT, this._sqlConnection);
-                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = accountProperty.ProductId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.NAME, SqlDbType.NVarChar, 50).Value = accountProperty.ProductAccountName;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.TinyInt).Value = accountProperty.ProductId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.MOBILE, SqlDbType.VarChar, 15).Value = accountProperty.MobileNo;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.Email;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_USER_ID, SqlDbType.BigInt).Value = accountProperty.ProductAccountId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ADDRESS, SqlDbType.NVarChar, -1).Value = accountProperty.Address;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.GSTIN, SqlDbType.VarChar, 15).Value = accountProperty.Gstin;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.STATE_ID, SqlDbType.Int).Value = accountProperty.StateId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY_ID, SqlDbType.Int).Value = accountProperty.CountryId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_ID, System.Data.SqlDbType.Decimal).Direction = System.Data.ParameterDirection.Output;
                 _da = new SqlDataAdapter(_sqlCommand);
                 _ds = new DataSet();
                 _da.Fill(_ds);
+                this._ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+
 
 
             }
@@ -70,7 +87,7 @@ namespace Orders.DataAccessLayer
             {
 
             }
-
+            accountId = Convert.ToDecimal(_sqlCommand.Parameters[ProcedureParameters.ACCOUNT_ID].Value);
 
         }
 

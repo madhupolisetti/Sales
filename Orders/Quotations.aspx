@@ -224,8 +224,8 @@
                                 </td>
                                 <td>
                                     <select id="ddlProducts" class="form-control">
-                                        <option id="BlueKite">BlueKite </option>
-                                        <option id="GrpTalk">GrpTalk </option>
+                                        <option value="2">BlueKite </option>
+                                        <option value="1">GrpTalk </option>
                                     </select>
 
                                 </td>
@@ -317,15 +317,12 @@
             quotationSearchData.PageNumber = 1;
             quotationSearchData.Limit = 10;
             ordersClient.GetQuotations(quotationSearchData, function (res) {
-                if(res.Success == true)
-                {
-                    if (res.Quotations.length > 0)
-                    {
+                if (res.Success == true) {
+                    if (res.Quotations.length > 0) {
                         var quotationsData = renderQuotations(res.Quotations);
                         $("#data").html(quotationsData);
                     }
-                    else
-                    {
+                    else {
 
                     }
                 }
@@ -335,9 +332,8 @@
             });
             function renderQuotations(Quotations) {
                 var quotations = "";
-                for (var i = 0; i < Quotations.length; i++)
-                {
-                    
+                for (var i = 0; i < Quotations.length; i++) {
+
                     quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool css-checkbox' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode='" + Quotations[i]["BillingMode"] + "'><label class='css-label' for='" + Quotations[i].Id + "'></label></td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].AccountName + "</td>";
@@ -362,9 +358,65 @@
                 //    str += "<td><span class='label label-sm label-info'>" + Quotations[i].Status + "</span></td></tr>";
                 //}
             }
-            
-            
+
+
         });
+
+        $("#btnSubmit").click(function () {
+            var productId = $("#ddlProducts option:selected").val();
+            $.ajax({
+                url: "/AjaxHandlers/Accounts.ashx",
+                data: {
+                    action: "CreateOrUpdateAccountDetails",
+                    productId: productId,
+                    mobileNumber: $("#txtUserMobile").val()
+
+
+                },
+                async: false,
+                method: "POST",
+                dataType: "JSON",
+                success: function (res) {
+
+                    if (res.Success == 1) {
+
+                        var accountId = res.AccountId;
+                        //   var QotationReqType = $(".ddlQuotationReqType").val();
+                        /* QotationReqType=1 means salesperson raised the Quotation */
+                        var QotationReqType = 1;
+                        //Create a Form
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "CreateQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "address", res.Address);
+                        AddParameter($form, "state", res.State);
+                        AddParameter($form, "contactName", res.NickName);
+                        AddParameter($form, "country", res.Country);
+                        AddParameter($form, "registeredDate", res.RegisteredDate);
+                        AddParameter($form, "email", res.EmailID);
+                        AddParameter($form, "mobile", res.MobileNumber);
+                        AddParameter($form, "company", res.Company);
+                        AddParameter($form, "BillMode", 0);
+                        $form[0].submit();
+                        function AddParameter(form, name, value) {
+                            var $input = $("<input />").attr("type", "hidden")
+                                                    .attr("name", name)
+                                                    .attr("value", value);
+                            form.append($input);
+                        }
+                    }
+                },
+                error: function (res) {
+                    $("#txtOtp").removeAttr("disabled");
+                    // $('#ddlMenu').unblock();
+                }
+            });
+        })
     </script>
 
 

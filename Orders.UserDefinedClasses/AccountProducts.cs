@@ -23,7 +23,9 @@ namespace Orders.UserDefinedClasses
         private bool status = false;
         private string ownerShipEmail = string.Empty;
         private byte productId = 0;
-
+        private string stateName = string.Empty;
+        private string registeredDate = string.Empty;
+        private string company = string.Empty;
         public int Id { get; set; }
         public decimal AccountId { get; set; }
         public decimal ProductAccountId { get; set; }
@@ -38,6 +40,8 @@ namespace Orders.UserDefinedClasses
         public bool Status { get; set; }
         public string OwnerShipEmail { get; set; }
         public byte ProductId { get; set; }
-
+        public string StateName { get; set; }
+        public string RegisteredDate { get; set; }
+        public string Company { get; set; }
     }
 }
