@@ -44,9 +44,7 @@
       <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement">
-
       <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
-
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -191,6 +189,17 @@
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Messages_select.png" />
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Request_select.png" />
     <Content Include="assets\SelectedMenuIcons\Voice_Route_select.png" />
+    <Content Include="bin\log4net.dll" />
+    <Content Include="bin\log4net.xml" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Sales.BussinessLogicLayer.dll" />
+    <Content Include="bin\Sales.BussinessLogicLayer.pdb" />
+    <Content Include="bin\Sales.DataAccessLayer.dll" />
+    <Content Include="bin\Sales.DataAccessLayer.pdb" />
+    <Content Include="bin\Sales.dll" />
+    <Content Include="bin\Sales.pdb" />
+    <Content Include="bin\Sales.UserDefinedClasses.dll" />
+    <Content Include="bin\Sales.UserDefinedClasses.pdb" />
     <Content Include="CssFiles\accordion.css" />
     <Content Include="CssFiles\blue.min.css" />
     <Content Include="CssFiles\bootstrap-datepicker3.min.css" />
@@ -274,7 +283,6 @@
     <Content Include="Quotations.aspx" />
     <Content Include="Scripts\OrdersClient.js" />
     <Content Include="Scripts\OrdersManagement.js" />
-    <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjaxHandlers\Accounts.ashx.cs">
@@ -286,12 +294,10 @@
     <Compile Include="AjaxHandlers\Quotations.ashx.cs">
       <DependentUpon>Quotations.ashx</DependentUpon>
     </Compile>
-
     <Compile Include="CommonClasses\Label.cs" />
     <Compile Include="AjaxHandlers\Services.ashx.cs">
       <DependentUpon>Services.ashx</DependentUpon>
     </Compile>
-
     <Compile Include="CommonClasses\MyConf.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -395,12 +401,6 @@
     <Content Include="AjaxHandlers\Accounts.ashx" />
     <Content Include="AjaxHandlers\Invoices.ashx" />
     <Content Include="AjaxHandlers\Services.ashx" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Orders.BussinessLogicLayer\Orders.BussinessLogicLayer.csproj">
@@ -418,6 +418,16 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Logs\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Web.config" />
+    <Content Include="bin\Sales.dll.config" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
