@@ -81,7 +81,7 @@
                                 <input type="text" id="txtmblnum" class="form-control form-filter input-sm" />
                             </div>
                         </div>
-                        <div class="row margin-bottom-15" id="secondRow">
+                        <div class="row margin-bottom-15" style="display:none;" id="secondRow">
                             <div class="col-sm-3">
                                 <label class="table-head">E-mail Id</label>
                                 <input type="text" id="txtemail" class="form-control form-filter input-sm" />
@@ -335,6 +335,30 @@
                 getQuotations();
             });
 
+            $(document).delegate('#FilterByMore', 'click', function () {
+                var anchorText = $(this).text();
+                if (anchorText == "Search by more") {
+                    $("#secondRow").show();
+                    $("#FilterByMore").text("Search by less");
+                    $("#filterIcn").removeClass("fa fa-caret-down").addClass("fa fa-caret-up");
+                }
+                else {
+                    $("#secondRow").hide();
+                    $("#FilterByMore").text("Search by more");
+                    $("#filterIcn").removeClass("fa fa-caret-up").addClass("fa fa-caret-down");
+                }
+            });
+            $(document).delegate('.check_tool', 'change', function () {
+                $('.check_tool').prop('checked', false);
+                $('.check_tool').removeClass("Checked");
+                $(this).prop('checked', true);
+                $(this).addClass("Checked");
+            });
+            $("#btndelete").click(function () {
+                alert($('.check_tool.Checked').attr("id"));
+
+            });
+
             function getQuotations() {
 
                 if (dateRange == "This Month") {
@@ -371,7 +395,7 @@
                 var quotations = "";
                 for (var i = 0; i < Quotations.length; i++)
                 {
-                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool css-checkbox' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode='" + Quotations[i]["BillingMode"] + "'><label class='css-label' for='" + Quotations[i].Id + "'></label></td>";
+                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' /></td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].AccountName + "</td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";
