@@ -189,17 +189,7 @@
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Messages_select.png" />
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Request_select.png" />
     <Content Include="assets\SelectedMenuIcons\Voice_Route_select.png" />
-    <Content Include="bin\log4net.dll" />
-    <Content Include="bin\log4net.xml" />
-    <Content Include="bin\Newtonsoft.Json.dll" />
-    <Content Include="bin\Sales.BussinessLogicLayer.dll" />
-    <Content Include="bin\Sales.BussinessLogicLayer.pdb" />
-    <Content Include="bin\Sales.DataAccessLayer.dll" />
-    <Content Include="bin\Sales.DataAccessLayer.pdb" />
-    <Content Include="bin\Sales.dll" />
-    <Content Include="bin\Sales.pdb" />
-    <Content Include="bin\Sales.UserDefinedClasses.dll" />
-    <Content Include="bin\Sales.UserDefinedClasses.pdb" />
+    <Content Include="CreateQuotation.aspx" />
     <Content Include="CssFiles\accordion.css" />
     <Content Include="CssFiles\blue.min.css" />
     <Content Include="CssFiles\bootstrap-datepicker3.min.css" />
@@ -281,8 +271,7 @@
     <Content Include="JsFiles\toastr.min.js" />
     <Content Include="JsFiles\ui-buttons.min.js" />
     <Content Include="Quotations.aspx" />
-    <Content Include="Scripts\OrdersClient.js" />
-    <Content Include="Scripts\OrdersManagement.js" />
+    <Content Include="Scripts\createQuotation.js" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AjaxHandlers\Accounts.ashx.cs">
@@ -299,6 +288,13 @@
       <DependentUpon>Services.ashx</DependentUpon>
     </Compile>
     <Compile Include="CommonClasses\MyConf.cs" />
+    <Compile Include="CreateQuotation.aspx.cs">
+      <DependentUpon>CreateQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateQuotation.aspx.designer.cs">
+      <DependentUpon>CreateQuotation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -421,7 +417,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />
-    <Content Include="bin\Sales.dll.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

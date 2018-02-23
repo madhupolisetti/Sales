@@ -224,8 +224,8 @@
                                 </td>
                                 <td>
                                     <select id="ddlProducts" class="form-control">
-                                        <option id="BlueKite">BlueKite </option>
-                                        <option id="GrpTalk">GrpTalk </option>
+                                        <option value="2">BlueKite </option>
+                                        <option value="1">GrpTalk </option>
                                     </select>
 
                                 </td>
@@ -323,34 +323,34 @@
             });
 
             function getQuotations() {
-                var ordersClient = new OrdersClient();
-                var quotationSearchData = {};
+            var ordersClient = new OrdersClient();
+            var quotationSearchData = {};
                 quotationSearchData.AccountId = 0;
-                quotationSearchData.ProductId = 1;
-                quotationSearchData.QuotationId = 0;
-                quotationSearchData.QuotationNumber = "";
-                quotationSearchData.EmployeeId = 0;
-                quotationSearchData.OwnerShipId = 0;
-                quotationSearchData.ChannelId = 2;
-                quotationSearchData.BillingModeId = 0;
-                quotationSearchData.FromDateTime = "2018-01-01";
-                quotationSearchData.ToDateTime = "2018-02-28";
-                quotationSearchData.PageNumber = 1;
-                quotationSearchData.Limit = 10;
-                ordersClient.GetQuotations(quotationSearchData, function (res) {
+            quotationSearchData.ProductId = 1;
+            quotationSearchData.QuotationId = 0;
+            quotationSearchData.QuotationNumber = "";
+            quotationSearchData.EmployeeId = 0;
+            quotationSearchData.OwnerShipId = 0;
+            quotationSearchData.ChannelId = 2;
+            quotationSearchData.BillingModeId = 0;
+            quotationSearchData.FromDateTime = "2018-01-01";
+            quotationSearchData.ToDateTime = "2018-02-28";
+            quotationSearchData.PageNumber = 1;
+            quotationSearchData.Limit = 10;
+            ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
-                            var quotationsData = renderQuotations(res.Quotations);
-                            $("#data").html(quotationsData);
-                        }
+                        var quotationsData = renderQuotations(res.Quotations);
+                        $("#data").html(quotationsData);
+                    }
                         else {
 
-                        }
                     }
-                    else {
-                        ErrorNotifier(res.Message);
-                    }
-                });
+                }
+                else {
+                    ErrorNotifier(res.Message);
+                }
+            });
 
             }
 
@@ -385,8 +385,64 @@
                 
             }
             
-            
+
         });
+
+        $("#btnSubmit").click(function () {
+            var productId = $("#ddlProducts option:selected").val();
+            $.ajax({
+                url: "/AjaxHandlers/Accounts.ashx",
+                data: {
+                    action: "CreateOrUpdateAccountDetails",
+                    productId: productId,
+                    mobileNumber: $("#txtUserMobile").val()
+
+            
+                },
+                async: false,
+                method: "POST",
+                dataType: "JSON",
+                success: function (res) {
+
+                    if (res.Success == 1) {
+
+                        var accountId = res.AccountId;
+                        //   var QotationReqType = $(".ddlQuotationReqType").val();
+                        /* QotationReqType=1 means salesperson raised the Quotation */
+                        var QotationReqType = 1;
+                        //Create a Form
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "CreateQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "address", res.Address);
+                        AddParameter($form, "state", res.State);
+                        AddParameter($form, "contactName", res.NickName);
+                        AddParameter($form, "country", res.Country);
+                        AddParameter($form, "registeredDate", res.RegisteredDate);
+                        AddParameter($form, "email", res.EmailID);
+                        AddParameter($form, "mobile", res.MobileNumber);
+                        AddParameter($form, "company", res.Company);
+                        AddParameter($form, "BillMode", 0);
+                        $form[0].submit();
+                        function AddParameter(form, name, value) {
+                            var $input = $("<input />").attr("type", "hidden")
+                                                    .attr("name", name)
+                                                    .attr("value", value);
+                            form.append($input);
+                        }
+                    }
+                },
+                error: function (res) {
+                    $("#txtOtp").removeAttr("disabled");
+                    // $('#ddlMenu').unblock();
+                }
+        });
+        })
     </script>
 
 

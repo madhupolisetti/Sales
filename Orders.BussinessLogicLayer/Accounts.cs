@@ -8,6 +8,7 @@ using System.Data;
 using Orders.DataAccessLayer;
 using System.Net;
 using System.IO;
+using Orders.UserDefinedClasses;
 namespace Orders.BussinessLogicLayer
 {
     public class Accounts
@@ -22,23 +23,49 @@ namespace Orders.BussinessLogicLayer
         }
         public JObject CreateAccountProducts(string sConnString, byte productId, string mobileNumber)
         {
-            JObject productObj = GetProductDetails(sConnString, productId);
+            bool success = false;
+            decimal accountId = 0;
+            Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
+            _ds = accountsObj.GetProductInformation(productId, out success);
 
-            if (Convert.ToBoolean(productObj.SelectToken("Success")) == true) { }
+            if (success)
             {
-                responseObj = GetAccountDetailApi(productObj.SelectToken("Success").ToString(), mobileNumber);
+                if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
+                {
+                    responseObj = GetAccountDetailApi(_ds.Tables[0].Rows[0]["AccountInformationUrl"].ToString(), mobileNumber);
+                }
+                else
+                {
+                    responseObj = new JObject(new JProperty("Success", false),
+                        new JProperty("Message", "No Product details Found"));
+                    return responseObj;
+                }
+            }
+
+            if (Convert.ToBoolean(responseObj.SelectToken("Success")) == true)
+            {
+                AccountProducts accountProductProperties = new AccountProducts();
+                accountProductProperties.ProductAccountName = responseObj.SelectToken("NickName").ToString();
+                accountProductProperties.MobileNo = responseObj.SelectToken("MobileNumber").ToString();
+                accountProductProperties.Email = responseObj.SelectToken("EmailID").ToString();
+                accountProductProperties.Address = responseObj.SelectToken("Address").ToString();
+                accountProductProperties.Gstin = responseObj.SelectToken("GSTIN").ToString();
+                accountProductProperties.Company = responseObj.SelectToken("Company").ToString();
+                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken("StateCode").ToString());
+                accountProductProperties.CountryId = Convert.ToByte(responseObj.SelectToken("CountryId").ToString());
+                accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken("UserId").ToString());
+                accountProductProperties.ProductId = productId;
+                accountProductProperties.RegisteredDate = responseObj.SelectToken("RegisteredDate").ToString();
+                Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
+                account.CreateAccountProduct(accountProductProperties, out accountId);
+                responseObj.Add(new JProperty(Label.ACCOUNT_ID, accountId));
+
+
             }
 
             return responseObj;
         }
 
-        public JObject GetProductDetails(string SConnString, byte productId)
-        {
-            Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(SConnString);
-            _ds = accountsObj.GetProductInformation(productId);
-            responseObj = ExportMultipleDtToJson(_ds);
-            return responseObj;
-        }
 
         public JObject GetAccountDetailApi(string httpUrl, string mobileNumber)
         {
@@ -50,8 +77,8 @@ namespace Orders.BussinessLogicLayer
             StreamWriter SWriter = null;
             string PostingData = "";
             string HttpAPIResponseString = "";
-            string _ApiKey = "tWncaEz7GPJtwIcR8QAi";
-            string _ApiSecret = "L74NKAAw5eHpXVFsrSb6LRAtZ8ZDTYjCTzb3CX";
+            string _ApiKey = "S2m8HRmwf5";
+            string _ApiSecret = "alR8pQok8ll2zCYmZL4R";
             CredentialCache _credentialCache = new CredentialCache();
             try
             {
@@ -62,7 +89,7 @@ namespace Orders.BussinessLogicLayer
                 _Req.Method = "POST";
                 _Req.ContentType = "application/json";
                 SWriter = new StreamWriter(_Req.GetRequestStream());
-                SWriter.Write(PostingData.ToString());
+                SWriter.Write(reqObj.ToString());
                 SWriter.Flush();
                 SWriter.Close();
                 SReader = new StreamReader(_Req.GetResponse().GetResponseStream());
@@ -80,50 +107,7 @@ namespace Orders.BussinessLogicLayer
             return accountObj;
         }
 
-        public static JObject ExportMultipleDtToJson(DataSet ds)
-        {
-            JObject jobj = new JObject();
-            JArray TableArray = new JArray();
-            JObject TableObject;
 
-            if (ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0)
-            {
-
-                int i = 0;
-                foreach (DataTable dt in ds.Tables)
-                {
-                    i++;
-                    JArray TempJarr = new JArray();
-                    TableObject = new JObject();
-                    foreach (DataRow dr in dt.Rows)
-                    {
-
-                        JObject TempJobj = new JObject();
-                        foreach (DataColumn dc in dt.Columns)
-                        {
-                            TempJobj.Add(new JProperty(dc.ColumnName, dr[dc.ColumnName]));
-
-                        }
-                        TempJarr.Add(TempJobj);
-                    }
-
-                    TableObject.Add(new JProperty("Table", TempJarr));
-                    TableArray.Add(TableObject);
-                }
-                responseObj.Add(new JProperty("TablesArray", TableArray));
-
-
-            }
-            else
-            {
-
-
-
-            }
-
-            return responseObj;
-
-        }
 
 
 

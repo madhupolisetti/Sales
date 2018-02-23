@@ -45,6 +45,7 @@ namespace Orders.UserDefinedClasses
         public const string QUOTATION_SERVICE_ID = "QuotationServiceId";
         public const string OCCURANCE = "Occurance";
         public const string PRODUCT_ID = "ProductId";
+        public const string ACCOUNT_ID = "AccountId";
 
         public const string FIELDID = "FieldId";
         public const string MINLENGTH = "MinLength";
