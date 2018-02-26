@@ -45,7 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BlueKite\BlueKite\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -229,6 +229,7 @@
     <Content Include="Exception_Logs\Exceptions\20180223.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="Invoice.aspx" />
     <Content Include="JsFiles\addImage.js" />
     <Content Include="JsFiles\app.min.js" />
     <Content Include="JsFiles\base64.js" />
@@ -280,6 +281,7 @@
     <Content Include="JsFiles\tableExport.js" />
     <Content Include="JsFiles\toastr.min.js" />
     <Content Include="JsFiles\ui-buttons.min.js" />
+    <Content Include="Quotation.aspx" />
     <Content Include="Quotations.aspx" />
     <Content Include="Scripts\createQuotation.js" />
   </ItemGroup>
@@ -308,6 +310,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Invoice.aspx.cs">
+      <DependentUpon>Invoice.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Invoice.aspx.designer.cs">
+      <DependentUpon>Invoice.aspx</DependentUpon>
+    </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -319,6 +328,13 @@
       <DependentUpon>PostLogin.Master</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Quotation.aspx.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Quotation.aspx.designer.cs">
+      <DependentUpon>Quotation.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Quotations.aspx.cs">
       <DependentUpon>Quotations.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -426,11 +442,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Files\Invoices\" />
+    <Folder Include="Files\Quotations\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Scripts\OrdersClient.js" />
     <Content Include="Scripts\OrdersManagement.js" />
+    <Content Include="Scripts\Quotations.js" />
     <Content Include="Web.config" />
     <Content Include="packages.config" />
     <None Include="Web.Debug.config">

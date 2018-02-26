@@ -38,10 +38,6 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -60,6 +56,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="ResponseFormat.cs" />
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="TablePreferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Sales.UserDefinedClasses.dll" />
