@@ -50,24 +50,24 @@
             else
                 return false;
         }
-        function RenderServices(actionResponse)
-        {
-            html = '<table class="table table-responsive" border="1"><thead><tr>';
-            Object.keys(actionResponse.Services[0]).forEach(function (key) {
-                if (key != "Properties")
-                    html += '<th>' + key + '</th>';
-            });
-            html += '</tr></thead><tbody>';
-            for (var i = 0; i < actionResponse.Services.length; i++) {
-                html += "<tr>"
-                Object.keys(actionResponse.Services[i]).forEach(function (key) {
-                    if (key != "Properties")
-                        html += "<td>" + actionResponse.Services[i][key] + "</td>";
-                });
-            }
-            html += "</tbody></table>";
-            document.getElementById("Services").innerHTML = html;
-        }
+        //function RenderServices(actionResponse)
+        //{
+        //    html = '<table class="table table-responsive" border="1"><thead><tr>';
+        //    Object.keys(actionResponse.Services[0]).forEach(function (key) {
+        //        if (key != "Properties")
+        //            html += '<th>' + key + '</th>';
+        //    });
+        //    html += '</tr></thead><tbody>';
+        //    for (var i = 0; i < actionResponse.Services.length; i++) {
+        //        html += "<tr>"
+        //        Object.keys(actionResponse.Services[i]).forEach(function (key) {
+        //            if (key != "Properties")
+        //                html += "<td>" + actionResponse.Services[i][key] + "</td>";
+        //        });
+        //    }
+        //    html += "</tbody></table>";
+        //    document.getElementById("Services").innerHTML = html;
+        //}
         // Private Methods End
 
         // Public Methods Start
@@ -139,7 +139,7 @@
                     ServiceId: (serviceId && serviceId > 0) ? serviceId : 0,
                     OnlyActive: onlyActive ? onlyActive : true,
                     ProductId : productId,
-                    IncludeServiceProperties: includeServiceProperties ? includeServiceProperties : true
+                    IncludeServiceProperties: includeServiceProperties
                 },
                 dataType: "JSON",
                 success: function (response) {                    
@@ -156,6 +156,35 @@
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 }                
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.GetServiceProperties = function (serviceId, onlyActive,callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.servicesHandler,
+                async: this.options.async,
+                data: {
+                    Action: "GetServiceProperties",
+                    ServiceId: (serviceId && serviceId > 0) ? serviceId : 0,
+                    OnlyActive: onlyActive ? onlyActive : true,
+              },
+                dataType: "JSON",
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                   
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
             });
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
@@ -383,7 +412,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateQuotation = function(accountId, employeeId, channelId, metaData, stateId, callBackFunction)
+        OrdersClient.prototype.CreateQuotation = function(productId,accountId, employeeId, channelId, metaData, stateId, callBackFunction)
         {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
@@ -395,10 +424,12 @@
                 data:
                     {
                         Action: "Create",
+                        ProductId:productId,
                         AccountId: accountId ? accountId : 0,
                         EmployeeId: employeeId ? employeeId : 0,
                         ChannelId: channelId,
-                        MetaData: JSON.stringify(metaData)
+                        MetaData: JSON.stringify(metaData),
+                        StateId:1
                     },
                 success: function (response) {
                     actionResponse = response;

@@ -54,17 +54,17 @@
                             <tr>
                                 <td class="col-sm-4">
                                     <label>Registered Date</label>
-                                    <input type="text" id="txtRegisteredDate" class="txtRegisteredDate form-control" />
+                                    <input type="text" id="txtRegisteredDate" class="txtRegisteredDate form-control" value="<%= registeredDate %>" />
                                 </td>
 
                                 <td class="col-sm-4">
                                     <label>Company/Business Name</label>
-                                    <input type="text" id="txtCompanyName" class="txtCompanyName form-control" />
+                                    <input type="text" id="txtCompanyName" class="txtCompanyName form-control" value="<%= companyName %>" />
                                 </td>
 
                                 <td class="col-sm-4">
                                     <label>Contact Name</label>
-                                    <input type="text" id="txtContactName" class="txtContactName form-control" />
+                                    <input type="text" id="txtContactName" class="txtContactName form-control" value="<%= contactName %>" />
                                 </td>
                             </tr>
 
@@ -73,12 +73,12 @@
 
                                 <td>
                                     <label>Business Mail ID</label>
-                                    <input type="text" id="txtBusinessMailID" class="txtBusinessMailID form-control" />
+                                    <input type="text" id="txtBusinessMailID" class="txtBusinessMailID form-control" value="<%= email %>" />
                                 </td>
 
                                 <td>
                                     <label>Mobile</label>
-                                    <input type="text" id="txtMobile" class="txtMobile form-control" />
+                                    <input type="text" id="txtMobile" class="txtMobile form-control" value="<%= mobile %>" />
                                 </td>
                                 <td>
                                     <label>Alternate Mobile / Landline</label>
@@ -96,7 +96,7 @@
                                 </td>
                                 <td colspan="2">
                                     <label>Address</label>
-                                    <textarea name="txtContactAddress" class="txtContactAddress form-control" rows="3" cols="5"></textarea>
+                                    <textarea name="txtContactAddress" class="txtContactAddress form-control" rows="3" cols="5"><%= address %></textarea>
                                 </td>
 
                             </tr>
@@ -125,14 +125,16 @@
                 </div>
             </div>
 
-
+            <input type="hidden" name="hdnProductId" id="hdnProductId" value="<%=productId %>" />
+            <input type="hidden" name="hdnProductId" id="hdnAccountId" value="<%=accountId %>" />
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/GetServices.js?type=11"></script>
-    <script src="Scripts/createquotation.js?type=v1"></script>
+    <script src="Scripts/OrdersClient.js"></script>
+    <script src="Scripts/getServices.js?type=v1"></script>
+    <script src="Scripts/createquotation.js?type=v8"></script>
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>
     <script type="text/javascript">

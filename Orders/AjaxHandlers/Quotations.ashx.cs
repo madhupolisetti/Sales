@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Orders;
-
+using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 
 
@@ -130,9 +130,9 @@ namespace Orders.AjaxHandlers
             if (searchData.SelectToken("Email") != null)
                 mobile = searchData.SelectToken("Email").ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
-                employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
-                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,mobile:mobile,email:email));
+            //context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
+            //    employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
+            //    billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,mobile:mobile,email:email));
         }
         private void GetQuotationDetails(HttpContext context)
         {
@@ -154,19 +154,19 @@ namespace Orders.AjaxHandlers
             byte stateId = 0;
             int employeeId = 0;
             byte productId = 0;
-            if (context.Request["ProductId"] != null && byte.TryParse(context.Request["ProductId"].ToString(), out productId))
+            if (context.Request["ProductId"] == null || !byte.TryParse(context.Request["ProductId"].ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
-            if (context.Request["AccountId"] != null && int.TryParse(context.Request["AccountId"].ToString(), out accountId))
+            if (context.Request["AccountId"] == null || !int.TryParse(context.Request["AccountId"].ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
             if (accountId <= 0)
                 GenerateErrorResponse(400, string.Format("AccountId must be greater than 0"));
-            if (context.Request["ChannelId"] != null && byte.TryParse(context.Request["ChannelId"].ToString(), out channelId))
+            if (context.Request["ChannelId"] == null || !byte.TryParse(context.Request["ChannelId"].ToString(), out channelId))
                 GenerateErrorResponse(400, string.Format("ChannelId must be a number"));
             if (channelId <= 0)
                 GenerateErrorResponse(400, string.Format("ChannelId must be greater than 0"));
             if (context.Request["MetaData"] == null || context.Request["MetaData"].ToString().Replace(" ", "").Length == 0)
                 GenerateErrorResponse(400, string.Format("MetaData is mandatory"));
-            if (context.Request["StateId"] != null && !byte.TryParse(context.Request["StateId"].ToString(), out stateId))
+            if (context.Request["StateId"] == null || !byte.TryParse(context.Request["StateId"].ToString(), out stateId))
                 GenerateErrorResponse(400, string.Format("StateId must ne a number"));
             if (stateId <= 0)
                 GenerateErrorResponse(400, "StateId must be greater than 0");
@@ -176,14 +176,15 @@ namespace Orders.AjaxHandlers
                     GenerateErrorResponse(403, string.Format("EmployeeId is mandatory"));
                 if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
                     GenerateErrorResponse(400, string.Format("EmployeeId must be a number"));
-                else if (!int.TryParse(context.Session["EmployeeId"].ToString(), out employeeId))
-                    GenerateErrorResponse(400, string.Format("EmployeeId must be a number."));
+                //else if (!int.TryParse(context.Session["EmployeeId"].ToString(), out employeeId))
+                // GenerateErrorResponse(400, string.Format("EmployeeId must be a number."));
             }
+            var metadata = new JavaScriptSerializer().DeserializeObject(context.Request["MetaData"]);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.CreateQuotation(productId, accountId: accountId,
                 employeeId: employeeId,
                 channelId: channelId,
-                metaData: context.Request["MetaData"].ToString(),
+                metaData: metadata.ToString(),
                 ipAddress: context.Request["IpAddress"] != null ? context.Request["IpAddress"].ToString() : context.Request.ServerVariables["REMOTE_ADDR"].ToString(), stateId: stateId));
         }
         private void Update(HttpContext context)

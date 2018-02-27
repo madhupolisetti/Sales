@@ -45,11 +45,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\BlueKite\BlueKite\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>E:\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -426,13 +426,14 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Scripts\getServices.js" />
     <Content Include="Scripts\OrdersClient.js" />
     <Content Include="Scripts\OrdersManagement.js" />
     <Content Include="Web.config" />
-    <Content Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

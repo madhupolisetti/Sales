@@ -1,0 +1,58 @@
+26/02/2018 05:00:25 PM [5] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:00:50 PM [8] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:01:48 PM [8] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:11:32 PM [9] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:18:39 PM [5] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:20:37 PM [13] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:25:38 PM [12] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: String. Path '', line 1, position 214.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:54:28 PM [13] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Error reading JObject from JsonReader. Current JsonReader item is not an object: Undefined. Path '', line 1, position 0.
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 05:56:32 PM [8] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: Invalid property identifier character: ,. Path '', line 1, position 1.
+   at Newtonsoft.Json.JsonTextReader.ParseProperty()
+   at Newtonsoft.Json.JsonTextReader.ParseObject()
+   at Newtonsoft.Json.JsonTextReader.Read()
+   at Newtonsoft.Json.Linq.JContainer.ReadTokenFrom(JsonReader reader, JsonLoadSettings options)
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
+26/02/2018 06:18:46 PM [12] ERROR DefaultLogger  - Unable to format Quotation MetaData. Newtonsoft.Json.JsonReaderException: After parsing a value an unexpected character was encountered: {. Path 'Balance.ExtraCharges[0]', line 1, position 205.
+   at Newtonsoft.Json.JsonTextReader.ParsePostValue()
+   at Newtonsoft.Json.JsonTextReader.Read()
+   at Newtonsoft.Json.Linq.JContainer.ReadContentFrom(JsonReader r, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JContainer.ReadTokenFrom(JsonReader reader, JsonLoadSettings options)
+   at Newtonsoft.Json.Linq.JObject.Load(JsonReader reader, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json, JsonLoadSettings settings)
+   at Newtonsoft.Json.Linq.JObject.Parse(String json)
+   at OrdersManagement.Core.QuotationClient.ValidateQuotation(String metaData, Byte productId) in e:\OrdersManagementLive\OrdersManagement\Core\QuotationClient.cs:line 79
