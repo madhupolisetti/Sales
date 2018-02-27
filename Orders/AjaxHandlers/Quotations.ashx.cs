@@ -38,13 +38,22 @@ namespace Orders.AjaxHandlers
                         Search(context);
                         break;
                     case "GetQuotationDetails":
-                        Search(context);
+                        GetQuotationDetails(context);
                         break;
                     case "Create":
                         Create(context);
                         break;
                     case "Update":
                         Update(context);
+                        break;
+                    case "Delete":
+                        Delete(context);
+                        break;
+                    case "View":
+                        View(context);
+                        break;
+                    case "Download":
+                        Download(context);
                         break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
@@ -138,7 +147,7 @@ namespace Orders.AjaxHandlers
         {
             int quotationId = 0;
             bool isPostPaidQuotation = false;
-            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["OnlyActive"].ToString(), out quotationId))
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
             if (quotationId <= 0)
                 GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
@@ -223,7 +232,7 @@ namespace Orders.AjaxHandlers
         {
             int quotationId = 0;
             bool isPostPaidQuotation = false;
-            if (context.Request["QuotationId"] != null || !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("QuotationId Must be a number"));
             if (quotationId <= 0)
                 GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
@@ -231,6 +240,32 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.DeleteQuotation(quotationId: quotationId, isPostPaidQuotation: isPostPaidQuotation));
+        }
+        private void View(HttpContext context)
+        {
+            int quotationId = 0;
+            bool isPostPaidQuotation = false;
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            if (quotationId <= 0)
+                GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
+            if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
+                GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.ViewQuotation(quotationId, isPostPaidQuotation));
+        }
+        private void Download(HttpContext context)
+        {
+            int quotationId = 0;
+            bool isPostPaidQuotation = false;
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            if (quotationId <= 0)
+                GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
+            if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
+                GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.DownloadQuotation(quotationId, isPostPaidQuotation));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

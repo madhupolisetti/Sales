@@ -60,6 +60,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="ResponseFormat.cs" />
     <Compile Include="StringValueAttribute.cs" />
+    <Compile Include="TablePreferences.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="bin\Debug\Sales.UserDefinedClasses.dll" />

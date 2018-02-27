@@ -71,6 +71,7 @@
         // Private Methods End
 
         // Public Methods Start
+        // Services Related
         OrdersClient.prototype.GetInputTypes = function (onlyActive, callBackFunction)
         {
             var actionResponse;
@@ -317,7 +318,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-
+        // Quotations Related
         OrdersClient.prototype.GetQuotationStatuses = function(onlyActive, callBackFunction)
         {
             var actionResponse;
@@ -412,7 +413,99 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateQuotation = function(productId,accountId, employeeId, channelId, metaData, stateId, callBackFunction)
+        OrdersClient.prototype.GetQuotationDetails = function (quotationId, isPostPaidQuotation, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.quotationsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                traditional: true,
+                data:
+                    {
+                        "Action": "GetQuotationDetails",
+                        "QuotationId": quotationId ? quotationId : 0,
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+                        
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.ViewQuotation = function (quotationId, isPostPaidQuotation, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.quotationsHandler,
+                async: this.options.async,
+                dataType: "text",
+                traditional: true,
+                data:
+                    {
+                        "Action": "View",
+                        "QuotationId": quotationId ? quotationId : 0,
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.DownloadQuotation = function (quotationId, isPostPaidQuotation, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.quotationsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                traditional: true,
+                data:
+                    {
+                        "Action": "Download",
+                        "QuotationId": quotationId ? quotationId : 0,
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.CreateQuotation = function(accountId, employeeId, channelId, metaData, stateId, callBackFunction)
         {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
@@ -494,7 +587,7 @@
                     {
                         "Action": "Delete",
                         "QuotationId": quotationId ? quotationId : 0,
-                        "IsPostPaidQuotationId": isPostPaidQuotation ? isPostPaidQuotation : null
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
                     },
                 success: function (response)
                 {
@@ -514,7 +607,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-
+        // Invoices Related
         OrdersClient.prototype.GetInvoiceStatuses = function(onlyActive, callBackFunction)
         {
             var actionResponse;
@@ -570,6 +663,68 @@
                 error:function(response)
                 {
                     failedActionResponse.Response = actionResponse;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.ViewInvoice = function (quotationId, isPostPaidQuotation, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.invoicesHandler,
+                async: this.options.async,
+                dataType: "text",
+                traditional: true,
+                data:
+                    {
+                        "Action": "View",
+                        "QuotationId": quotationId ? quotationId : 0,
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.DownloadInvoice = function (quotationId, isPostPaidQuotation, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.invoicesHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                traditional: true,
+                data:
+                    {
+                        "Action": "Download",
+                        "QuotationId": quotationId ? quotationId : 0,
+                        "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
                     if (CanCallBack(callBackFunction))

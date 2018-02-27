@@ -45,13 +45,8 @@
     <div class="page-content-wrapper">
         <div class="page-content">
 
-            <input type="hidden" id="hdnQuotationId" class="hdnQuotationId" />
-            <input type="hidden" id="hdnBillMode" class="hdnBillMode" />
-            <input type="hidden" id="hdnIsBillgenerated" class="hdnIsBillGenerated" />
-            <input type="hidden" id="hdnQuotationStatus" class="hdnQuotationStatus" />
-            <input type="hidden" id="hdnQuotationpath" value="" />
-            <input type="hidden" id="hdnInActiveIds" />
-            <input type="hidden" id="hdnAccountId" />
+            
+            <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="portlet light">
                 <div class="portlet-body pad-top-0">
                     <div id="tbl">
@@ -194,12 +189,7 @@
                         <asp:Label ID="lblkrishikalyanAmt" runat="server" CssClass="lblkrishikalyanAmt"></asp:Label>
                         <asp:Label ID="lblgradTot" runat="server" CssClass="lblgradTot"></asp:Label>
                         <asp:Label ID="amountinRs" runat="server" CssClass="amountinRs"></asp:Label>
-                        <input type="hidden" id="hidden-QuaID" value="" />
-                        <input type="hidden" id="hdnWebUrl" value="" />
-
-                        <input type="hidden" name="hdnCGST" id="hdnCGST" value="" />
-                        <input type="hidden" name="hdnSGST" id="hdnSGST" value="" />
-                        <input type="hidden" name="hdnIGST" id="hdnIGST" value="" />
+                        
 
                         <div id="MetaData"></div>
 
@@ -299,6 +289,8 @@
         $(function () {
             var quotationSearchData = {};
             var dateRange = "";
+            var webUrl = $("#hdnWebUrl").val();
+            var ordersClient = new OrdersClient();
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
@@ -335,6 +327,32 @@
                 getQuotations();
             });
 
+            $("#btnview").click(function () {
+                var quotationId = $('.check_tool.Checked').attr("id");
+                var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "Quotation.aspx")
+                                        .attr("method", "post");
+                $("body").append($form);
+                AddParameter($form, "QuotationId", quotationId);
+                $form[0].submit();
+            });
+
+            $("#btninvoice").click(function () {
+                var quotationId = $('.check_tool.Checked').attr("id");
+                ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
+                    if (res.Success == true){
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "Invoice.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        AddParameter($form, "QuotationId", quotationId);
+                        $form[0].submit();
+                    } else {
+                        ErrorNotifier(res.Message);
+                    }
+                });
+            });
+
             $(document).delegate('#FilterByMore', 'click', function () {
                 var anchorText = $(this).text();
                 if (anchorText == "Search by more") {
@@ -355,8 +373,32 @@
                 $(this).addClass("Checked");
             });
             $("#btndelete").click(function () {
-                alert($('.check_tool.Checked').attr("id"));
+                var quotationId = $('.check_tool.Checked').attr("id");
+                var billMode = $('.check_tool.Checked').attr("BillMode");
+                ordersClient.DeleteQuotation(quotationId, false, function (res) {
+                    if(res.Success == true)
+                    {
+                        SuccessNotifier(res.Message)
+                        getQuotations();
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                });
 
+            });
+
+            $("#btndownload").click(function () {
+                var quotationId = $('.check_tool.Checked').attr("id");
+                var billMode = $('.check_tool.Checked').attr("BillMode");
+                ordersClient.DownloadQuotation(quotationId, false, function (res) {
+                    console.log(res);
+                    var a = document.createElement('a');
+                    a.href = webUrl + res.FilePath;
+                    a.download = webUrl + res.FilePath;
+                    document.body.appendChild(a);
+                    a.click();
+                });
             });
 
             function getQuotations() {
@@ -370,9 +412,6 @@
                     quotationSearchData.FromDateTime = fromDateT0date[0];
                     quotationSearchData.ToDateTime = fromDateT0date[1];
                 }
-
-                var ordersClient = new OrdersClient();
-                    
                 ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
@@ -420,6 +459,12 @@
                 return quotations;
                 
             }
+            function AddParameter(form, name, value) {
+                var $input = $("<input />").attr("type", "hidden")
+                                        .attr("name", name)
+                                        .attr("value", value);
+                form.append($input);
+            }
             
 
         });
@@ -465,19 +510,16 @@
                         AddParameter($form, "company", res.Company);
                         AddParameter($form, "BillMode", 0);
                         $form[0].submit();
-                        function AddParameter(form, name, value) {
-                            var $input = $("<input />").attr("type", "hidden")
-                                                    .attr("name", name)
-                                                    .attr("value", value);
-                            form.append($input);
-                        }
+                        
                     }
                 },
                 error: function (res) {
                     $("#txtOtp").removeAttr("disabled");
                     // $('#ddlMenu').unblock();
                 }
-        });
+            });
+
+            
         })
     </script>
 
