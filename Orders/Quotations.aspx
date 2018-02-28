@@ -415,17 +415,17 @@
                 ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
-                        var quotationsData = renderQuotations(res.Quotations);
-                        $("#data").html(quotationsData);
+                            var quotationsData = renderQuotations(res.Quotations);
+                            $("#data").html(quotationsData);
+                        }
+                        else {
+                                $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
+                        }
                     }
                     else {
-                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
+                        ErrorNotifier(res.Message);
                     }
-                }
-                else {
-                    ErrorNotifier(res.Message);
-                }
-            });
+                });
 
             }
 
