@@ -109,8 +109,8 @@ namespace Orders.AjaxHandlers
         private void UpdateService(HttpContext context)
         {
             bool areMultipleEntriesAllowed = false;
-            Int16 serviceId = 0;
-            if (context.Request["ServiceId"] == null || !Int16.TryParse(context.Request["ServiceId"].ToString(), out serviceId))
+            byte serviceId = 0;
+            if (context.Request["ServiceId"] == null || !byte.TryParse(context.Request["ServiceId"].ToString(), out serviceId))
                 GenerateErrorResponse(400, string.Format("Parameter ServiceId is missing or not a valid number"));
             if (context.Request["DisplayName"] == null || context.Request["DisplayName"].ToString().Trim().Length == 0)
                 GenerateErrorResponse(400, string.Format("DisplayName Is Mandatory"));
@@ -127,8 +127,8 @@ namespace Orders.AjaxHandlers
         }
         private void DeleteService(HttpContext context)
         {
-            Int16 serviceId = 0;
-            if (context.Request["ServiceId"] == null || !Int16.TryParse(context.Request["ServiceId"].ToString(), out serviceId))
+            byte serviceId = 0;
+            if (context.Request["ServiceId"] == null || !byte.TryParse(context.Request["ServiceId"].ToString(), out serviceId))
                 GenerateErrorResponse(400, string.Format("Parameter ServiceId is missing or not a valid number"));
             if (serviceId <= 0)
                 GenerateErrorResponse(400, string.Format("ServiceId must be greater than 0"));
