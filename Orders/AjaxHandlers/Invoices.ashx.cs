@@ -66,7 +66,7 @@ namespace Orders.AjaxHandlers
             bool onlyActive = true;
             if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
-            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client("JSON");
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetInvoiceStatuses(onlyActive: onlyActive));
         }
         private void CreateInvoice(HttpContext context)

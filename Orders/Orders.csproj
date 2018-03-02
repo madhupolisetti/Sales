@@ -49,7 +49,7 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -282,6 +282,7 @@
     <Content Include="JsFiles\tableExport.js" />
     <Content Include="JsFiles\toastr.min.js" />
     <Content Include="JsFiles\ui-buttons.min.js" />
+    <Content Include="Payment.aspx" />
     <Content Include="Quotation.aspx" />
     <Content Include="Quotations.aspx" />
     <Content Include="Scripts\createQuotation.js" />
@@ -292,6 +293,9 @@
     </Compile>
     <Compile Include="AjaxHandlers\Invoices.ashx.cs">
       <DependentUpon>Invoices.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AjaxHandlers\Payments.ashx.cs">
+      <DependentUpon>Payments.ashx</DependentUpon>
     </Compile>
     <Compile Include="AjaxHandlers\Quotations.ashx.cs">
       <DependentUpon>Quotations.ashx</DependentUpon>
@@ -328,6 +332,13 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PostLogin.Master.cs">
       <DependentUpon>PostLogin.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -461,6 +472,7 @@
     <Content Include="Scripts\OrdersManagement.js" />
     <Content Include="Scripts\Quotations.js" />
     <Content Include="Web.config" />
+    <Content Include="AjaxHandlers\Payments.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
