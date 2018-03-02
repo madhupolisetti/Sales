@@ -1,9 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PostLogin.Master" AutoEventWireup="true" CodeBehind="Invoices.aspx.cs" Inherits="Orders.Invoices" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
+    <link href="JsFiles/DateTimePicker/daterangepicker-bs3.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-content-wrapper">
         <div class="page-content">
+            <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="portlet light">
                 <div class="portlet-body pad-top-0">
                     <div id="tbl">
@@ -13,9 +15,9 @@
                         <div class="row margin-bottom-15" id="firstRow">
                             <div class="col-sm-3">
                                 <label class="table-head">Date</label>
-                                <div class="input-group input-icon right" id="defaultrange" style="width: 100%;">
+                                <div class="input-group input-icon right" style="width: 100%;">
                                     <i class="fa fa-calendar"></i>
-                                    <input type="text" class="form-control form-filter input-sm" id="daterangetext" value='This Month' />
+                                    <input type="text" class="form-control form-filter input-sm" id="txtDateRange" value='This Month' />
                                 </div>
                             </div>
                             <div class="col-sm-3">
@@ -27,21 +29,21 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Account Name</label>
-                                <input type="text" id="txtuser" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
-                                <input type="text" id="txtmblnum" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
                             </div>
                         </div>
                         <div class="row margin-bottom-15" id="secondRow" style="display:none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Email Id</label>
-                                <input type="text" id="txtemail" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Payment Status</label>
-                                <select id="ddlpaymetstatus" name="PaymentStatus" class="form-control form-filter input-sm">
+                                <select id="ddlPaymentStatus" name="PaymentStatus" class="form-control form-filter input-sm">
                                     <option value="3">Select</option>
                                     <option value="2">All</option>
                                     <option value="0">Pending</option>
@@ -56,8 +58,8 @@
                         <div>
                             <label class="pull-left"><a id="btnAddNewQuotation" style="" class="btn margin-right-10 color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
-                                <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
-                                <input type="button" value="Cancel" id="btncancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
+                                <input type="button" value="Search" id="btnSearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                                <input type="button" value="Cancel" id="btnCancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                             </label>
                             <div class="clearfix"></div>
                         </div>
@@ -85,19 +87,19 @@
                         <div class="col-sm-6">
                             <ul class="results-icns pull-right">
                                 <li>
-                                    <label class="btncreate" id="btncreate"><i class="icon icon-plus"></i></label>
+                                    <label class="btncreate" id="btnCreate"><i class="icon icon-plus"></i></label>
                                 </li>
                                 <li>
                                     <label class="btnview" id="btnView"><i class="icon icon-eye"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btnedit" id="btnedit"><i class="icon icon-pencil"></i></label>
+                                    <label class="btnedit" id="btnEdit"><i class="icon icon-pencil"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btndownload" id="btndownload"><i class="glyphicon glyphicon-download"></i></label>
+                                    <label class="btndownload" id="btnDownload"><i class="glyphicon glyphicon-download"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btnpayment" id="btnpayment"><i class="glyphicon glyphicon-credit-card"></i></label>
+                                    <label class="btnpayment" id="btnPayment"><i class="glyphicon glyphicon-credit-card"></i></label>
                                 </li>
                                 <li>
                                     <label class="btndelete" id="btndelete"><i class="icon icon-trash"></i></label>
@@ -140,13 +142,17 @@
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
+    <script src="JsFiles/DateTimePicker/moment.min.js"></script>
+    <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var dateRange = "";
             var invoiceSearchData = {};
+            var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
-            dateRange = $("#daterangetext").val();
+            $("#txtDateRange").daterangepicker();
+            dateRange = $("#txtDateRange").val();
             invoiceSearchData.AccountId = 0; invoiceSearchData.ProductId = 1; invoiceSearchData.InvoiceId = 0;
             invoiceSearchData.QuotationNumber = ""; invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
             invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
@@ -175,7 +181,7 @@
                 $(this).prop('checked', true);
                 $(this).addClass("Checked");
             });
-
+            // View Invoice
             $("#btnView").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var $form = $("<form/>").attr("id", "data_form")
@@ -185,11 +191,34 @@
                 AddParameter($form, "QuotationId", quotationId);
                 $form[0].submit();
             });
-
+            // Download Invoice
+            $("#btnDownload").click(function () {
+                var quotationId = $('.check_tool.Checked').attr("QuotationId");
+                ordersClient.DownloadInvoice(quotationId, false, function (res) {
+                    console.log(res);
+                    var a = document.createElement('a');
+                    a.href = webUrl + res.FilePath;
+                    a.download = webUrl + res.FilePath;
+                    document.body.appendChild(a);
+                    a.click();
+                });
+            });
+            // Search Invoices
+            $("#btnSearch").click(function () {
+                invoiceSearchData.AccountId = 0; invoiceSearchData.ProductId = 1; invoiceSearchData.InvoiceId = 0;
+                invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
+                invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
+                invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
+                invoiceSearchData.Mobile = $("#txtMobile").val();
+                invoiceSearchData.Email = $("#txtEmail").val(); invoiceSearchData.Limit = 20;
+                dateRange = $("#txtDateRange").val();
+                getInvoices();
+            });
+            
             function getInvoices() {
                 if (dateRange == "This Month") {
-                    invoiceSearchData.FromDateTime = "2018-02-01";
-                    invoiceSearchData.FromDateTime = "2018-02-28";
+                    invoiceSearchData.FromDateTime = "2018-03-01";
+                    invoiceSearchData.ToDateTime = "2018-03-31";
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -203,7 +232,7 @@
                             $("#data").html(invoicesData);
                         }
                         else {
-                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
+                            $("#data").html("<tr ><td align='center' colspan='13'> No records Found</td></tr>");
                         }
                     }
                     else {
@@ -212,7 +241,7 @@
                 });
 
             }
-
+            
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {

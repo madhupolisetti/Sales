@@ -45,7 +45,7 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>\\192.168.1.35\Applications\BlueKite_New\New\BlueKite\AdminUI\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -450,9 +450,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\" />
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\Quotations\" />
+    <Folder Include="images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>

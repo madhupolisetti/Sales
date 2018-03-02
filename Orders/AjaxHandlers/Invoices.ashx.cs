@@ -134,11 +134,14 @@ namespace Orders.AjaxHandlers
             if (searchData.SelectToken("Mobile") != null)
                 mobile = searchData.SelectToken("Mobile").ToString();
             if (searchData.SelectToken("Email") != null)
-                mobile = searchData.SelectToken("Email").ToString();
+                email = searchData.SelectToken("Email").ToString();
+            TablePreferences invoiceTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> invoiceDictionary = new Dictionary<string, TablePreferences>();
+            invoiceDictionary.Add("Invoices", invoiceTablePreferences);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
-                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit, mobile: mobile, email: email));
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit, mobile: mobile, email: email, tablePreferences: invoiceDictionary));
         }
         private void View(HttpContext context)
         {

@@ -52,6 +52,13 @@
                 ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
                     if (res.Success == true) {
                         SuccessNotifier(res.Message);
+                        var $form = $("<form/>").attr("id", "data_form")
+                                       .attr("action", "Invoice.aspx")
+                                       .attr("method", "post");
+                        $("body").append($form);
+                        AddParameter($form, "QuotationId", quotationId);
+                        $form[0].submit();
+
                     } else {
                         ErrorNotifier(res.Message);
                     }
@@ -61,6 +68,13 @@
             $("#btnBack").click(function () {
                 window.location.href = "/Quotations.aspx";
             });
+
+            function AddParameter(form, name, value) {
+                var $input = $("<input />").attr("type", "hidden")
+                                        .attr("name", name)
+                                        .attr("value", value);
+                form.append($input);
+            }
             
         });
     </script>

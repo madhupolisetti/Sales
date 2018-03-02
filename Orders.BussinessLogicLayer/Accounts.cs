@@ -60,7 +60,6 @@ namespace Orders.BussinessLogicLayer
                 account.CreateAccountProduct(accountProductProperties, out accountId);
                 responseObj.Add(new JProperty(Label.ACCOUNT_ID, accountId));
 
-
             }
 
             return responseObj;
