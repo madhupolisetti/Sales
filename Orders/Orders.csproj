@@ -442,9 +442,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="images\" />
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\Quotations\" />
+    <Folder Include="images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>

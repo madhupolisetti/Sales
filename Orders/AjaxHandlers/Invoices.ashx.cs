@@ -91,7 +91,7 @@ namespace Orders.AjaxHandlers
             if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.ViewInvoice(quotationId, isPostPaidQuotation));
+           // context.Response.Write(client.ViewInvoice(quotationId, isPostPaidQuotation));
         }
         private void Download(HttpContext context)
         {
@@ -104,7 +104,7 @@ namespace Orders.AjaxHandlers
             if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation));
+            //context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

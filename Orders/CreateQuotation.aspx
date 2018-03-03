@@ -113,9 +113,9 @@
                         </div>
                         <div class="txtdiv" style="border-color: black">
                         </div>
-                        <input type="button" value="Save" id="btnSave" class="btn btn-primary" style="width: 60px;" />&nbsp;
+                        <input type="button" value="Save" id="btnSave" class="btn btn-primary" style="width: 60px; display: none" />&nbsp;
               
-                        <input type="button" value="Update" id="btnEdit" class="btn btn-primary" style="width: 80px;" />
+                        <input type="button" value="Update" id="btnEdit" class="btn btn-primary" style="width: 80px; display: none" />
 
                     </form>
                     <form action='/Quotation.aspx' method='post' id='pageQuotationInvoice'>
@@ -126,15 +126,19 @@
             </div>
 
             <input type="hidden" name="hdnProductId" id="hdnProductId" value="<%=productId %>" />
-            <input type="hidden" name="hdnProductId" id="hdnAccountId" value="<%=accountId %>" />
+            <input type="hidden" name="hdnAccountId" id="hdnAccountId" value="<%=accountId %>" />
+            <input type="hidden" name="hdnQuotationId" id="hdnQuotationId" value="<%=quotationId %>" />
+            <input type="hidden" name="hdnIsPostPaid" id="hdnIsPostPaid" value="<%=isPostPaid %>" />
+            <input type="hidden" name="hdnMobileNumber" id="hdnMobileNo" value="<%=mobile %>" />
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
     <script src="Scripts/OrdersClient.js"></script>
-    <script src="Scripts/getServices.js?type=v1"></script>
-    <script src="Scripts/createquotation.js?type=v8"></script>
+    <script src="Scripts/getServices.js?type=v2"></script>
+    <script src="Scripts/createquotation.js?type=v0"></script>
+
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>
     <script type="text/javascript">

@@ -18,8 +18,18 @@ namespace Orders
         public string mobile = string.Empty;
         public string country = string.Empty;
         public string address = string.Empty;
+        public int quotationId = 0;
+        public byte isPostPaid = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Request["QuotationId"] != null && Request["QuotationId"] != string.Empty)
+            {
+                quotationId = Convert.ToInt32(Request["QuotationId"]);
+            }
+            if (Request["BillMode"] != null && Request["BillMode"] != string.Empty)
+            {
+                isPostPaid = Convert.ToByte(Request["BillMode"]);
+            }
             if (Request["ID"] != null && Request["ID"] != string.Empty)
             {
                 accountId = Convert.ToDecimal(Request["ID"]);
