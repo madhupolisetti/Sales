@@ -14,6 +14,7 @@
                 paymentsHandler: "/AjaxHandlers/Payments.ashx",
                 activationsHandler: "/AjaxHandlers/Activation.ashx",
                 genericHandler: "/AjaxHandlers/Generic.ashx",
+            accountHandler: "/AjaxHandlers/Accounts.ashx",
                 async: true
             }
             // Create options by extending defaults with the passed in arugments
@@ -43,14 +44,13 @@
             if (createServiceButton != null)
                 createServiceButton.addEventListener("click", function () { alert("hai"); });
         }
-        function CanCallBack(callBackFunction)
-        {   
+    function CanCallBack(callBackFunction) {
             if (isAsync && callBackFunction && typeof callBackFunction === "function")
                 return true;
             else
                 return false;
         }
-        
+
         OrdersClient.prototype.GetInputTypes = function (onlyActive, callBackFunction)
         {
             var actionResponse;
@@ -66,7 +66,7 @@
                     },
                 success: function (response) {
                     actionResponse = response;
-                    if(CanCallBack(callBackFunction))
+                if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
                 error: function (response) {
@@ -77,7 +77,7 @@
                         callBackFunction(actionResponse);
                 }
             });
-            if(!CanCallBack(callBackFunction))
+        if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
         OrdersClient.prototype.GetInputDataTypes = function (onlyActive, callBackFunction) {
@@ -108,17 +108,17 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.GetServices = function (productId,serviceId, onlyActive, includeServiceProperties, renderAutomatically, callBackFunction) {
+    OrdersClient.prototype.GetServices = function (productId, serviceId, onlyActive, includeServiceProperties, renderAutomatically, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
                 url: this.options.servicesHandler,
-                async: this.options.async,
+            async: false,
                 data: {
                     Action: "GetServices",
                     ServiceId: (serviceId && serviceId > 0) ? serviceId : 0,
                     OnlyActive: onlyActive ? onlyActive : true,
-                    ProductId : productId,
+                ProductId: productId,
                     IncludeServiceProperties: includeServiceProperties
                 },
                 dataType: "JSON",
@@ -140,7 +140,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.GetServiceProperties = function (serviceId, onlyActive,callBackFunction) {
+    OrdersClient.prototype.GetServiceProperties = function (serviceId, onlyActive, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -169,8 +169,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateService = function (displayName, metaDataCode, areMultiplesEntriesAllowed, callBackFunction)
-        {
+    OrdersClient.prototype.CreateService = function (displayName, metaDataCode, areMultiplesEntriesAllowed, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -200,8 +199,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.UpdateService = function (serviceId, displayName, metaDataCode, areMultipleEntriesAllowed, callBackFunction)
-        {
+    OrdersClient.prototype.UpdateService = function (serviceId, displayName, metaDataCode, areMultipleEntriesAllowed, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -233,8 +231,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.DeleteService = function(serviceId, callBackFunction)
-        {
+    OrdersClient.prototype.DeleteService = function (serviceId, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -247,14 +244,12 @@
                         ServiceId: serviceId
                     },
                 dataType: "JSON",
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message
                     actionResponse = failedActionResponse;
@@ -265,8 +260,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateServiceProperties = function (serviceId, properties, callBackFunction)
-        {
+    OrdersClient.prototype.CreateServiceProperties = function (serviceId, properties, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -298,8 +292,7 @@
                 return actionResponse;
         }
         // Quotations Related
-        OrdersClient.prototype.GetQuotationStatuses = function(onlyActive, callBackFunction)
-        {
+    OrdersClient.prototype.GetQuotationStatuses = function (onlyActive, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -311,14 +304,12 @@
                         Action: "GetQuotationStatuses",
                         OnlyActive: onlyActive ? onlyActive : true
                     },
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -329,8 +320,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.GetQuotationChannels = function(onlyActive, callBackFunction)
-        {
+    OrdersClient.prototype.GetQuotationChannels = function (onlyActive, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -342,14 +332,12 @@
                         Action: "GetQuotationChannels",
                         OnlyActive: onlyActive ? onlyActive : true
                     },
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -360,8 +348,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.GetQuotations = function(searchData, callBackFunction)
-        {
+    OrdersClient.prototype.GetQuotations = function (searchData, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -374,14 +361,12 @@
                         Action: "Search",
                         SearchData: JSON.stringify(searchData)
                     },
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -397,7 +382,7 @@
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
                 url: this.options.quotationsHandler,
-                async: this.options.async,
+            async: false,
                 dataType: "JSON",
                 traditional: true,
                 data:
@@ -445,7 +430,7 @@
                 },
                 error: function (response) {
                     failedActionResponse.Response = response;
-                    failedActionResponse.Message = response.responseJSON.Message;
+                // failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
@@ -484,8 +469,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateQuotation = function(accountId, employeeId, channelId, metaData, stateId, callBackFunction)
-        {
+    OrdersClient.prototype.CreateQuotation = function (accountId, employeeId, channelId, metaData, stateId, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -496,12 +480,12 @@
                 data:
                     {
                         Action: "Create",
-                        ProductId:productId,
+                    ProductId: productId,
                         AccountId: accountId ? accountId : 0,
                         EmployeeId: employeeId ? employeeId : 0,
                         ChannelId: channelId,
                         MetaData: JSON.stringify(metaData),
-                        StateId:1
+                    StateId: 1
                     },
                 success: function (response) {
                     actionResponse = response;
@@ -519,8 +503,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.UpdateQuotation = function (quotationId, employeeId, channelId, metaData, stateId, callBackFunction)
-        {
+    OrdersClient.prototype.UpdateQuotation = function (quotationId, employeeId, channelId, metaData, stateId, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -533,17 +516,16 @@
                         Action: "Update",
                         QuotationId: quotationId ? quotationId : 0,
                         EmployeeId: employeeId ? employeeId : 0,
-                        channelId: channelId ? channelId : 0,
-                        MetaData: JSON.stringify(metaData)
+                    ChannelId: channelId ? channelId : 0,
+                    MetaData: JSON.stringify(metaData),
+                    StateId: stateId
                     },
-                success: function (response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error: function (response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -554,8 +536,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.DeleteQuotation = function (quotationId, isPostPaidQuotation, callBackFunction)
-        {
+    OrdersClient.prototype.DeleteQuotation = function (quotationId, isPostPaidQuotation, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -568,14 +549,12 @@
                         "QuotationId": quotationId ? quotationId : 0,
                         "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
                     },
-                success: function (response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error: function (response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = response;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -587,8 +566,7 @@
                 return actionResponse;
         }
         // Invoices Related
-        OrdersClient.prototype.GetInvoiceStatuses = function(onlyActive, callBackFunction)
-        {
+    OrdersClient.prototype.GetInvoiceStatuses = function (onlyActive, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -600,14 +578,12 @@
                         "Action": "GetStatuses",
                         "OnlyActive": onlyActive ? onlyActive : true
                     },
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                    {
+            error: function (response) {
                         failedActionResponse.Response = response;
                         failedActionResponse.Message = response.responseJSON.Message;
                         actionResponse = failedActionResponse;
@@ -618,8 +594,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.CreateInvoice = function(quotationId, billingModeId, employeeId, callBackFunction)
-        {
+    OrdersClient.prototype.CreateInvoice = function (quotationId, billingModeId, employeeId, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -633,14 +608,12 @@
                         BillingModeId: billingModeId ? billingModeId : 0,
                         EmployeeId: employeeId ? employeeId : 0
                     },
-                success:function(response)
-                {
+            success: function (response) {
                     actionResponse = response;
                     if (CanCallBack(callBackFunction))
                         callBackFunction(actionResponse);
                 },
-                error:function(response)
-                {
+            error: function (response) {
                     failedActionResponse.Response = actionResponse;
                     failedActionResponse.Message = response.responseJSON.Message;
                     actionResponse = failedActionResponse;
@@ -799,6 +772,38 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
+
+    OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, mobileNumber, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.accountHandler,
+            async: false,
+            dataType: "JSON",
+            traditional: true,
+            data:
+                {
+                    action: "CreateOrUpdateAccountDetails",
+                    productId: productId,
+                    mobileNumber: mobileNumber
+
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
         // Public Methods End
     }());
 //});

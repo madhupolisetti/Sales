@@ -206,6 +206,7 @@ namespace Orders.AjaxHandlers
             byte stateId = 0;
             byte channelId = 0;
             int employeeId = 0;
+
             if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("QuotationId must be a number"));
             if (quotationId <= 0)
@@ -214,7 +215,7 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("StateId must ne a number"));
             if (stateId <= 0)
                 GenerateErrorResponse(400, "StateId must be greater than 0");
-            if (context.Request["ChannelId"] != null && byte.TryParse(context.Request["ChannelId"].ToString(), out channelId))
+            if (context.Request["ChannelId"] != null && !byte.TryParse(context.Request["ChannelId"].ToString(), out channelId))
                 GenerateErrorResponse(400, string.Format("ChannelId must be a number"));
             if (channelId <= 0)
                 GenerateErrorResponse(400, string.Format("ChannelId must be greater than 0"));
@@ -226,11 +227,12 @@ namespace Orders.AjaxHandlers
                     GenerateErrorResponse(403, string.Format("EmployeeId is mandatory"));
                 if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
                     GenerateErrorResponse(400, string.Format("EmployeeId must be a number"));
-                else if (!int.TryParse(context.Session["EmployeeId"].ToString(), out employeeId))
-                    GenerateErrorResponse(400, string.Format("EmployeeId must be a number."));
+                //else if (!int.TryParse(context.Session["EmployeeId"].ToString(), out employeeId))
+                //    GenerateErrorResponse(400, string.Format("EmployeeId must be a number."));
             }
+            var metadata = new JavaScriptSerializer().DeserializeObject(context.Request["MetaData"]);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.UpdateQuotation(quotationId: quotationId, employeeId: employeeId, metaData: context.Request["MetaData"].ToString(), ipAddress: context.Request["IpAddress"] != null ? context.Request["IpAddress"].ToString() : context.Request.ServerVariables["REMOTE_ADDR"].ToString(), stateId: stateId));
+            context.Response.Write(client.UpdateQuotation(quotationId: quotationId, employeeId: employeeId, metaData: metadata.ToString(), ipAddress: context.Request["IpAddress"] != null ? context.Request["IpAddress"].ToString() : context.Request.ServerVariables["REMOTE_ADDR"].ToString(), stateId: stateId));
         }
         private void Delete(HttpContext context)
         {
