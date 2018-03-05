@@ -266,47 +266,47 @@ $("#btnEdit").click(function (e) {
                 id = $(this).attr("quotationserviceid");
                 if (occurance > 1) {
                     jobjStr += ',';
-                }
+            }
                 jobjStr += "{'Id':" + "'" + id + "',";
                 jobjStr += "'Occurance':'" + occurance + "',";
                 $(this).find(".check_tool").each(function () {
 
 
-                    var value = "";
-                    if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
-                        value = $(this).val();
-                    }
-                    else if ($(this).is('type') == "select") {
-                        value = $(this).value();
-                    }
+                var value = "";
+                if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
+                    value = $(this).val();
+                }
+                else if ($(this).is('type') == "select") {
+                    value = $(this).value();
+                }
 
-                    jobjStr += "'" + $(this).attr("servicepropertycode") + "':'" + value;
-                    if ($(this).parents("tr").is(':last-child')) {
-                        jobjStr += "'";
-                    }
-                    else {
-                        jobjStr += "',";
-                    };
+                jobjStr += "'" + $(this).attr("servicepropertycode") + "':'" + value;
+                if ($(this).parents("tr").is(':last-child')) {
+                    jobjStr += "'";
+                }
+                else {
+                    jobjStr += "',";
+                };
 
                 });
 
                 if ($(this).find('.extracharges_' + serviceId).find("#extDescription").val() != "") {
-                    jobjStr += ",'ExtraCharges':[";
+                jobjStr += ",'ExtraCharges':[";
                     $(this).find('.extracharges_' + serviceId).each(function () {
 
-                        jobjStr += "{";
-                        jobjStr += "'Description':'" + $(this).find("#extDescription").val() + "',";
-                        jobjStr += "'Amount':'" + $(this).find("#extAmount").val() + "'";
-                        jobjStr += "},";
-                    })
-                    if (jobjStr.substring(jobjStr.length - 1) == ',') {
-                        jobjStr = jobjStr.substring(0, jobjStr.length - 1);
-                    }
+                    jobjStr += "{";
+                    jobjStr += "'Description':'" + $(this).find("#extDescription").val() + "',";
+                    jobjStr += "'Amount':'" + $(this).find("#extAmount").val() + "'";
+                    jobjStr += "},";
+                })
+                if (jobjStr.substring(jobjStr.length - 1) == ',') {
+                    jobjStr = jobjStr.substring(0, jobjStr.length - 1);
+                }
                     jobjStr += "]}"
-                }
+            }
                 else {
-                    jobjStr += "}";
-                }
+            jobjStr += "}";
+            }
             });
             if (occurance > 1)
             { jobjStr += "]" }

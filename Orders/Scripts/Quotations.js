@@ -1573,4 +1573,3 @@ function find_in_object(my_object, my_criteria) {
     });
 
 }
-

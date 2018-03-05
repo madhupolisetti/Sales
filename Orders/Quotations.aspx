@@ -45,7 +45,7 @@
     <div class="page-content-wrapper">
         <div class="page-content">
 
-
+            
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="portlet light">
                 <div class="portlet-body pad-top-0">
@@ -189,7 +189,7 @@
                         <asp:Label ID="lblkrishikalyanAmt" runat="server" CssClass="lblkrishikalyanAmt"></asp:Label>
                         <asp:Label ID="lblgradTot" runat="server" CssClass="lblgradTot"></asp:Label>
                         <asp:Label ID="amountinRs" runat="server" CssClass="amountinRs"></asp:Label>
-
+                        
 
                         <div id="MetaData"></div>
 
@@ -477,17 +477,17 @@
                 ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
-                            var quotationsData = renderQuotations(res.Quotations);
-                            $("#data").html(quotationsData);
-                        }
-                        else {
-                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
-                        }
+                        var quotationsData = renderQuotations(res.Quotations);
+                        $("#data").html(quotationsData);
                     }
                     else {
-                        ErrorNotifier(res.Message);
+                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
                     }
-                });
+                }
+                else {
+                    ErrorNotifier(res.Message);
+                }
+            });
 
             }
 
@@ -518,7 +518,7 @@
                     }
                 }
                 return quotations;
-
+                
             }
             function AddParameter(form, name, value) {
                 var $input = $("<input />").attr("type", "hidden")
@@ -526,7 +526,7 @@
                                         .attr("value", value);
                 form.append($input);
             }
-
+            
 
         });
 
@@ -535,40 +535,40 @@
             getProductRelatedUserInformation(productId, $("#txtUserMobile").val(), 0, 0);
 
         });
-
+            
         function getProductRelatedUserInformation(productId, mobileNo, quotationId, billMode) {
             var ordersClient = new OrdersClient();
             ordersClient.GetProductWiseAccountRelatedInformation(productId, mobileNo, function (res) {
-                if (res.Success == 1) {
+                    if (res.Success == 1) {
 
-                    var accountId = res.AccountId;
+                        var accountId = res.AccountId;
 
-                    var QotationReqType = 1;
+                        var QotationReqType = 1;
 
-                    var $form = $("<form/>").attr("id", "data_form")
-                                    .attr("action", "CreateQuotation.aspx")
-                                    .attr("method", "post");
-                    $("body").append($form);
-                    //Append the values to be send
-                    //AddParameter($form, "QotationReqType", QotationReqType);
-                    AddParameter($form, "ID", accountId);
-                    AddParameter($form, "productId", productId);
-                    AddParameter($form, "address", res.Address);
-                    AddParameter($form, "state", res.State);
-                    AddParameter($form, "contactName", res.NickName);
-                    AddParameter($form, "country", res.Country);
-                    AddParameter($form, "registeredDate", res.RegisteredDate);
-                    AddParameter($form, "email", res.EmailID);
-                    AddParameter($form, "mobile", res.MobileNumber);
-                    AddParameter($form, "company", res.Company);
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "CreateQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "address", res.Address);
+                        AddParameter($form, "state", res.State);
+                        AddParameter($form, "contactName", res.NickName);
+                        AddParameter($form, "country", res.Country);
+                        AddParameter($form, "registeredDate", res.RegisteredDate);
+                        AddParameter($form, "email", res.EmailID);
+                        AddParameter($form, "mobile", res.MobileNumber);
+                        AddParameter($form, "company", res.Company);
                     AddParameter($form, "BillMode", billMode);
                     AddParameter($form, "QuotationId", quotationId)
-                    $form[0].submit();
-
-                }
+                        $form[0].submit();
+                        
+                    }
             });
         }
-
+            
         function AddParameter(form, name, value) {
             var $input = $("<input />").attr("type", "hidden")
                                     .attr("name", name)
