@@ -118,7 +118,7 @@
                             <i class="fa fa-angle-right"></i>
                         </li>
                         <li>
-                            <label  id ="label_header_navigation">
+                            <label id="label_header_navigation">
                                 <a href="QuotationDetails.aspx" id="lable_href_name">Quotation</a>
                                 <i class="fa fa-angle-right"></i>
                             </label>
@@ -243,10 +243,10 @@
                                     <span class="title">Activations</span>
                                 </a>
                             </li>
-                              <li class="nav-item start " id="lstBalanceExpiryDetails" style="display: none;">
+                            <li class="nav-item start " id="lstBalanceExpiryDetails" style="display: none;">
                                 <a href="BalanceExpiryTrack.aspx" class="nav-link  ">
-                                        <img src="assets/MenuIcons/balance_expire.png" selectedsrc="assets/SelectedMenuIcons/balance_expire_select.png" width="18" />
-                                   <span class=""></span>
+                                    <img src="assets/MenuIcons/balance_expire.png" selectedsrc="assets/SelectedMenuIcons/balance_expire_select.png" width="18" />
+                                    <span class=""></span>
                                     <span class="title ">BalanceExpiry</span>
                                 </a>
                             </li>
@@ -296,7 +296,7 @@
 
                                     </ul>--%>
                     </li>
-                    
+
                     <li class="nav-item start">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <img src="assets/MenuIcons/Network_Mgmt.png" selectedsrc="assets/SelectedMenuIcons/Network_Mgmt_select.png" />
@@ -319,7 +319,7 @@
                             </li>
                         </ul>
                     </li>
-                    
+
                     <!--<li class="nav-item start" id="senderIdMenu">
                                     <a href="SenderIds.aspx" class="nav-link ">                                     
                             <img src="assets/MenuIcons/SenderID_Module.png" selectedsrc="assets/SelectedMenuIcons/SenderID_Module_select.png" />
@@ -381,10 +381,10 @@
                             </li>
                         </ul>
                     </li>
-                     <li class="nav-item start" id="Reports">
+                    <li class="nav-item start" id="Reports">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <img src="assets/MenuIcons/Unprocessed_Request.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Request_select.png" />
-                            <span class="title"> All Reports</span>
+                            <span class="title">All Reports</span>
                             <span class="selected"></span>
                         </a>
                         <ul class="sub-menu">
@@ -396,7 +396,7 @@
                             </li>
                             <li class="nav-item start">
                                 <a href="VoiceUsageReportsAll.aspx" class="nav-link ">
-                                    <img src="assets/SelectedMenuIcons/Voice_Route_select.png"  selectedsrc="assets/SelectedMenuIcons/SCAM_message_select.png" width="18" />
+                                    <img src="assets/SelectedMenuIcons/Voice_Route_select.png" selectedsrc="assets/SelectedMenuIcons/SCAM_message_select.png" width="18" />
                                     <span class="title">Voice Reports </span>
 
                                 </a>
@@ -404,7 +404,7 @@
                         </ul>
                     </li>
 
-                    
+
                     <li class="nav-item">
                         <a href="NumberManagement.aspx" class="nav-link nav-toggle">
                             <img src="assets/MenuIcons/NumberAccess.png" selectedsrc="assets/SelectedMenuIcons/NumberAccess_select.png" />
@@ -412,7 +412,7 @@
                             <span class="selected"></span>
                         </a>
                     </li>
-                    
+
                 </ul>
             </div>
         </div>
@@ -447,7 +447,7 @@
         $(".dropdown-toggle").dropdown();
         var accessRole = $("#accessRole").val();
         localStorage.setItem('AbsolutePath', $("#hdnAbsolutePath").val());
-        
+
         var url = window.location.pathname;
         var filename = url.substring(url.lastIndexOf('/') + 1);
         $('#MenuBar1 a').each(function () {
@@ -466,7 +466,7 @@
 
 
     });
-    
+
 
     function ErrorNotifier(msg) {
         var arr = msg.split('-')
@@ -510,6 +510,14 @@
 
         toastr.success(msg);
 
+    }
+    function isNumberKey(evt) {
+        var charCode = (evt.which) ? evt.which : event.keyCode
+        if (charCode != 46 && charCode > 31
+          && (charCode < 48 || charCode > 57))
+            return false;
+
+        return true;
     }
 
     jQuery(document).ready(function () {

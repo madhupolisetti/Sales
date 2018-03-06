@@ -35,7 +35,7 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>D:\GrpTalkGitLive\GrpTalk\GrpTalk\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>\\192.168.1.37\Git\Orders\Sales\Orders\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>

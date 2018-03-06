@@ -45,11 +45,11 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\192.168.1.35\Applications\BlueKite_New\New\BlueKite\AdminUI\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>\\192.168.1.37\Git\Orders\Sales\Orders\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -273,6 +273,7 @@
     <Content Include="JsFiles\metronic.js" />
     <Content Include="JsFiles\moment.js" />
     <Content Include="JsFiles\moment.min.js" />
+    <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
     <Content Include="JsFiles\redactor.js" />
     <Content Include="JsFiles\redactor.min.js" />

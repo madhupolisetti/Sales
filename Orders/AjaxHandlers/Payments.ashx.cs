@@ -34,6 +34,9 @@ namespace Orders.AjaxHandlers
                     case "GetPaymentGateways":
                         GetPaymentGateways(context);
                         break;
+                    case "GetOnlinePaymentGateways":
+                        GetOnlinePaymentGateways(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -62,6 +65,15 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPaymentGateways(onlyActive));
+        }
+
+        private void GetOnlinePaymentGateways(HttpContext context)
+        {
+            bool onlyActive = true;
+            if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetOnlinePaymentGateways(onlyActive));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)
