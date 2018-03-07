@@ -134,6 +134,9 @@
 
                 <input type="hidden" id="hdnInvoiceId" class="hdninvoiceId" value="<%=invoiceId %>" />
                 <input type="hidden" id="hdnQuotationId" class="hdninvoiceId" value="<%=quotationId %>" />
+                <input type="hidden" id="hdnAccountId" class="hdninvoiceId" value="<%=accountId %>" />
+                <input type="hidden" id="hdnProductId" class="hdninvoiceId" value="1" />
+
 
 
 
@@ -269,11 +272,11 @@
                                                                             <input type="checkbox" class="check_tool" id="chkCash" />
                                                                             Is TDS Applicable</td>
                                                                     </tr>
-                                                                    <tr id="trCashTanNumber" style="display: none;">
+                                                                    <%--<tr id="trCashTanNumber" style="display: none;">
                                                                         <td><span>Enter GSTIN Number#</span></td>
                                                                         <td>
                                                                             <input id="txtCashTANNumber" type="text" class="form-control" /></td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <tr id="trCashTanAmount" style="display: none;">
                                                                         <td><span>Enter GSTIN Amount</span></td>
                                                                         <td>
@@ -702,8 +705,9 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="Scripts/OrdersClient.js"></script>
-    <script type="text/javascript" src="Scripts/payment.js"></script>
+    <script type="text/javascript" src="Scripts/payment.js?type=v1"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var ordersClient = new OrdersClient();

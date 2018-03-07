@@ -1,4 +1,6 @@
 ﻿$(document).ready(function () {
+    $('#txtCashDepositeDate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
+    $("#txtCashDepositeDate").datepicker().datepicker("setDate", new Date());
     var ordersClient = new OrdersClient()
     ordersClient.GetPaymentGateways(true, function (res) {
         if (res.Success == true) {
@@ -24,7 +26,7 @@
             var bankAccounts = "";
             if (res.BankAccounts.length > 0) {
                 for (var bank = 0; bank < res.BankAccounts.length; bank++) {
-                    bankAccounts += "<option value=" + bank + " bank>" + res.BankAccounts[bank].BankName + "</option>";
+                    bankAccounts += "<option value=" + res.BankAccounts[bank].Id + " bank>" + res.BankAccounts[bank].BankName + "</option>";
                 }
 
             }
@@ -48,6 +50,23 @@
         }
     });
 });
+$("#btnConfirm").click(function () {
+    var ordersClient = new OrdersClient();
+    var depositDate = $("#txtCashDepositeDate").val();
+    var productId = $("#hdnProductId").val();
+    var accountId = $("#hdnAccountId").val();
+    var invoiceId = $("#hdnInvoiceId").val();
+    var billingModeId = 1;
+    var paymentGateWayId = $("#UlListitemsPaymentMethods li.active").attr("paymentid");
+    var PaymentAmount = $("#txtCashDepositeAmount").val();
+    var bankAccountId = $("#ddlCashDepositingBankAccount :selected").val();
+    var activatePercentage = $("#txtCashPercentageOfAmt :selected").val();
+    var isTdsApplicable = $("#chkCash").is(':checked');
+    var tdsPercentage = $("#ddlCashTANAmount :selected").val();
+    var Comments = $("#CashComments").val();
+    ordersClient.GeneratePayment()
+
+});
 
 $("#btnPaymentMethod").click(function () {
     $("#btnOrderSummary").removeClass("tab-style-blue").addClass("tab-style-default");
@@ -55,4 +74,23 @@ $("#btnPaymentMethod").click(function () {
     $("#divIVORDate").hide();
     $("#divIVORDate1").show();
     return false;
+});
+
+$(document).on('click', '#chkCash', function () {
+    var checkedValues = $("#chkCash").is(":checked");
+    if (checkedValues == true) {
+
+        $("#trCashTanAmount").show();
+        $("#trCashDueDate").hide();
+        $("#txtCashDueDate").val('');
+    }
+    else {
+
+        $("#trCashTanAmount").hide();
+        $("#txtCashTANNumber").val('');
+        $("#ddlCashTANAmount").val('Select');
+        $("#trCashDueDate").show();
+
+    }
+
 });
