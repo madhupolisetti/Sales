@@ -92,8 +92,19 @@ namespace Orders.AjaxHandlers
             string ipAddress = string.Empty;
             int activatePercentage = 0;
             int billingModeId = 0;
-            DateTime depositeDate=new DateTime();
+            DateTime depositeDate = new DateTime();
+            bool isTDSApplicable = false;
+            int tdsPercentage = 0;
             JObject paymentData = new JObject();
+            string chequeNumber = string.Empty;
+            string attachments = string.Empty;
+            string transactionNumber = string.Empty;
+            string clientAccountNumber = string.Empty;
+            string clientAccountName = string.Empty;
+            string clientBankName = string.Empty;
+            string clientBankBranch = string.Empty;
+            int onlinePaymentGatewayId = 0;
+            string paymentGatewayReferenceId = string.Empty;
             paymentData = JObject.Parse(context.Request["SearchData"]);
             if (paymentData.SelectToken("ProductId") != null && !byte.TryParse(paymentData.SelectToken("ProductId").ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
@@ -113,10 +124,38 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("FromDateTime is not a valid datetime"));
             if (paymentData.SelectToken("ActivatePercentage") != null && !int.TryParse(paymentData.SelectToken("ActivatePercentage").ToString(), out activatePercentage))
                 GenerateErrorResponse(400, string.Format("Activate percentage must be a number"));
+            if (paymentData.SelectToken("IsTDSApplicable") != null && !bool.TryParse(paymentData.SelectToken("IsTDSApplicable").ToString(), out isTDSApplicable))
+                GenerateErrorResponse(400, string.Format("IsTDSApplicable percentage must be a boolean"));
+            if (paymentData.SelectToken("TDSPercentage") != null && !int.TryParse(paymentData.SelectToken("TDSPercentage").ToString(), out tdsPercentage))
+                GenerateErrorResponse(400, string.Format("TDSPercentage percentage must be a number"));
             if (paymentData.SelectToken("Comments") != null)
                 comments = paymentData.SelectToken("Comments").ToString();
+            if (paymentData.SelectToken("ChequeNumber") != null)
+                chequeNumber = paymentData.SelectToken("ChequeNumber").ToString();
+            if (paymentData.SelectToken("Attachments") != null)
+                attachments = paymentData.SelectToken("Attachments").ToString();
+            if (paymentData.SelectToken("TransactionNumber") != null)
+                transactionNumber = paymentData.SelectToken("TransactionNumber").ToString();
+            if (paymentData.SelectToken("ClientAccountNumber") != null)
+                clientAccountNumber = paymentData.SelectToken("ClientAccountNumber").ToString();
+            if (paymentData.SelectToken("ClientAccountName") != null)
+                clientAccountName = paymentData.SelectToken("ClientAccountName").ToString();
+            if (paymentData.SelectToken("ClientBankName") != null)
+                clientBankName = paymentData.SelectToken("ClientBankName").ToString();
+            if (paymentData.SelectToken("ClientBankBranch") != null)
+                clientBankBranch = paymentData.SelectToken("ClientBankBranch").ToString();
+            if (paymentData.SelectToken("OnlinePaymentGatewayId") != null && !int.TryParse(paymentData.SelectToken("OnlinePaymentGatewayId").ToString(), out onlinePaymentGatewayId))
+                GenerateErrorResponse(400, string.Format("Online Payment GatewayId must be a number"));
+            if (paymentData.SelectToken("PaymentGatewayReferenceId") != null)
+                paymentGatewayReferenceId = paymentData.SelectToken("PaymentGatewayReferenceId").ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GeneratePayment(productId: productId, accountId: accountId, employeeId: employeeId, invoiceId: invoiceId, billingModeId: billingModeId, paymentGatewayId: paymentGatewayId, paymentAmount: paymentAmount, bankAccountId: bankAccountId, depositeDate: depositeDate, activatePercentage: activatePercentage, comments: comments));
+            context.Response.Write(client.GeneratePayment(productId: productId, accountId: accountId, employeeId: employeeId,
+           invoiceId: invoiceId, billingModeId: billingModeId, paymentGatewayId: paymentGatewayId, paymentAmount: paymentAmount,
+           bankAccountId: bankAccountId, depositeDate: depositeDate, activatePercentage: activatePercentage,
+           comments: comments, isTDSApplicable: isTDSApplicable, tdsPercentage: tdsPercentage, chequeNumber: chequeNumber, attachments: attachments,
+           transactionNumber: transactionNumber, clientAccountNumber: clientAccountNumber, clientAccountName: clientAccountName,
+           clientBankName: clientBankName, clientBankBranch: clientBankBranch, onlinePaymentGatewayId: onlinePaymentGatewayId,
+           paymentGatewayReferenceId: paymentGatewayReferenceId));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

@@ -243,7 +243,7 @@
                                                 </div>
                                                 <div class="col-sm-8">
                                                     <div id="myTabContent" class="tab-content ">
-                                                        <div class="tab-pane active" id="Cash">
+                                                        <div class="tab-pane" id="Cash">
                                                             <table class="spacing-table table-head">
                                                                 <tbody>
                                                                     <tr>
@@ -336,11 +336,7 @@
                                                                             <input type="checkbox" class="check_tool" id="chkCheque" />
                                                                             Is TDS Applicable</td>
                                                                     </tr>
-                                                                    <tr id="trChequeTanNumber" style="display: none;">
-                                                                        <td><span>Enter GSTIN Number#</span></td>
-                                                                        <td>
-                                                                            <input id="txtChequeTANNumber" type="text" class="form-control" /></td>
-                                                                    </tr>
+
                                                                     <tr id="trChequeTanAmount" style="display: none;">
                                                                         <td><span>Enter GSTIN Amount</span></td>
                                                                         <td>
@@ -382,7 +378,7 @@
                                                                 </tbody>
                                                             </table>
                                                         </div>
-                                                        <div class="tab-pane" id="OnlineTransfer">
+                                                        <div class="tab-pane active" id="OnlineTransfer">
                                                             <table class="spacing-table table-head">
                                                                 <tbody>
                                                                     <tr>
@@ -424,11 +420,11 @@
                                                                             <input type="checkbox" class="check_tool" id="chkOnline">
                                                                             Is TDS Applicable</td>
                                                                     </tr>
-                                                                    <tr id="trOnlineTanNumber" style="display: none;">
+                                                                    <%--<tr id="trOnlineTanNumber" style="display: none;">
                                                                         <td><span>Enter GSTIN Number#</span></td>
                                                                         <td>
                                                                             <input id="txtOnlineTANNumber" type="text" class="form-control"></td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <tr id="trOnlineTanAmount" style="display: none;">
                                                                         <td><span>Enter GSTIN Amount</span></td>
                                                                         <td>
@@ -438,11 +434,11 @@
                                                                                 <option value="10">10%</option>
                                                                             </select></td>
                                                                     </tr>
-                                                                    <tr id="trOnlineTransferDueDate">
+                                                                    <%--<tr id="trOnlineTransferDueDate">
                                                                         <td><span>Due Date</span></td>
                                                                         <td>
                                                                             <input id="txtOnlineTransferDueDate" type="text" class="form-control hasDatepicker"></td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <tr>
                                                                         <td><span>Client Account#</span></td>
                                                                         <td>
@@ -566,11 +562,11 @@
                                                                                 <option value="10">10%</option>
                                                                             </select></td>
                                                                     </tr>
-                                                                    <tr id="trPODueDate">
+                                                                    <%--<tr id="trPODueDate">
                                                                         <td><span>Select Due Date</span></td>
                                                                         <td>
                                                                             <input id="txtPODueDate" type="text" class="form-control hasDatepicker"></td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <tr>
                                                                         <td><span>Comments (if any)</span></td>
                                                                         <td>
