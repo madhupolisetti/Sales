@@ -47,9 +47,8 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\192.168.1.37\Git\Orders\Sales\Orders\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+    <Reference Include="OrdersManagement">
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />

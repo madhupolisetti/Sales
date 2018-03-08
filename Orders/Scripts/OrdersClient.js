@@ -12,7 +12,7 @@
                 quotationsHandler: "/AjaxHandlers/Quotations.ashx",
                 invoicesHandler: "/AjaxHandlers/Invoices.ashx",
                 paymentsHandler: "/AjaxHandlers/Payments.ashx",
-                activationsHandler: "/AjaxHandlers/Activation.ashx",
+                ordersHandler: "/AjaxHandlers/Orders.ashx",
                 genericHandler: "/AjaxHandlers/Generic.ashx",
             accountHandler: "/AjaxHandlers/Accounts.ashx",
                 async: true
@@ -44,14 +44,18 @@
             if (createServiceButton != null)
                 createServiceButton.addEventListener("click", function () { alert("hai"); });
         }
-    function CanCallBack(callBackFunction) {
+        function CanCallBack(callBackFunction) {
             if (isAsync && callBackFunction && typeof callBackFunction === "function")
                 return true;
             else
                 return false;
         }
+        // private Methods End
 
-    OrdersClient.prototype.GetInputTypes = function (onlyActive, callBackFunction) {
+        // Public Methods Start
+
+        // Services Related
+        OrdersClient.prototype.GetInputTypes = function (onlyActive, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -290,7 +294,7 @@
                 if (!CanCallBack(callBackFunction))
                     return actionResponse;
             }
-            // Quotations Related
+        // Quotations Related
         OrdersClient.prototype.GetQuotationStatuses = function (onlyActive, callBackFunction) {
                 var actionResponse;
                 failedActionResponse.Message = defaultErrorMessage;
@@ -564,7 +568,7 @@
                 if (!CanCallBack(callBackFunction))
                     return actionResponse;
             }
-            // Invoices Related
+        // Invoices Related
         OrdersClient.prototype.GetInvoiceStatuses = function (onlyActive, callBackFunction) {
                 var actionResponse;
                 failedActionResponse.Message = defaultErrorMessage;
@@ -780,7 +784,7 @@
                 dataType: "JSON",
                 data:
                     {
-                        "Action": "GeneratePayment",
+                        "Action": "Create",
                         "SearchData": searchData
                     },
                 success: function (response) {
@@ -799,8 +803,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-
-    OrdersClient.prototype.GetOnlinePaymentGateways = function (onlyActive, callBackFunction) {
+        OrdersClient.prototype.GetOnlinePaymentGateways = function (onlyActive, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -828,7 +831,6 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-
         OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, mobileNumber, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
@@ -843,6 +845,147 @@
                         productId: productId,
                         mobileNumber: mobileNumber
 
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.GetPayments = function (searchData, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.paymentsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        "Action": "Search",
+                        "SearchData": searchData
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.GetPaymentStatuses = function (onlyActive, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.paymentsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        "Action": "GetPaymentStatuses",
+                        "OnlyActive": onlyActive ? onlyActive : true
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.ViewPayment = function (onlyActive, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.paymentsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        "Action": "View",
+                        "OnlyActive": onlyActive ? onlyActive : true
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        // Orders Related
+        OrdersClient.prototype.GetOrderStatuses = function (onlyActive, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.ordersHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        "Action": "GetOrderStatuses",
+                        "OnlyActive": onlyActive ? onlyActive : true
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+        OrdersClient.prototype.GetOrders = function (searchData, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.ordersHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        "Action": "Search",
+                        "SearchData": searchData
                     },
                 success: function (response) {
                     actionResponse = response;
