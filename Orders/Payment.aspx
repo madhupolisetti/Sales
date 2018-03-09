@@ -704,11 +704,4 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="Scripts/OrdersClient.js"></script>
     <script type="text/javascript" src="Scripts/payment.js?type=v1"></script>
-    <script type="text/javascript">
-        $(document).ready(function () {
-            var ordersClient = new OrdersClient();
-
-        });
-
-    </script>
 </asp:Content>

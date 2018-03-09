@@ -1,0 +1,30 @@
+09/03/2018 02:20:54 PM [10] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156
+09/03/2018 02:20:58 PM [14] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156
+09/03/2018 02:27:31 PM [14] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156
+09/03/2018 02:28:08 PM [11] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156
+09/03/2018 02:28:10 PM [11] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156
+09/03/2018 02:28:16 PM [11] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Object cannot be cast from DBNull to other types.
+   at System.DBNull.System.IConvertible.ToBoolean(IFormatProvider provider)
+   at System.Convert.ToBoolean(Object value)
+   at OrdersManagement.ExtensionMethods.IsSuccess(SqlCommand sqlCommand) in e:\OrdersManagementLive\OrdersManagement\ExtensionMethods.cs:line 24
+   at OrdersManagement.Core.PaymentClient.GetPaymentStatuses(Boolean onlyActive, Dictionary`2 tablePreferences) in e:\OrdersManagementLive\OrdersManagement\Core\PaymentClient.cs:line 156

@@ -79,6 +79,8 @@ $("#btnConfirm").click(function () {
         clientAccountNumber = $("#txtOnlineTransferClientAccount").val();
         clientAccountName = $("#txtOnlineTransferClientAccountName").val();
         Comments = $("#OnlineTransfrComments").val();
+        isTdsApplicable = $("#chkOnline").is(":checked");
+        tdsPercentage = $("#ddlOnlineTANAmount :selected").val();
         if (transactionNumber == "") {
             ErrorNotifier("Please enter transaction number");
             return false;

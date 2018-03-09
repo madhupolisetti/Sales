@@ -142,7 +142,7 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("Activate percentage must be a number"));
             if (paymentData.SelectToken("IsTDSApplicable") != null && !bool.TryParse(paymentData.SelectToken("IsTDSApplicable").ToString(), out isTDSApplicable))
                 GenerateErrorResponse(400, string.Format("IsTDSApplicable percentage must be a boolean"));
-            if (paymentData.SelectToken("TDSPercentage") != null && !int.TryParse(paymentData.SelectToken("TDSPercentage").ToString(), out tdsPercentage))
+            if (isTDSApplicable == true && (paymentData.SelectToken("TDSPercentage") != null && !int.TryParse(paymentData.SelectToken("TDSPercentage").ToString(), out tdsPercentage)))
                 GenerateErrorResponse(400, string.Format("TDSPercentage percentage must be a number"));
             if (paymentData.SelectToken("Comments") != null)
                 comments = paymentData.SelectToken("Comments").ToString();

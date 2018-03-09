@@ -47,8 +47,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>\\192.168.1.37\Git\Orders\Sales\Orders\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OrdersManagement">
-      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+    <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -272,6 +273,7 @@
     <Content Include="JsFiles\metronic.js" />
     <Content Include="JsFiles\moment.js" />
     <Content Include="JsFiles\moment.min.js" />
+    <Content Include="Payments.aspx" />
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
     <Content Include="JsFiles\redactor.js" />
@@ -338,6 +340,13 @@
     </Compile>
     <Compile Include="Payment.aspx.designer.cs">
       <DependentUpon>Payment.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Payments.aspx.cs">
+      <DependentUpon>Payments.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payments.aspx.designer.cs">
+      <DependentUpon>Payments.aspx</DependentUpon>
     </Compile>
     <Compile Include="PostLogin.Master.cs">
       <DependentUpon>PostLogin.Master</DependentUpon>
@@ -470,6 +479,7 @@
     <Content Include="Scripts\getServices.js" />
     <Content Include="Scripts\OrdersClient.js" />
     <Content Include="Scripts\OrdersManagement.js" />
+    <Content Include="Scripts\payments.js" />
     <Content Include="Scripts\Quotations.js" />
     <Content Include="Web.config" />
     <Content Include="AjaxHandlers\Payments.ashx" />

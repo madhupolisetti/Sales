@@ -479,7 +479,7 @@
 
                 if (dateRange == "This Month") {
                     quotationSearchData.FromDateTime = "2018-02-01";
-                    quotationSearchData.FromDateTime = "2018-02-28";
+                    quotationSearchData.ToDateTime = "2018-02-28";
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
