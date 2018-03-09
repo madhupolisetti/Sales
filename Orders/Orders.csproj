@@ -274,11 +274,8 @@
     <Content Include="JsFiles\metronic.js" />
     <Content Include="JsFiles\moment.js" />
     <Content Include="JsFiles\moment.min.js" />
-<<<<<<< HEAD
     <Content Include="Payments.aspx" />
-=======
     <Content Include="Orders.aspx" />
->>>>>>> 96de986c22b1426f5dc9ff5fd88554ba284b24e1
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
     <Content Include="JsFiles\redactor.js" />
