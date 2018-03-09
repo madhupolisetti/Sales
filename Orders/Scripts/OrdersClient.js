@@ -985,7 +985,7 @@
                 data:
                     {
                         "Action": "Search",
-                        "SearchData": searchData
+                        "SearchData": JSON.stringify(searchData)
                     },
                 success: function (response) {
                     actionResponse = response;

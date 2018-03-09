@@ -5,6 +5,7 @@ using System.Web;
 using Newtonsoft.Json.Linq;
 using Orders.CommonClasses;
 
+
 namespace Orders.AjaxHandlers
 {
     /// <summary>
@@ -37,6 +38,7 @@ namespace Orders.AjaxHandlers
 
         public void GetAccountDetails(HttpContext context)
         {
+            
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
             context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["mobileNumber"])));
 
