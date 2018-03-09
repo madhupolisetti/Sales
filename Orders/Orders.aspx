@@ -245,8 +245,32 @@
             searchData.ToDateTime = '2018-03-30';
             getOrders(searchData);
             function getOrders(ordersSearchData) {
+                var ordersData = "";
                 ordersClient.GetOrders(ordersSearchData, function (res) {
-                    console.log(res);
+                    if (res.Success == true){
+                        if(res.Orders.length > 0)
+                        {
+                            
+                            for (var i = 0; i < res.Orders.length; i++)
+                            {
+                                //ordersData += "<tr>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                                //ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                            }
+                            
+                        }
+                        else {
+                            ordersData = "<tr><td colspan='13'> No Orders Available </td></tr>";
+                        }
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
                 });
             }
         });
