@@ -49,7 +49,8 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+     <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -273,7 +274,11 @@
     <Content Include="JsFiles\metronic.js" />
     <Content Include="JsFiles\moment.js" />
     <Content Include="JsFiles\moment.min.js" />
+<<<<<<< HEAD
     <Content Include="Payments.aspx" />
+=======
+    <Content Include="Orders.aspx" />
+>>>>>>> 96de986c22b1426f5dc9ff5fd88554ba284b24e1
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
     <Content Include="JsFiles\redactor.js" />
@@ -295,6 +300,9 @@
     </Compile>
     <Compile Include="AjaxHandlers\Invoices.ashx.cs">
       <DependentUpon>Invoices.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AjaxHandlers\Orders.ashx.cs">
+      <DependentUpon>Orders.ashx</DependentUpon>
     </Compile>
     <Compile Include="AjaxHandlers\Payments.ashx.cs">
       <DependentUpon>Payments.ashx</DependentUpon>
@@ -334,6 +342,13 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="Orders.aspx.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Orders.aspx.designer.cs">
+      <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Payment.aspx.cs">
       <DependentUpon>Payment.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -483,6 +498,7 @@
     <Content Include="Scripts\Quotations.js" />
     <Content Include="Web.config" />
     <Content Include="AjaxHandlers\Payments.ashx" />
+    <Content Include="AjaxHandlers\Orders.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

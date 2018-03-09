@@ -7,13 +7,14 @@ using OrdersManagement;
 using OrdersManagement.Core;
 using OrdersManagement.Model;
 using Newtonsoft.Json.Linq;
+using Orders.BussinessLogicLayer;
 
 namespace Orders.AjaxHandlers
 {
     /// <summary>
     /// Summary description for Orders
     /// </summary>
-    public class Orders : IHttpHandler
+    public class Order : IHttpHandler
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
@@ -70,7 +71,7 @@ namespace Orders.AjaxHandlers
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
 
             JObject searchData = new JObject();
-            searchData = JObject.Parse(context.Request["SearchData"].ToString());
+            searchData = JObject.Parse(context.Request["SearchData"]);
             if (searchData.SelectToken("ProductId") != null && !byte.TryParse(searchData.SelectToken("ProductId").ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
             if (searchData.SelectToken("Number") != null)
@@ -90,8 +91,8 @@ namespace Orders.AjaxHandlers
             if (searchData.SelectToken("ToDateTime") != null && !DateTime.TryParse(searchData.SelectToken("ToDateTime").ToString(), out toDateTime))
                 GenerateErrorResponse(400, string.Format("ToDateTime is not a valid datetime"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime);
+            context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)
