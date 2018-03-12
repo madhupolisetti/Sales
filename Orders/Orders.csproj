@@ -275,6 +275,7 @@
     <Content Include="JsFiles\moment.min.js" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
+    <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
     <Content Include="JsFiles\redactor.js" />

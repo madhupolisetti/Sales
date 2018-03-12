@@ -294,7 +294,7 @@
                 });
                 if (!CanCallBack(callBackFunction))
                     return actionResponse;
-        }
+            }
         // Products Related
         OrdersClient.prototype.GetProducts = function (onlyActive, callBackFunction) {
             var actionResponse;
@@ -949,7 +949,7 @@
             if (!CanCallBack(callBackFunction))
                 return actionResponse;
         }
-        OrdersClient.prototype.ViewPayment = function (onlyActive, callBackFunction) {
+    OrdersClient.prototype.ViewPayment = function (productId, orderId, callBackFunction) {
             var actionResponse;
             failedActionResponse.Message = defaultErrorMessage;
             $.ajax({
@@ -959,7 +959,8 @@
                 data:
                     {
                         "Action": "View",
-                        "OnlyActive": onlyActive ? onlyActive : true
+                    ProductId: productId,
+                    OrderId: orderId
                     },
                 success: function (response) {
                     actionResponse = response;
