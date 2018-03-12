@@ -1,7 +1,17 @@
-﻿$(document).ready(function () {
+﻿var ordersClient = new OrdersClient();
+$(document).ready(function () {
     $('#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
     $("#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate").datepicker().datepicker("setDate", new Date());
-    var ordersClient = new OrdersClient()
+    ordersClient.GetOrderSummary($("#hdnQuotationId").val(), function (res) {
+        if (res.Success == true) {
+            $("#lblTotalAmount").text(res.OrderSummary.TotalAmount);
+            $("#lblPendingAmount").text(res.OrderSummary.DueAmount);
+            $("#txtInvoiceOrder").val(res.OrderSummary.InvoiceNumber);
+            $("#txtInvoiceRaisedDate").val(res.OrderSummary.RaisedDate);
+            $("#NoteText").html(res.OrderSummary.OrderHtml).show();
+
+        }
+    });
     ordersClient.GetPaymentGateways(true, function (res) {
         if (res.Success == true) {
             var paymentMethods = "";
@@ -228,4 +238,22 @@ $(document).on('click', '#chkCheque', function () {
         $("#trChequeDueDate").show();
     }
 
+});
+
+$("#btnOrderSummary").click(function () {
+
+    $("#btnOrderSummary").addClass("tab-style-blue").removeClass("tab-style-default");
+    $("#btnPaymentMethod").removeClass("tab-style-blue").addClass("tab-style-default");
+
+    var Id = $("#hdnInvoiceNumber").val();
+    if (Id == 0) {
+        $('#txtInvoiceOrder').attr('disabled', false);
+        $('#txtInvoiceRaisedDate').attr('disabled', false);
+        $('#txtInvoiceRaisedDate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
+
+    }
+    $("#divIVORDate").show();
+    $("#divIVORDate1").hide();
+
+    return false;
 });
