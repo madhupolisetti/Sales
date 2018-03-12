@@ -1,7 +1,8 @@
 ﻿var searchData = {};
+    var ordersClient = new OrdersClient();
 var paymentStatusesLength = 7;
 $(document).ready(function () {
-    var ordersClient = new OrdersClient();
+
     bindProducts()
     ordersClient.GetOrderStatuses(true, function (res) {
         if (res.Success == true) {
@@ -76,28 +77,35 @@ $(document).ready(function () {
                         ordersData += "<td>" + res.Orders[i].LastPaidDate + "</td>";
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";
                         ordersData += "<td>" + res.Orders[i].PaymentStatus + "</td>";
-                        ordersData += "<td><select id='" + res.Orders[i].Id + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'>";
+                        ordersData += "<td><select id='" + res.Orders[i].Id + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'";
                         if (res.Orders[i].PaymentStatusId == "2") {
-                            ordersData += "<option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
+                            ordersData += "><option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
 
                         }
                         else {
-                            ordersData += "<option value='1' selected>Verified</option><option value='2'>Not Verified</option>"
+                            ordersData += "disabled ><option value='1' selected>Verified</option><option value='2'>Not Verified</option>"
 
                         }
 
                         ordersData += "</select></td>";
                         ordersData += "<td>" + res.Orders[i].ActivationStatus + "</td>";
-                        ordersData += "<td>Activation</td>";
+                        if (res.Orders[i].PaymentStatusId == "2") {
+                            ordersData += "<td class='activation' id='" + res.Orders[i].Id + "'>";
+                            ordersData += "<span>Activation</span><input type='button' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount='' style='display:none'>"
+                            ordersData += "</td>";
+                        }
+                        else {
+                            ordersData += "<td class='activation'><input type='button' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount=''></td>"
+                        }
                         ordersData += "<td></td>";
 
                         ordersData += "<td><input type='button' class='btnChargeBack btn btn-warning btn-sm margin-bottom-5' style='width:100px;' id='" + res.Orders[i].InvoiceId + "' value='Charge Back'";
-                        if (res.Orders[i].PayementStatus == "2") {
+                        if (res.Orders[i].PaymentStatusId == "2") {
                             ordersData += "disabled";
                         }
 
                         ordersData += "><input type='button' style='width:100px;' class='btnRefund btn btn-success btn-sm' id='" + res.Orders[i].InvoiceId + "' value='Refund'";
-                        if (res.Orders[i].PayementStatus == "2") {
+                        if (res.Orders[i].PaymentStatusId == "2") {
                             ordersData += "disabled";
                         }
                         ordersData += "></td></tr>";
@@ -132,7 +140,7 @@ $(document).ready(function () {
 
 
     function ViewPaymentDetails(orderId) {
-        var ordersClient = new OrdersClient();
+
         var paymentsWiseArray;
         var paymentDetailsTable = "";
         ordersClient.ViewPayment(1, orderId, function (res) {
@@ -212,6 +220,17 @@ $(document).ready(function () {
 
         });
     }
+    $(document).on("click", "#ccSubmit", function () {
+        var orderId = $("#hdnOrderId").val();
+        ordersClient.VerifyPaymentStatuses(orderId, function (res) {
+            if (res.Success == true) {
+                $('.AccountStatus[id="' + orderId + '"]').prop("disabled", true);
+                $('.activation[id="' + orderId + '"] span').hide();
+                $('.activation[id="' + orderId + '"] input').show();
+
+            }
+        })
+    })
 
     function sortPaymentDetailsArray(paymentGateWayId, paymentDetails) {
         return $.grep(paymentDetails, function (element, index) {

@@ -50,6 +50,10 @@ namespace Orders.AjaxHandlers
                     case "View":
                         View(context);
                         break;
+                    case "VerifyPaymentStatuses":
+                        VerifyPaymentStatuses(context);
+                        break;
+
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -211,7 +215,7 @@ namespace Orders.AjaxHandlers
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,tablePreferences:paymentsDictionary));
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: paymentsDictionary));
         }
 
         private void View(HttpContext context)
@@ -230,6 +234,16 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.GetPaymentDetails(productId, orderId, PaymentDetailsDictionary));
         }
 
+        private void VerifyPaymentStatuses(HttpContext context)
+        {
+            long orderId = 0;
+
+            if (context.Request["OrderId"] != null && !Int64.TryParse(context.Request["OrderId"].ToString(), out orderId))
+                GenerateErrorResponse(400, "OrderId value must be a number");
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.VerifyPaymentStatuses(orderId, null));
+        }
         private void GenerateErrorResponse(int statusCode, string message)
         {
             HttpContext.Current.Response.Clear();
