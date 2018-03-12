@@ -97,7 +97,7 @@ namespace Orders.AjaxHandlers
             byte statusId = 0;
             sbyte channelId = 0;
             string ipAddress = string.Empty;
-            byte billingModeId = 0;
+            byte billingModeId = 1;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
             int pageNumber = 1;
