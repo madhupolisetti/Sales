@@ -21,6 +21,11 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
+                                <label class="table-head">Product</label>
+                                <select id="ddlProduct" name="BillingMode" class="form-control form-filter input-sm">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
                                 <label class="table-head">Billing Mode</label>
                                 <select id="ddlBillingMode" name="BillingMode" class="form-control form-filter input-sm">
                                     <option value="0">PrePaid</option>
@@ -31,12 +36,12 @@
                                 <label class="table-head">Account Name</label>
                                 <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
+                        </div>
+                        <div class="row margin-bottom-15" id="secondRow" style="display:none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
                             </div>
-                        </div>
-                        <div class="row margin-bottom-15" id="secondRow" style="display:none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Email Id</label>
                                 <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
@@ -153,6 +158,7 @@
             var ordersClient = new OrdersClient();
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
+            bindProducts();
             invoiceSearchData.AccountId = 0; invoiceSearchData.ProductId = 1; invoiceSearchData.InvoiceId = 0;
             invoiceSearchData.QuotationNumber = ""; invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
             invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
@@ -205,7 +211,8 @@
             });
             // Search Invoices
             $("#btnSearch").click(function () {
-                invoiceSearchData.AccountId = 0; invoiceSearchData.ProductId = 1; invoiceSearchData.InvoiceId = 0;
+                invoiceSearchData.AccountId = 0; 
+                invoiceSearchData.ProductId = $("#ddlProduct").val();
                 invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
                 invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
                 invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
@@ -214,6 +221,27 @@
                 dateRange = $("#txtDateRange").val();
                 getInvoices();
             });
+
+            function bindProducts() {
+                var productsData = "<option value='0'>--- All ---</option>";
+                ordersClient.GetProducts(true, function (res) {
+
+                    if (res.Success == true) {
+                        if (res.Products.length > 0) {
+
+                            for (var i = 0; i < res.Products.length; i++) {
+                                productsData += "<option value='" + res.Products[i].Id + "'>" + res.Products[i].Name + "</option>"
+                            }
+                        }
+
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                    $("#ddlProduct").html(productsData);
+                });
+
+            }
             
             function getInvoices() {
                 if (dateRange == "This Month") {

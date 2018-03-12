@@ -8,6 +8,7 @@
         this.OrdersClient = function (options) {
             // Define option defaults   
             var defaults = {
+                productsHandler: "/AjaxHandlers/Products.ashx",
                 servicesHandler: "/AjaxHandlers/Services.ashx",
                 quotationsHandler: "/AjaxHandlers/Quotations.ashx",
                 invoicesHandler: "/AjaxHandlers/Invoices.ashx",
@@ -293,7 +294,37 @@
                 });
                 if (!CanCallBack(callBackFunction))
                     return actionResponse;
-            }
+        }
+        // Products Related
+        OrdersClient.prototype.GetProducts = function (onlyActive, callBackFunction) {
+            var actionResponse;
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.productsHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                data:
+                    {
+                        Action: "Search",
+                        OnlyActive: onlyActive ? onlyActive : true
+                    },
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        }
+
         // Quotations Related
         OrdersClient.prototype.GetQuotationStatuses = function (onlyActive, callBackFunction) {
                 var actionResponse;

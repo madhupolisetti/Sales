@@ -204,9 +204,12 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("FromDateTime is not a valid datetime"));
             if (searchData.SelectToken("ToDateTime") != null && !DateTime.TryParse(searchData.SelectToken("ToDateTime").ToString(), out toDateTime))
                 GenerateErrorResponse(400, string.Format("ToDateTime is not a valid datetime"));
+            TablePreferences paymentsTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> paymentsDictionary = new Dictionary<string, TablePreferences>();
+            paymentsDictionary.Add("Payments", paymentsTablePreferences);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime));
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: paymentsDictionary));
         }
 
         private void View(HttpContext context)
