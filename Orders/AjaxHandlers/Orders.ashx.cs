@@ -90,9 +90,14 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("FromDateTime is not a valid datetime"));
             if (searchData.SelectToken("ToDateTime") != null && !DateTime.TryParse(searchData.SelectToken("ToDateTime").ToString(), out toDateTime))
                 GenerateErrorResponse(400, string.Format("ToDateTime is not a valid datetime"));
+
+            TablePreferences ordersTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> ordersDictionary = new Dictionary<string, TablePreferences>();
+            ordersDictionary.Add("Orders", ordersTablePreferences);
+
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime));
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: ordersDictionary));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

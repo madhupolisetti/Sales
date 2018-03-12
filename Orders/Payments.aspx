@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
     <title>Payment Details</title>
 
-       
+
     <link href="JsFiles/DateTimePicker/daterangepicker-bs3.css" rel="stylesheet" />
     <link href="CssFiles/jquery-ui.css" rel="stylesheet" />
     <link href="assets/global/css/jquiryUI.min.css" rel="stylesheet" />
@@ -17,6 +17,11 @@
         .btn-3:hover {
             background: #7F7F7F;
             color: #fff;
+        }
+
+        #divMultiplePaymentDetails th {
+            border-color: #C0C0C0;
+            vertical-align: text-top;
         }
     </style>
 </asp:Content>
@@ -83,6 +88,10 @@
                 <div class="portlet-body">
                     <form runat="server">
                         <input type="hidden" id="hdnInvoiceId" class="hdnInvoiceId" />
+                        <input type="hidden" id="hdnOrderId" class="hdnOrderId" />
+                        <input type="hidden" id="hdnInvoiceNumber" class="hdnInvoiceNumber" />
+                        <input type="hidden" id="hdnTotalAmount" class="hdnInvoiceNumber" />
+                        <input type="hidden" id="hdnDueAmount" class="hdnInvoiceNumber" />
 
                         <input type="hidden" id="hdnCount" class="hdnCount" />
 
@@ -164,7 +173,11 @@
                                         </div>
                                     </div>
                                     <div class="modal-body" id="divmodalbody" style="overflow-x: scroll; overflow-y: scroll;">
-                                        <%--Modal body goes here --%>
+                                        <label class="" style="padding-left: 210px;"><b>Total Amount : </b></label>
+                                        <label class="label label-primary label-sm"><b id="totalAmount"></b></label>
+                                        <label class="" style="padding-left: 200px;"><b>Pending Amount : </b></label>
+                                        <label class="label label-warning label-sm "><b id="pendingAmount"></b></label>
+                                        <div id="divMultiplePaymentDetails"></div>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btnClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
@@ -345,7 +358,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
-      <script src="JsFiles/daterangepicker.js"></script>
+    <script src="JsFiles/daterangepicker.js"></script>
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
