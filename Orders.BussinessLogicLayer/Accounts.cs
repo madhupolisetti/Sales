@@ -42,7 +42,7 @@ namespace Orders.BussinessLogicLayer
                 }
             }
 
-            if (Convert.ToBoolean(responseObj.SelectToken("Success")) == true)
+            if (Convert.ToByte(responseObj.SelectToken("Success").ToString()) == 1)
             {
                 AccountProducts accountProductProperties = new AccountProducts();
                 accountProductProperties.ProductAccountName = responseObj.SelectToken("NickName").ToString();

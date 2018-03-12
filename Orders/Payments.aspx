@@ -368,5 +368,5 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/payments.js?type=v1" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v2" type="text/javascript"></script>
 </asp:Content>
