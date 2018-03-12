@@ -3,10 +3,11 @@ var dateRange;
 var paymentsResponse = [];
 var paymentStatusesLength = 0;
 $(document).ready(function () {
-
-
-    $("#daterangetext").daterangepicker();
     var ordersClient = new OrdersClient();
+    dateRange = $("#daterangetext").val();
+    bindProducts();
+    $("#daterangetext").daterangepicker();
+    
     ordersClient.GetPaymentStatuses(true, function (res) {
         if (res.Success == true) {
             var paymentStatus = "";
@@ -27,9 +28,28 @@ $(document).ready(function () {
     paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
 
     getPayments();
+
+
+    function bindProducts() {
+        var productsData = "<option value='0'>--- All ---</option>";
+        ordersClient.GetProducts(true, function (res) {
+
+            if (res.Success == true) {
+                if (res.Products.length > 0) {
+
+                    for (var i = 0; i < res.Products.length; i++) {
+                        productsData += "<option value='" + res.Products[i].Id + "'>" + res.Products[i].Name + "</option>"
+                    }
+                }
+
+            }
+            else {
+                ErrorNotifier(res.Message);
+            }
+            $("#ddlProduct").html(productsData);
 });
 
-
+    }
 
 function getPayments() {
     dateRange = $("#daterangetext").val();
@@ -64,7 +84,7 @@ function getPayments() {
                     payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                     payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
                     payments += "<td>" + res.Payments[i].ActivationStatus + "</td></tr>";
-                }
+            }
             }
             else {
                 payments = "<tr><td colspan='15' align='center'>No payments available</tr></td>";

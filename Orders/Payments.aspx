@@ -42,7 +42,7 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
-                                <label class="table-head">Bill Mode</label>
+                                <label class="table-head">Product</label>
                                 <select id="ddlProduct" name="Product" class="form-control form-filter input-sm">
                                     
                                 </select>
@@ -368,5 +368,5 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/payments.js" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v1" type="text/javascript"></script>
 </asp:Content>

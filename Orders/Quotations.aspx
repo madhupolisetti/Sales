@@ -217,8 +217,7 @@
                                 </td>
                                 <td>
                                     <select id="ddlProducts" class="form-control">
-                                        <option value="2">BlueKite </option>
-                                        <option value="1">GrpTalk </option>
+                                        
                                     </select>
 
                                 </td>
@@ -517,7 +516,7 @@
                     else {
                         ErrorNotifier(res.Message);
                     }
-                    $("#ddlProduct").html(productsData);
+                    $("#ddlProduct,#ddlProducts").html(productsData);
                 });
                 
             }
