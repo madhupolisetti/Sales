@@ -1,5 +1,6 @@
 ﻿var paymentSearchData = {};
 var dateRange;
+var paymentsResponse = [];
 $(document).ready(function () {
     dateRange = $("#daterangetext").val();
 
@@ -41,7 +42,31 @@ function getPayments() {
     }
     ordersClient.GetPayments(paymentSearchData, function (res) {
         if (res.Success == true) {
-           
+            var payments = "";
+            if (!$.isArray(res.Payments)) {
+                paymentsResponse.push(res.Payments);
+            }
+            else {
+                paymentsResponse = res.Payments;
+            }
+            for (var i = 0; i < paymentsResponse.length; i++) {
+                payments += "<tr><td><input type='checkbox' id='" + paymentsResponse[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + paymentsResponse[i].PaymentStatus + "' invoiceid='10401' dueamount='0' value='10379' ><label class='css-label' for='" + paymentsResponse[i].OrderId + "'></label></td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].AccountName + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].AccountName + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].OwnershipName + "</td>";
+                payments += "<td style='border-color:#C0C0C0;' >" + paymentsResponse[i].Mobile + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].Email + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].InvoiceRaisedTime + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].InvoiceNumber + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].OrderAmount + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].DueAmount + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].PaymentStatus + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].LastPaidDate + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>" + paymentsResponse[i].ReceivedAmount + "</td>";
+                payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
+                payments += "<td>" + paymentsResponse[i].ActivationStatus + "</td></tr>";
+            }
+            $("#tblDiv").html(payments);
         }
         else {
             ErrorNotifier(res.Message);
@@ -49,3 +74,7 @@ function getPayments() {
     });
 
 }
+$("#check_tool").click(function () {
+
+
+})

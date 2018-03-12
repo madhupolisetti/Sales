@@ -188,13 +188,13 @@ namespace Orders.AjaxHandlers
             searchData = JObject.Parse(context.Request["SearchData"].ToString());
             if (searchData.SelectToken("ProductId") != null && !byte.TryParse(searchData.SelectToken("ProductId").ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
-            if (searchData.SelectToken("Number") != null)
+            if (searchData.SelectToken("Number") == null)
                 number = searchData.SelectToken("QuotationNumber").ToString();
             if (searchData.SelectToken("AccountId") != null && !int.TryParse(searchData.SelectToken("AccountId").ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
-            if (searchData.SelectToken("Mobile") != null)
+            if (searchData.SelectToken("Mobile") == null)
                 mobile = searchData.SelectToken("Mobile").ToString();
-            if (searchData.SelectToken("Email") != null)
+            if (searchData.SelectToken("Email") == null)
                 email = searchData.SelectToken("Email").ToString();
             if (searchData.SelectToken("PaymentStatus") != null && !byte.TryParse(searchData.SelectToken("PaymentStatus").ToString(), out paymentStatus))
                 GenerateErrorResponse(400, string.Format("PaymentStatus must be a number"));
