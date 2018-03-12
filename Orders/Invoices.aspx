@@ -28,8 +28,8 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Billing Mode</label>
                                 <select id="ddlBillingMode" name="BillingMode" class="form-control form-filter input-sm">
-                                    <option value="0">PrePaid</option>
-                                    <option value="1">Post Paid</option>
+                                    <option value="1">PrePaid</option>
+                                    <option value="2">Post Paid</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -48,11 +48,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Payment Status</label>
-                                <select id="ddlPaymentStatus" name="PaymentStatus" class="form-control form-filter input-sm">
-                                    <option value="3">Select</option>
-                                    <option value="2">All</option>
-                                    <option value="0">Pending</option>
-                                    <option value="1">Payment Raised</option>
+                                <select id="ddlInvoiceStatus" name="PInvoiceStatus" class="form-control form-filter input-sm">
+                                    
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -159,12 +156,7 @@
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
             bindProducts();
-            invoiceSearchData.AccountId = 0; invoiceSearchData.ProductId = 1; invoiceSearchData.InvoiceId = 0;
-            invoiceSearchData.QuotationNumber = ""; invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
-            invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
-            invoiceSearchData.Mobile = ""; invoiceSearchData.Email = ""; invoiceSearchData.Limit = 20;
-            invoiceSearchData.FromDateTime = "2018-02-01";
-
+            bindInvoiceStatuses();
             getInvoices();
 
             $(document).delegate('#FilterByMore', 'click', function () {
@@ -211,13 +203,14 @@
             });
             // Search Invoices
             $("#btnSearch").click(function () {
-                invoiceSearchData.AccountId = 0; 
                 invoiceSearchData.ProductId = $("#ddlProduct").val();
                 invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
-                invoiceSearchData.EmployeeId = 0; invoiceSearchData.OwnerShipId = 0;
-                invoiceSearchData.ChannelId = 2; invoiceSearchData.BillingModeId = 0; invoiceSearchData.PageNumber = 1;
+                invoiceSearchData.BillingModeId = $("#ddlBillingMode").val();
+                invoiceSearchData.PageNumber = 1;
                 invoiceSearchData.Mobile = $("#txtMobile").val();
-                invoiceSearchData.Email = $("#txtEmail").val(); invoiceSearchData.Limit = 20;
+                invoiceSearchData.Email = $("#txtEmail").val();
+                invoiceSearchData.Limit = $("#dropPages").val();
+                invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
                 dateRange = $("#txtDateRange").val();
                 getInvoices();
             });
@@ -239,6 +232,27 @@
                         ErrorNotifier(res.Message);
                     }
                     $("#ddlProduct").html(productsData);
+                });
+
+            }
+
+            function bindInvoiceStatuses() {
+                var invoiceStatusesData = "<option value='0'>--- All ---</option>";
+                ordersClient.GetInvoiceStatuses(true, function (res) {
+
+                    if (res.Success == true) {
+                        if (res.InvoiceStatuses.length > 0) {
+
+                            for (var i = 0; i < res.InvoiceStatuses.length; i++) {
+                                invoiceStatusesData += "<option value='" + res.InvoiceStatuses[i].Id + "'>" + res.InvoiceStatuses[i].Status + "</option>"
+                            }
+                        }
+
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                    $("#ddlInvoiceStatus").html(invoiceStatusesData);
                 });
 
             }

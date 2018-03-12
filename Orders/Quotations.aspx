@@ -88,11 +88,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Quotation Status</label>
-                                <select id="ddlQuotationType" name="PaymentStatus" class="form-control form-filter input-sm">
-                                    <option value="3">Select</option>
-                                    <option value="2">All</option>
-                                    <option value="0">Pending</option>
-                                    <option value="1">Invoice Raised</option>
+                                <select id="ddlQuotationStatuses" name="PaymentStatus" class="form-control form-filter input-sm">
+                                    
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -299,29 +296,20 @@
                 $("#createQuotation").modal("show");
             });
             bindProducts();
+            bindQuotationStatuses();
             dateRange = $("#daterangetext").val();
-            quotationSearchData.AccountId = 1;
-            quotationSearchData.BillingModeId = 1;
-            quotationSearchData.PageNumber = 1;
-            quotationSearchData.Mobile = $("#txtmblnum").val();
-            quotationSearchData.Email = $("#txtemail").val();
-            quotationSearchData.Limit = $("#dropPages").val();
             getQuotations();
 
             $("#btnsearch").click(function () {
                 dateRange = $("#daterangetext").val();
-                quotationSearchData.AccountId = 0;
                 quotationSearchData.ProductId = $("#ddlProduct").val();
-                quotationSearchData.QuotationId = 0;
                 quotationSearchData.QuotationNumber = $("#txtSearchById").val();
-                quotationSearchData.EmployeeId = 0;
-                quotationSearchData.OwnerShipId = 0;
-                quotationSearchData.ChannelId = 2;
                 quotationSearchData.BillingModeId = $("#ddlBillMode").val();
                 quotationSearchData.PageNumber = 1;
                 quotationSearchData.Mobile = $("#txtmblnum").val();
                 quotationSearchData.Email = $("#txtemail").val();
                 quotationSearchData.Limit = $("#dropPages").val();
+                quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 getQuotations();
             });
 
@@ -519,6 +507,25 @@
                     $("#ddlProduct,#ddlProducts").html(productsData);
                 });
                 
+            }
+            function bindQuotationStatuses() {
+                var quotationStatusesData = "<option value='0'>--- All ---</option>";
+                ordersClient.GetQuotationStatuses(true, function (res) {
+
+                    if (res.Success == true) {
+                        if (res.QuotationStatuses.length > 0) {
+                            for (var i = 0; i < res.QuotationStatuses.length; i++) {
+                                quotationStatusesData += "<option value='" + res.QuotationStatuses[i].Id + "'>" + res.QuotationStatuses[i].Status + "</option>"
+                            }
+                        }
+
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                    $("#ddlQuotationStatuses").html(quotationStatusesData);
+                });
+
             }
 
             function getQuotations() {
