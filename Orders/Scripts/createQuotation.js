@@ -100,8 +100,8 @@ $("#btnSave").click(function () {
             });
             if (occurance > 1)
             { jobjStr += "]" }
-            else
-            { jobjStr += "}"; }
+            //else
+            //{ jobjStr += "}"; }
 
 
 
@@ -310,8 +310,8 @@ $("#btnEdit").click(function (e) {
             });
             if (occurance > 1)
             { jobjStr += "]" }
-            else
-            { jobjStr += "}"; }
+            //else
+            //{ jobjStr += "}"; }
 
 
 

@@ -14,7 +14,7 @@ $(document).ready(function () {
     });
 
     $("#defaultrange").daterangepicker();
-    
+
     searchData.ProductId = 1;
     searchData.AccountId = 1;
     searchData.BillingMode = 1;
@@ -75,8 +75,8 @@ $(document).ready(function () {
                         ordersData += "<td>" + res.Orders[i].LastPaidDate + "</td>";
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";
                         ordersData += "<td>" + res.Orders[i].PaymentStatus + "</td>";
-                        ordersData += "<td><select id='" + res.Orders[i].Id + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' >";
-                        if (res.Orders[i].PayementStatus == "2") {
+                        ordersData += "<td><select id='" + res.Orders[i].Id + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'>";
+                        if (res.Orders[i].PaymentStatusId == "2") {
                             ordersData += "<option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
 
                         }
@@ -120,11 +120,103 @@ $(document).ready(function () {
 
         //
         var hdnorderid = $(this).attr("id");
-        $("#hiddenOrderId").val(hdnorderid);
-        DisplayPaymentDetails(hdnorderid);
+        $("#hdnOrderId").val(hdnorderid);
+        $("#hdnInvoiceNumber").val($(this).attr("invoicenumber"));
+        $("#hdnTotalAmount").val($(this).attr("totalamount"));
+        $("#hdnDueAmount").val($(this).attr("dueamount"));
+        ViewPaymentDetails(hdnorderid);
         //
         //$("#ccAdressModal").modal('show');
     });
+
+
+    function ViewPaymentDetails(orderId) {
+        var ordersClient = new OrdersClient();
+        var paymentsWiseArray;
+        var paymentDetailsTable = "";
+        ordersClient.ViewPayment(1, orderId, function (res) {
+            if (res.Success == true) {
+                $("#divMultiplePayments").modal('show');
+                if (res.PaymentDetails.length > 0) {
+                    $("#bTotalPayment").html($("#hdnTotalAmount").val());
+                    $("#bPendingAmount").html($("#hdnDueAmount").val());
+                    for (var i = 1; i <= paymentStatusesLength; i++) {
+                        paymentsWiseArray = new Array();
+                        paymentsWiseArray = sortPaymentDetailsArray(i, res.PaymentDetails);
+                        if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 1) {
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
+                            paymentDetailsTable += "<th >Client Account Number</th><th >Client Account Name</th><th >Comments</th></tr></thead>"
+                            for (var p = 0; p < paymentsWiseArray.length; p++) {
+                                paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].ClientAccountNumber + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].ClientBankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
+                            }
+                            paymentDetailsTable += "</table>";
+                        }
+                        else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 2) {
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
+                            paymentDetailsTable += "<th >ChequeNo</th><th >Cheque Holder Name</th><th >Comments</th></tr></thead>"
+                            for (var p = 0; p < paymentsWiseArray.length; p++) {
+                                paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].ChequeNumber + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].ClientBankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
+                            }
+                            paymentDetailsTable += "</table>";
+                        }
+                        else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 3) {
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Client Company</th>";
+                            paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
+                            for (var p = 0; p < paymentsWiseArray.length; p++) {
+                                paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
+                            }
+                            paymentDetailsTable += "</table>";
+                        }
+                        else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 5) {
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th>";
+                            paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
+                            for (var p = 0; p < paymentsWiseArray.length; p++) {
+                                paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
+                            }
+                            paymentDetailsTable += "</table>";
+                        }
+
+                    }
+                    $("#divMultiplePaymentDetails").html(paymentDetailsTable);
+
+
+                }
+            }
+
+        });
+    }
+
+    function sortPaymentDetailsArray(paymentGateWayId, paymentDetails) {
+        return $.grep(paymentDetails, function (element, index) {
+            return element.PaymentGatewayID == paymentGateWayId;
+        });
+    }
 });
 
 
