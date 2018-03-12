@@ -61,6 +61,11 @@
                                 </div>
                             </div>
                             <div class="col-sm-3">
+                                <label class="table-head">Product</label>
+                                <select id="ddlProduct" name="PaymentStatus" class="form-control form-filter input-sm">
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
                                 <label class="table-head">Bill Mode</label>
                                 <select id="ddlBillMode" name="PaymentStatus" class="form-control form-filter input-sm">
                                     <option value="1">PrePaid</option>
@@ -71,14 +76,14 @@
                                 <label class="table-head">Account Name</label>
                                 <input type="text" id="txtuser" class="form-control form-filter input-sm" />
                             </div>
+                        </div>
+                        <div class="row margin-bottom-15" style="display: none;" id="secondRow">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtmblnum" class="form-control form-filter input-sm" />
                             </div>
-                        </div>
-                        <div class="row margin-bottom-15" style="display: none;" id="secondRow">
                             <div class="col-sm-3">
-                                <label class="table-head">E-mail Id</label>
+                               <label class="table-head">E-mail Id</label>
                                 <input type="text" id="txtemail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
@@ -93,8 +98,6 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Search By Id</label>
                                 <input type="text" id="txtSearchById" class="form-control form-filter input-sm" />
-                            </div>
-                            <div class="col-sm-3">
                             </div>
                         </div>
 
@@ -296,15 +299,10 @@
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
             });
+            bindProducts();
             dateRange = $("#daterangetext").val();
-            quotationSearchData.AccountId = 0;
-            quotationSearchData.ProductId = 1;
-            quotationSearchData.QuotationId = 0;
-            quotationSearchData.QuotationNumber = "";
-            quotationSearchData.EmployeeId = 0;
-            quotationSearchData.OwnerShipId = 0;
-            quotationSearchData.ChannelId = 2;
-            quotationSearchData.BillingModeId = 0;
+            quotationSearchData.AccountId = 1;
+            quotationSearchData.BillingModeId = 1;
             quotationSearchData.PageNumber = 1;
             quotationSearchData.Mobile = $("#txtmblnum").val();
             quotationSearchData.Email = $("#txtemail").val();
@@ -314,7 +312,7 @@
             $("#btnsearch").click(function () {
                 dateRange = $("#daterangetext").val();
                 quotationSearchData.AccountId = 0;
-                quotationSearchData.ProductId = 1;
+                quotationSearchData.ProductId = $("#ddlProduct").val();
                 quotationSearchData.QuotationId = 0;
                 quotationSearchData.QuotationNumber = $("#txtSearchById").val();
                 quotationSearchData.EmployeeId = 0;
@@ -475,11 +473,60 @@
                 return false;
             });
 
+            $("#btnSubmit").click(function () {
+                var productId = $("#ddlProducts option:selected").val();
+                getProductRelatedUserInformation(productId, $("#txtUserMobile").val(), 0, 0);
+
+            });
+
+            $("#btnpayment").click(function () {
+                var invoiceId = $(".check_tool:checked").attr("invoiceid");
+                var quotationId = $(".check_tool:checked").attr("id");
+                var productId = $(".check_tool:checked").attr("productid");
+                var accountId = $(".check_tool:checked").attr("accountid");
+
+
+                var $form = $("<form/>").attr("id", "data_form")
+                                       .attr("action", "Payment.aspx")
+                                       .attr("method", "post");
+                $("body").append($form);
+                //Append the values to be send
+                //AddParameter($form, "QotationReqType", QotationReqType);
+
+                AddParameter($form, "InvoiceId", invoiceId);
+                AddParameter($form, "QuotationId", quotationId);
+                AddParameter($form, "ProductId", productId);
+                AddParameter($form, "AccountId", accountId);
+                $form[0].submit();
+            });
+
+            function bindProducts() {
+                var productsData = "<option value='0'>--- All ---</option>";
+                ordersClient.GetProducts(true, function (res) {
+                    
+                    if (res.Success == true) {
+                        if (res.Products.length > 0) {
+                            
+                            for(var i=0;i< res.Products.length;i++)
+                            {
+                                productsData += "<option value='" + res.Products[i].Id + "'>" + res.Products[i].Name + "</option>"
+                            }
+                        }
+                        
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                    $("#ddlProduct").html(productsData);
+                });
+                
+            }
+
             function getQuotations() {
 
                 if (dateRange == "This Month") {
                     quotationSearchData.FromDateTime = "2018-02-01";
-                    quotationSearchData.ToDateTime = "2018-02-28";
+                    quotationSearchData.ToDateTime = "2018-03-28";
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -502,7 +549,6 @@
                 });
 
             }
-
 
             function renderQuotations(Quotations) {
                 var quotations = "";
@@ -532,6 +578,7 @@
                 return quotations;
 
             }
+
             function AddParameter(form, name, value) {
                 var $input = $("<input />").attr("type", "hidden")
                                         .attr("name", name)
@@ -539,75 +586,56 @@
                 form.append($input);
             }
 
+            function getProductRelatedUserInformation(productId, mobileNo, quotationId, billMode) {
+                var ordersClient = new OrdersClient();
+                ordersClient.GetProductWiseAccountRelatedInformation(productId, mobileNo, function (res) {
+                    if (res.Success == 1) {
+
+                        var accountId = res.AccountId;
+
+                        var QotationReqType = 1;
+
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "CreateQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "address", res.Address);
+                        AddParameter($form, "state", res.State);
+                        AddParameter($form, "contactName", res.NickName);
+                        AddParameter($form, "country", res.Country);
+                        AddParameter($form, "registeredDate", res.RegisteredDate);
+                        AddParameter($form, "email", res.EmailID);
+                        AddParameter($form, "mobile", res.MobileNumber);
+                        AddParameter($form, "company", res.Company);
+                        AddParameter($form, "BillMode", billMode);
+                        AddParameter($form, "QuotationId", quotationId)
+                        $form[0].submit();
+
+                    }
+                });
+            }
+
+            function AddParameter(form, name, value) {
+                var $input = $("<input />").attr("type", "hidden")
+                                        .attr("name", name)
+                                            .attr("value", value);
+                form.append($input);
+            }
+
+
 
         });
 
-        $("#btnSubmit").click(function () {
-            var productId = $("#ddlProducts option:selected").val();
-            getProductRelatedUserInformation(productId, $("#txtUserMobile").val(), 0, 0);
+        
 
-        });
+        
+        
 
-        function getProductRelatedUserInformation(productId, mobileNo, quotationId, billMode) {
-            var ordersClient = new OrdersClient();
-            ordersClient.GetProductWiseAccountRelatedInformation(productId, mobileNo, function (res) {
-                if (res.Success == 1) {
-
-                    var accountId = res.AccountId;
-
-                    var QotationReqType = 1;
-
-                    var $form = $("<form/>").attr("id", "data_form")
-                                    .attr("action", "CreateQuotation.aspx")
-                                    .attr("method", "post");
-                    $("body").append($form);
-                    //Append the values to be send
-                    //AddParameter($form, "QotationReqType", QotationReqType);
-                    AddParameter($form, "ID", accountId);
-                    AddParameter($form, "productId", productId);
-                    AddParameter($form, "address", res.Address);
-                    AddParameter($form, "state", res.State);
-                    AddParameter($form, "contactName", res.NickName);
-                    AddParameter($form, "country", res.Country);
-                    AddParameter($form, "registeredDate", res.RegisteredDate);
-                    AddParameter($form, "email", res.EmailID);
-                    AddParameter($form, "mobile", res.MobileNumber);
-                    AddParameter($form, "company", res.Company);
-                    AddParameter($form, "BillMode", billMode);
-                    AddParameter($form, "QuotationId", quotationId)
-                    $form[0].submit();
-
-                }
-            });
-        }
-
-        $("#btnpayment").click(function () {
-            var invoiceId = $(".check_tool:checked").attr("invoiceid");
-            var quotationId = $(".check_tool:checked").attr("id");
-            var productId = $(".check_tool:checked").attr("productid");
-            var accountId = $(".check_tool:checked").attr("accountid");
-
-
-            var $form = $("<form/>").attr("id", "data_form")
-                                   .attr("action", "Payment.aspx")
-                                   .attr("method", "post");
-            $("body").append($form);
-            //Append the values to be send
-            //AddParameter($form, "QotationReqType", QotationReqType);
-
-            AddParameter($form, "InvoiceId", invoiceId);
-            AddParameter($form, "QuotationId", quotationId);
-            AddParameter($form, "ProductId", productId);
-            AddParameter($form, "AccountId", accountId);
-            $form[0].submit();
-        });
-
-        function AddParameter(form, name, value) {
-            var $input = $("<input />").attr("type", "hidden")
-                                    .attr("name", name)
-                                        .attr("value", value);
-            form.append($input);
-        }
+        
     </script>
 
 

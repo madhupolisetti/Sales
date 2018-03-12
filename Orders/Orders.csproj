@@ -49,7 +49,7 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>..\..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -304,6 +304,9 @@
     <Compile Include="AjaxHandlers\Payments.ashx.cs">
       <DependentUpon>Payments.ashx</DependentUpon>
     </Compile>
+    <Compile Include="AjaxHandlers\Products.ashx.cs">
+      <DependentUpon>Products.ashx</DependentUpon>
+    </Compile>
     <Compile Include="AjaxHandlers\Quotations.ashx.cs">
       <DependentUpon>Quotations.ashx</DependentUpon>
     </Compile>
@@ -496,6 +499,7 @@
     <Content Include="Web.config" />
     <Content Include="AjaxHandlers\Payments.ashx" />
     <Content Include="AjaxHandlers\Orders.ashx" />
+    <Content Include="AjaxHandlers\Products.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

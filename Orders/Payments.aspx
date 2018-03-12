@@ -43,6 +43,12 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Bill Mode</label>
+                                <select id="ddlProduct" name="Product" class="form-control form-filter input-sm">
+                                    
+                                </select>
+                            </div>
+                            <div class="col-sm-3">
+                                <label class="table-head">Bill Mode</label>
                                 <select id="ddlBillMode" name="BillMode" class="form-control form-filter input-sm">
                                     <option class="active" value="1">Pre Paid</option>
                                     <option value="2">Post Paid</option>
@@ -52,18 +58,18 @@
                                 <label class="table-head">Account Name</label>
                                 <input type="text" id="txtUserName" class="form-control form-filter input-sm" />
                             </div>
+                        </div>
+                        <div class="row margin-bottom-15" id="secondRow">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
                             </div>
-                        </div>
-                        <div class="row margin-bottom-15" id="secondRow">
                             <div class="col-sm-3">
-                                <label class="table-head">EMail Id</label>
+                                <label class="table-head">Email Id</label>
                                 <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
-                                <label class="table-head">Payment Status</label>
+                               <label class="table-head">Payment Status</label>
                                 <select id="ddlPaymentStatus" name="PaymentStatus" class="form-control form-filter input-sm">
                                 </select>
                             </div>
