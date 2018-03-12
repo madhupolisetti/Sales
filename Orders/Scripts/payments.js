@@ -7,6 +7,8 @@ $(document).ready(function () {
     dateRange = $("#daterangetext").val();
     bindProducts();
     $("#daterangetext").daterangepicker();
+    $("#btnview,#btnpayment,#btncreate").attr("class", "enable-icn");
+    $("#btnedit,#btninvoice,#btndelete,#btndownload").attr("class", "disable-icn");
 
     ordersClient.GetPaymentStatuses(true, function (res) {
         if (res.Success == true) {
@@ -69,7 +71,7 @@ $(document).ready(function () {
                 var payments = "";
                 if (res.Payments.length > 0) {
                     for (var i = 0; i < res.Payments.length; i++) {
-                        payments += "<tr><td><input type='checkbox' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
+                        payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].OwnershipName + "</td>";
@@ -100,12 +102,22 @@ $(document).ready(function () {
     }
 
     $(document).on("click", ".check_tool", function () {
+        $('.check_tool').prop('checked', false);
+        $('.check_tool').removeClass("Checked");
+        $(this).prop('checked', true);
+        $(this).addClass("Checked");
         if ($(this).attr("type") == "checkbox") {
             if ($(this).prop("checked")) {
                 $("#hdnOrderId").val($(this).attr("id"));
                 $("#hdnInvoiceNumber").val($(this).attr("invoicenumber"));
                 $("#hdnTotalAmount").val($(this).attr("totalamount"));
                 $("#hdnDueAmount").val($(this).attr("dueamount"));
+                if($(this).attr("statusid") == "2"){
+                    $("#btnpayment").attr("class", "disable-icn");
+                }
+                else {
+                    $("#btnpayment").attr("class", "enable-icn");
+                }
             }
         }
 

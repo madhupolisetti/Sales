@@ -51,12 +51,14 @@
             $("#btnGenerateInvoice").click(function () {
                 ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
                     if (res.Success == true) {
+                        console.log(res);
                         SuccessNotifier(res.Message);
                         var $form = $("<form/>").attr("id", "data_form")
                                        .attr("action", "Invoice.aspx")
                                        .attr("method", "post");
                         $("body").append($form);
                         AddParameter($form, "QuotationId", quotationId);
+                        AddParameter($form, "InvoiceId", res.InvoiceId);
                         $form[0].submit();
 
                     } else {
@@ -68,6 +70,49 @@
             $("#btnBack").click(function () {
                 window.location.href = "/Quotations.aspx";
             });
+
+            $("#btnEditQuotation").click(function () {
+                var quotationId = $("#hdnQuotationId").val()
+                var isBillMode = 1;
+                var productId = 1;
+                var mobileNo = "9640986555";
+                getProductRelatedUserInformation(productId, mobileNo, quotationId, isBillMode);
+                return false;
+
+            });
+
+            function getProductRelatedUserInformation(productId, mobileNo, quotationId, billMode) {
+                var ordersClient = new OrdersClient();
+                ordersClient.GetProductWiseAccountRelatedInformation(productId, mobileNo, function (res) {
+                    if (res.Success == 1) {
+
+                        var accountId = res.AccountId;
+
+                        var QotationReqType = 1;
+
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "CreateQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "address", res.Address);
+                        AddParameter($form, "state", res.State);
+                        AddParameter($form, "contactName", res.NickName);
+                        AddParameter($form, "country", res.Country);
+                        AddParameter($form, "registeredDate", res.RegisteredDate);
+                        AddParameter($form, "email", res.EmailID);
+                        AddParameter($form, "mobile", res.MobileNumber);
+                        AddParameter($form, "company", res.Company);
+                        AddParameter($form, "BillMode", billMode);
+                        AddParameter($form, "QuotationId", quotationId)
+                        $form[0].submit();
+
+                    }
+                });
+            }
 
             function AddParameter(form, name, value) {
                 var $input = $("<input />").attr("type", "hidden")

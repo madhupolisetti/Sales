@@ -91,13 +91,14 @@ $("#btnConfirm").click(function () {
 
     }
     else if (paymentGateWayId == 2) {
-        bankAccountId = $("#txtChequeDepositDate :selected").val();
+        bankAccountId = $("#ddlChequeDepositingBankAccount :selected").val();
         depositDate = $("#txtOnlineTransferDepositDate").val();
         PaymentAmount = $("#txtChequeAmount").val();
         activatePercentage = $("#txtChequePercentageOfAmt :selected").val();
         chequeNumber = $("#txtCheque").val();
         Comments = $("#ChequeComments").val();
-        tdsPercentage = ("#ddlChequeTANAmount :selected").val();
+        alert(Comments);
+        tdsPercentage = $("#ddlChequeTANAmount :selected").val();
         clientAccountName = $("#txtChequeHolderName").val();
         isTdsApplicable = $("#chkCheque").is(':checked');
 
@@ -160,8 +161,15 @@ $("#btnConfirm").click(function () {
         Comments = $("#txtOnlineTransferThroughCCAvenueComments").val();
 
     }
-    var searchData = '{"ProductId":"' + productId + '","InvoiceId":"' + invoiceId + '","AccountId":"' + accountId + '","BillingModeId":"' + billingModeId + '","PaymentGatewayId":"' + paymentGateWayId + '","PaymentAmount":"' + PaymentAmount + '","BankAccountId":"' + bankAccountId + '","DepositeDate":"' + depositDate + '","ActivatePercentage":"' + activatePercentage + '","IsTDSApplicable":"' + isTdsApplicable + '","TDSPercentage":"' + tdsPercentage + '","Comments":"' + Comment + '","TransactionNumber":"' + transactionNumber + '","ClientAccountNumber":"' + clientAccountNumber + '","ClientAccountName":"' + clientAccountName + '"}'
+    var searchData = '{"ProductId":"' + productId + '","InvoiceId":"' + invoiceId + '","AccountId":"' + accountId + '","BillingModeId":"' + billingModeId + '","PaymentGatewayId":"' + paymentGateWayId + '","PaymentAmount":"' + PaymentAmount + '","BankAccountId":"' + bankAccountId + '","DepositeDate":"' + depositDate + '","ActivatePercentage":"' + activatePercentage + '","IsTDSApplicable":"' + isTdsApplicable + '","TDSPercentage":"' + tdsPercentage + '","Comments":"' + Comments + '","TransactionNumber":"' + transactionNumber + '","ClientAccountNumber":"' + clientAccountNumber + '","ClientAccountName":"' + clientAccountName + '"}'
     ordersClient.GeneratePayment(searchData, function (res) {
+        console.log(res);
+        if (res.Success == true) {
+            SuccessNotifier(res.Message);
+            window.location.href = "/Payments.aspx";
+        } else {
+            ErrorNotifier(res.Message);
+        }
 
     })
 

@@ -1,4 +1,5 @@
 ﻿var searchData = {};
+var paymentStatusesLength = 7;
 $(document).ready(function () {
     var ordersClient = new OrdersClient();
     bindProducts()

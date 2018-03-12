@@ -23,10 +23,7 @@ namespace Orders
             {
                 invoiceId = Convert.ToInt32(Request["InvoiceId"]);
             }
-            if (Request["AccountId"] != null && Request["AccountId"] != string.Empty)
-            {
-                accountId = Convert.ToInt32(Request["AccountId"]);
-            }
+            
         }
     }
 }

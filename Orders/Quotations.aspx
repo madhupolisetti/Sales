@@ -284,6 +284,7 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
+    <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
@@ -291,6 +292,8 @@
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
+            quotationSearchData.Limit = 2;
+            $("#btndownload,#btnview,#btncreate,#btnedit,#btninvoice,#btnpayment,#btndelete").attr("class", "enable-icn");
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
@@ -325,6 +328,11 @@
 
             $("#btninvoice").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
+                var statusId = $('.check_tool.Checked').attr("status");
+                if (statusId == "2") {
+                    ErrorNotifier("Invoice already Generated");
+                    return false;
+                }
                 ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
                     if (res.Success == true) {
                         var $form = $("<form/>").attr("id", "data_form")
@@ -358,11 +366,19 @@
                 $(this).prop('checked', true);
                 $(this).addClass("Checked");
                 if ($(this).prop('checked')) {
+                    $("#btnpayment").attr("class", "disable-icn");
                     if ($(this).attr("status") == 1) {
-                        $("#btnpayment").attr("class", "disable-icn");
+                        $("#btninvoice").attr("class", "enable-icn");
+                        $("#btnedit").attr("class", "enable-icn");
+                        $("#btndelete").attr("class", "enable-icn");
+                        
+                        
                     }
                     else {
-                        $("#btnpayment").attr("class", "enable-icn");
+                        $("#btninvoice").attr("class", "disable-icn");
+                        $("#btnedit").attr("class", "disable-icn");
+                        $("#btndelete").attr("class", "disable-icn");
+                        
                     }
 
                 }
@@ -402,7 +418,12 @@
                 $("#hdnIsPostPaid").val($(this).attr("billmode"));
 
             });
-            $("#btnedit").click(function () {//To edit Quotation                
+            $("#btnedit").click(function () {//To edit Quotation 
+                var statusId = $('.check_tool.Checked').attr("status");
+                if (statusId == "2") {
+                    ErrorNotifier("Invoice already raised for this quotation you can't edit");
+                    return false;
+                }
                 var quotationId = $("#hdnQuotationId").val()
                 var isBillMode = $("#hdnIsPostPaid").val();
                 var productId = 1;
@@ -630,6 +651,25 @@
                                         .attr("name", name)
                                             .attr("value", value);
                 form.append($input);
+            }
+
+            function pagination(totalCount, globalPageSize) {
+
+                $('#page-selection').bootpag({
+                    total: Math.ceil(totalCount / globalPageSize),
+                    maxVisible: 6,
+                    next: 'Next',
+                    prev: 'Prev'
+
+                }).on("page", function (event, num) {
+
+                    if (globalPageNumber != num) {
+                        globalPageNumber = num;
+                        globalPageSize = $("#dropPages").val();
+                        //getInvoices();
+                    }
+                });
+
             }
 
 

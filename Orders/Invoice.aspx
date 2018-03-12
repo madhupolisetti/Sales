@@ -7,6 +7,7 @@
     <div class="page-content-wrapper">
         <div class="page-content">
             <input type="hidden" id="hdnQuotationId" value="<%= quotationId %>" />
+            <input type="hidden" id="hdnInvoiceId" value="<%= invoiceId %>" />
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="row" id="invoiceData">
             </div>
@@ -55,6 +56,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var quotationId = $("#hdnQuotationId").val();
+            var invoiceId = $("#hdnInvoiceId").val();
             var ordersClient = new OrdersClient();
             var webUrl = $("#hdnWebUrl").val();
             ordersClient.ViewInvoice(quotationId, false, function (res) {
@@ -75,6 +77,27 @@
                     a.click();
                 });
             });
+
+
+            $("#btnPayment").click(function () {
+                var $form = $("<form/>").attr("id", "data_form")
+                                       .attr("action", "Payment.aspx")
+                                       .attr("method", "post");
+                $("body").append($form);
+                //Append the values to be send
+                //AddParameter($form, "QotationReqType", QotationReqType);
+
+                AddParameter($form, "InvoiceId", invoiceId);
+                AddParameter($form, "QuotationId", quotationId);
+                $form[0].submit();
+            });
+
+            function AddParameter(form, name, value) {
+                var $input = $("<input />").attr("type", "hidden")
+                                        .attr("name", name)
+                                        .attr("value", value);
+                form.append($input);
+            }
 
         });
 
