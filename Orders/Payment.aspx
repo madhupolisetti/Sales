@@ -145,8 +145,8 @@
 
                 <!-- BEGIN Credentials PORTLET -->
                 <div class="text-center">
-                    <label class="tab-style-blue margin-right-10" id="btnOrderSummary" style="width: 200px;">Order Summary</label>
-                    <label class="tab-style-default" id="btnPaymentMethod" style="width: 200px;">Payment Method</label>
+                    <label class="tab-style-default" id="btnOrderSummary" style="width: 200px;">Order Summary</label>
+                    <label class="tab-style-blue margin-right-10" id="btnPaymentMethod" style="width: 200px;">Payment Method</label>
                 </div>
 
 
@@ -183,7 +183,7 @@
                                     <input type="text" id="txtInvoiceRaisedDate" disabled="disabled" class="form-control" />
                                 </div>
                                 <div class="col-sm-4 margin-top-25">
-                                    <input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />
+                                    <%--<input type="button" value="Submit" id="btnsubmit" class="btn btn-primary" />--%>
                                 </div>
                             </div>
                             <div>
@@ -217,7 +217,7 @@
 
 
 
-                        <div id="divIVORDate1" style="display: none;">
+                        <div id="divIVORDate1" style="display: block;">
 
 
                             <div class="portlet light">

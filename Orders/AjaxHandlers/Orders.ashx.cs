@@ -36,6 +36,9 @@ namespace Orders.AjaxHandlers
                     case "Search":
                         Search(context);
                         break;
+                    case "GetOrderSummary":
+                        GetOrderSummary(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -98,6 +101,14 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
                 number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: ordersDictionary));
+        }
+        private void GetOrderSummary(HttpContext context)
+        {
+            int quotationId = 0;
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            Client client = new Client(responseFormat: ResponseFormat.JSON);
+            context.Response.Write(client.GetOrderSummary(quotationId));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

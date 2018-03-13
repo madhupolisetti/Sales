@@ -1035,6 +1035,34 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
+    OrdersClient.prototype.GetOrderSummary = function (quotationId, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.ordersHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    "Action": "GetOrderSummary",
+                    "QuotationId": quotationId
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
     OrdersClient.prototype.GetOrders = function (searchData, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
