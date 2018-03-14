@@ -56,6 +56,12 @@ namespace Orders.AjaxHandlers
                     case "Download":
                         Download(context);
                         break;
+                    case "GetQuotationServices":
+                        GetQuotationServices(context);
+                        break;
+                    case "GetQuotationServiceProperties":
+                        GetQuotationServiceProperties(context);
+                        break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
                         break;
@@ -93,6 +99,7 @@ namespace Orders.AjaxHandlers
             byte productId = 0;
             int quotationId = 0;
             string quotationNumber = string.Empty;
+            string accountName = string.Empty;
             string mobile = string.Empty;
             string email = string.Empty;
             int accountId = 0;
@@ -115,6 +122,8 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("QuotationId must be a number"));
             if (searchData.SelectToken("QuotationNumber") != null)
                 quotationNumber = searchData.SelectToken("QuotationNumber").ToString();
+            if (searchData.SelectToken("AccountName") != null)
+                accountName = searchData.SelectToken("AccountName").ToString();
             if (searchData.SelectToken("AccountId") != null && !int.TryParse(searchData.SelectToken("AccountId").ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
             if (searchData.SelectToken("EmployeeId") != null && !int.TryParse(searchData.SelectToken("EmployeeId").ToString(), out employeeId))
@@ -145,7 +154,8 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
-                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit, mobile: mobile, email: email,tablePreferences:quotationsDictionary));
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit, 
+                mobile: mobile, email: email,accountName:accountName, tablePreferences:quotationsDictionary));
         }
         private void GetQuotationDetails(HttpContext context)
         {
@@ -272,6 +282,41 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.DownloadQuotation(quotationId, isPostPaidQuotation));
+        }
+
+        private void GetQuotationServices(HttpContext context)
+        {
+            bool onlyActive = true;
+            int quotationId = 0;
+            byte billingModeId = 1;
+            if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+                GenerateErrorResponse(400, string.Format("QuotationId value ({0}) is not a valid integer value", context.Request["QuotationId"].ToString()));
+            if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
+                GenerateErrorResponse(400, string.Format("QuotationId value ({0}) is not a valid integer value", context.Request["BillingModeId"].ToString()));
+            TablePreferences quotationServicesTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> quotationServicesDictionary = new Dictionary<string, TablePreferences>();
+            quotationServicesDictionary.Add("QuotationServices", quotationServicesTablePreferences);
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetQuotationServices(quotationId:quotationId,billingModeId:billingModeId,onlyActive:onlyActive,tablePreferences:quotationServicesDictionary));
+        }
+        private void GetQuotationServiceProperties(HttpContext context)
+        {
+            bool onlyActive = true;
+            int quotationId = 0;
+            byte billingModeId = 1;
+            if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
+                GenerateErrorResponse(400, string.Format("QuotationId value ({0}) is not a valid integer value", context.Request["QuotationId"].ToString()));
+            if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
+                GenerateErrorResponse(400, string.Format("QuotationId value ({0}) is not a valid integer value", context.Request["BillingModeId"].ToString()));
+            TablePreferences quotationServicePropertiesTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> quotationServicePropertiesDictionary = new Dictionary<string, TablePreferences>();
+            quotationServicePropertiesDictionary.Add("QuotationServiceProperties", quotationServicePropertiesTablePreferences);
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetQuotationServiceProperties(quotationId: quotationId, billingModeId: billingModeId, onlyActive: onlyActive, tablePreferences: quotationServicePropertiesDictionary));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

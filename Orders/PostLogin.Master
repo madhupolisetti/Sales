@@ -217,28 +217,28 @@
                             <span class="selected"></span>
                         </a>
                         <ul class="sub-menu">
-                            <li class="nav-item start " id="QuotationSmartView" style="display: none;">
-                                <a href="QuotationDetails.aspx" class="nav-link ">
+                            <li class="nav-item start " id="QuotationSmartView">
+                                <a href="Quotations.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/Quotations-SmartView.png" selectedsrc="assets/SelectedMenuIcons/Quotations-SmartView_select.png" width="18" />
                                     <span class="title">Quotation</span>
                                 </a>
                             </li>
 
-                            <li class="nav-item start" id="InvoiceSmartView" style="display: none;">
-                                <a href="InvoiceSearch.aspx" class="nav-link slectclick">
+                            <li class="nav-item start" id="InvoiceSmartView">
+                                <a href="Invoices.aspx" class="nav-link slectclick">
 
                                     <img src="assets/MenuIcons/Invoice_SmartView_SubModule.png" selectedsrc="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png" width="18" />
                                     <span class="title">Invoice</span>
                                 </a>
                             </li>
-                            <li class="nav-item start " id="lstPaymentSmartView" style="display: none;">
-                                <a href="PaymentsDetails.aspx" class="nav-link ">
+                            <li class="nav-item start " id="lstPaymentSmartView">
+                                <a href="Payments.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/Payments_SmartView.png" selectedsrc="assets/SelectedMenuIcons/Payments_SmartView_select.png" width="18" />
                                     <span class="title">Payments</span>
                                 </a>
                             </li>
-                            <li class="nav-item start " id="lstOrderSearchDetails" style="display: none;">
-                                <a href="OrderSearch.aspx" class="nav-link ">
+                            <li class="nav-item start " id="lstOrderSearchDetails">
+                                <a href="Orders.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/OrderSearchDetails.png" selectedsrc="assets/SelectedMenuIcons/OrderSearchDetails_select.png" width="18" />
                                     <span class="title">Activations</span>
                                 </a>
@@ -253,7 +253,7 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item start" id="TokenManagement">
+                    <%--<li class="nav-item start" id="TokenManagement">
                         <a href="TokenManagement.aspx" class="nav-link nav-toggle">
                             <img src="assets/MenuIcons/token_management.png" selectedsrc="assets/SelectedMenuIcons/token_management-w.png" />
 
@@ -273,28 +273,9 @@
                                     <span class="title">Spam Tokens</span>
                                 </a>
                             </li>
-                            <%--  <li class="nav-item">
-                                            <a href="" class="nav-link ">
-                                    <i class="fa fa-cubes"></i>
-                                                <span class="title">Token Count</span>
-                                            </a>
-                                        </li>--%>
+                            
                         </ul>
-                        <%-- <ul class="sub-menu">
-                                         <li class="nav-item start ">
-                                            <a href="CreateToken.aspx" class="nav-link">                                             
-                                    <img src="assets/MenuIcons/CreateToken.png" width="18"/>
-                                                <span class="title">Create Token</span>
-                                            </a>
-                                        </li>
-                                           <li class="nav-item start " id="TokenManagement">
-                                            <a href="TokenManagement.aspx" class="nav-link ">
-                                    <img src="assets/MenuIcons/Payments_SmartView.png" width="18"/>
-                                                <span class="title">Token Management</span>
-                                            </a>
-                                        </li>
-
-                                    </ul>--%>
+                       
                     </li>
 
                     <li class="nav-item start">
@@ -320,12 +301,7 @@
                         </ul>
                     </li>
 
-                    <!--<li class="nav-item start" id="senderIdMenu">
-                                    <a href="SenderIds.aspx" class="nav-link ">                                     
-                            <img src="assets/MenuIcons/SenderID_Module.png" selectedsrc="assets/SelectedMenuIcons/SenderID_Module_select.png" />
-                                        <span class="title">Sender Names</span>
-                                    </a>
-                                </li>-->
+                   
                     <li class="nav-item start" id="unprosessed">
                         <a href="javascript:;" class="nav-link nav-toggle">
                             <img src="assets/MenuIcons/Unprocessed_Request.png" selectedsrc="assets/SelectedMenuIcons/Unprocessed_Request_select.png" />
@@ -411,7 +387,7 @@
                             <span class="title">Number Management</span>
                             <span class="selected"></span>
                         </a>
-                    </li>
+                    </li>--%>
 
                 </ul>
             </div>

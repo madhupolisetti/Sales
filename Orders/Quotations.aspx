@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Account Name</label>
-                                <input type="text" id="txtuser" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
                         <div class="row margin-bottom-15" style="display: none;" id="secondRow">
@@ -164,6 +164,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Product Name</th>
                                         <th>Account Name</th>
                                         <th>Contact Name</th>
                                         <th>OwnerShip Name</th>
@@ -292,7 +293,7 @@
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
-            quotationSearchData.Limit = 2;
+            //quotationSearchData.Limit = 2;
             $("#btndownload,#btnview,#btncreate,#btnedit,#btninvoice,#btnpayment,#btndelete").attr("class", "enable-icn");
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
@@ -313,6 +314,7 @@
                 quotationSearchData.Email = $("#txtemail").val();
                 quotationSearchData.Limit = $("#dropPages").val();
                 quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
+                quotationSearchData.AccountName = $("#txtAccountName").val();
                 getQuotations();
             });
 
@@ -552,8 +554,9 @@
             function getQuotations() {
 
                 if (dateRange == "This Month") {
-                    quotationSearchData.FromDateTime = "2018-02-01";
-                    quotationSearchData.ToDateTime = "2018-03-28";
+                    var date = new Date();
+                    quotationSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+                    quotationSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -567,7 +570,7 @@
                             $("#data").html(quotationsData);
                         }
                         else {
-                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
+                            $("#data").html("<tr ><td align='center' colspan='13'> No records Found</td></tr>");
                         }
                     }
                     else {
@@ -581,6 +584,7 @@
                 var quotations = "";
                 for (var i = 0; i < Quotations.length; i++) {
                     quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1'/></td>";
+                    quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].AccountName + "</td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";

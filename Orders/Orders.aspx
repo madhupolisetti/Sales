@@ -32,43 +32,34 @@
                             <div class="col-sm-3">
                                 <label>Bill Mode</label>
                                 <select id="ddlBillMode" name="BillMode" class="form-control form-filter input-sm">
-                                    <option value="0">Pre Paid</option>
-                                    <option value="1">Post Paid</option>
+                                    <option value="1">Pre Paid</option>
+                                    <option value="2">Post Paid</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label>Account Name</label>
-                                <input type="text" id="txtuser" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
                         <div class="row margin-bottom-15" id="secondRow" style="display: none;">
                             <div class="col-sm-3">
                                 <label>Mobile</label>
-                                <input type="text" id="txtmblnum" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
-                                <label>Payment Status</label>
-                                <select id="ddlpaymetstatus" name="PaymentStatus" class="form-control form-filter input-sm">
-                                    <option value="4">Select</option>
-                                    <option value="3">All</option>
-                                    <option value="0">Pending</option>
-                                    <%--   <option value="2">Partially Paid</option>
-                                        <option value="1">Payment Completed</option>--%>
-                                    <option value="1">Cleared</option>
-                                    <option value="5">Charge Back</option>
-                                    <option value="6">Refund</option>
-                                </select>
+                                <label>Email</label>
+                                <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
                                 <label>Activation Status</label>
-                                <select id="ddlOrderstatus" name="OrderStatus" class="form-control form-filter input-sm">
+                                <select id="ddlOrderStatus" name="OrderStatus" class="form-control form-filter input-sm">
 
                                     <%--   <option value="2">Partially Activated</option>--%>
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label>Search By ID</label>
-                                <input type="text" id="txtSearchById" class="form-control form-filter input-sm" placeholder="Quotation/Invoice" />
+                                <input type="text" id="txtNumber" class="form-control form-filter input-sm" placeholder="Quotation/Invoice" />
                             </div>
                         </div>
                         <div class="row margin-bottom-15" id="thirdRow">
@@ -110,6 +101,7 @@
                                 <thead>
                                     <tr>
                                         <%--  <th></th>--%>
+                                        <th>Product Name</th>
                                         <th>Account Name</th>
                                         <th>OwnerShip Name</th>
                                         <th>Mobile #</th>
@@ -200,27 +192,28 @@
             </div>
         </div>
 
-        <%--popup for chargeback/refund end --%>
-        <div class="modal fade in" id="basic" tabindex="-1" aria-hidden="true" style="margin-left: 343px; width: 500px;">
+      
 
+
+        <div class="modal fade in" id="quotationServicesModal" tabindex="-1" aria-hidden="true" style="position: relative; margin-top: -70px; margin-left: -180px;">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <span style="color: green;">Activation Service Details</span>
+                        <h4 class="modal-title" style="padding-left: 150px;"><b>Activate Order</b></h4>
                     </div>
-                    <div class="modal-body">
-                        <div id="serviceIdsDiv" style="margin-left: 30px;">
-                        </div>
+                    <div class="modal-body" id="divQuotationservices">
+
                     </div>
-                    <div style="margin-left: 15px; margin-bottom: 10px;">
-                        <button id="btnActivateConfirm" style="margin-top: 13px;" type="button" class="btn green">Activate</button>
-                        <button id="btnClose" type="button" style="margin-top: 13px;" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                    <div class="modal-footer">
+                        <button id="btnClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        <button id="btnActivate" type="button" class="btn btn-primary" data-dismiss="modal">Activate</button>
                     </div>
                 </div>
+                <!-- /.modal-content -->
             </div>
-            <!-- /.modal-content -->
+            <!-- /.modal-dialog -->
         </div>
-        <!-- /.modal-dialog -->
     </div>
     <input type="hidden" id="hdnOrderId" class="hdnOrderId" />
     <input type="hidden" id="hdnInvoiceNumber" class="hdnInvoiceNumber" />

@@ -114,6 +114,7 @@
                             <thead>
                                 <tr>
                                     <th></th>
+                                    <th>Product Name</th>
                                     <th>Account Name</th>
                                     <th>Contact Name</th>
                                     <th>OwnerShip Name</th>
@@ -221,7 +222,9 @@
                 invoiceSearchData.Email = $("#txtEmail").val();
                 invoiceSearchData.Limit = $("#dropPages").val();
                 invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
+                invoiceSearchData.AccountName = $("#txtAccountName").val();
                 dateRange = $("#txtDateRange").val();
+                
                 getInvoices();
             });
 
@@ -269,8 +272,9 @@
             
             function getInvoices() {
                 if (dateRange == "This Month") {
-                    invoiceSearchData.FromDateTime = "2018-03-01";
-                    invoiceSearchData.ToDateTime = "2018-03-31";
+                    var date = new Date();
+                    invoiceSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+                    invoiceSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -284,7 +288,7 @@
                             $("#data").html(invoicesData);
                         }
                         else {
-                            $("#data").html("<tr ><td align='center' colspan='13'> No records Found</td></tr>");
+                            $("#data").html("<tr ><td align='center' colspan='14'> No records Found</td></tr>");
                         }
                     }
                     else {
@@ -298,6 +302,7 @@
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {
                     invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
                     invoicesData += "<td>" + Invoices[i].AccountName + "</td>";
                     invoicesData += "<td>" + Invoices[i].OwnerShipName + "</td>";

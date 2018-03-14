@@ -599,6 +599,66 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
+    OrdersClient.prototype.GetQuotationServices = function (quotationId,billingModeId, onlyActive, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.quotationsHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    Action: "GetQuotationServices",
+                    OnlyActive: onlyActive ? onlyActive : true,
+                    QuotationId : quotationId,
+                    BillingModeId: billingModeId
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+    OrdersClient.prototype.GetQuotationServiceProperties = function (quotationId, billingModeId, onlyActive, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.quotationsHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    Action: "GetQuotationServiceProperties",
+                    OnlyActive: onlyActive ? onlyActive : true,
+                    QuotationId: quotationId,
+                    BillingModeId: billingModeId
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
     // Invoices Related
     OrdersClient.prototype.GetInvoiceStatuses = function (onlyActive, callBackFunction) {
         var actionResponse;
@@ -1074,6 +1134,35 @@
                 {
                     "Action": "Search",
                     "SearchData": JSON.stringify(searchData)
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+    OrdersClient.prototype.ActivateOrder = function (activationUrl,metaData, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.ordersHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    "Action": "Activate",
+                    "MetaData": JSON.stringify(metaData),
+                    "ActivationUrl" : activationUrl
                 },
             success: function (response) {
                 actionResponse = response;

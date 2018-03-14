@@ -8,26 +8,43 @@ $(document).ready(function () {
         if (res.Success == true) {
             var orderStatus = "";
             orderStatus = "<option value=0>Select</option>";
-            for (var i = 0; i < res.PaymentStatuses.length; i++) {
-                orderStatus += "<option value=" + res.PaymentStatuses[i].Id + " bank>" + res.PaymentStatuses[i].Status + "</option>"
+            for (var i = 0; i < res.OrderStatuses.length; i++) {
+                orderStatus += "<option value=" + res.OrderStatuses[i].Id + " bank>" + res.OrderStatuses[i].Status + "</option>"
             }
-            $("#ddlOrderstatus").html(orderStatus);
+            $("#ddlOrderStatus").html(orderStatus);
         }
     });
 
-    $("#defaultrange").daterangepicker();
 
-    searchData.ProductId = 1;
-    searchData.AccountId = 1;
-    searchData.BillingMode = 1;
+    $("#defaultrange").daterangepicker();
     getOrders(searchData);
 
 
     $("#btnsearch").click(function () {
-
+        searchData.BillingMode = $("#ddlBillMode").val();
+        searchData.ProductId = $("#ddlProduct").val();
+        searchData.Mobile = $("#txtMobile").val().trim();
+        searchData.Email = $("#txtEmail").val().trim();
+        searchData.OrderStatus = $("#ddlOrderStatus").val();
+        searchData.Number = $("#txtNumber").val();
+        searchData.AccountName = $("#txtAccountName").val();
         getOrders(searchData);
 
     })
+
+    $(document).delegate('#FilterByMore', 'click', function () {
+        var anchorText = $(this).text();
+        if (anchorText == "Search by more") {
+            $("#secondRow").show();
+            $("#FilterByMore").text("Search by less");
+            $("#filterIcn").removeClass("fa fa-caret-down").addClass("fa fa-caret-up");
+        }
+        else {
+            $("#secondRow").hide();
+            $("#FilterByMore").text("Search by more");
+            $("#filterIcn").removeClass("fa fa-caret-up").addClass("fa fa-caret-down");
+        }
+    });
     function bindProducts() {
         var productsData = "<option value='0'>--- All ---</option>";
         ordersClient.GetProducts(true, function (res) {
@@ -55,8 +72,9 @@ $(document).ready(function () {
         var dateRange = $("#daterangetext").val();
 
         if (dateRange == "This Month") {
-            searchData.FromDateTime = "2018-02-01";
-            searchData.ToDateTime = "2018-02-28";
+            var date = new Date();
+            searchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+            searchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -69,6 +87,7 @@ $(document).ready(function () {
 
                     for (var i = 0; i < res.Orders.length; i++) {
                         ordersData += "<tr>";
+                        ordersData += "<td>" + res.Orders[i].ProductName + "</td>";
                         ordersData += "<td><a class='nameHypClass'>" + res.Orders[i].AccountName + "</a></td>";
                         ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
                         ordersData += "<td>" + res.Orders[i].Mobile + "</td>";
@@ -91,11 +110,11 @@ $(document).ready(function () {
                         ordersData += "<td>" + res.Orders[i].ActivationStatus + "</td>";
                         if (res.Orders[i].PaymentStatusId == "2") {
                             ordersData += "<td class='activation' id='" + res.Orders[i].Id + "'>";
-                            ordersData += "<span>Activation</span><input type='button' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount='' style='display:none'>"
+                            ordersData += "<span>Activation</span><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' OrderId='" + res.Orders[i].Id + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount='' style='display:none'>"
                             ordersData += "</td>";
                         }
                         else {
-                            ordersData += "<td class='activation'><input type='button' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount=''></td>"
+                            ordersData += "<td class='activation'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' OrderId='" + res.Orders[i].Id + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount=''></td>"
                         }
                         ordersData += "<td></td>";
 
@@ -113,7 +132,7 @@ $(document).ready(function () {
 
                 }
                 else {
-                    ordersData = "<tr><td colspan='13'> No Orders Available </td></tr>";
+                    ordersData = "<tr><td colspan='14'> No Orders Available </td></tr>";
                 }
                 $("#data").html(ordersData);
             }
@@ -122,7 +141,99 @@ $(document).ready(function () {
             }
         });
     }
+    $(document).delegate('.btnActivation', 'click', function () {
+        var quotationId = $(this).attr("QuotationId");
+        var billingMode = $(this).attr("BillingModeId");
+        var orderId = $(this).attr("OrderId");
+        var activationUrl = $(this).attr("ActivationCallBackUrl");
+        var productAccountId = $(this).attr("ProductAccountId");
+        $("#btnActivate").attr("QuotationId", quotationId);
+        $("#btnActivate").attr("BillingMode", billingMode);
+        $("#btnActivate").attr("OrderId", orderId);
+        $("#btnActivate").attr("ActivationCallBackUrl", activationUrl);
+        $("#btnActivate").attr("ProductAccountId", productAccountId);
+        ordersClient.GetQuotationServices(quotationId, billingMode, true, function (res) {
+            console.log(res);
+            var quotationServices = "";
+            if(res.Success == true)
+            {
+                for(var i=0;i<res.QuotationServices.length;i++)
+                {
+                    
+                    if(res.QuotationServices[i].Service == "Balance")
+                    {
+                        quotationServices += "<input type='checkbox' IsBalanceService='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;"
+                        quotationServices += "<Select id='ddlActivatePercentage' class=''><option value='25'>25</option><option value='50'>50</option><option value='75'>75</option><option selected value='100'>100</option></select></br>"
+                    }
+                    else {
+                        quotationServices += "<input type='checkbox' IsBalanceService='False' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span></br>;"
+                    }
+                    
+                }
+                $("#divQuotationservices").html(quotationServices);
+                
+                $("#quotationServicesModal").modal('show');
+                
+            }
+            else
+            {
+                ErrorNotifier(res.Message);
+            }
+        });
+        
+    });
+    $("#btnActivate").click(function () {
+        var quotationId = $(this).attr("QuotationId");
+        var billingMode = $(this).attr("BillingMode");
+        var orderId = $(this).attr("OrderId");
+        var activationUrl = $(this).attr("ActivationCallBackUrl");
+        var quotationServiceProperties = [];
+        var productAccountId = $(this).attr("ProductAccountId");
+        ordersClient.GetQuotationServiceProperties(quotationId, billingMode, true, function (res) {
+            if(res.Success == true)
+            {
+                quotationServiceProperties = res.QuotationServiceProperties;
+            }
+            else
+            {
+                ErrorNotifier(res.Message);
+            }
+            var activatedServicesMetaData = {};
+            activatedServicesMetaData["OrderId"] = orderId;
+            activatedServicesMetaData["AccountId"] = productAccountId;
+            var activateServicesArray = [];
+            $(".chkQuotationServices").each(function () {
+                var service = $(this).attr("Service");
+                var serviceId = $(this).attr("ServiceId");
+                var serviceProperties = {};
+                var serviceObj = {}
+                var isBalanceService = $(this).attr("IsBalanceService")
+                serviceProperties["QuotationServiceId"] = serviceId
+                $(quotationServiceProperties).filter(function (i, n) {
+                    if (n.Service === service) {
+                        serviceProperties[n.Property] = n.Value;
+                        if(isBalanceService == "True")
+                        {
+                            serviceProperties["ActivatedPercentage"] = $("#ddlActivatePercentage").val();
+                        }
+                    }
+                });
+                serviceObj[service] = serviceProperties;
+                activateServicesArray.push(serviceObj);
+                
+            });
+            activatedServicesMetaData["Services"] = activateServicesArray;
+            console.log(activatedServicesMetaData);
+            ordersClient.ActivateOrder(activationUrl, activatedServicesMetaData, function (res) {
+                console.log(res);
 
+            });
+        });
+        
+
+    });
+    
+    
     $(document).delegate('.AccountStatus', 'change', function () {
         AccountStatusorderid = $(this).attr("id");
         AccountStatusVal = $(this).val();
