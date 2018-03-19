@@ -385,6 +385,13 @@
     <Compile Include="Quotations.aspx.designer.cs">
       <DependentUpon>Quotations.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Services.aspx.cs">
+      <DependentUpon>Services.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Services.aspx.designer.cs">
+      <DependentUpon>Services.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\global\css\images\DSC_0226.JPG.lnk" />
@@ -496,6 +503,7 @@
     <Content Include="Scripts\OrdersManagement.js" />
     <Content Include="Scripts\payments.js" />
     <Content Include="Scripts\Quotations.js" />
+    <Content Include="Services.aspx" />
     <Content Include="Web.config" />
     <Content Include="AjaxHandlers\Payments.ashx" />
     <Content Include="AjaxHandlers\Orders.ashx" />

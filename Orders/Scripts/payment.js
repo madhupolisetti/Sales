@@ -1,14 +1,34 @@
 ﻿var ordersClient = new OrdersClient();
 $(document).ready(function () {
+    var taxSummary = "";
     $('#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
     $("#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate").datepicker().datepicker("setDate", new Date());
     ordersClient.GetOrderSummary($("#hdnQuotationId").val(), function (res) {
         if (res.Success == true) {
+            var dueAmount = 0;
+            var taxDeatils = JSON.parse(res.OrderSummary.TaxDetails);
+            if (parseFloat(res.OrderSummary.DueAmount) > 0) {
+                dueAmount = parseFloat(res.OrderSummary.DueAmount);
+            }
             $("#lblTotalAmount").text(res.OrderSummary.TotalAmount);
-            $("#lblPendingAmount").text(res.OrderSummary.DueAmount);
+            $("#lblPendingAmount").text(dueAmount);
             $("#txtInvoiceOrder").val(res.OrderSummary.InvoiceNumber);
             $("#txtInvoiceRaisedDate").val(res.OrderSummary.RaisedDate);
-            $("#NoteText").html(res.OrderSummary.OrderHtml).show();
+            $("#OrderSummaryHtml").html(res.OrderSummary.OrderHtml);
+            $("#NoteText").show()
+
+            taxSummary = "<table><tbody><tr><td>Sub - Total amount : </td><td>" + res.OrderSummary.OrderAmount + "</td></tr>";
+            if ("IGST" in taxDeatils) {
+                taxSummary += "<tr><td> IGST : </td><td>" + taxDeatils.IGST + "</td></tr>";
+            }
+            if ("SGST" in taxDeatils) {
+                taxSummary += "<tr><td> IGST : </td><td>" + taxDeatils.SGST + "</td></tr>";
+            }
+            if ("CGST" in taxDeatils) {
+                taxSummary += "<tr><td> IGST : </td><td>" + taxDeatils.CGST + "</td></tr>";
+            }
+            taxSummary += "<tr><td> Grand Total : </td><td>" + res.OrderSummary.TotalAmount + "</td></tr></tbody></table>"
+            $("#TaxSummaryHtml").html(taxSummary);
 
         }
     });
@@ -255,5 +275,13 @@ $("#btnOrderSummary").click(function () {
     $("#divIVORDate").show();
     $("#divIVORDate1").hide();
 
+    return false;
+});
+
+$("#btnContinue").click(function () {
+    $("#btnOrderSummary").removeClass("tab-style-blue").addClass("tab-style-default");
+    $("#btnPaymentMethod").addClass("tab-style-blue").removeClass("tab-style-default");
+    $("#divIVORDate").hide();
+    $("#divIVORDate1").show();
     return false;
 });

@@ -19,7 +19,7 @@ namespace Orders.AjaxHandlers
         {
             try
             {
-                switch (context.Request.QueryString["Action"].ToString())
+                switch (context.Request["Action"].ToString())
                 {
                     case "GetServices":
                         GetServices(context);
@@ -41,6 +41,12 @@ namespace Orders.AjaxHandlers
                         break;
                     case "UpdateServiceProperties":
                         UpdateServiceProperties(context);
+                        break;
+                    case "GetInputTypes":
+                        GetInputTypes(context);
+                        break;
+                    case "GetInputDataTypes":
+                        GetInputDataTypes(context);
                         break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
@@ -85,15 +91,18 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("ServiceId value ({0}) is not a valid number", context.Request["ServiceId"].ToString()));
             if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
-
+            TablePreferences propertiesTablePrefernces = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> propertiesDictionary = new Dictionary<string, TablePreferences>();
+            propertiesDictionary.Add("Properties", propertiesTablePrefernces);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetServiceProperties(serviceId: serviceId, onlyActive: onlyActive, tablePreferences: null));
+            context.Response.Write(client.GetServiceProperties(serviceId: serviceId, onlyActive: onlyActive, tablePreferences: propertiesDictionary));
         }
         private void CreateService(HttpContext context)
         {
             bool areMultipleEntriesAllowed = false;
             byte productId = 0;
-            if (context.Request["ProductId"] == null || byte.TryParse(context.Request["ProductId"], out productId))
+            bool isActive = false;
+            if (context.Request["ProductId"] == null || !byte.TryParse(context.Request["ProductId"], out productId))
                 GenerateErrorResponse(400, string.Format("ProductId Is Mandatory"));
             if (context.Request["DisplayName"] == null || context.Request["DisplayName"].ToString().Trim().Length == 0)
                 GenerateErrorResponse(400, string.Format("DisplayName Is Mandatory"));
@@ -101,15 +110,18 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("MetaDataCode Is Mandatory"));
             if (context.Request["AreMultipleEntriesAllowed"] == null || !bool.TryParse(context.Request["AreMultipleEntriesAllowed"].ToString(), out areMultipleEntriesAllowed))
                 GenerateErrorResponse(400, string.Format("Parameter AreMultipleEntriesAllowed is missing or not a valid boolean value"));
+            if (context.Request["IsActive"] == null || !bool.TryParse(context.Request["IsActive"].ToString(), out isActive))
+                GenerateErrorResponse(400, string.Format("Parameter AreMultipleEntriesAllowed is missing or not a valid boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.CreateService(productId: Convert.ToByte(context.Request["ProductId"]), displayName: context.Request["DisplayName"].ToString(),
                                                         metaDataCode: context.Request["MetaDataCode"].ToString(),
-                                                        areMultipleEntriesAllowed: bool.Parse(context.Request["AreMultipleEntriesAllowed"])));
+                                                        areMultipleEntriesAllowed: bool.Parse(context.Request["AreMultipleEntriesAllowed"]), isActive: bool.Parse(context.Request["IsActive"])));
         }
         private void UpdateService(HttpContext context)
         {
             bool areMultipleEntriesAllowed = false;
             byte serviceId = 0;
+            bool isActive = false;
             if (context.Request["ServiceId"] == null || !byte.TryParse(context.Request["ServiceId"].ToString(), out serviceId))
                 GenerateErrorResponse(400, string.Format("Parameter ServiceId is missing or not a valid number"));
             if (context.Request["DisplayName"] == null || context.Request["DisplayName"].ToString().Trim().Length == 0)
@@ -118,12 +130,14 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("MetaDataCode Is Mandatory"));
             if (context.Request["AreMultipleEntriesAllowed"] == null || !bool.TryParse(context.Request["AreMultipleEntriesAllowed"].ToString(), out areMultipleEntriesAllowed))
                 GenerateErrorResponse(400, string.Format("Parameter AreMultipleEntriesAllowed is missing or not a valid boolean value"));
+            if (context.Request["IsActive"] == null || !bool.TryParse(context.Request["IsActive"].ToString(), out isActive))
+                GenerateErrorResponse(400, string.Format("Parameter IsActive is missing or not a valid boolean value"));
             if (serviceId <= 0)
                 GenerateErrorResponse(400, string.Format("ServiceId must be greater than 0"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.UpdateService(serviceId: serviceId,
                 displayName: context.Request["DisplayName"].ToString(), metaDataCode: context.Request["MetaDataCode"].ToString(),
-                areMultipleEntriesAllowed: bool.Parse(context.Request["AreMultipleEntriesAllowed"].ToString())));
+                areMultipleEntriesAllowed: bool.Parse(context.Request["AreMultipleEntriesAllowed"].ToString()), isActive: bool.Parse(context.Request["IsActive"].ToString())));
         }
         private void DeleteService(HttpContext context)
         {
@@ -132,13 +146,13 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("Parameter ServiceId is missing or not a valid number"));
             if (serviceId <= 0)
                 GenerateErrorResponse(400, string.Format("ServiceId must be greater than 0"));
-            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client("JSON");
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.DeleteService(serviceId));
         }
         private void CreateServiceProperties(HttpContext context)
         {
             Int16 serviceId = 0;
-            JArray properiesArray = null;
+            JObject propertyObject = null;
             JArray propertyFieldsArray = null;
 
             List<ServiceProperty> servicePropertiesList = new List<ServiceProperty>();
@@ -147,33 +161,33 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("Parameter ServiceId is missing or not a valid number"));
             try
             {
-                properiesArray = JArray.Parse(context.Request["Properties"].ToString());
+                propertyObject = JObject.Parse(context.Request["Properties"].ToString());
 
             }
             catch (Exception e)
             {
                 GenerateErrorResponse(400, string.Format("Invalid JSON"));
             }
-            foreach (JObject propertyObject in properiesArray)
+            //foreach (JObject propertyObject in properiesArray)
+            //{
+            try
             {
-                try
-                {
-                    propertyFieldsArray = JArray.Parse(propertyObject.SelectToken("PropertyFields").ToString());
-                }
-                catch (Exception ex)
-                {
-                    GenerateErrorResponse(400, string.Format("Invalid JSON"));
-                }
-
-                ServiceProperty serviceProperty = ValidateServiceProperties(propertyObject);
-                servicePropertiesFieldList = ValidateServicePropertyFields(propertyFieldsArray, serviceProperty);
-
-                servicePropertiesList.Add(serviceProperty);
+                propertyFieldsArray = JArray.Parse(propertyObject.SelectToken("PropertyFields").ToString());
             }
+            catch (Exception ex)
+            {
+                GenerateErrorResponse(400, string.Format("Invalid JSON"));
+            }
+
+            ServiceProperty serviceProperty = ValidateServiceProperties(propertyObject);
+            servicePropertiesFieldList = ValidateServicePropertyFields(propertyFieldsArray, serviceProperty);
+
+            //servicePropertiesList.Add(serviceProperty);
+            //}
 
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.CreateServiceProperties(serviceId, servicePropertiesList, servicePropertiesFieldList));
+            context.Response.Write(client.CreateServiceProperties(serviceId, serviceProperty, servicePropertiesFieldList));
         }
 
         private void UpdateServiceProperties(HttpContext context)
@@ -285,7 +299,7 @@ namespace Orders.AjaxHandlers
                         GenerateErrorResponse(400, string.Format("Parameter MaxLength of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
                 }
                 if (serviceProperty.InputTypeId == (int)PropertyInputType.TEXT_BOX || inputTypeId == (int)PropertyInputType.TEXT_AREA)
-                    if (propertyFields.SelectToken("IsAllowSpecialChars") == null || !byte.TryParse(propertyFields.SelectToken("IsAllowSpecialChars").ToString(), out minLength))
+                    if (propertyFields.SelectToken("IsAllowSpecialChars") == null || !bool.TryParse(propertyFields.SelectToken("IsAllowSpecialChars").ToString(), out isAllowSpecialChars))
                         GenerateErrorResponse(400, string.Format("Parameter IsAllowSpecialCharacters of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
 
                 if (serviceProperty.InputTypeId != (int)PropertyInputType.TEXT_BOX && inputTypeId == (int)PropertyInputType.TEXT_AREA)
@@ -304,6 +318,25 @@ namespace Orders.AjaxHandlers
             return servicePropertiesFieldList;
         }
 
+        private void GetInputTypes(HttpContext context)
+        {
+            bool onlyActive = true;
+
+            if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetInputTypes(onlyActive: onlyActive, tablePreferences: null));
+        }
+
+        private void GetInputDataTypes(HttpContext context)
+        {
+            bool onlyActive = true;
+
+            if (context.Request["OnlyActive"] != null && !bool.TryParse(context.Request["OnlyActive"].ToString(), out onlyActive))
+                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetInputDataTypes(onlyActive: onlyActive, tablePreferences: null));
+        }
         public bool IsReusable
         {
             get

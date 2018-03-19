@@ -173,7 +173,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.CreateService = function (displayName, metaDataCode, areMultiplesEntriesAllowed, callBackFunction) {
+    OrdersClient.prototype.CreateService = function (productId, displayName, metaDataCode, areMultiplesEntriesAllowed, isActive, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -182,9 +182,11 @@
             method: "POST",
             data: {
                 Action: "CreateService",
+                ProductId: productId,
                 DisplayName: displayName,
                 MetaDataCode: metaDataCode,
-                AreMultipleEntriesAllowed: areMultiplesEntriesAllowed
+                AreMultipleEntriesAllowed: areMultiplesEntriesAllowed,
+                IsActive: isActive
             },
             dataType: "JSON",
             success: function (response) {
@@ -203,7 +205,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.UpdateService = function (serviceId, displayName, metaDataCode, areMultipleEntriesAllowed, callBackFunction) {
+    OrdersClient.prototype.UpdateService = function (serviceId, displayName, metaDataCode, areMultipleEntriesAllowed, isActive, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -216,7 +218,8 @@
                     ServiceId: serviceId,
                     DisplayName: displayName,
                     MetaDataCode: metaDataCode,
-                    AreMultipleEntriesAllowed: areMultipleEntriesAllowed
+                    AreMultipleEntriesAllowed: areMultipleEntriesAllowed,
+                    IsActive: isActive
                 },
             dataType: "JSON",
             success: function (response) {
@@ -277,6 +280,39 @@
                     Action: "CreateServiceProperties",
                     ServiceId: serviceId,
                     Properties: JSON.stringify(properties)
+                },
+            dataType: "JSON",
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
+
+    OrdersClient.prototype.UpdateServiceProperties = function (servicePropertyId, properties, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.servicesHandler,
+            async: this.options.async,
+            method: "POST",
+            traditional: true,
+            data:
+                {
+                    Action: "UpdateServiceProperties",
+                    ServicePropertyId: servicePropertyId,
+                    Property: JSON.stringify(properties)
                 },
             dataType: "JSON",
             success: function (response) {
