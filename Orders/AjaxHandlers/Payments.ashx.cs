@@ -181,24 +181,27 @@ namespace Orders.AjaxHandlers
         {
             byte productId = 0;
             int accountId = 0;
+            string accountName = string.Empty;
             string mobile = string.Empty;
             string email = string.Empty;
             string number = string.Empty;
             byte paymentStatus = 0;
-            byte billingMode = 0;
+            byte billingMode = 1;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
             JObject searchData = new JObject();
             searchData = JObject.Parse(context.Request["SearchData"].ToString());
             if (searchData.SelectToken("ProductId") != null && !byte.TryParse(searchData.SelectToken("ProductId").ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
-            if (searchData.SelectToken("Number") == null)
-                number = searchData.SelectToken("QuotationNumber").ToString();
+            if (searchData.SelectToken("Number") != null)
+                number = searchData.SelectToken("Number").ToString();
+            if (searchData.SelectToken("AccountName") != null)
+                accountName = searchData.SelectToken("AccountName").ToString();
             if (searchData.SelectToken("AccountId") != null && !int.TryParse(searchData.SelectToken("AccountId").ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
-            if (searchData.SelectToken("Mobile") == null)
+            if (searchData.SelectToken("Mobile") != null)
                 mobile = searchData.SelectToken("Mobile").ToString();
-            if (searchData.SelectToken("Email") == null)
+            if (searchData.SelectToken("Email") != null)
                 email = searchData.SelectToken("Email").ToString();
             if (searchData.SelectToken("PaymentStatus") != null && !byte.TryParse(searchData.SelectToken("PaymentStatus").ToString(), out paymentStatus))
                 GenerateErrorResponse(400, string.Format("PaymentStatus must be a number"));
@@ -215,7 +218,8 @@ namespace Orders.AjaxHandlers
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: paymentsDictionary));
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
+                accountName:accountName, tablePreferences: paymentsDictionary));
         }
 
         private void View(HttpContext context)

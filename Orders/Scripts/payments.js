@@ -7,29 +7,49 @@ $(document).ready(function () {
     dateRange = $("#daterangetext").val();
     bindProducts();
     $("#daterangetext").daterangepicker();
+    $("#btnview,#btnpayment,#btncreate").attr("class", "enable-icn");
+    $("#btnedit,#btninvoice,#btndelete,#btndownload").attr("class", "disable-icn");
 
-    ordersClient.GetPaymentStatuses(true, function (res) {
+    ordersClient.GetOrderStatuses(true, function (res) {
         if (res.Success == true) {
-            var paymentStatus = "";
-            paymentStatusesLength = res.PaymentStatuses.length;
-            paymentStatus = "<option value=0>Select</option>";
-            for (var i = 0; i < res.PaymentStatuses.length; i++) {
-                paymentStatus += "<option value=" + res.PaymentStatuses[i].Id + " bank>" + res.PaymentStatuses[i].Status + "</option>"
+            var orderStatus = "";
+            orderStatus = "<option value=0>Select</option>";
+            for (var i = 0; i < res.OrderStatuses.length; i++) {
+                orderStatus += "<option value=" + res.OrderStatuses[i].Id + " bank>" + res.OrderStatuses[i].Status + "</option>"
             }
-            $("#ddlPaymentStatus").html(paymentStatus);
+            $("#ddlOrderStatus").html(orderStatus);
         }
-    })
-    paymentSearchData.ProductId = 1;
-    paymentSearchData.Number = $("#txtInvoice").val();
-    paymentSearchData.AccountId = 0;
-    paymentSearchData.Mobile = $("#txtMobile").val();
-    paymentSearchData.Email = $("#txtEmail").val();
-    paymentSearchData.PaymentStatus = $("#ddlPaymentStatus :selected").val();
-    paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
+    });
+    
+    
 
     getPayments();
 
+    $("#btnSearch").click(function () {
+        paymentSearchData.ProductId = $("#ddlProduct").val();
+        paymentSearchData.Number = $("#txtNumber").val();
+        paymentSearchData.AccountId = 0;
+        paymentSearchData.Mobile = $("#txtMobile").val();
+        paymentSearchData.Email = $("#txtEmail").val();
+        paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();
+        paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
+        paymentSearchData.AccountName = $("#txtAccountName").val();
+        getPayments();
+    });
 
+    $(document).delegate('#FilterByMore', 'click', function () {
+        var anchorText = $(this).text();
+        if (anchorText == "Search by more") {
+            $("#secondRow").show();
+            $("#FilterByMore").text("Search by less");
+            $("#filterIcn").removeClass("fa fa-caret-down").addClass("fa fa-caret-up");
+        }
+        else {
+            $("#secondRow").hide();
+            $("#FilterByMore").text("Search by more");
+            $("#filterIcn").removeClass("fa fa-caret-up").addClass("fa fa-caret-down");
+        }
+    });
     function bindProducts() {
         var productsData = "<option value='0'>--- All ---</option>";
         ordersClient.GetProducts(true, function (res) {
@@ -52,11 +72,14 @@ $(document).ready(function () {
     }
 
     function getPayments() {
+        
+
         dateRange = $("#daterangetext").val();
         var ordersClient = new OrdersClient();
         if (dateRange == "This Month") {
-            paymentSearchData.FromDateTime = "2018-02-01";
-            paymentSearchData.ToDateTime = "2018-02-28";
+            var date = new Date();
+            paymentSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+            paymentSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -69,7 +92,8 @@ $(document).ready(function () {
                 var payments = "";
                 if (res.Payments.length > 0) {
                     for (var i = 0; i < res.Payments.length; i++) {
-                        payments += "<tr><td><input type='checkbox' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
+                        payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProductName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].OwnershipName + "</td>";
@@ -87,7 +111,7 @@ $(document).ready(function () {
                     }
                 }
                 else {
-                    payments = "<tr><td colspan='15' align='center'>No payments available</tr></td>";
+                    payments = "<tr><td colspan='16' align='center'>No payments available</tr></td>";
 
                 }
                 $("#tblDiv").html(payments);
@@ -100,12 +124,22 @@ $(document).ready(function () {
     }
 
     $(document).on("click", ".check_tool", function () {
+        $('.check_tool').prop('checked', false);
+        $('.check_tool').removeClass("Checked");
+        $(this).prop('checked', true);
+        $(this).addClass("Checked");
         if ($(this).attr("type") == "checkbox") {
             if ($(this).prop("checked")) {
                 $("#hdnOrderId").val($(this).attr("id"));
                 $("#hdnInvoiceNumber").val($(this).attr("invoicenumber"));
                 $("#hdnTotalAmount").val($(this).attr("totalamount"));
                 $("#hdnDueAmount").val($(this).attr("dueamount"));
+                if($(this).attr("statusid") == "2"){
+                    $("#btnpayment").attr("class", "disable-icn");
+                }
+                else {
+                    $("#btnpayment").attr("class", "enable-icn");
+                }
             }
         }
 

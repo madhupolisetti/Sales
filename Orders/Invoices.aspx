@@ -114,6 +114,7 @@
                             <thead>
                                 <tr>
                                     <th></th>
+                                    <th>Product Name</th>
                                     <th>Account Name</th>
                                     <th>Contact Name</th>
                                     <th>OwnerShip Name</th>
@@ -155,6 +156,8 @@
             var ordersClient = new OrdersClient();
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
+            $("#btnDownload,#btnView,#btnCreate,#btnPayment").attr("class", "enable-icn");
+            $("#btnEdit,#btndelete").attr("class", "disable-icn");
             bindProducts();
             bindInvoiceStatuses();
             getInvoices();
@@ -178,15 +181,23 @@
                 $('.check_tool').removeClass("Checked");
                 $(this).prop('checked', true);
                 $(this).addClass("Checked");
+                if ($(this).attr("status") == 2) {
+                    $("#btnPayment").attr("class", "disable-icn");
+                }
+                else {
+                    $("#btnPayment").attr("class", "enable-icn");
+                }
             });
             // View Invoice
             $("#btnView").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
+                var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
                 var $form = $("<form/>").attr("id", "data_form")
                                         .attr("action", "Invoice.aspx")
                                         .attr("method", "post");
                 $("body").append($form);
                 AddParameter($form, "QuotationId", quotationId);
+                AddParameter($form, "InvoiceId", invoiceId);
                 $form[0].submit();
             });
             // Download Invoice
@@ -211,7 +222,9 @@
                 invoiceSearchData.Email = $("#txtEmail").val();
                 invoiceSearchData.Limit = $("#dropPages").val();
                 invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
+                invoiceSearchData.AccountName = $("#txtAccountName").val();
                 dateRange = $("#txtDateRange").val();
+                
                 getInvoices();
             });
 
@@ -259,8 +272,9 @@
             
             function getInvoices() {
                 if (dateRange == "This Month") {
-                    invoiceSearchData.FromDateTime = "2018-03-01";
-                    invoiceSearchData.ToDateTime = "2018-03-31";
+                    var date = new Date();
+                    invoiceSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+                    invoiceSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -274,7 +288,7 @@
                             $("#data").html(invoicesData);
                         }
                         else {
-                            $("#data").html("<tr ><td align='center' colspan='13'> No records Found</td></tr>");
+                            $("#data").html("<tr ><td align='center' colspan='14'> No records Found</td></tr>");
                         }
                     }
                     else {
@@ -287,7 +301,8 @@
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {
-                    invoicesData += "<tr><td><input type='checkbox'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
                     invoicesData += "<td>" + Invoices[i].AccountName + "</td>";
                     invoicesData += "<td>" + Invoices[i].OwnerShipName + "</td>";
@@ -319,6 +334,25 @@
                                         .attr("name", name)
                                         .attr("value", value);
                 form.append($input);
+            }
+
+            function pagination(totalCount, globalPageSize) {
+
+                $('#page-selection').bootpag({
+                    total: Math.ceil(totalCount / globalPageSize),
+                    maxVisible: 6,
+                    next: 'Next',
+                    prev: 'Prev'
+
+                }).on("page", function (event, num) {
+
+                    if (globalPageNumber != num) {
+                        globalPageNumber = num;
+                        globalPageSize = $("#dropPages").val();
+                        //getInvoices();
+                    }
+                });
+
             }
         });
     </script>

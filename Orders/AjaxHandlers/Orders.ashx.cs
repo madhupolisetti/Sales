@@ -39,6 +39,9 @@ namespace Orders.AjaxHandlers
                     case "GetOrderSummary":
                         GetOrderSummary(context);
                         break;
+                    case "Activate":
+                        Activate(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -65,11 +68,12 @@ namespace Orders.AjaxHandlers
         {
             byte productId = 0;
             int accountId = 0;
+            string accountName = string.Empty;
             string mobile = string.Empty;
             string email = string.Empty;
             string number = string.Empty;
-            byte paymentStatus = 0;
-            byte billingMode = 0;
+            byte orderStatus = 0;
+            byte billingMode = 1;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
 
@@ -78,15 +82,17 @@ namespace Orders.AjaxHandlers
             if (searchData.SelectToken("ProductId") != null && !byte.TryParse(searchData.SelectToken("ProductId").ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
             if (searchData.SelectToken("Number") != null)
-                number = searchData.SelectToken("QuotationNumber").ToString();
+                number = searchData.SelectToken("Number").ToString();
             if (searchData.SelectToken("AccountId") != null && !int.TryParse(searchData.SelectToken("AccountId").ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
             if (searchData.SelectToken("Mobile") != null)
                 mobile = searchData.SelectToken("Mobile").ToString();
+            if (searchData.SelectToken("AccountName") != null)
+                accountName = searchData.SelectToken("AccountName").ToString();
             if (searchData.SelectToken("Email") != null)
                 email = searchData.SelectToken("Email").ToString();
-            if (searchData.SelectToken("PaymentStatus") != null && !byte.TryParse(searchData.SelectToken("PaymentStatus").ToString(), out paymentStatus))
-                GenerateErrorResponse(400, string.Format("PaymentStatus must be a number"));
+            if (searchData.SelectToken("OrderStatus") != null && !byte.TryParse(searchData.SelectToken("OrderStatus").ToString(), out orderStatus))
+                GenerateErrorResponse(400, string.Format("OrderStatus must be a number"));
             if (searchData.SelectToken("BillingMode") != null && !byte.TryParse(searchData.SelectToken("BillingMode").ToString(), out billingMode))
                 GenerateErrorResponse(400, string.Format("BillingMode must be a number"));
             if (searchData.SelectToken("FromDateTime") != null && !DateTime.TryParse(searchData.SelectToken("FromDateTime").ToString(), out fromDateTime))
@@ -99,8 +105,9 @@ namespace Orders.AjaxHandlers
             ordersDictionary.Add("Orders", ordersTablePreferences);
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
-                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: ordersDictionary));
+            context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, orderStatus: orderStatus,
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
+                accountName:accountName ,tablePreferences: ordersDictionary));
         }
         private void GetOrderSummary(HttpContext context)
         {
@@ -109,6 +116,22 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
             Client client = new Client(responseFormat: ResponseFormat.JSON);
             context.Response.Write(client.GetOrderSummary(quotationId));
+        }
+
+        private void Activate(HttpContext context)
+        {
+            string activationUrl = string.Empty;
+            string metaData = string.Empty;
+            if (string.IsNullOrEmpty(context.Request["ActivationUrl"]))
+                GenerateErrorResponse(400, string.Format("ActivationUrl is Mandatory"));
+            else
+                activationUrl = context.Request["ActivationUrl"].ToString();
+            if (string.IsNullOrEmpty(context.Request["MetaData"]))
+                GenerateErrorResponse(400, string.Format("MetaData is Mandatory"));
+            else
+                metaData = context.Request["MetaData"].ToString();
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.ActivateOrder(activationUrl:activationUrl,metaData:metaData));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

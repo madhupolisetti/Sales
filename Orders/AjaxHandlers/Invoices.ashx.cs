@@ -89,6 +89,7 @@ namespace Orders.AjaxHandlers
             byte productId = 0;
             int invoiceId = 0;
             string quotationNumber = string.Empty;
+            string accountName = string.Empty;
             string mobile = string.Empty;
             string email = string.Empty;
             int accountId = 0;
@@ -111,6 +112,8 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("QuotationId must be a number"));
             if (searchData.SelectToken("QuotationNumber") != null)
                 quotationNumber = searchData.SelectToken("QuotationNumber").ToString();
+            if (searchData.SelectToken("AccountName") != null)
+                accountName = searchData.SelectToken("AccountName").ToString();
             if (searchData.SelectToken("AccountId") != null && !int.TryParse(searchData.SelectToken("AccountId").ToString(), out accountId))
                 GenerateErrorResponse(400, string.Format("AccountId must be a number"));
             if (searchData.SelectToken("EmployeeId") != null && !int.TryParse(searchData.SelectToken("EmployeeId").ToString(), out employeeId))
@@ -141,7 +144,8 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
-                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit, mobile: mobile, email: email, tablePreferences: invoiceDictionary));
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
+                mobile: mobile, email: email,accountName:accountName, tablePreferences: invoiceDictionary));
         }
         private void View(HttpContext context)
         {
@@ -167,7 +171,7 @@ namespace Orders.AjaxHandlers
             if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            //context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation));
+            context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

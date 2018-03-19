@@ -74,7 +74,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Account Name</label>
-                                <input type="text" id="txtuser" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
                         <div class="row margin-bottom-15" style="display: none;" id="secondRow">
@@ -164,6 +164,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Product Name</th>
                                         <th>Account Name</th>
                                         <th>Contact Name</th>
                                         <th>OwnerShip Name</th>
@@ -284,6 +285,7 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
+    <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
@@ -291,6 +293,8 @@
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
+            //quotationSearchData.Limit = 2;
+            $("#btndownload,#btnview,#btncreate,#btnedit,#btninvoice,#btnpayment,#btndelete").attr("class", "enable-icn");
             $("#daterangetext").daterangepicker();
             $("#btnAddNewQuotation").click(function () {
                 $("#createQuotation").modal("show");
@@ -310,6 +314,7 @@
                 quotationSearchData.Email = $("#txtemail").val();
                 quotationSearchData.Limit = $("#dropPages").val();
                 quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
+                quotationSearchData.AccountName = $("#txtAccountName").val();
                 getQuotations();
             });
 
@@ -325,6 +330,11 @@
 
             $("#btninvoice").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
+                var statusId = $('.check_tool.Checked').attr("status");
+                if (statusId == "2") {
+                    ErrorNotifier("Invoice already Generated");
+                    return false;
+                }
                 ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
                     if (res.Success == true) {
                         var $form = $("<form/>").attr("id", "data_form")
@@ -358,11 +368,19 @@
                 $(this).prop('checked', true);
                 $(this).addClass("Checked");
                 if ($(this).prop('checked')) {
+                    $("#btnpayment").attr("class", "disable-icn");
                     if ($(this).attr("status") == 1) {
-                        $("#btnpayment").attr("class", "disable-icn");
+                        $("#btninvoice").attr("class", "enable-icn");
+                        $("#btnedit").attr("class", "enable-icn");
+                        $("#btndelete").attr("class", "enable-icn");
+                        
+                        
                     }
                     else {
-                        $("#btnpayment").attr("class", "enable-icn");
+                        $("#btninvoice").attr("class", "disable-icn");
+                        $("#btnedit").attr("class", "disable-icn");
+                        $("#btndelete").attr("class", "disable-icn");
+                        
                     }
 
                 }
@@ -402,7 +420,12 @@
                 $("#hdnIsPostPaid").val($(this).attr("billmode"));
 
             });
-            $("#btnedit").click(function () {//To edit Quotation                
+            $("#btnedit").click(function () {//To edit Quotation 
+                var statusId = $('.check_tool.Checked').attr("status");
+                if (statusId == "2") {
+                    ErrorNotifier("Invoice already raised for this quotation you can't edit");
+                    return false;
+                }
                 var quotationId = $("#hdnQuotationId").val()
                 var isBillMode = $("#hdnIsPostPaid").val();
                 var productId = 1;
@@ -531,8 +554,9 @@
             function getQuotations() {
 
                 if (dateRange == "This Month") {
-                    quotationSearchData.FromDateTime = "2018-02-01";
-                    quotationSearchData.ToDateTime = "2018-03-28";
+                    var date = new Date();
+                    quotationSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+                    quotationSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
@@ -546,7 +570,7 @@
                             $("#data").html(quotationsData);
                         }
                         else {
-                            $("#data").html("<tr ><td align='center' colspan='12'> No records Found</td></tr>");
+                            $("#data").html("<tr ><td align='center' colspan='13'> No records Found</td></tr>");
                         }
                     }
                     else {
@@ -560,6 +584,7 @@
                 var quotations = "";
                 for (var i = 0; i < Quotations.length; i++) {
                     quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1'/></td>";
+                    quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].AccountName + "</td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";
@@ -630,6 +655,25 @@
                                         .attr("name", name)
                                             .attr("value", value);
                 form.append($input);
+            }
+
+            function pagination(totalCount, globalPageSize) {
+
+                $('#page-selection').bootpag({
+                    total: Math.ceil(totalCount / globalPageSize),
+                    maxVisible: 6,
+                    next: 'Next',
+                    prev: 'Prev'
+
+                }).on("page", function (event, num) {
+
+                    if (globalPageNumber != num) {
+                        globalPageNumber = num;
+                        globalPageSize = $("#dropPages").val();
+                        //getInvoices();
+                    }
+                });
+
             }
 
 

@@ -273,6 +273,8 @@
     <Content Include="JsFiles\metronic.js" />
     <Content Include="JsFiles\moment.js" />
     <Content Include="JsFiles\moment.min.js" />
+    <Content Include="LoginWithGoogle.aspx" />
+    <Content Include="logout.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Scripts\orders.js" />
@@ -338,6 +340,20 @@
     </Compile>
     <Compile Include="Invoices.aspx.designer.cs">
       <DependentUpon>Invoices.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="LoginWithGoogle.aspx.cs">
+      <DependentUpon>LoginWithGoogle.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="LoginWithGoogle.aspx.designer.cs">
+      <DependentUpon>LoginWithGoogle.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
     </Compile>
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />

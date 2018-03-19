@@ -56,10 +56,10 @@
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Account Name</label>
-                                <input type="text" id="txtUserName" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
-                        <div class="row margin-bottom-15" id="secondRow">
+                        <div class="row margin-bottom-15" id="secondRow" style="display:none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
@@ -69,13 +69,13 @@
                                 <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
-                               <label class="table-head">Payment Status</label>
-                                <select id="ddlPaymentStatus" name="PaymentStatus" class="form-control form-filter input-sm">
+                               <label class="table-head">Order Status</label>
+                                <select id="ddlOrderStatus" name="OrderStatus" class="form-control form-filter input-sm">
                                 </select>
                             </div>
                             <div class="col-sm-3">
                                 <label class="table-head">Search By ID</label>
-                                <input type="text" id="txtInvoice" class="form-control form-filter input-sm" />
+                                <input type="text" id="txtNumber" class="form-control form-filter input-sm" />
                             </div>
                         </div>
                         <div>
@@ -148,6 +148,7 @@
                                 <thead>
                                     <tr>
                                         <th></th>
+                                        <th>Product Name</th>
                                         <th>Account Name</th>
                                         <th>Contact Name</th>
                                         <th>OwnerShip Name</th>
@@ -194,22 +195,7 @@
                             <!-- /.modal-dialog -->
                         </div>
 
-                        <%--<div class="row margin-top-20 " style="background-color: #32c5d2; overflow: hidden; margin-left: 6px; margin-right: -5px;">
-                            <div style="float: left;">
-                                <asp:ImageButton ID="btnsettings" runat="server" Height="30px" ImageUrl="~/images/SettingsIcon.png" />
-                            </div>
-                            <div style="float: right;">
-                                <asp:ImageButton ID="btnaddnew" CssClass="btnaddnew" runat="server" ImageUrl="~/images/create.png" PostBackUrl="~/CreatePayment.aspx" Width="20px" ToolTip="Create Payment" />
-                                <asp:ImageButton ID="btnview" runat="server" ImageUrl="~/images/ViewIcon.png" CssClass="btnview" ToolTip="View" />
-                                <asp:ImageButton ID="btnedit" runat="server" ImageUrl="~/images/EditIcon.png" Height="20px" CssClass="btnedit" ToolTip="Edit" />
-                                <asp:ImageButton ID="btndownload" runat="server" ImageUrl="~/images/DownloadIcon.png" CssClass="btndownload" ToolTip="Download" />
-                                <asp:ImageButton ID="btnpayment" CssClass="btnpayment" runat="server" ImageUrl="~/images/payment.png" ToolTip="Payment" Width="20px" Enabled="false" />
-                                <asp:ImageButton ID="btndelete" runat="server" ImageUrl="~/images/delete.png" CssClass="btndelete" ToolTip="Delete" Width="20px" />
-                            </div>
-                        </div>--%>
-                        <%--<div id="tblDiv" class="row" style="width: 100%; overflow: auto; margin-left: 6px;"></div>--%>
-
-
+                       
                         <!-- class="container" end-->
 
 

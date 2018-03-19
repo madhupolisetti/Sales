@@ -120,12 +120,30 @@ $("#btnSave").click(function () {
 
     var ordersClient = new OrdersClient();
     ordersClient.CreateQuotation(productId, accountId, 1, jobjStr, 1, function (res) {
-        if (res.Success == true) { }
+        console.log(res);
+        if (res.Success == true) {
+            var quotationId = res.QuotationId;
+            var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", "Quotation.aspx")
+                                    .attr("method", "post");
+            $("body").append($form);
+            AddParameter($form, "QuotationId", quotationId);
+            $form[0].submit();
+        }
+        else
+        {
+            ErrorNotifier(res.Message);
+        }
     });
 
 })
 
-
+function AddParameter(form, name, value) {
+    var $input = $("<input />").attr("type", "hidden")
+                            .attr("name", name)
+                            .attr("value", value);
+    form.append($input);
+}
 function formQuotationServicesData(quotationData) {
 
     selectQuotationServices(quotationData.QuotationServices);
@@ -330,6 +348,17 @@ $("#btnEdit").click(function (e) {
 
     var ordersClient = new OrdersClient();
     ordersClient.UpdateQuotation(quotationId, 1, 1, jobjStr, 1, function (res) {
-        if (res.Success == true) { }
+        if (res.Success == true) {
+            var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", "Quotation.aspx")
+                                    .attr("method", "post");
+            $("body").append($form);
+            AddParameter($form, "QuotationId", quotationId);
+            $form[0].submit();
+        }
+        else
+        {
+            ErrorNotifier(res.Message);
+        }
     });
 })
