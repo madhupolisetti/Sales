@@ -91,7 +91,7 @@
                                     <select id="ddlCountry" class="ddlCountry form-control" name="Country">
                                     </select><br />
                                     <label id="lblstate" style="display: none">State</label>
-                                    <select id="state" class="form-control" name="States" style="display: none">
+                                    <select id="state" class="form-control" name="States">
                                     </select>
                                 </td>
                                 <td colspan="2">
@@ -135,9 +135,9 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/OrdersClient.js"></script>
-    <script src="Scripts/getServices.js?type=v2"></script>
-    <script src="Scripts/createquotation.js?type=v0"></script>
+    <script src="Scripts/OrdersClient.js?type=v1"></script>
+    <script src="Scripts/getServices.js?type=v56"></script>
+    <script src="Scripts/createquotation.js?type=v10"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>

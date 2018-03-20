@@ -45,6 +45,8 @@ namespace Orders.CommonClasses
         internal const string QUOTATION_SERVICE_ID = "QuotationServiceId";
         internal const string OCCURANCE = "Occurance";
         internal const string PRODUCT_ID = "ProductId";
+        internal const string COUNTRIES = "Countries";
+        internal const string STATES = "States";
 
         internal const string FIELDID = "FieldId";
         internal const string MINLENGTH = "MinLength";

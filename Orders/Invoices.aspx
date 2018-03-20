@@ -1,6 +1,16 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PostLogin.Master" AutoEventWireup="true" CodeBehind="Invoices.aspx.cs" Inherits="Orders.Invoices" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
     <link href="JsFiles/DateTimePicker/daterangepicker-bs3.css" rel="stylesheet" />
+    <style>
+        
+        .modal-backdrop{
+            z-index:1099999;
+        }
+        .modal{
+            z-index: 100599999;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-content-wrapper">
@@ -37,7 +47,7 @@
                                 <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
-                        <div class="row margin-bottom-15" id="secondRow" style="display:none;">
+                        <div class="row margin-bottom-15" id="secondRow" style="display: none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
@@ -49,7 +59,6 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Payment Status</label>
                                 <select id="ddlInvoiceStatus" name="PInvoiceStatus" class="form-control form-filter input-sm">
-                                    
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -89,7 +98,7 @@
                         <div class="col-sm-6">
                             <ul class="results-icns pull-right">
                                 <li>
-                                    <label class="btncreate" id="btnCreate"><i class="icon icon-plus"></i></label>
+                                    <label class="btncreate" id="btncreate"><i class="icon icon-plus"></i></label>
                                 </li>
                                 <li>
                                     <label class="btnview" id="btnView"><i class="icon icon-eye"></i></label>
@@ -140,14 +149,88 @@
 
             <div id="MetaData"></div>
         </div>
+    <div class="modal fade in" id="createQuotation" tabindex="-1" aria-hidden="true" style="position: absolute;">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" style="padding-left: 150px;"><b>Create Quotation</b></h4>
+                </div>
+                <div class="modal-body">
+                    <%--Modal body goes here --%>
+                    <table class="table no-border">
+                        <tr>
+                            <td>
+                                <span>Product</span>
+
+                            </td>
+                            <td>
+                                <select id="ddlProducts" class="form-control">
+                                </select>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>Account Name</span>
+
+                            </td>
+                            <td>
+
+                                <input type="text" id="txtUserName" class="form-control" onkeypress="return IsAlphaNumeric(event);" />
+                                <span id="error" style="color: Red; display: none">* Special Characters not allowed</span>
+                                <span id="lblerrAccountName" style="color: Red;"></span>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>Mobile </span>
+
+                            </td>
+                            <td>
+
+                                <input type="text" id="txtUserMobile" class="form-control" onkeypress='return isNumberKey(event)' />
+                                <span id="lblerrMobile" style="color: Red;"></span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span>Account Quotation Type</span></td>
+                            <td>
+
+                                <input type="radio" id="RegisteredUser" name="User" value="1" class="RegisteredUser" />
+                                Registered User 
+                                        <input type="radio" id="NonRegisteredUser" class="NonRegisteredUser margin-left-10" name="User" value="0" />
+                                Non-Registered User 
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button type="button" class="btn btn-primary margin-right-5" id="btnSubmit">Submit</button>
+                                <button id="btnCancel" type="button" class="btn btn-default">Cancel</button>
+
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div class="modal-footer">
+                    <button id="btnClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
     </div>
-    
+    </div>
 
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var dateRange = "";
@@ -161,7 +244,9 @@
             bindProducts();
             bindInvoiceStatuses();
             getInvoices();
-
+            $("#btnAddNewQuotation,#btncreate").click(function () {
+                $("#createQuotation").modal("show");
+            });
             $(document).delegate('#FilterByMore', 'click', function () {
                 var anchorText = $(this).text();
                 if (anchorText == "Search by more") {
@@ -224,7 +309,7 @@
                 invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
                 invoiceSearchData.AccountName = $("#txtAccountName").val();
                 dateRange = $("#txtDateRange").val();
-                
+
                 getInvoices();
             });
 
@@ -269,7 +354,7 @@
                 });
 
             }
-            
+
             function getInvoices() {
                 if (dateRange == "This Month") {
                     var date = new Date();
@@ -297,7 +382,7 @@
                 });
 
             }
-            
+
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {

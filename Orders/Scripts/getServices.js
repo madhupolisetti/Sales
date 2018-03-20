@@ -123,18 +123,25 @@ function getServiceProperties(serviceId) {
                     if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox") {
                         var propertyFields = new Array();
                         propertyFields = res.Services.Properties[i].PropertyFields;
-                        if (propertyFields.length > 0) {
-                            serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"';
-                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string") {
+
+                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"';
+                        if (res.Services.Properties[i].PropertyFields.length > 0) {
+                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
                                 serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
                             }
-                            serviceProperties += '/>'
-                        }
-                        else {
-                            serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"/>';
                         }
 
                     }
+                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "int") {
+                        serviceProperties += 'onkeypress="return isNumberKey(event)"';
+                    }
+                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && (res.Services.Properties[i].InputDataTypeId.toLowerCase() == "float" || res.Services.Properties[i].InputDataTypeId.toLowerCase() == "money")) {
+                        serviceProperties += 'onkeypress="return isNumberPointKey(event)"';
+                    }
+                    serviceProperties += '/>'
+
+
+
 
 
 
@@ -161,13 +168,6 @@ function getServiceProperties(serviceId) {
     })
 
 
-}
-
-function isNumberKey(evt) {
-    if (evt.which != 8 && evt.which != 0 && (evt.which < 48 || evt.which > 57)) {
-        return false;
-    }
-    return true;
 }
 
 function isNumberPointKey(evt) {

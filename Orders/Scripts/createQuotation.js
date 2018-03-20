@@ -1,17 +1,47 @@
 ﻿var accountId = $("#hdnAccountId").val();
 var productId = $("#hdnProductId").val();
 var quotationData;
+var ordersClient = new OrdersClient();
 $(document).ready(function () {
+
     var quotationId = $("#hdnQuotationId").val();
     var billMode = $("#hdnIsPostPaid").val();
     var mobile = $("#hdnMobileNo").val();
     var isPostPaid = 0;
+    ordersClient.GetCountries(function (res) {
+        if (res.Success == true) {
+            var countries = "";
+            if (res.Countries.length > 0) {
+                countries = "<option value=0>Select</option>";
+                for (var i = 0; i < res.Countries.length; i++) {
+                    countries += "<option value='" + res.Countries[i].Id + "'>" + res.Countries[i].Name + "</option>";
+                }
+            }
+            $("#ddlCountry").html(countries);
+        }
+    });
+
+    ordersClient.GetStates(true, function (res) {
+        if (res.Success == true) {
+            var states = "";
+            if (res.States.length > 0) {
+                states = "<option value=0>Select</option>";
+                for (var i = 0; i < res.States.length; i++) {
+                    states += "<option value='" + res.States[i].Id + "'>" + res.States[i].State + "</option>";
+                }
+                $("#state").html(states);
+            }
+        }
+    })
+
+
+
     if (billMode == "2") {
         isPostPaid = 1;
     }
     if (quotationId != 0) {
         $("#btnEdit").show();
-        var ordersClient = new OrdersClient();
+
         ordersClient.GetQuotationDetails(quotationId, isPostPaid, function (res) {
             if (res.Success == true) {
                 quotationData = res.Quotation;
@@ -29,6 +59,46 @@ $("#btnSave").click(function () {
     var jobjStr = "{";
     var serviceId = '';
     var SenderName = '';
+    var compnay = $("#txtCompanyName").val();
+    var registeredDate = $("#txtRegisteredDate").val();
+    var contactName = $("#txtContactName").val();
+    var mailId = $("#txtBusinessMailID").val();
+    var mobile = $("#txtMobile").val();
+    var countryId = $("#ddlCountry :selected").val();
+    var address = $(".txtContactAddress").val();
+    var statedId = $("#state :selected").val();
+    if (registeredDate.length == 0) {
+        ErrorNotifier("Please select registered date");
+        return false;
+    }
+    if (compnay.length == 0) {
+        ErrorNotifier("Please enter company name");
+        return false;
+    }
+    if (contactName.length == 0) {
+        ErrorNotifier("Please enter contact name");
+        return false;
+    }
+    if (mailId.length == 0) {
+        ErrorNotifier("Please enter mail id");
+        return false;
+    }
+    if (mobile.length == 0) {
+        ErrorNotifier("Please enter mobile no");
+        return false;
+    }
+    if (countryId == 0) {
+        ErrorNotifier("Please select customer country");
+        return false;
+    }
+    if (address.length == 0) {
+        ErrorNotifier("Please enter address");
+        return false;
+    }
+    if (statedId == 0) {
+        ErrorNotifier("Please select customer state");
+        return false;
+    }
     var serviceIds = new Array();
     var occurance = 0;
     var checkboxes = $("#divMain :checkbox");
@@ -130,8 +200,7 @@ $("#btnSave").click(function () {
             AddParameter($form, "QuotationId", quotationId);
             $form[0].submit();
         }
-        else
-        {
+        else {
             ErrorNotifier(res.Message);
         }
     });
@@ -168,7 +237,8 @@ function selectQuotationServices(quotationServices) {
 }
 
 function getServicePropertiesForEdit(serviceId, quotationServiceProperties, quotationServiceId, extraCharges) {
-    extraCharges = JSON.parse(extraCharges);
+
+    extraCharges = extraCharges != "" ? JSON.parse(extraCharges) : extraCharges;
     var serviceProperties = '';
     var str = '';
     var extra = 0;
@@ -184,14 +254,20 @@ function getServicePropertiesForEdit(serviceId, quotationServiceProperties, quot
                     if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox") {
                         var propertyFields = new Array();
                         propertyFields = res.Services.Properties[i].PropertyFields;
+
+                        serviceProperties += '<input type="textbox" style="font-size:11px"  placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="' + res.Services.Properties[i].MetaDataCode + '_' + res.Services.Properties[i].Id + '" toolpro="1"';
+
                         if (propertyFields.length > 0) {
-                            serviceProperties += '<input type="textbox" style="font-size:11px"  placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"';
-
+                            if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "string") {
+                                serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                            }
                         }
-                        if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "string") {
-                            serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                        if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "int") {
+                            serviceProperties += 'onkeypress="return isNumberKey(event)"';
                         }
-
+                        if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && (res.Services.Properties[i].InputDataTypeId.toLowerCase() == "float" || res.Services.Properties[i].InputDataTypeId.toLowerCase() == "money")) {
+                            serviceProperties += 'onkeypress="return isNumberPointKey(event)"';
+                        }
 
                         else {
                             serviceProperties += '<input type="textbox" style="font-size:11px" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"';
@@ -284,47 +360,47 @@ $("#btnEdit").click(function (e) {
                 id = $(this).attr("quotationserviceid");
                 if (occurance > 1) {
                     jobjStr += ',';
-            }
+                }
                 jobjStr += "{'Id':" + "'" + id + "',";
                 jobjStr += "'Occurance':'" + occurance + "',";
                 $(this).find(".check_tool").each(function () {
 
 
-                var value = "";
-                if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
-                    value = $(this).val();
-                }
-                else if ($(this).is('type') == "select") {
-                    value = $(this).value();
-                }
+                    var value = "";
+                    if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
+                        value = $(this).val();
+                    }
+                    else if ($(this).is('type') == "select") {
+                        value = $(this).value();
+                    }
 
-                jobjStr += "'" + $(this).attr("servicepropertycode") + "':'" + value;
-                if ($(this).parents("tr").is(':last-child')) {
-                    jobjStr += "'";
-                }
-                else {
-                    jobjStr += "',";
-                };
+                    jobjStr += "'" + $(this).attr("servicepropertycode") + "':'" + value;
+                    if ($(this).parents("tr").is(':last-child')) {
+                        jobjStr += "'";
+                    }
+                    else {
+                        jobjStr += "',";
+                    };
 
                 });
 
                 if ($(this).find('.extracharges_' + serviceId).find("#extDescription").val() != "") {
-                jobjStr += ",'ExtraCharges':[";
+                    jobjStr += ",'ExtraCharges':[";
                     $(this).find('.extracharges_' + serviceId).each(function () {
 
-                    jobjStr += "{";
-                    jobjStr += "'Description':'" + $(this).find("#extDescription").val() + "',";
-                    jobjStr += "'Amount':'" + $(this).find("#extAmount").val() + "'";
-                    jobjStr += "},";
-                })
-                if (jobjStr.substring(jobjStr.length - 1) == ',') {
-                    jobjStr = jobjStr.substring(0, jobjStr.length - 1);
-                }
+                        jobjStr += "{";
+                        jobjStr += "'Description':'" + $(this).find("#extDescription").val() + "',";
+                        jobjStr += "'Amount':'" + $(this).find("#extAmount").val() + "'";
+                        jobjStr += "},";
+                    })
+                    if (jobjStr.substring(jobjStr.length - 1) == ',') {
+                        jobjStr = jobjStr.substring(0, jobjStr.length - 1);
+                    }
                     jobjStr += "]}"
-            }
+                }
                 else {
-            jobjStr += "}";
-            }
+                    jobjStr += "}";
+                }
             });
             if (occurance > 1)
             { jobjStr += "]" }
@@ -356,9 +432,36 @@ $("#btnEdit").click(function (e) {
             AddParameter($form, "QuotationId", quotationId);
             $form[0].submit();
         }
-        else
-        {
+        else {
             ErrorNotifier(res.Message);
         }
     });
 })
+function isNumberKey(evt) {
+    if (evt.which != 43 && evt.which != 8 && evt.which != 0 && (evt.which < 48 || evt.which > 57)) {
+        return false;
+    }
+    return true;
+}
+
+
+function isDecimalKey(event) {
+    if (event.which == 8 || event.which == 0) {
+        return true;
+    }
+    if (event.which == 45 && $(this).val() == '') {//only allow leading minus
+        return true;
+    }
+    if (event.which == 46 && $(this).val().indexOf('.') == -1) { //only allow one dot
+        return true;
+    }
+    if ((event.which < 48 || event.which > 71)) {
+        return false;
+    }
+}
+
+function blockSpecialChar(e) {
+    var k;
+    document.all ? k = e.keyCode : k = e.which;
+    return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57) || k == 190 || k == 188);
+}
