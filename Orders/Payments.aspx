@@ -23,6 +23,14 @@
             border-color: #C0C0C0;
             vertical-align: text-top;
         }
+
+        .modal-backdrop {
+            z-index: 1099999;
+        }
+
+        .modal {
+            z-index: 100599999;
+        }
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -44,7 +52,6 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Product</label>
                                 <select id="ddlProduct" name="Product" class="form-control form-filter input-sm">
-                                    
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -59,7 +66,7 @@
                                 <input type="text" id="txtAccountName" class="form-control form-filter input-sm" />
                             </div>
                         </div>
-                        <div class="row margin-bottom-15" id="secondRow" style="display:none;">
+                        <div class="row margin-bottom-15" id="secondRow" style="display: none;">
                             <div class="col-sm-3">
                                 <label class="table-head">Mobile</label>
                                 <input type="text" id="txtMobile" class="form-control form-filter input-sm" />
@@ -121,7 +128,8 @@
                             <div class="col-sm-6">
                                 <ul class="results-icns pull-right">
                                     <li>
-                                        <label class="btnaddnew enable-icn" id="btnCreatePayment"><i class="fa fa-plus" title="create payment"></i></label>
+                                        <%--<label class="btnaddnew enable-icn" id="btnCreatePayment"><i class="fa fa-plus" title="create payment"></i></label>--%>
+                                        <label class="btncreate" id="btncreate"><i class="icon icon-plus"></i></label>
                                     </li>
                                     <li>
                                         <label class="btnview" id="btnview"><i class="icon icon-eye"></i></label>
@@ -213,7 +221,7 @@
                 <input type="hidden" id="hdnGetOrderId" name="hdnGetOrderId" />
             </form>
         </div>
-    </div>
+
 
     <div class="modal fade" id="convertAccount">
         <div class="modal-dialog">
@@ -345,7 +353,82 @@
                         Approve</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
                 </div>
+                </div>
             </div>
+        </div>
+        <div class="modal fade in" id="createQuotation" tabindex="-1" aria-hidden="true" style="position: absolute;">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" style="padding-left: 150px;"><b>Create Quotation</b></h4>
+                    </div>
+                    <div class="modal-body">
+                        <%--Modal body goes here --%>
+                        <table class="table no-border">
+                            <tr>
+                                <td>
+                                    <span>Product</span>
+
+                                </td>
+                                <td>
+                                    <select id="ddlProducts" class="form-control">
+                                    </select>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Account Name</span>
+
+                                </td>
+                                <td>
+
+                                    <input type="text" id="txtUserName" class="form-control" onkeypress="return IsAlphaNumeric(event);" />
+                                    <span id="error" style="color: Red; display: none">* Special Characters not allowed</span>
+                                    <span id="lblerrAccountName" style="color: Red;"></span>
+
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span>Mobile </span>
+
+                                </td>
+                                <td>
+
+                                    <input type="text" id="txtUserMobile" class="form-control" onkeypress='return isNumberKey(event)' />
+                                    <span id="lblerrMobile" style="color: Red;"></span>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><span>Account Quotation Type</span></td>
+                                <td>
+
+                                    <input type="radio" id="RegisteredUser" name="User" value="1" class="RegisteredUser" />
+                                    Registered User 
+                                        <input type="radio" id="NonRegisteredUser" class="NonRegisteredUser margin-left-10" name="User" value="0" />
+                                    Non-Registered User 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>
+                                    <button type="button" class="btn btn-primary margin-right-5" id="btnSubmit">Submit</button>
+                                    <button id="btnCancel" type="button" class="btn btn-default">Cancel</button>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </div>
+
+                    <div class="modal-footer">
+                        <button id="btnClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+                <!-- /.modal-content -->
+            </div>
+            <!-- /.modal-dialog -->
         </div>
     </div>
 </asp:Content>
@@ -354,6 +437,7 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/payments.js?type=v2" type="text/javascript"></script>
 </asp:Content>

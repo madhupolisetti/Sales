@@ -243,6 +243,7 @@
         var cancelServiceId = 0;
         var option_inputtype = "";
         var option_inputdatatype = "";
+
         $(document).ready(function () {
             getServices();
             ordersClient.GetInputTypes(true, function (res) {
@@ -268,9 +269,11 @@
                 var id1 = this.id;
                 var n = id1.indexOf("_");
                 var id = id1.substring(n + 1);
-                if (id != 0) {
-                    cancelServices(id);
+
+                if (cancelServiceId != 0) {
+                    cancelServices(cancelServiceId);
                 }
+
                 cancelServiceId = id;
                 //var id = this.alt;
 
@@ -330,6 +333,9 @@
 
                 ordersClient.CreateServiceProperties(serviceId, serviceProperty, function (res) {
                     if (res.Success == true) {
+                        SuccessNotifier("Property added successfully");
+                        $("#propertydata").find("table#property_data").remove();
+                        getServiceProperties(serviceId);
                     }
                 })
 
@@ -349,6 +355,7 @@
                 var metadatacode = $("#metadataserv_" + id).val();
                 ordersClient.UpdateService(id, displayname, metadatacode, multiple, value, function (res) {
                     if (res.Success == true) {
+                        SuccessNotifier("Service updated successfully");
                     }
                 })
                 cancelServices(id);
@@ -480,11 +487,29 @@
                 if (result) {
                     ordersClient.DeleteService(id, function (res) {
                         if (res.Success == true) {
-                            $(this).parents('tr').remove();
+                            SuccessNotifier("Service deleted successfully");
+                            $("#" + id1).parents('tr').remove();
                         }
                     });
                 }
             });
+            $(document).on('click', 'input[name="cancel"]', function () {
+                var servicePropertyId = $(this).attr("alt");
+                $(this).hide();
+                cancelServiceProperties(servicePropertyId);
+            });
+
+            function cancelServiceProperties(servicePropertyId) {
+                $("#prop_" + servicePropertyId).attr("disabled", "true");
+                $("#default_" + servicePropertyId).attr("disabled", "true");
+                $("#active_" + servicePropertyId).bootstrapSwitch('toggleDisabled', true, true);
+                $("#chck_" + servicePropertyId).bootstrapSwitch('toggleDisabled', true, true);
+                $("#input_" + servicePropertyId).attr("disabled", "true");
+                $("#data_" + servicePropertyId).attr("disabled", "true");
+                $("#save_" + servicePropertyId).hide();
+                $("#edit_" + servicePropertyId).show();
+
+            }
 
             function getServiceProperties(serviceId) {
                 ordersClient.GetServiceProperties(serviceId, true, function (res) {
@@ -597,6 +622,9 @@
                 }
                 ordersClient.UpdateServiceProperties(servicePropertId, serviceProperty, function (res) {
                     if (res.Success == true) {
+                        SuccessNotifier("Property updated successfully");
+                        $("#propertydata").find("table#property_data").remove();
+                        getServiceProperties($("#hdnServiceId").val());
                     }
                 })
 

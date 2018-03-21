@@ -36,7 +36,6 @@
         }
         .form-signin .form-signin-heading, .form-signin .checkbox
         {
-
             margin-bottom: 10px;
         }
         .form-signin input[type="text"], .form-signin input[type="password"]

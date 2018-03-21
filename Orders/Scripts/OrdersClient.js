@@ -361,6 +361,65 @@
             return actionResponse;
     }
 
+    //Countries Related
+    OrdersClient.prototype.GetCountries = function (callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.accountHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    Action: "GetCountries"
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
+    //States Related
+    OrdersClient.prototype.GetStates = function (isActive, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.accountHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    Action: "GetStates",
+                    IsActive: isActive
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
     // Quotations Related
     OrdersClient.prototype.GetQuotationStatuses = function (onlyActive, callBackFunction) {
         var actionResponse;
@@ -635,7 +694,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.GetQuotationServices = function (quotationId,billingModeId, onlyActive, callBackFunction) {
+    OrdersClient.prototype.GetQuotationServices = function (quotationId, billingModeId, onlyActive, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -646,7 +705,7 @@
                 {
                     Action: "GetQuotationServices",
                     OnlyActive: onlyActive ? onlyActive : true,
-                    QuotationId : quotationId,
+                    QuotationId: quotationId,
                     BillingModeId: billingModeId
                 },
             success: function (response) {
@@ -1187,7 +1246,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.ActivateOrder = function (activationUrl,metaData, callBackFunction) {
+    OrdersClient.prototype.ActivateOrder = function (activationUrl, metaData, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1198,7 +1257,7 @@
                 {
                     "Action": "Activate",
                     "MetaData": JSON.stringify(metaData),
-                    "ActivationUrl" : activationUrl
+                    "ActivationUrl": activationUrl
                 },
             success: function (response) {
                 actionResponse = response;

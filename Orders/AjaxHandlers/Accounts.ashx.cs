@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Newtonsoft.Json.Linq;
 using Orders.CommonClasses;
+using OrdersManagement.Model;
 using System.Web.SessionState;
 
 namespace Orders.AjaxHandlers
@@ -40,6 +41,12 @@ namespace Orders.AjaxHandlers
                     case "CreateOrUpdateAccountDetails":
                         GetAccountDetails(context);
                         break;
+                    case "GetCountries":
+                        GetCountries(context);
+                        break;
+                    case "GetStates":
+                        GetStates(context);
+                        break;
                 }
 
             }
@@ -52,6 +59,44 @@ namespace Orders.AjaxHandlers
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
             context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["mobileNumber"])));
 
+        }
+        public void GetCountries(HttpContext context)
+        {
+
+            OrdersManagement.Core.Client countriesObj = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            TablePreferences countriesTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> countriesDictionary = new Dictionary<string, TablePreferences>();
+            countriesDictionary.Add(Label.COUNTRIES, countriesTablePreferences);
+            context.Response.Write(countriesObj.GetCountries(tablePreferences: countriesDictionary));
+
+        }
+        public void GetStates(HttpContext context)
+        {
+            bool isActive;
+            if (context.Request["IsActive"] == null || !bool.TryParse(context.Request["IsActive"].ToString(), out isActive))
+                GenerateErrorResponse(400, string.Format("IsActive must be a boolean value"));
+
+            OrdersManagement.Core.Client statesObj = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            TablePreferences statesTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> statesDictionary = new Dictionary<string, TablePreferences>();
+            statesDictionary.Add(Label.STATES, statesTablePreferences);
+            context.Response.Write(statesObj.GetStates(true, tablePreferences: statesDictionary));
+
+        }
+
+        private void GenerateErrorResponse(int statusCode, string message)
+        {
+            HttpContext.Current.Response.Clear();
+            HttpContext.Current.Response.StatusCode = statusCode;
+            errorJSon["Message"] = message;
+            HttpContext.Current.Response.Write(errorJSon);
+            //HttpContext.Current.ApplicationInstance.CompleteRequest();
+            try
+            {
+                HttpContext.Current.Response.End();
+            }
+            catch (System.Threading.ThreadAbortException e)
+            { }
         }
 
         public bool IsReusable

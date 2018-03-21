@@ -280,7 +280,11 @@
     <Content Include="logout.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
+
     <Content Include="Scripts\AdminAccess.js" />
+
+    <Content Include="Scripts\getUserDetailsForCreateQuotation.js" />
+
     <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
