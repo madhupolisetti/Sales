@@ -16,8 +16,8 @@ namespace Orders.UserDefinedClasses
         #region Account Related
         public const string CREATE_ACCOUNT_PRODUCT = "CreateAccountProduct";
         #endregion
-
-
-
+        #region Login Related
+        public const string Admin_Login_Check = "AdminLoginCheck";
+        #endregion
     }
 }

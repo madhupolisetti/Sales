@@ -227,5 +227,5 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script src="Scripts/orders.js?type=v2" type="text/javascript"></script>
-
+    <script src="JsFiles/jquery.bootpag.min.js"></script>
 </asp:Content>

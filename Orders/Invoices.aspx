@@ -147,20 +147,33 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
+    <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
+    
     <script type="text/javascript">
         $(document).ready(function () {
             var dateRange = "";
             var invoiceSearchData = {};
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
+            globalPageNumber = 1;
+            globalPageSize = 1;
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
             $("#btnDownload,#btnView,#btnCreate,#btnPayment").attr("class", "enable-icn");
             $("#btnEdit,#btndelete").attr("class", "disable-icn");
             bindProducts();
             bindInvoiceStatuses();
+            invoiceSearchData.PageNumber = globalPageNumber;
+            invoiceSearchData.Limit = globalPageSize;
             getInvoices();
+            globalFunction = function () {
+                //invoiceSearchData.PageNumber = globalPageNumber;
+                //invoiceSearchData.Limit = globalPageSize;
+                AddSearchData();
+                getInvoices();
+            };
+
 
             $(document).delegate('#FilterByMore', 'click', function () {
                 var anchorText = $(this).text();
@@ -214,19 +227,32 @@
             });
             // Search Invoices
             $("#btnSearch").click(function () {
+                //invoiceSearchData.ProductId = $("#ddlProduct").val();
+                //invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
+                //invoiceSearchData.BillingModeId = $("#ddlBillingMode").val();
+               // invoiceSearchData.PageNumber = globalPageNumber;
+                //invoiceSearchData.Mobile = $("#txtMobile").val();
+                //invoiceSearchData.Email = $("#txtEmail").val();
+                //invoiceSearchData.Limit = globalPageSize;
+                //invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
+                //invoiceSearchData.AccountName = $("#txtAccountName").val();
+              
+                AddSearchData();
+                getInvoices();
+            });
+
+            function AddSearchData() {
                 invoiceSearchData.ProductId = $("#ddlProduct").val();
                 invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
                 invoiceSearchData.BillingModeId = $("#ddlBillingMode").val();
-                invoiceSearchData.PageNumber = 1;
                 invoiceSearchData.Mobile = $("#txtMobile").val();
                 invoiceSearchData.Email = $("#txtEmail").val();
-                invoiceSearchData.Limit = $("#dropPages").val();
                 invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
                 invoiceSearchData.AccountName = $("#txtAccountName").val();
+                invoiceSearchData.PageNumber = globalPageNumber;
+                invoiceSearchData.Limit = globalPageSize;
                 dateRange = $("#txtDateRange").val();
-                
-                getInvoices();
-            });
+            }
 
             function bindProducts() {
                 var productsData = "<option value='0'>--- All ---</option>";
@@ -285,6 +311,7 @@
                     if (res.Success == true) {
                         if (res.Invoices.length > 0) {
                             var invoicesData = renderInvoices(res.Invoices);
+                            pagination(res.Count, globalPageSize);
                             $("#data").html(invoicesData);
                         }
                         else {
@@ -336,24 +363,24 @@
                 form.append($input);
             }
 
-            function pagination(totalCount, globalPageSize) {
+            //function pagination(totalCount, globalPageSize) {
 
-                $('#page-selection').bootpag({
-                    total: Math.ceil(totalCount / globalPageSize),
-                    maxVisible: 6,
-                    next: 'Next',
-                    prev: 'Prev'
+            //    $('#page-selection').bootpag({
+            //        total: Math.ceil(totalCount / globalPageSize),
+            //        maxVisible: 6,
+            //        next: 'Next',
+            //        prev: 'Prev'
 
-                }).on("page", function (event, num) {
+            //    }).on("page", function (event, num) {
 
-                    if (globalPageNumber != num) {
-                        globalPageNumber = num;
-                        globalPageSize = $("#dropPages").val();
-                        //getInvoices();
-                    }
-                });
+            //        if (globalPageNumber != num) {
+            //            globalPageNumber = num;
+            //            globalPageSize = $("#dropPages").val();
+            //            //getInvoices();
+            //        }
+            //    });
 
-            }
+            //}
         });
     </script>
 </asp:Content>

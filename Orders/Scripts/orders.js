@@ -17,10 +17,29 @@ $(document).ready(function () {
 
 
     $("#defaultrange").daterangepicker();
+    searchData.PageNumber = globalPageNumber;
+    searchData.Limit = globalPageSize;
     getOrders(searchData);
-
+    globalFunction = function () {
+      
+        AddSearchData();
+        getOrders(searchData);
+    };
 
     $("#btnsearch").click(function () {
+        //searchData.BillingMode = $("#ddlBillMode").val();
+        //searchData.ProductId = $("#ddlProduct").val();
+        //searchData.Mobile = $("#txtMobile").val().trim();
+        //searchData.Email = $("#txtEmail").val().trim();
+        //searchData.OrderStatus = $("#ddlOrderStatus").val();
+        //searchData.Number = $("#txtNumber").val();
+        //searchData.AccountName = $("#txtAccountName").val();
+        //searchData.PageNumber = globalPageNumber;
+        //searchData.Limit = globalPageSize;
+        AddSearchData();
+        getOrders(searchData);
+    });
+    function AddSearchData() {
         searchData.BillingMode = $("#ddlBillMode").val();
         searchData.ProductId = $("#ddlProduct").val();
         searchData.Mobile = $("#txtMobile").val().trim();
@@ -28,10 +47,9 @@ $(document).ready(function () {
         searchData.OrderStatus = $("#ddlOrderStatus").val();
         searchData.Number = $("#txtNumber").val();
         searchData.AccountName = $("#txtAccountName").val();
-        getOrders(searchData);
-
-    })
-
+        searchData.PageNumber = globalPageNumber;
+        searchData.Limit = globalPageSize;
+    }
     $(document).delegate('#FilterByMore', 'click', function () {
         var anchorText = $(this).text();
         if (anchorText == "Search by more") {
@@ -73,18 +91,18 @@ $(document).ready(function () {
 
         if (dateRange == "This Month") {
             var date = new Date();
-            searchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-            searchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+            ordersSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
+            ordersSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
         }
         else {
             var fromDateT0date = dateRange.split("-");
-            searchData.FromDateTime = fromDateT0date[0];
-            searchData.ToDateTime = fromDateT0date[1];
+            ordersSearchData.FromDateTime = fromDateT0date[0];
+            ordersSearchData.ToDateTime = fromDateT0date[1];
         }
         ordersClient.GetOrders(ordersSearchData, function (res) {
             if (res.Success == true) {
                 if (res.Orders.length > 0) {
-
+                    pagination(res.Count, globalPageSize);
                     for (var i = 0; i < res.Orders.length; i++) {
                         ordersData += "<tr>";
                         ordersData += "<td>" + res.Orders[i].ProductName + "</td>";

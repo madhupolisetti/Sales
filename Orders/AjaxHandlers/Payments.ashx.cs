@@ -7,17 +7,25 @@ using Newtonsoft.Json.Linq;
 using OrdersManagement;
 using OrdersManagement.Core;
 using OrdersManagement.Model;
+using System.Web.SessionState;
 
 namespace Orders.AjaxHandlers
 {
     /// <summary>
     /// Summary description for Payments
     /// </summary>
-    public class Payments : IHttpHandler
+    public class Payments : IHttpHandler, IRequiresSessionState
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
         {
+            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+            {
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "Invalid Session";
+                context.Response.End();
+
+            }
             if (context.Request["Action"] == null)
             {
                 context.Response.StatusCode = 400;
@@ -187,6 +195,8 @@ namespace Orders.AjaxHandlers
             string number = string.Empty;
             byte paymentStatus = 0;
             byte billingMode = 1;
+            int pageNumber = 1;
+            byte limit = 20;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
             JObject searchData = new JObject();
@@ -211,7 +221,10 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("FromDateTime is not a valid datetime"));
             if (searchData.SelectToken("ToDateTime") != null && !DateTime.TryParse(searchData.SelectToken("ToDateTime").ToString(), out toDateTime))
                 GenerateErrorResponse(400, string.Format("ToDateTime is not a valid datetime"));
-
+            if (searchData.SelectToken("PageNumber") != null && !int.TryParse(searchData.SelectToken("PageNumber").ToString(), out pageNumber))
+                GenerateErrorResponse(400, string.Format("PageNumber must be a number"));
+            if (searchData.SelectToken("Limit") != null && !byte.TryParse(searchData.SelectToken("Limit").ToString(), out limit))
+                GenerateErrorResponse(400, string.Format("Limit must be a number"));
             TablePreferences paymentsTablePreferences = new TablePreferences("", "", true, false);
             Dictionary<string, TablePreferences> paymentsDictionary = new Dictionary<string, TablePreferences>();
             paymentsDictionary.Add("Payments", paymentsTablePreferences);
@@ -219,7 +232,7 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
                 number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
-                accountName:accountName, tablePreferences: paymentsDictionary));
+                accountName:accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary));
         }
 
         private void View(HttpContext context)

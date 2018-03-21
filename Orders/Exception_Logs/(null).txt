@@ -652,3 +652,43 @@ ClientConnectionId:cbc4c8f2-ccb4-4e15-91f5-b07983d04105
    at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
    at OrdersManagement.Core.QuotationClient.Search(Int32 productId, Int32 quotationId, String quotationNumber, Int32 accountId, Int32 employeeId, Int32 ownerShipId, Byte statusId, SByte channelId, String ipAddress, Byte billingModeId, Nullable`1 fromDateTime, Nullable`1 toDateTime, Int32 pageNumber, Byte limit, String mobile, String email, String accountName, Dictionary`2 tablePreferences) in e:\Git\OrdersManagement\OrdersManagement\Core\QuotationClient.cs:line 374
 >>>>>>> bf4cefa21b13f5c213af721654e2f9c1f4872d31
+19/03/2018 05:36:19 PM [9] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Failed to convert parameter value from a Int32 to a DateTime. ---> System.InvalidCastException: Invalid cast from 'Int32' to 'DateTime'.
+   at System.Int32.System.IConvertible.ToDateTime(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   --- End of inner exception stack trace ---
+   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   at System.Data.SqlClient.SqlParameter.GetCoercedValue()
+   at System.Data.SqlClient.SqlParameter.Validate(Int32 index, Boolean isCommandProc)
+   at System.Data.SqlClient.SqlCommand.SetUpRPCParameters(_SqlRPC rpc, Int32 startCount, Boolean inSchema, SqlParameterCollection parameters)
+   at System.Data.SqlClient.SqlCommand.BuildRPC(Boolean inSchema, SqlParameterCollection parameters, _SqlRPC& rpc)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at OrdersManagement.Core.PaymentClient.GetPayments(Byte productId, Int32 accountId, String mobile, String email, Int32 paymentStatus, String number, Byte billingMode, Int32 pageNumber, Byte limit, DateTime fromDateTime, DateTime toDateTime, String accountName, Dictionary`2 tablePreferences) in d:\Websites\Websites\OrdersManagement\OrdersManagement\Core\PaymentClient.cs:line 251
+19/03/2018 05:36:21 PM [9] ERROR DefaultLogger  - Unable to fetch OnliePaymentGateways. System.InvalidCastException: Failed to convert parameter value from a Int32 to a DateTime. ---> System.InvalidCastException: Invalid cast from 'Int32' to 'DateTime'.
+   at System.Int32.System.IConvertible.ToDateTime(IFormatProvider provider)
+   at System.Convert.ChangeType(Object value, Type conversionType, IFormatProvider provider)
+   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   --- End of inner exception stack trace ---
+   at System.Data.SqlClient.SqlParameter.CoerceValue(Object value, MetaType destinationType, Boolean& coercedToDataFeed, Boolean& typeChanged, Boolean allowStreaming)
+   at System.Data.SqlClient.SqlParameter.GetCoercedValue()
+   at System.Data.SqlClient.SqlParameter.Validate(Int32 index, Boolean isCommandProc)
+   at System.Data.SqlClient.SqlCommand.SetUpRPCParameters(_SqlRPC rpc, Int32 startCount, Boolean inSchema, SqlParameterCollection parameters)
+   at System.Data.SqlClient.SqlCommand.BuildRPC(Boolean inSchema, SqlParameterCollection parameters, _SqlRPC& rpc)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReaderTds(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, Boolean async, Int32 timeout, Task& task, Boolean asyncWrite, SqlDataReader ds)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method, TaskCompletionSource`1 completion, Int32 timeout, Task& task, Boolean asyncWrite)
+   at System.Data.SqlClient.SqlCommand.RunExecuteReader(CommandBehavior cmdBehavior, RunBehavior runBehavior, Boolean returnStream, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteReader(CommandBehavior behavior, String method)
+   at System.Data.SqlClient.SqlCommand.ExecuteDbDataReader(CommandBehavior behavior)
+   at System.Data.Common.DbCommand.System.Data.IDbCommand.ExecuteReader(CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.FillInternal(DataSet dataset, DataTable[] datatables, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet, Int32 startRecord, Int32 maxRecords, String srcTable, IDbCommand command, CommandBehavior behavior)
+   at System.Data.Common.DbDataAdapter.Fill(DataSet dataSet)
+   at OrdersManagement.Core.PaymentClient.GetPayments(Byte productId, Int32 accountId, String mobile, String email, Int32 paymentStatus, String number, Byte billingMode, Int32 pageNumber, Byte limit, DateTime fromDateTime, DateTime toDateTime, String accountName, Dictionary`2 tablePreferences) in d:\Websites\Websites\OrdersManagement\OrdersManagement\Core\PaymentClient.cs:line 251

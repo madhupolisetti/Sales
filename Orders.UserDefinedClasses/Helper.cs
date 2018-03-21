@@ -38,6 +38,11 @@ namespace Orders.UserDefinedClasses
             this._connectionString = connectionString;
             this._sqlConnection = new SqlConnection(connectionString);
         }
+        public Helper(ResponseFormat responseFormat)
+        {
+            this._responseFormat = responseFormat;
+            this.InitializeResponseVariables();
+        }
 
         #endregion
 
@@ -372,6 +377,10 @@ namespace Orders.UserDefinedClasses
         public void ResetResponseVariables()
         {
             this.InitializeResponseVariables();
+        }
+
+        public JObject GetDataSetJobj { 
+            get { return _jObj; }
         }
 
         #endregion

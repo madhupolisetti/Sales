@@ -413,12 +413,15 @@
 <script src="JsFiles/toastr.min.js"></script>
 <script src="assets/global/scripts/jquery.slimscroll.min.js"></script>
 <script src="/assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+
 <script src="assets/global/scripts/metronic.js"></script>
 <script src="/JsFiles/layout.js"></script>
 <%--<script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
 <script src="JsFiles/jquery-ui.js"></script>
 
 <script type="text/javascript">
+    var globalFunction = {};
+    var globalPageSize = 1, globalPageNumber = 1;
     $(document).ready(function () {
         $(".dropdown-toggle").dropdown();
         var accessRole = $("#accessRole").val();
@@ -465,6 +468,54 @@
 
     }
 
+    $("#dropPages").change(function (functionName) {
+        functionName = "getQuotations";
+      //  $(this).rules("add", {window[functionName](): ...});
+        globalPageSize = this.value;
+        globalPageNumber = 1;
+        pagination(6, globalPageSize);
+      //  window[functionName]();
+        //(function () {
+        //    var not_in_window = '132';
+        //    window[functionName](); // Alert undefined
+        //})();
+        //GetQuotationDetailsSearch();
+       // setTimeout(functionName, 0);
+        // window["Orders"][functionName]();
+        globalFunction();
+
+    });
+
+    function pagination(totalCount, globalPageSize,functionName) {
+
+        $('#page-selection').bootpag({
+            total: Math.ceil(totalCount / globalPageSize),
+            maxVisible: 6,
+            next: 'Next',
+            prev: 'Prev'
+        }).on("page", function (event, num) {
+
+            if (globalPageNumber != num) {
+                globalPageNumber = num;
+                globalPageSize = $("#dropPages").val();
+                globalFunction();
+            }
+        });
+
+    }
+    function CompareText(string1, string2) {
+        
+        var IsSame = false;
+        var regex = new RegExp('^' + string1 + '$', 'i');
+
+        if (regex.test(string2)) {
+            IsSame = true;
+        }
+        else {
+            IsSame = false;
+        }
+        return IsSame;
+    }
     function SuccessNotifier(msg) {
         var arr = msg.split('-')
         toastr.options = {

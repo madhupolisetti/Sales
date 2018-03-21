@@ -49,7 +49,7 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -69,6 +69,7 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="AdminAccessManagement.aspx" />
     <Content Include="assets\global\css\components.css" />
     <Content Include="assets\global\css\custom.css" />
     <Content Include="assets\global\css\images\ui-bg_glass_100_fdf5ce_1x400.png" />
@@ -229,6 +230,8 @@
     <Content Include="Exception_Logs\Exceptions\20180223.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
+    <Content Include="GoogleLoginCallBack.aspx" />
+    <Content Include="images\sms-logo.png" />
     <Content Include="Invoice.aspx" />
     <Content Include="Invoices.aspx" />
     <Content Include="JsFiles\addImage.js" />
@@ -277,6 +280,7 @@
     <Content Include="logout.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
+    <Content Include="Scripts\AdminAccess.js" />
     <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
@@ -294,8 +298,18 @@
     <Content Include="Scripts\createQuotation.js" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AdminAccessManagement.aspx.cs">
+      <DependentUpon>AdminAccessManagement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="AdminAccessManagement.aspx.designer.cs">
+      <DependentUpon>AdminAccessManagement.aspx</DependentUpon>
+    </Compile>
     <Compile Include="AjaxHandlers\Accounts.ashx.cs">
       <DependentUpon>Accounts.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="AjaxHandlers\AdminAccess.ashx.cs">
+      <DependentUpon>AdminAccess.ashx</DependentUpon>
     </Compile>
     <Compile Include="AjaxHandlers\Invoices.ashx.cs">
       <DependentUpon>Invoices.ashx</DependentUpon>
@@ -312,11 +326,13 @@
     <Compile Include="AjaxHandlers\Quotations.ashx.cs">
       <DependentUpon>Quotations.ashx</DependentUpon>
     </Compile>
+    <Compile Include="CommonClasses\Employee.cs" />
     <Compile Include="CommonClasses\Label.cs" />
     <Compile Include="AjaxHandlers\Services.ashx.cs">
       <DependentUpon>Services.ashx</DependentUpon>
     </Compile>
     <Compile Include="CommonClasses\MyConf.cs" />
+    <Compile Include="CommonClasses\Role.cs" />
     <Compile Include="CreateQuotation.aspx.cs">
       <DependentUpon>CreateQuotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -326,6 +342,13 @@
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="GoogleLoginCallBack.aspx.cs">
+      <DependentUpon>GoogleLoginCallBack.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="GoogleLoginCallBack.aspx.designer.cs">
+      <DependentUpon>GoogleLoginCallBack.aspx</DependentUpon>
     </Compile>
     <Compile Include="Invoice.aspx.cs">
       <DependentUpon>Invoice.aspx</DependentUpon>
@@ -510,7 +533,6 @@
   <ItemGroup>
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\Quotations\" />
-    <Folder Include="images\" />
     <Folder Include="Logs\" />
   </ItemGroup>
   <ItemGroup>
@@ -524,6 +546,7 @@
     <Content Include="AjaxHandlers\Payments.ashx" />
     <Content Include="AjaxHandlers\Orders.ashx" />
     <Content Include="AjaxHandlers\Products.ashx" />
+    <Content Include="AjaxHandlers\AdminAccess.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

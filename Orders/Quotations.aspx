@@ -289,7 +289,8 @@
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-            var quotationSearchData = {};
+          //  var globalFunction = globalFunction || {};
+            var quotationSearchData = {} ;
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
@@ -302,22 +303,47 @@
             bindProducts();
             bindQuotationStatuses();
             dateRange = $("#daterangetext").val();
+           
+            quotationSearchData.PageNumber = globalPageNumber;
+            quotationSearchData.Limit = globalPageSize;
+
             getQuotations();
+            globalFunction = function () {
+                //quotationSearchData.PageNumber = globalPageNumber;
+                //quotationSearchData.Limit = globalPageSize;
+                AddSearchData();
+                getQuotations();
+            };
+
+           
 
             $("#btnsearch").click(function () {
+               // globalPageSize = 10, globalPageNumber = 1;
+               
+                //quotationSearchData.ProductId = $("#ddlProduct").val();
+                //quotationSearchData.QuotationNumber = $("#txtSearchById").val();
+                //quotationSearchData.BillingModeId = $("#ddlBillMode").val();
+               // quotationSearchData.PageNumber = globalPageNumber;
+                //quotationSearchData.Mobile = $("#txtmblnum").val();
+                //quotationSearchData.Email = $("#txtemail").val();
+               
+                //quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
+                //quotationSearchData.AccountName = $("#txtAccountName").val();
+                AddSearchData();
+                getQuotations();
+            });
+            function AddSearchData() {
                 dateRange = $("#daterangetext").val();
                 quotationSearchData.ProductId = $("#ddlProduct").val();
                 quotationSearchData.QuotationNumber = $("#txtSearchById").val();
                 quotationSearchData.BillingModeId = $("#ddlBillMode").val();
-                quotationSearchData.PageNumber = 1;
                 quotationSearchData.Mobile = $("#txtmblnum").val();
                 quotationSearchData.Email = $("#txtemail").val();
-                quotationSearchData.Limit = $("#dropPages").val();
                 quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 quotationSearchData.AccountName = $("#txtAccountName").val();
-                getQuotations();
-            });
-
+                quotationSearchData.Limit = globalPageSize;
+                quotationSearchData.PageNumber = globalPageNumber;
+            }
             $("#btnview").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var $form = $("<form/>").attr("id", "data_form")
@@ -557,16 +583,19 @@
                     var date = new Date();
                     quotationSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
                     quotationSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
                     quotationSearchData.FromDateTime = fromDateT0date[0];
                     quotationSearchData.ToDateTime = fromDateT0date[1];
                 }
+                //quotationSearchData.Limit = 1;
                 ordersClient.GetQuotations(quotationSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Quotations.length > 0) {
                             var quotationsData = renderQuotations(res.Quotations);
+                            pagination(res.Count, globalPageSize);
                             $("#data").html(quotationsData);
                         }
                         else {
@@ -657,24 +686,24 @@
                 form.append($input);
             }
 
-            function pagination(totalCount, globalPageSize) {
+            //function pagination(totalCount, globalPageSize) {
 
-                $('#page-selection').bootpag({
-                    total: Math.ceil(totalCount / globalPageSize),
-                    maxVisible: 6,
-                    next: 'Next',
-                    prev: 'Prev'
+            //    $('#page-selection').bootpag({
+            //        total: Math.ceil(totalCount / globalPageSize),
+            //        maxVisible: 6,
+            //        next: 'Next',
+            //        prev: 'Prev'
 
-                }).on("page", function (event, num) {
+            //    }).on("page", function (event, num) {
 
-                    if (globalPageNumber != num) {
-                        globalPageNumber = num;
-                        globalPageSize = $("#dropPages").val();
-                        //getInvoices();
-                    }
-                });
+            //        if (globalPageNumber != num) {
+            //            globalPageNumber = num;
+            //            globalPageSize = $("#dropPages").val();
+            //            //getInvoices();
+            //        }
+            //    });
 
-            }
+          //  }
 
 
 

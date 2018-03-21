@@ -57,7 +57,7 @@
         <form id="Form2" class="login-form" method="POST" runat="server">
         <h4 class="form-signin-heading margin-top-25 text-center" style="margin-bottom:30px;">
             Sign in using smscountry gmail account</h4>
-            <asp:HiddenField runat="server" id="hdnRedirectUrl" value='<%# RedirectUrl %>'/>
+            <asp:HiddenField runat="server" id="hdnRedirectUrl" value='<%= RedirectUrl %>'/>
         <asp:HyperLink runat="server" ID="LoginNavigator" class="btn btn-primary" Width="100%"> <i class="glyphicon glyphicon-log-in margin-right-5"></i> Login</asp:HyperLink>
         <asp:Label ID="Label1" runat="server"></asp:Label>
             <br /><br />

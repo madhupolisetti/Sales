@@ -7,17 +7,27 @@ using OrdersManagement.Core;
 using OrdersManagement.Exceptions;
 using OrdersManagement.Model;
 using Newtonsoft.Json.Linq;
+using System.Web.SessionState;
 
 namespace Orders.AjaxHandlers
 {
     /// <summary>
     /// Summary description for Invoices
     /// </summary>
-    public class Invoices : IHttpHandler
+    public class Invoices : IHttpHandler,IRequiresSessionState
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
         {
+            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+            {
+
+
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "Invalid Session";
+                context.Response.End();
+
+            }
             if (context.Request["Action"] == null)
             {
                 context.Response.StatusCode = 400;

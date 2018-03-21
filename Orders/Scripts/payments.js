@@ -21,22 +21,41 @@ $(document).ready(function () {
         }
     });
     
-    
+    paymentSearchData.PageNumber = globalPageNumber;
+    paymentSearchData.Limit = globalPageSize;
 
     getPayments();
+    globalFunction = function () {
+        
+        AddSearchData();
+        getPayments();
+    };
+
 
     $("#btnSearch").click(function () {
+        //paymentSearchData.ProductId = $("#ddlProduct").val();
+        //paymentSearchData.Number = $("#txtNumber").val();
+        paymentSearchData.AccountId = 0;
+        //paymentSearchData.Mobile = $("#txtMobile").val();
+        //paymentSearchData.Email = $("#txtEmail").val();
+        //paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();
+        //paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
+        //paymentSearchData.AccountName = $("#txtAccountName").val();
+
+        AddSearchData();
+        getPayments();
+    });
+    function AddSearchData() {
         paymentSearchData.ProductId = $("#ddlProduct").val();
         paymentSearchData.Number = $("#txtNumber").val();
-        paymentSearchData.AccountId = 0;
         paymentSearchData.Mobile = $("#txtMobile").val();
         paymentSearchData.Email = $("#txtEmail").val();
         paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();
         paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
         paymentSearchData.AccountName = $("#txtAccountName").val();
-        getPayments();
-    });
-
+        paymentSearchData.PageNumber = globalPageNumber;
+        paymentSearchData.Limit = globalPageSize;
+    }
     $(document).delegate('#FilterByMore', 'click', function () {
         var anchorText = $(this).text();
         if (anchorText == "Search by more") {
@@ -90,7 +109,9 @@ $(document).ready(function () {
             if (res.Success == true) {
 
                 var payments = "";
-                if (res.Payments.length > 0) {
+                if (res.Payments.length > 0)
+                {
+                    pagination(res.Count, globalPageSize);
                     for (var i = 0; i < res.Payments.length; i++) {
                         payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProductName + "</td>";

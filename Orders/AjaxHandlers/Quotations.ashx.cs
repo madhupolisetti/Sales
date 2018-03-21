@@ -6,6 +6,7 @@ using Orders;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json.Linq;
 using OrdersManagement.Model;
+using System.Web.SessionState;
 
 
 namespace Orders.AjaxHandlers
@@ -13,11 +14,18 @@ namespace Orders.AjaxHandlers
     /// <summary>
     /// Summary description for Quotations
     /// </summary>
-    public class Quotations : IHttpHandler
+    public class Quotations : IHttpHandler, IRequiresSessionState
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
         {
+            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+            {
+                context.Response.StatusCode = 401;
+                context.Response.StatusDescription = "Invalid Session";
+                context.Response.End();
+
+            }
             if (context.Request["Action"] == null)
             {
                 context.Response.StatusCode = 400;
