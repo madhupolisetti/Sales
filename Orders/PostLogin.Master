@@ -388,7 +388,6 @@
                             <span class="selected"></span>
                         </a>
                     </li>--%>
-
                 </ul>
             </div>
         </div>
@@ -470,23 +469,23 @@
 
     $("#dropPages").change(function (functionName) {
         functionName = "getQuotations";
-      //  $(this).rules("add", {window[functionName](): ...});
+        //  $(this).rules("add", {window[functionName](): ...});
         globalPageSize = this.value;
         globalPageNumber = 1;
         pagination(6, globalPageSize);
-      //  window[functionName]();
+        //  window[functionName]();
         //(function () {
         //    var not_in_window = '132';
         //    window[functionName](); // Alert undefined
         //})();
         //GetQuotationDetailsSearch();
-       // setTimeout(functionName, 0);
+        // setTimeout(functionName, 0);
         // window["Orders"][functionName]();
         globalFunction();
 
     });
 
-    function pagination(totalCount, globalPageSize,functionName) {
+    function pagination(totalCount, globalPageSize, functionName) {
 
         $('#page-selection').bootpag({
             total: Math.ceil(totalCount / globalPageSize),
@@ -504,7 +503,7 @@
 
     }
     function CompareText(string1, string2) {
-        
+
         var IsSame = false;
         var regex = new RegExp('^' + string1 + '$', 'i');
 

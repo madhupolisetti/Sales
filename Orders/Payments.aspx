@@ -76,7 +76,7 @@
                                 <input type="text" id="txtEmail" class="form-control form-filter input-sm" />
                             </div>
                             <div class="col-sm-3">
-                               <label class="table-head">Order Status</label>
+                                <label class="table-head">Order Status</label>
                                 <select id="ddlOrderStatus" name="OrderStatus" class="form-control form-filter input-sm">
                                 </select>
                             </div>
@@ -203,7 +203,7 @@
                             <!-- /.modal-dialog -->
                         </div>
 
-                       
+
                         <!-- class="container" end-->
 
 
@@ -223,136 +223,136 @@
         </div>
 
 
-    <div class="modal fade" id="convertAccount">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
-                    <h5 class="modal-title bold font-blue-soft">Convert Account</h5>
-                </div>
-                <div class="modal-body">
-                    <div class="table-responsive">
-                        <table class="table no-border">
-                            <tr>
-                                <td class="col-sm-6">
-                                    <select id="ddlConvert" name="ConvertAccount" class="form-control form-filter input-sm">
-                                        <option value="0">--- Select ---</option>
-                                        <option value="1">Convert To Bad-Debt</option>
-                                        <option value="2">Waved Off</option>
-                                    </select>
-                                </td>
-                                <td>
-                                    <select id="ddlConvertType" class="form-control form-filter input-sm" style="display: none;">
-                                        <option value="0">--- Select ---</option>
-                                        <option value="1">Invoices</option>
-                                        <option value="2">Account</option>
-                                    </select>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td colspan="2">
-                                    <div id="convertToBadDebtData">
-                                        <div id="invoices" style="display: none;">
-                                            <span>The following invoices of this account are also in over due status. Select from the below list if you want to add these invoices to bad-debt. </span>
-                                            <br />
-                                            <div id="badDebtInvoiceData"></div>
-                                        </div>
-                                        <div id="wholeAccount" style="display: none;">
-                                            <span>The whole account will be converted to BAD-DEBT and account will be blocked forever.</span><br />
-                                            <div id="badDebtAccountData"></div>
-                                        </div>
-                                    </div>
-                                    <div id="convertWaveOffData" style="display: none">
-                                        <div class="table-responsive">
-                                            <table class="table no-border">
-                                                <tr>
-                                                    <td class="col-sm-6">
-                                                        <label>Amount : </label>
-                                                    </td>
-                                                    <td class="col-sm-6">
-                                                        <input type="text" id="waveOffAmount" /></td>
-                                                </tr>
-                                                <tr>
-                                                    <td class="col-sm-6">
-                                                        <label>Comments : </label>
-                                                    </td>
-                                                    <td class="col-sm-6">
-                                                        <textarea id="waveOffComments"></textarea></td>
-                                                </tr>
-                                            </table>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </table>
-
+        <div class="modal fade" id="convertAccount">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                        <h5 class="modal-title bold font-blue-soft">Convert Account</h5>
                     </div>
+                    <div class="modal-body">
+                        <div class="table-responsive">
+                            <table class="table no-border">
+                                <tr>
+                                    <td class="col-sm-6">
+                                        <select id="ddlConvert" name="ConvertAccount" class="form-control form-filter input-sm">
+                                            <option value="0">--- Select ---</option>
+                                            <option value="1">Convert To Bad-Debt</option>
+                                            <option value="2">Waved Off</option>
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <select id="ddlConvertType" class="form-control form-filter input-sm" style="display: none;">
+                                            <option value="0">--- Select ---</option>
+                                            <option value="1">Invoices</option>
+                                            <option value="2">Account</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2">
+                                        <div id="convertToBadDebtData">
+                                            <div id="invoices" style="display: none;">
+                                                <span>The following invoices of this account are also in over due status. Select from the below list if you want to add these invoices to bad-debt. </span>
+                                                <br />
+                                                <div id="badDebtInvoiceData"></div>
+                                            </div>
+                                            <div id="wholeAccount" style="display: none;">
+                                                <span>The whole account will be converted to BAD-DEBT and account will be blocked forever.</span><br />
+                                                <div id="badDebtAccountData"></div>
+                                            </div>
+                                        </div>
+                                        <div id="convertWaveOffData" style="display: none">
+                                            <div class="table-responsive">
+                                                <table class="table no-border">
+                                                    <tr>
+                                                        <td class="col-sm-6">
+                                                            <label>Amount : </label>
+                                                        </td>
+                                                        <td class="col-sm-6">
+                                                            <input type="text" id="waveOffAmount" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td class="col-sm-6">
+                                                            <label>Comments : </label>
+                                                        </td>
+                                                        <td class="col-sm-6">
+                                                            <textarea id="waveOffComments"></textarea></td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </table>
 
-                </div>
-                <div class="modal-footer">
-                    <div class="row" id="convertAccountFooter" style="display: none">
-                        <div class="col-sm-6 col-md-6">
-                            <button type="button" id="btnRequestCancel" data-dismiss="modal" aria-hidden="true" class="btn btn-success margin-right-5 ">Cancel</button>
-                        </div>
-                        <div class="col-sm-6 col-md-6">
-                            <button type="button" id="btnRequestProceed" class="btn btn-danger margin-left-5">Proceed</button>
                         </div>
 
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row" id="convertAccountFooter" style="display: none">
+                            <div class="col-sm-6 col-md-6">
+                                <button type="button" id="btnRequestCancel" data-dismiss="modal" aria-hidden="true" class="btn btn-success margin-right-5 ">Cancel</button>
+                            </div>
+                            <div class="col-sm-6 col-md-6">
+                                <button type="button" id="btnRequestProceed" class="btn btn-danger margin-left-5">Proceed</button>
+                            </div>
+
+
+                        </div>
 
                     </div>
-
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="approveWaveOffRequest" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-sm">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure, Wave Off this Amount?
-                </div>
-                <div class="modal-footer">
-                    <button id="btnApproveWaveOff" class="btn btn-primary" type="button">
-                        Approve</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal fade" id="approveBadDebitInvoiceRequest" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-sm">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"></button>
-                </div>
-                <div class="modal-body">
-                    Are you sure, you want to convert this invoice/these invoices to BAD-DEBT? Which can not be reveted.
-                </div>
-                <div class="modal-footer">
-                    <button id="btnApproveBadDebitInvoice" class="btn btn-primary" type="button">
-                        Approve</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
+        <div class="modal fade" id="approveWaveOffRequest" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-sm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure, Wave Off this Amount?
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnApproveWaveOff" class="btn btn-primary" type="button">
+                            Approve</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="modal fade" id="approveBadDebitAccountRequest" role="dialog">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content modal-sm">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"></button>
+        <div class="modal fade" id="approveBadDebitInvoiceRequest" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-sm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure, you want to convert this invoice/these invoices to BAD-DEBT? Which can not be reveted.
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnApproveBadDebitInvoice" class="btn btn-primary" type="button">
+                            Approve</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
+                    </div>
                 </div>
-                <div class="modal-body">
-                    Are you sure, you want to make this account a BAD_DEBT? which can not be reveted.
-                </div>
-                <div class="modal-footer">
-                    <button id="btnApproveBadDebitAccount" class="btn btn-primary" type="button">
-                        Approve</button>
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
-                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="approveBadDebitAccountRequest" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <div class="modal-content modal-sm">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        Are you sure, you want to make this account a BAD_DEBT? which can not be reveted.
+                    </div>
+                    <div class="modal-footer">
+                        <button id="btnApproveBadDebitAccount" class="btn btn-primary" type="button">
+                            Approve</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Reject</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -373,19 +373,6 @@
                                 <td>
                                     <select id="ddlProducts" class="form-control">
                                     </select>
-
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <span>Account Name</span>
-
-                                </td>
-                                <td>
-
-                                    <input type="text" id="txtUserName" class="form-control" onkeypress="return IsAlphaNumeric(event);" />
-                                    <span id="error" style="color: Red; display: none">* Special Characters not allowed</span>
-                                    <span id="lblerrAccountName" style="color: Red;"></span>
 
                                 </td>
                             </tr>

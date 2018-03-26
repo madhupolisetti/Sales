@@ -12,11 +12,13 @@ namespace Orders
     public partial class Quotation : System.Web.UI.Page
     {
         public int quotationId = 0;
+        public bool isPostPaid = false;
         public OC.Role accessRole;
         public string myPage;
         protected void Page_Load(object sender, EventArgs e)
         {
             quotationId = Convert.ToInt32(Request["QuotationId"]);
+            isPostPaid = Convert.ToBoolean(Request["IsPostPaidQuotation"]);
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");

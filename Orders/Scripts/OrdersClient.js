@@ -598,7 +598,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.CreateQuotation = function (accountId, employeeId, channelId, metaData, stateId, callBackFunction) {
+    OrdersClient.prototype.CreateQuotation = function (productId, accountId, employeeId, channelId, metaData, stateId, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1172,6 +1172,35 @@
             data:
                 {
                     "Action": "VerifyPaymentStatuses",
+                    "OrderId": orderId
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
+    OrdersClient.prototype.VerifyOrderStatuses = function (orderId, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.ordersHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    "Action": "VerifyOrderStatuses",
                     "OrderId": orderId
                 },
             success: function (response) {

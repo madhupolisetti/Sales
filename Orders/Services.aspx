@@ -277,12 +277,12 @@
                 cancelServiceId = id;
                 //var id = this.alt;
 
-                $("#actv_" + id).bootstrapSwitch('toggleDisabled', false, false);
+                $("#actv_" + id).bootstrapSwitch('disabled', false);
                 $("#displayserv_" + id).removeAttr("disabled");
                 $("#displayserv_" + id).removeAttr("style");
                 $("#metadataserv_" + id).removeAttr("disabled");
                 $("#metadataserv_" + id).removeAttr("style");
-                $("#multiple_" + id).bootstrapSwitch('toggleDisabled', false, false);
+                $("#multiple_" + id).bootstrapSwitch('disabled', false);
 
                 // $("#serv_" + id).css("background-color", "lightgoldenrodyellow");
 
@@ -462,11 +462,11 @@
 
             function cancelServices(id) {
 
-                $("#actv_" + id).bootstrapSwitch('toggleDisabled', true, true);
+                $("#actv_" + id).bootstrapSwitch('disabled', true);
                 $("#displayserv_" + id).attr("disabled", "true");
                 $("#metadataserv_" + id).attr("disabled", "true");
                 $("#default_" + id).attr("disabled", "true");
-                $("#multiple_" + id).bootstrapSwitch('toggleDisabled', true, true);
+                $("#multiple_" + id).bootstrapSwitch('disabled', true);
 
                 $("#serviceedit_" + id).show();
                 $("#servicedelete_" + id).show();
@@ -502,8 +502,8 @@
             function cancelServiceProperties(servicePropertyId) {
                 $("#prop_" + servicePropertyId).attr("disabled", "true");
                 $("#default_" + servicePropertyId).attr("disabled", "true");
-                $("#active_" + servicePropertyId).bootstrapSwitch('toggleDisabled', true, true);
-                $("#chck_" + servicePropertyId).bootstrapSwitch('toggleDisabled', true, true);
+                $("#active_" + servicePropertyId).bootstrapSwitch('disabled', true);
+                $("#chck_" + servicePropertyId).bootstrapSwitch('disabled', true);
                 $("#input_" + servicePropertyId).attr("disabled", "true");
                 $("#data_" + servicePropertyId).attr("disabled", "true");
                 $("#save_" + servicePropertyId).hide();
@@ -578,9 +578,10 @@
                 var edit_id = this.id;
                 var tab_id = this.alt;
 
-                $("#chck_" + tab_id).bootstrapSwitch('toggleDisabled', false, false);
-                $("#includein_" + tab_id).bootstrapSwitch('toggleDisabled', false, false);
-                $("#active_" + tab_id).bootstrapSwitch('toggleDisabled', false, false);
+
+                $("#chck_" + tab_id).bootstrapSwitch('disabled', false);
+                $("#includein_" + tab_id).bootstrapSwitch('disabled', false);
+                $("#active_" + tab_id).bootstrapSwitch('disabled', false);
                 $("#save_" + tab_id).removeAttr("style");
                 $("#prop_" + tab_id).removeAttr("disabled");
                 $("#prop_" + tab_id).removeAttr("style");

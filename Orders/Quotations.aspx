@@ -37,10 +37,12 @@
         #reportstable .heading {
             border-bottom: 1px solid #ff0000 !important;
         }
-        .modal-backdrop{
-            z-index:1099999;
+
+        .modal-backdrop {
+            z-index: 1099999;
         }
-        .modal{
+
+        .modal {
             z-index: 100599999;
         }
     </style>
@@ -225,19 +227,6 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td>
-                                    <span>Account Name</span>
-
-                                </td>
-                                <td>
-
-                                    <input type="text" id="txtUserName" class="form-control" onkeypress="return IsAlphaNumeric(event);" />
-                                    <span id="error" style="color: Red; display: none">* Special Characters not allowed</span>
-                                    <span id="lblerrAccountName" style="color: Red;"></span>
-
-                                </td>
-                            </tr>
-                            <tr>
                                 <td><span>Mobile </span>
 
                                 </td>
@@ -282,6 +271,7 @@
 
         <input type="hidden" name="hdnQuotationId" id="hdnQuotationId" />
         <input type="hidden" name="hdnIsPostPaid" id="hdnIsPostPaid" />
+        <input type="hidden" name="hdnMobile" id="hdnMobile" />
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
@@ -294,20 +284,20 @@
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script type="text/javascript">
         $(function () {
-          //  var globalFunction = globalFunction || {};
-            var quotationSearchData = {} ;
+            //  var globalFunction = globalFunction || {};
+            var quotationSearchData = {};
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
             //quotationSearchData.Limit = 2;
             $("#btndownload,#btnview,#btncreate,#btnedit,#btninvoice,#btnpayment,#btndelete").attr("class", "enable-icn");
             $("#daterangetext").daterangepicker();
-           
+
             bindQuotationStatuses();
             dateRange = $("#daterangetext").val();
-           
+
             quotationSearchData.PageNumber = globalPageNumber;
-            quotationSearchData.Limit = globalPageSize;
+            quotationSearchData.Limit = $("#dropPages :selected").val();
 
             getQuotations();
             globalFunction = function () {
@@ -317,18 +307,18 @@
                 getQuotations();
             };
 
-           
+
 
             $("#btnsearch").click(function () {
-               // globalPageSize = 10, globalPageNumber = 1;
-               
+                // globalPageSize = 10, globalPageNumber = 1;
+
                 //quotationSearchData.ProductId = $("#ddlProduct").val();
                 //quotationSearchData.QuotationNumber = $("#txtSearchById").val();
                 //quotationSearchData.BillingModeId = $("#ddlBillMode").val();
-               // quotationSearchData.PageNumber = globalPageNumber;
+                // quotationSearchData.PageNumber = globalPageNumber;
                 //quotationSearchData.Mobile = $("#txtmblnum").val();
                 //quotationSearchData.Email = $("#txtemail").val();
-               
+
                 //quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 //quotationSearchData.AccountName = $("#txtAccountName").val();
                 AddSearchData();
@@ -343,16 +333,24 @@
                 quotationSearchData.Email = $("#txtemail").val();
                 quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 quotationSearchData.AccountName = $("#txtAccountName").val();
-                quotationSearchData.Limit = globalPageSize;
+                quotationSearchData.Limit = $("#dropPages :selected").val();
                 quotationSearchData.PageNumber = globalPageNumber;
             }
             $("#btnview").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
+                var isPostPaid;
+                if ($('.check_tool.Checked').attr("billmode") == "1") {
+                    isPostPaid = false;
+                }
+                else {
+                    isPostPaid = true;
+                }
                 var $form = $("<form/>").attr("id", "data_form")
                                         .attr("action", "Quotation.aspx")
                                         .attr("method", "post");
                 $("body").append($form);
                 AddParameter($form, "QuotationId", quotationId);
+                AddParameter($form, "IsPostPaidQuotation", isPostPaid);
                 $form[0].submit();
             });
 
@@ -408,7 +406,6 @@
                         $("#btninvoice").attr("class", "disable-icn");
                         $("#btnedit").attr("class", "disable-icn");
                         $("#btndelete").attr("class", "disable-icn");
-
                     }
 
                 }
@@ -446,6 +443,7 @@
             $(document).on('change', '.check_tool', function () {
                 $("#hdnQuotationId").val($(this).attr("id"));
                 $("#hdnIsPostPaid").val($(this).attr("billmode"));
+                $("#hdnMobile").val($(this).attr("mobile"));
 
             });
             $("#btnedit").click(function () {//To edit Quotation 
@@ -457,7 +455,7 @@
                 var quotationId = $("#hdnQuotationId").val()
                 var isBillMode = $("#hdnIsPostPaid").val();
                 var productId = 1;
-                var mobileNo = "9640986555";
+                var mobileNo = $("#hdnMobile").val();
                 getProductRelatedUserInformation(productId, mobileNo, quotationId, isBillMode);
                 return false;
 
@@ -511,7 +509,7 @@
                 return false;
             });
 
-          
+
 
             $("#btnpayment").click(function () {
                 var invoiceId = $(".check_tool:checked").attr("invoiceid");
@@ -534,7 +532,7 @@
                 $form[0].submit();
             });
 
-         
+
             function bindQuotationStatuses() {
                 var quotationStatusesData = "<option value='0'>--- All ---</option>";
                 ordersClient.GetQuotationStatuses(true, function (res) {
@@ -590,7 +588,7 @@
             function renderQuotations(Quotations) {
                 var quotations = "";
                 for (var i = 0; i < Quotations.length; i++) {
-                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1'/></td>";
+                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1' mobile='" + Quotations[i].Mobile + "'/></td>";
                     quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].AccountName + "</td>";
@@ -619,36 +617,10 @@
 
 
 
-            //function pagination(totalCount, globalPageSize) {
-
-            //    $('#page-selection').bootpag({
-            //        total: Math.ceil(totalCount / globalPageSize),
-            //        maxVisible: 6,
-            //        next: 'Next',
-            //        prev: 'Prev'
-
-            //    }).on("page", function (event, num) {
-
-            //        if (globalPageNumber != num) {
-            //            globalPageNumber = num;
-            //            globalPageSize = $("#dropPages").val();
-            //            //getInvoices();
-            //        }
-            //    });
-
-          //  }
-
-
-
         });
-
-
-
-
-
-
 
     </script>
 
 
 </asp:Content>
+
