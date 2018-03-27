@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="PostLogin.master.cs" Inherits="Orders.PostLogin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="PostLogin.master.cs" Inherits="Orders.PostLogin" %>
 
 <!DOCTYPE html>
 
