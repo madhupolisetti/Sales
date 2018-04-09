@@ -189,7 +189,7 @@ $("#btnSave").click(function () {
     jobjStr += "}";
 
     var ordersClient = new OrdersClient();
-    ordersClient.CreateQuotation(productId, accountId, 1, jobjStr, 1, function (res) {
+    ordersClient.CreateQuotation(productId, accountId, 1, 1, jobjStr, 1, function (res) {
         console.log(res);
         if (res.Success == true) {
             var quotationId = res.QuotationId;

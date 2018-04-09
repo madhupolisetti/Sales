@@ -86,8 +86,12 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
             if (context.Request["IncludeServiceProperties"] != null && !bool.TryParse(context.Request["IncludeServiceProperties"].ToString(), out includeServiceProperties))
                 GenerateErrorResponse(400, string.Format("IncludeServiceProperties value ({0}) is not a valid boolean value", context.Request["IncludeServiceProperties"].ToString()));
+
+            TablePreferences servicesTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> servicesDictionary = new Dictionary<string, TablePreferences>();
+            servicesDictionary.Add("Services", servicesTablePreferences);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetServices(productId: productId, serviceId: serviceId, includeServiceProperties: includeServiceProperties, onlyActive: onlyActive));
+            context.Response.Write(client.GetServices(productId: productId, serviceId: serviceId, includeServiceProperties: includeServiceProperties, onlyActive: onlyActive, tablePreferences: servicesDictionary));
         }
 
         private void GetServiceProperties(HttpContext context)

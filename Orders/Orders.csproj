@@ -38,9 +38,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\log4net.2.0.8\lib\net45-full\log4net.dll</HintPath>
+    <Reference Include="log4net">
+      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -208,8 +207,8 @@
     <Content Include="CssFiles\datepicker3.min.css" />
     <Content Include="CssFiles\DateTimePicker.css" />
     <Content Include="CssFiles\font-awesome.min.css" />
-    <Content Include="CssFiles\font-awesome\css\font-awesome.css" />
-    <Content Include="CssFiles\font-awesome\css\font-awesome.min.css" />
+    <Content Include="CommonClasses\css\font-awesome.css" />
+    <Content Include="CommonClasses\css\font-awesome.min.css" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.svg" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.dev.svg" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.svg" />
@@ -226,12 +225,15 @@
     <Content Include="CssFiles\style.css" />
     <Content Include="CssFiles\toastr.min.css" />
     <Content Include="Exception_Logs\%28null%29.txt" />
-    <Content Include="Exception_Logs\Exceptions\20180222.txt" />
-    <Content Include="Exception_Logs\Exceptions\20180223.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
     <Content Include="GoogleLoginCallBack.aspx" />
+    <Content Include="images\bg-white-lock.png" />
+    <Content Include="images\bg3.jpg" />
+    <Content Include="images\cancel-red.png" />
+    <Content Include="images\plus.png" />
     <Content Include="images\sms-logo.png" />
+    <Content Include="images\user.png" />
     <Content Include="Invoice.aspx" />
     <Content Include="Invoices.aspx" />
     <Content Include="JsFiles\addImage.js" />
@@ -280,11 +282,8 @@
     <Content Include="logout.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
-
     <Content Include="Scripts\AdminAccess.js" />
-
     <Content Include="Scripts\getUserDetailsForCreateQuotation.js" />
-
     <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\payment.js" />
     <Content Include="JsFiles\png.js" />
@@ -467,7 +466,7 @@
     <Content Include="assets\Rotate6.ico.lnk" />
     <Content Include="assets\SelectedMenuIcons\DSC_0283.JPG.lnk" />
     <Content Include="PostLogin.Master" />
-    <Content Include="CssFiles\font-awesome\css\DSC_0272.JPG.lnk" />
+    <Content Include="CommonClasses\css\DSC_0272.JPG.lnk" />
     <Content Include="CssFiles\font-awesome\fonts\DSC_0235.JPG.lnk" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.ttf" />
@@ -535,6 +534,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Exception_Logs\Exceptions\" />
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\Quotations\" />
     <Folder Include="Logs\" />
@@ -551,6 +551,7 @@
     <Content Include="AjaxHandlers\Orders.ashx" />
     <Content Include="AjaxHandlers\Products.ashx" />
     <Content Include="AjaxHandlers\AdminAccess.ashx" />
+    <None Include="Properties\PublishProfiles\SalesModule.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

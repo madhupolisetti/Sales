@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 using OrdersManagement.Core;
 using OrdersManagement.Exceptions;
 using OrdersManagement.Model;
@@ -14,19 +13,16 @@ namespace Orders.AjaxHandlers
     /// <summary>
     /// Summary description for Invoices
     /// </summary>
-    public class Invoices : IHttpHandler,IRequiresSessionState
+    public class Invoices : IHttpHandler, IRequiresSessionState
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
         {
             if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
             {
-
-
                 context.Response.StatusCode = 401;
                 context.Response.StatusDescription = "Invalid Session";
                 context.Response.End();
-
             }
             if (context.Request["Action"] == null)
             {
@@ -91,7 +87,7 @@ namespace Orders.AjaxHandlers
             if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
                 GenerateErrorResponse(400, string.Format("EmployeeId Must be a number"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.CreateInvoice(quotationId,billingModeId,employeeId));
+            context.Response.Write(client.CreateInvoice(quotationId, billingModeId, employeeId));
         }
 
         private void Search(HttpContext context)
@@ -155,7 +151,7 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
                 billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
-                mobile: mobile, email: email,accountName:accountName, tablePreferences: invoiceDictionary));
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary));
         }
         private void View(HttpContext context)
         {

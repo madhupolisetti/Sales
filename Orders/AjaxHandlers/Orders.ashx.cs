@@ -50,6 +50,9 @@ namespace Orders.AjaxHandlers
                     case "Activate":
                         Activate(context);
                         break;
+                    case "VerifyOrderStatuses":
+                        VerifyOrderStatuses(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -145,7 +148,7 @@ namespace Orders.AjaxHandlers
             else
                 metaData = context.Request["MetaData"].ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.ActivateOrder(activationUrl:activationUrl,metaData:metaData));
+            context.Response.Write(client.ActivateOrder(activationUrl: activationUrl, metaData: metaData));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)
@@ -161,6 +164,17 @@ namespace Orders.AjaxHandlers
             }
             catch (System.Threading.ThreadAbortException e)
             { }
+        }
+
+        private void VerifyOrderStatuses(HttpContext context)
+        {
+            long orderId = 0;
+
+            if (context.Request["OrderId"] != null && !Int64.TryParse(context.Request["OrderId"].ToString(), out orderId))
+                GenerateErrorResponse(400, "OrderId value must be a number");
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.VerifyOrderStatuses(orderId, null));
         }
 
         public bool IsReusable

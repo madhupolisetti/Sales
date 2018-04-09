@@ -169,19 +169,7 @@
 
                             </td>
                         </tr>
-                        <tr>
-                            <td>
-                                <span>Account Name</span>
-
-                            </td>
-                            <td>
-    
-                                <input type="text" id="txtUserName" class="form-control" onkeypress="return IsAlphaNumeric(event);" />
-                                <span id="error" style="color: Red; display: none">* Special Characters not allowed</span>
-                                <span id="lblerrAccountName" style="color: Red;"></span>
-
-                            </td>
-                        </tr>
+                      
                         <tr>
                             <td><span>Mobile </span>
 
