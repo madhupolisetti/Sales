@@ -130,14 +130,16 @@
             <input type="hidden" name="hdnQuotationId" id="hdnQuotationId" value="<%=quotationId %>" />
             <input type="hidden" name="hdnIsPostPaid" id="hdnIsPostPaid" value="<%=isPostPaid %>" />
             <input type="hidden" name="hdnMobileNumber" id="hdnMobileNo" value="<%=mobile %>" />
+            <input type="hidden" name="hdnStateId" id="hdnStateId" value="<%=stateId %>" />
+            <input type="hidden" name="hdnCountryId" id="hdnCountryId" value="<%= country %>" />
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v1"></script>
+    <script src="Scripts/OrdersClient.js?type=v2"></script>
     <script src="Scripts/getServices.js?type=v56"></script>
-    <script src="Scripts/createquotation.js?type=v10"></script>
+    <script src="Scripts/createquotation.js?type=v11"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>

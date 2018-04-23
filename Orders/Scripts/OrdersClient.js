@@ -367,7 +367,7 @@
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.accountHandler,
-            async: this.options.async,
+            async: false,
             dataType: "JSON",
             data:
                 {
@@ -396,7 +396,7 @@
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.accountHandler,
-            async: this.options.async,
+            async: false,
             dataType: "JSON",
             data:
                 {
@@ -614,7 +614,7 @@
                     EmployeeId: employeeId ? employeeId : 0,
                     ChannelId: channelId,
                     MetaData: JSON.stringify(metaData),
-                    StateId: 1
+                    StateId: stateId
                 },
             success: function (response) {
                 actionResponse = response;
@@ -1017,7 +1017,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, mobileNumber, callBackFunction) {
+    OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, accountUrl, mobileNumber, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1029,6 +1029,7 @@
                 {
                     action: "CreateOrUpdateAccountDetails",
                     productId: productId,
+                    accountInformationUrl: accountUrl,
                     mobileNumber: mobileNumber
 
                 },
@@ -1275,7 +1276,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.ActivateOrder = function (activationUrl, metaData, callBackFunction) {
+    OrdersClient.prototype.ActivateOrder = function (activationUrl, metaData, quotationId, billingModeId, isPostPaid, activatedPercentage, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1286,7 +1287,12 @@
                 {
                     "Action": "Activate",
                     "MetaData": JSON.stringify(metaData),
-                    "ActivationUrl": activationUrl
+                    "SearchData": searchData,
+                    "QuotationId": quotationId,
+                    "BillingMode": billingModeId,
+                    "ActivationUrl": activationUrl,
+                    "IsPostPaid": isPostPaid,
+                    "ActivatedPercentage": activatedPercentage
                 },
             success: function (response) {
                 actionResponse = response;
@@ -1306,4 +1312,36 @@
     }
     // Public Methods End
 }());
+
+OrdersClient.prototype.GetQuotationDetails = function (quotationId, isPostPaidQuotation, callBackFunction) {
+    var actionResponse;
+    failedActionResponse.Message = defaultErrorMessage;
+    $.ajax({
+        url: this.options.quotationsHandler,
+        async: false,
+        dataType: "JSON",
+        traditional: true,
+        data:
+            {
+                "Action": "GetQuotationDetails",
+                "QuotationId": quotationId ? quotationId : 0,
+                "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+
+            },
+        success: function (response) {
+            actionResponse = response;
+            if (CanCallBack(callBackFunction))
+                callBackFunction(actionResponse);
+        },
+        error: function (response) {
+            failedActionResponse.Response = response;
+            failedActionResponse.Message = response.responseJSON.Message;
+            actionResponse = failedActionResponse;
+            if (CanCallBack(callBackFunction))
+                callBackFunction(actionResponse);
+        }
+    });
+    if (!CanCallBack(callBackFunction))
+        return actionResponse;
+}
 //});

@@ -30,8 +30,8 @@ namespace Orders.UserDefinedClasses
         #endregion
 
         #region CONSTRUCTOR
-
-        public Helper(string connectionString,ResponseFormat responseFormat)
+      
+        public Helper(string connectionString, ResponseFormat responseFormat)
         {
             this._responseFormat = responseFormat;
             this.InitializeResponseVariables();
@@ -67,7 +67,7 @@ namespace Orders.UserDefinedClasses
         #endregion
 
         #region public METHODS
-       
+
 
         public dynamic GetResponse()
         {
@@ -379,11 +379,56 @@ namespace Orders.UserDefinedClasses
             this.InitializeResponseVariables();
         }
 
-        public JObject GetDataSetJobj { 
+        public JObject GetDataSetJobj
+        {
             get { return _jObj; }
         }
 
+        internal dynamic IncludeOutputParamsInObj(DataSet _ds, XmlDocument servicesXmlDocument, XmlElement servicesRootElement, dynamic servicesObj)
+        {
+            try
+            {
+                DataSet tempDataSet = new DataSet();
+                tempDataSet.Tables.Clear();
+                tempDataSet.Tables.Add(this._ds.Tables[Label.OUTPUT_PARAMETERS].Copy());
+                this.ResetResponseVariables();
+                this.ParseDataSet(tempDataSet);
+                dynamic outputParamsObj = this.GetResponse();
+                if (this.IsOutputXmlFormat)
+                {
+                    XmlDocument outputParamsXmlDocument = new XmlDocument();
+                    XmlElement outputParamsRootElement = null;
+                    outputParamsXmlDocument.LoadXml(outputParamsObj);
+                    outputParamsRootElement = outputParamsXmlDocument.FirstChild as XmlElement;
+                    foreach (XmlElement childElement in outputParamsRootElement.ChildNodes)
+                    {
+                        XmlElement newElement = servicesXmlDocument.CreateElement(childElement.Name);
+                        newElement.InnerText = childElement.InnerText;
+                        servicesRootElement.PrependChild(newElement);
+                    }
+                }
+                else
+                {
+                    foreach (JProperty jproperty in outputParamsObj.Properties())
+                    {
+                        servicesObj.AddFirst(new JProperty(jproperty.Name, jproperty.Value));
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw;
+            }
+            finally
+            {
+
+            }
+
+            return this.IsOutputXmlFormat ? servicesXmlDocument.OuterXml : servicesObj;
+        }
         #endregion
+
+        
 
 
         #region public PROPERTIES

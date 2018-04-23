@@ -139,16 +139,46 @@ namespace Orders.AjaxHandlers
         {
             string activationUrl = string.Empty;
             string metaData = string.Empty;
+            int quotationId = 0;
+            string searchData = string.Empty;
+            byte billingModeId = 0;
+            bool isPostPaid = false;
+            byte activatedPercentage = 0;
             if (string.IsNullOrEmpty(context.Request["ActivationUrl"]))
                 GenerateErrorResponse(400, string.Format("ActivationUrl is Mandatory"));
             else
                 activationUrl = context.Request["ActivationUrl"].ToString();
+            if (string.IsNullOrEmpty(context.Request["SearchData"]))
+                GenerateErrorResponse(400, string.Format("SearchData is Mandatory"));
+            else
+                searchData = context.Request["SearchData"].ToString();
+            if (string.IsNullOrEmpty(context.Request["QuotationId"]))
+                GenerateErrorResponse(400, string.Format("SearchData is Mandatory"));
+            else
+                quotationId = Convert.ToInt32(context.Request["QuotationId"].ToString());
             if (string.IsNullOrEmpty(context.Request["MetaData"]))
                 GenerateErrorResponse(400, string.Format("MetaData is Mandatory"));
             else
                 metaData = context.Request["MetaData"].ToString();
+            if (string.IsNullOrEmpty(context.Request["BillingMode"]))
+                GenerateErrorResponse(400, string.Format("BillingMode is Mandatory"));
+            else
+                billingModeId = Convert.ToByte(context.Request["BillingMode"].ToString());
+            if (string.IsNullOrEmpty(context.Request["isPostPaid"]))
+                GenerateErrorResponse(400, string.Format("IsPostPaid is Mandatory"));
+            else
+                isPostPaid = Convert.ToBoolean(context.Request["isPostPaid"].ToString());
+            if (string.IsNullOrEmpty(context.Request["IsPostPaid"]))
+                GenerateErrorResponse(400, string.Format("IsPostPaid is Mandatory"));
+            else
+                isPostPaid = Convert.ToBoolean(context.Request["IsPostPaid"].ToString());
+            if (string.IsNullOrEmpty(context.Request["ActivatedPercentage"]))
+                GenerateErrorResponse(400, string.Format("IsPostPaid is Mandatory"));
+            else
+                activatedPercentage = Convert.ToByte(context.Request["ActivatedPercentage"].ToString());
+
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.ActivateOrder(activationUrl: activationUrl, metaData: metaData));
+            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activatedPercentage: activatedPercentage, activationUrl: activationUrl));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using log4net;
 using Orders.UserDefinedClasses;
 
+
 namespace Orders.DataAccessLayer
 {
     public class Accounts : DataAccess
@@ -17,25 +18,61 @@ namespace Orders.DataAccessLayer
         private SqlCommand _sqlCommand = null;
         private SqlDataAdapter _da = null;
         private DataSet _ds = null;
+        Helper _helper = new Helper(ResponseFormat.JSON);
+        private void Clean()
+        {
+            if (this._da != null)
+                this._da.Dispose();
+            this._da = null;
+            if (this._ds != null)
+                this._ds.Dispose();
+            this._ds = null;
+        }
+        private void DataSetClean()
+        {
+
+            if (this._ds != null)
+                this._ds.Dispose();
+            this._ds = null;
+        }
+
+        public void DataAdapterClean()
+        {
+            if (this._da != null)
+                this._da.Dispose();
+            this._da = null;
+        }
+        private dynamic ErrorResponse()
+        {
+            this._helper.CreateProperty(Label.SUCCESS, false);
+            this._helper.CreateProperty(Label.MESSAGE, this._sqlCommand.GetMessage());
+            return this._helper.GetResponse();
+        }
         public Accounts(string connString)
             : base(connString)
         {
 
         }
 
-        public DataSet GetProductInformation(byte productId, out bool success)
+        public dynamic GetAccountProductDetails(byte productId, string mobileNumber, out bool success)
         {
             try
             {
                 _sqlConnection = Connection;
-                this._sqlCommand = new SqlCommand(StoredProcedure.GET_PRODUCT_DETAILS, this._sqlConnection);
+                this._sqlCommand = new SqlCommand(StoredProcedure.GET_ACCOUNT_PRODUCT_DETAILS, this._sqlConnection);
                 this._sqlCommand.CommandType = CommandType.StoredProcedure;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = productId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.MOBILE, SqlDbType.VarChar, 15).Value = mobileNumber;
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
                 _da = new SqlDataAdapter(_sqlCommand);
                 _ds = new DataSet();
                 _da.Fill(_ds);
-
+                if (this._ds.Tables.Count > 0)
+                {
+                    this._ds.Tables[0].TableName = Label.USER_DETAILS;
+                }
+                this._ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+                this._helper.ParseDataSet(_ds, null);
 
 
             }
@@ -49,7 +86,7 @@ namespace Orders.DataAccessLayer
 
             }
             success = Convert.ToBoolean(_sqlCommand.Parameters[ProcedureParameters.SUCCESS].Value);
-            return _ds;
+            return this._helper.GetResponse();
         }
 
         public void CreateAccountProduct(AccountProducts accountProperty, out decimal accountId)
@@ -115,6 +152,7 @@ namespace Orders.DataAccessLayer
             outputParameters.Rows.Add(row);
             return outputParameters;
         }
+
 
     }
 }

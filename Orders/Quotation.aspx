@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PostLogin.Master" AutoEventWireup="true" CodeFile="Quotation.aspx.cs" Inherits="Orders.Quotation" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/PostLogin.Master" AutoEventWireup="true" CodeBehind="Quotation.aspx.cs" Inherits="Orders.Quotation" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
 </asp:Content>

@@ -111,7 +111,7 @@ namespace Orders.AjaxHandlers
             string mobile = string.Empty;
             string email = string.Empty;
             int accountId = 0;
-            int employeeId = 0;
+            int employeeId = Convert.ToInt32(context.Session["AdminId"]);
             int ownerShipId = 0;
             byte statusId = 0;
             sbyte channelId = 0;
@@ -183,7 +183,7 @@ namespace Orders.AjaxHandlers
             int accountId = 0;
             byte channelId = 0;
             byte stateId = 0;
-            int employeeId = 0;
+            int employeeId = Convert.ToInt32(context.Session["AdminId"]);
             byte productId = 0;
             if (context.Request["ProductId"] == null || !byte.TryParse(context.Request["ProductId"].ToString(), out productId))
                 GenerateErrorResponse(400, string.Format("ProductId must be a number"));
@@ -223,7 +223,7 @@ namespace Orders.AjaxHandlers
             int quotationId = 0;
             byte stateId = 0;
             byte channelId = 0;
-            int employeeId = 0;
+            int employeeId = Convert.ToInt32(context.Session["AdminId"]);
 
             if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("QuotationId must be a number"));

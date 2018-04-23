@@ -8,16 +8,17 @@ $("#btnAddNewQuotation,#btncreate").click(function () {
 
 $("#btnSubmit").click(function () {
     var productId = $("#ddlProducts option:selected").val();
-    getProductRelatedUserInformation(productId, $("#txtUserMobile").val(), 0, 0);
+    var accountUrl = $("#ddlProducts option:selected").attr("accountUrl");
+    getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0);
 
 });
 
-function getProductRelatedUserInformation(productId, mobileNo, quotationId, billMode) {
+function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quotationId, billMode) {
 
-    ordersClient.GetProductWiseAccountRelatedInformation(productId, mobileNo, function (res) {
-        if (res.Success == 1) {
+    ordersClient.GetProductWiseAccountRelatedInformation(productId, accountUrl, mobileNo, function (res) {
+        if (res.Success == true) {
 
-            var accountId = res.AccountId;
+            var accountId = res.UserDetails.AccountId;
 
             var QotationReqType = 1;
 
@@ -29,14 +30,14 @@ function getProductRelatedUserInformation(productId, mobileNo, quotationId, bill
             //AddParameter($form, "QotationReqType", QotationReqType);
             AddParameter($form, "ID", accountId);
             AddParameter($form, "productId", productId);
-            AddParameter($form, "address", res.Address);
-            AddParameter($form, "state", res.State);
-            AddParameter($form, "contactName", res.NickName);
-            AddParameter($form, "country", res.Country);
-            AddParameter($form, "registeredDate", res.RegisteredDate);
-            AddParameter($form, "email", res.EmailID);
-            AddParameter($form, "mobile", res.MobileNumber);
-            AddParameter($form, "company", res.Company);
+            AddParameter($form, "address", res.UserDetails.Address);
+            AddParameter($form, "state", res.UserDetails.StateId);
+            AddParameter($form, "contactName", res.UserDetails.NickName);
+            AddParameter($form, "country", res.UserDetails.CountryId);
+            AddParameter($form, "registeredDate", res.UserDetails.RegisteredDate);
+            AddParameter($form, "email", res.UserDetails.EmailID);
+            AddParameter($form, "mobile", res.UserDetails.MobileNumber);
+            AddParameter($form, "company", res.UserDetails.Company);
             AddParameter($form, "BillMode", billMode);
             AddParameter($form, "QuotationId", quotationId)
             $form[0].submit();
@@ -53,7 +54,7 @@ function bindProducts() {
             if (res.Products.length > 0) {
 
                 for (var i = 0; i < res.Products.length; i++) {
-                    productsData += "<option value='" + res.Products[i].Id + "'>" + res.Products[i].Name + "</option>"
+                    productsData += "<option value='" + res.Products[i].Id + "' accountUrl='" + res.Products[i].AccountInformationUrl + "'>" + res.Products[i].Name + "</option>"
                 }
             }
 

@@ -114,7 +114,7 @@ namespace Orders.AjaxHandlers
             int accountId = 0;
             int paymentGatewayId = 0;
             float paymentAmount = 0;
-            int employeeId = 0;
+            int employeeId = Convert.ToInt32(context.Session["AdminId"]);
             int bankAccountId = 0;
             string comments = string.Empty;
             string ipAddress = string.Empty;
@@ -232,7 +232,7 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
                 number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
-                accountName:accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary));
+                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary));
         }
 
         private void View(HttpContext context)

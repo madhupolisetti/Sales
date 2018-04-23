@@ -7,6 +7,8 @@ $(document).ready(function () {
     var quotationId = $("#hdnQuotationId").val();
     var billMode = $("#hdnIsPostPaid").val();
     var mobile = $("#hdnMobileNo").val();
+    var countryId = $("#hdnCountryId").val();
+    var stateId = $("#hdnStateId").val();
     var isPostPaid = 0;
     ordersClient.GetCountries(function (res) {
         if (res.Success == true) {
@@ -34,7 +36,8 @@ $(document).ready(function () {
         }
     })
 
-
+    $("#state [value='" + stateId + "']").attr("selected", true);
+    $("#ddlCountry [value='" + countryId + "']").attr("selected", true);
 
     if (billMode == "2") {
         isPostPaid = 1;
@@ -189,7 +192,7 @@ $("#btnSave").click(function () {
     jobjStr += "}";
 
     var ordersClient = new OrdersClient();
-    ordersClient.CreateQuotation(productId, accountId, 1, 1, jobjStr, 1, function (res) {
+    ordersClient.CreateQuotation(productId, accountId, 1, 1, jobjStr, statedId, function (res) {
         console.log(res);
         if (res.Success == true) {
             var quotationId = res.QuotationId;

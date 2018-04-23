@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-
+using OC = Orders.CommonClasses;
 namespace Orders
 {
     public partial class CreateQuotation : System.Web.UI.Page
@@ -18,10 +18,37 @@ namespace Orders
         public string mobile = string.Empty;
         public string country = string.Empty;
         public string address = string.Empty;
+        public string stateId = string.Empty;
         public int quotationId = 0;
         public byte isPostPaid = 0;
+        public OC.Role accessRole;
+        public string myPage;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
+            {
+                Response.Redirect("LoginWithGoogle.aspx");
+            }
+            if (Session["AccessRole"] != null || Session["AccessRole"].ToString() != "")
+            {
+                accessRole = (OC.Role)Session["AccessRole"];
+
+                if (accessRole == OC.Role.SUPER_USER ||
+                    accessRole == OC.Role.SALES_TL ||
+                    accessRole == OC.Role.SALES ||
+                    accessRole == OC.Role.IT_SOFTWARE ||
+                    accessRole == OC.Role.IT_SOFTWARE_TL)
+                {
+
+                }
+                else
+                {
+                    myPage = System.IO.Path.GetFileName(Request.Url.AbsolutePath);
+                    Response.Redirect("UnauthorizedUser.aspx?Page=" + myPage);
+                }
+
+            }
             if (Request["QuotationId"] != null && Request["QuotationId"] != string.Empty)
             {
                 quotationId = Convert.ToInt32(Request["QuotationId"]);
@@ -65,6 +92,10 @@ namespace Orders
             if (Request["mobile"] != null && Request["mobile"] != string.Empty)
             {
                 mobile = Request["mobile"];
+            }
+            if (Request["state"] != null && Request["state"] != string.Empty)
+            {
+                stateId = Request["state"];
             }
 
 

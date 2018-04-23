@@ -58,14 +58,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Debug\Sales.DataAccessLayer.dll" />
+    <Content Include="bin\Debug\Sales.DataAccessLayer.pdb" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Orders.UserDefinedClasses\Orders.UserDefinedClasses.csproj">
       <Project>{8cf647f0-48cf-4be4-91a8-5f29f64fac94}</Project>
       <Name>Orders.UserDefinedClasses</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="bin\Debug\Sales.DataAccessLayer.dll" />
-    <Content Include="bin\Debug\Sales.DataAccessLayer.pdb" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

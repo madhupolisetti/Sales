@@ -55,9 +55,9 @@ namespace Orders.AjaxHandlers
 
         public void GetAccountDetails(HttpContext context)
         {
-            
+
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
-            context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["mobileNumber"])));
+            context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["accountInformationUrl"]), Convert.ToString(context.Request["mobileNumber"])));
 
         }
         public void GetCountries(HttpContext context)

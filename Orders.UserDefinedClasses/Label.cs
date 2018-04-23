@@ -75,6 +75,8 @@ namespace Orders.UserDefinedClasses
         public const string CREATE = "Create";
         public const string UPDATE = "Update";
 
+        public const string USER_DETAILS = "UserDetails";
+
         #region LOG_4_NET_RELATED
             public const string LOG_NAME = "LogName";
             public const string DEFAULT_LOGGER = "DefaultLogger";

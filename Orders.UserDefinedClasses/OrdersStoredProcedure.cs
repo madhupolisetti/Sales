@@ -11,7 +11,7 @@ namespace Orders.UserDefinedClasses
     public static class StoredProcedure
     {
         #region Products Related
-        public const string GET_PRODUCT_DETAILS = "GetProductDetails";
+        public const string GET_ACCOUNT_PRODUCT_DETAILS = "GetAccountProductDetails";
         #endregion
         #region Account Related
         public const string CREATE_ACCOUNT_PRODUCT = "CreateAccountProduct";

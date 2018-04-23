@@ -9,10 +9,20 @@ using Orders.DataAccessLayer;
 using System.Net;
 using System.IO;
 using Orders.UserDefinedClasses;
+using System.Xml;
+
 namespace Orders.BussinessLogicLayer
 {
     public class Accounts
     {
+
+
+        Helper _helper = new Helper(ResponseFormat.JSON);
+        private JObject _jObj = null;
+        private JArray _jArr = null;
+        private XmlDocument xmlDoc = null;
+        private XmlElement rootElement = null;
+        private bool _isOutputXmlFormat = false;
 
         public static JObject responseObj = new JObject();
         DataSet _ds = null;
@@ -21,14 +31,15 @@ namespace Orders.BussinessLogicLayer
         {
             responseObj = new JObject();
         }
-        public JObject CreateAccountProducts(string sConnString, byte productId, string mobileNumber)
+        public JObject CreateAccountProducts(string sConnString, byte productId, string accountUrl, string mobileNumber)
         {
             bool success = false;
             decimal accountId = 0;
+            JObject userObj;
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
-            _ds = accountsObj.GetProductInformation(productId, out success);
+            responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
 
-            if (success)
+            if (!success)
             {
                 if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 {
@@ -37,25 +48,25 @@ namespace Orders.BussinessLogicLayer
                 else
                 {
                     responseObj = new JObject(new JProperty("Success", false),
-                        new JProperty("Message", "No Product details Found"));
+                        new JProperty("Message", "No User details Found"));
                     return responseObj;
                 }
             }
 
-            if (Convert.ToByte(responseObj.SelectToken("Success").ToString()) == 1)
+            if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true && !success)
             {
                 AccountProducts accountProductProperties = new AccountProducts();
-                accountProductProperties.ProductAccountName = responseObj.SelectToken("NickName").ToString();
-                accountProductProperties.MobileNo = responseObj.SelectToken("MobileNumber").ToString();
-                accountProductProperties.Email = responseObj.SelectToken("EmailID").ToString();
-                accountProductProperties.Address = responseObj.SelectToken("Address").ToString();
-                accountProductProperties.Gstin = responseObj.SelectToken("GSTIN").ToString();
-                accountProductProperties.Company = responseObj.SelectToken("Company").ToString();
-                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken("StateCode").ToString());
-                accountProductProperties.CountryId = Convert.ToByte(responseObj.SelectToken("CountryId").ToString());
-                accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken("UserId").ToString());
+                accountProductProperties.ProductAccountName = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("NickName").ToString();
+                accountProductProperties.MobileNo = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("MobileNumber").ToString();
+                accountProductProperties.Email = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("EmailID").ToString();
+                accountProductProperties.Address = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Address").ToString();
+                accountProductProperties.Gstin = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("GSTIN").ToString();
+                accountProductProperties.Company = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Company").ToString();
+                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("StateCode").ToString());
+                accountProductProperties.CountryId = Convert.ToByte(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("CountryId").ToString());
+                accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
                 accountProductProperties.ProductId = productId;
-                accountProductProperties.RegisteredDate = responseObj.SelectToken("RegisteredDate").ToString();
+                accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
                 Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
                 account.CreateAccountProduct(accountProductProperties, out accountId);
                 responseObj.Add(new JProperty(Label.ACCOUNT_ID, accountId));
@@ -74,7 +85,6 @@ namespace Orders.BussinessLogicLayer
             HttpWebResponse _Resp = null;
             StreamReader SReader = null;
             StreamWriter SWriter = null;
-            string PostingData = "";
             string HttpAPIResponseString = "";
             string _ApiKey = "S2m8HRmwf5";
             string _ApiSecret = "alR8pQok8ll2zCYmZL4R";
@@ -107,9 +117,8 @@ namespace Orders.BussinessLogicLayer
         }
 
 
-
-
-
-
     }
+
+
+
 }

@@ -84,8 +84,9 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("QuotationId Must be a number"));
             if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
                 GenerateErrorResponse(400, string.Format("BillingModeId Must be a number"));
-            if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
-                GenerateErrorResponse(400, string.Format("EmployeeId Must be a number"));
+            //if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
+            //    GenerateErrorResponse(400, string.Format("EmployeeId Must be a number"));
+            employeeId = Convert.ToInt32(context.Session["AdminId"]);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.CreateInvoice(quotationId, billingModeId, employeeId));
         }
