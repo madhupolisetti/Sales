@@ -124,7 +124,7 @@ function getServiceProperties(serviceId) {
                         var propertyFields = new Array();
                         propertyFields = res.Services.Properties[i].PropertyFields;
 
-                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control" id="Amount_1" toolpro="1"';
+                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control textboxValue" id="Amount_1" toolpro="1"';
                         if (res.Services.Properties[i].PropertyFields.length > 0) {
                             if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
                                 serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
@@ -138,6 +138,11 @@ function getServiceProperties(serviceId) {
                     if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && (res.Services.Properties[i].InputDataTypeId.toLowerCase() == "float" || res.Services.Properties[i].InputDataTypeId.toLowerCase() == "money")) {
                         serviceProperties += 'onkeypress="return isNumberPointKey(event)"';
                     }
+                    if (res.Services.Properties[i].IsRequired == true) {
+
+                        serviceProperties += 'isRequired=true mandateText="' + res.Services.Properties[i].DisplayName + '"';
+                    }
+
                     serviceProperties += '/>'
 
 

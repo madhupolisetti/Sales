@@ -41,16 +41,16 @@ namespace Orders.BussinessLogicLayer
 
             if (!success)
             {
-                if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
-                {
-                    responseObj = GetAccountDetailApi(_ds.Tables[0].Rows[0]["AccountInformationUrl"].ToString(), mobileNumber);
-                }
-                else
-                {
-                    responseObj = new JObject(new JProperty("Success", false),
-                        new JProperty("Message", "No User details Found"));
-                    return responseObj;
-                }
+                //if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
+                //{
+                responseObj = GetAccountDetailApi(accountUrl, mobileNumber);
+                //}
+                //else
+                //{
+                //    responseObj = new JObject(new JProperty("Success", false),
+                //        new JProperty("Message", "No User details Found"));
+                //    return responseObj;
+                //}
             }
 
             if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true && !success)
@@ -62,8 +62,8 @@ namespace Orders.BussinessLogicLayer
                 accountProductProperties.Address = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Address").ToString();
                 accountProductProperties.Gstin = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("GSTIN").ToString();
                 accountProductProperties.Company = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Company").ToString();
-                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("StateCode").ToString());
-                accountProductProperties.CountryId = Convert.ToByte(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("CountryId").ToString());
+                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("StateId").ToString());
+                accountProductProperties.Country = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Country").ToString();
                 accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
                 accountProductProperties.ProductId = productId;
                 accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
@@ -86,8 +86,8 @@ namespace Orders.BussinessLogicLayer
             StreamReader SReader = null;
             StreamWriter SWriter = null;
             string HttpAPIResponseString = "";
-            string _ApiKey = "S2m8HRmwf5";
-            string _ApiSecret = "alR8pQok8ll2zCYmZL4R";
+            string _ApiKey = "fDZjHHybyM";
+            string _ApiSecret = "zu5nKlRQFbPCQrihQn51";
             CredentialCache _credentialCache = new CredentialCache();
             try
             {

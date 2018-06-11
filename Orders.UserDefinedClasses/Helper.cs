@@ -7,6 +7,7 @@ using Newtonsoft.Json.Linq;
 using System.Xml;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 
 
 namespace Orders.UserDefinedClasses
@@ -30,7 +31,7 @@ namespace Orders.UserDefinedClasses
         #endregion
 
         #region CONSTRUCTOR
-      
+
         public Helper(string connectionString, ResponseFormat responseFormat)
         {
             this._responseFormat = responseFormat;
@@ -175,7 +176,7 @@ namespace Orders.UserDefinedClasses
                                         else if (int.TryParse(columnValue, out intResult))
                                             rowJObj.Add(new JProperty(column.ColumnName, intResult));
                                         else if (float.TryParse(columnValue, out floatResult))
-                                            rowJObj.Add(new JProperty(column.ColumnName, floatResult));
+                                            rowJObj.Add(new JProperty(column.ColumnName, columnValue));
                                         else
                                             rowJObj.Add(new JProperty(column.ColumnName, columnValue));
                                     }
@@ -428,7 +429,7 @@ namespace Orders.UserDefinedClasses
         }
         #endregion
 
-        
+
 
 
         #region public PROPERTIES

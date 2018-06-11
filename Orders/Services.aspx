@@ -313,7 +313,8 @@
                 var isAllowSpecialCharas = $("#allowSpecialChars").is(":checked");
                 var minlength = $("#minLength").val();
                 var maxlength = $("#maxLength").val();
-                serviceProperty.DisplayName = displayName
+
+                serviceProperty.DisplayName = displayName;
                 serviceProperty.MetaDataCode = metaDataCode;
                 serviceProperty.IsRequired = isRequired;
                 serviceProperty.IncludeInOrderAmount = includeInOrderAmount;

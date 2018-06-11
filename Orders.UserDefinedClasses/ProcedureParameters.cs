@@ -18,8 +18,9 @@ namespace Orders.UserDefinedClasses
         public const string SERVICE_PROPERTIES = "@ServiceProperties";
         public const string SERVICE_PROPERTY_DETAILS = "@ServicePropertyDetails";
         public const string SERVICE_PROPERTY_ID = "@ServicePropertyId";
+        public const string COMPANY = "@Company";
 
-        
+
         public const string QUOTATION_ID = "@QuotationId";
         public const string QUOTATION_NUMBER = "@QuotationNumber";
         public const string ACCOUNT_ID = "@AccountId";
@@ -45,6 +46,7 @@ namespace Orders.UserDefinedClasses
         public const string ADDRESS = "@Address";
         public const string GSTIN = "@GSTIN";
         public const string COUNTRY_ID = "@CountryId";
+        public const string COUNTRY = "@Country";
         public const string OWNER_EMAIL = "@OwnerEmail";
 
         public const string SUCCESS = "@Success";

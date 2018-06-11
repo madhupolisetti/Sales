@@ -19,7 +19,9 @@ function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quota
         if (res.Success == true) {
 
             var accountId = res.UserDetails.AccountId;
-
+            if (accountId == 0) {
+                accountId = res.AccountId;
+            }
             var QotationReqType = 1;
 
             var $form = $("<form/>").attr("id", "data_form")

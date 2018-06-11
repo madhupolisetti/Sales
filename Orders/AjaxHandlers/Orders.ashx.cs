@@ -178,7 +178,7 @@ namespace Orders.AjaxHandlers
                 activatedPercentage = Convert.ToByte(context.Request["ActivatedPercentage"].ToString());
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activatedPercentage: activatedPercentage, activationUrl: activationUrl));
+            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activatedPercentage: activatedPercentage, activationUrl: activationUrl, employeeId: Convert.ToInt32(HttpContext.Current.Session["AdminId"]), tablePreferences: null));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

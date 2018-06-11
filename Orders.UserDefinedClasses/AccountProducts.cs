@@ -16,7 +16,7 @@ namespace Orders.UserDefinedClasses
         private string mobileNo = string.Empty;
         private string email = string.Empty;
         private int stateId = 0;
-        private byte countryId = 0;
+        private string country = string.Empty;
         private string address = string.Empty;
         private string gstin = string.Empty;
         private int ownerShipId = 0;
@@ -33,7 +33,7 @@ namespace Orders.UserDefinedClasses
         public string MobileNo { get; set; }
         public string Email { get; set; }
         public int StateId { get; set; }
-        public byte CountryId { get; set; }
+        public string Country { get; set; }
         public string Address { get; set; }
         public string Gstin { get; set; }
         public int OwnerShipId { get; set; }

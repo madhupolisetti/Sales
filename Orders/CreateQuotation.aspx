@@ -138,7 +138,7 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=v2"></script>
-    <script src="Scripts/getServices.js?type=v56"></script>
+    <script src="Scripts/getServices.js?type=v5"></script>
     <script src="Scripts/createquotation.js?type=v11"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>

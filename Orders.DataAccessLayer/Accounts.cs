@@ -103,7 +103,8 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.ADDRESS, SqlDbType.NVarChar, -1).Value = accountProperty.Address;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.GSTIN, SqlDbType.VarChar, 15).Value = accountProperty.Gstin;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.STATE_ID, SqlDbType.Int).Value = accountProperty.StateId;
-                this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY_ID, SqlDbType.Int).Value = accountProperty.CountryId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.COMPANY, SqlDbType.VarChar, 100).Value = accountProperty.Company;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY, SqlDbType.VarChar, 50).Value = accountProperty.Country;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
                 this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_ID, System.Data.SqlDbType.Decimal).Direction = System.Data.ParameterDirection.Output;
