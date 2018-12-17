@@ -1,5 +1,6 @@
 ﻿var accountId = $("#hdnAccountId").val();
 var productId = $("#hdnProductId").val();
+var AccountProductId = $("#AccountProductId").val();
 var quotationData;
 var ordersClient = new OrdersClient();
 $(document).ready(function () {
@@ -16,10 +17,18 @@ $(document).ready(function () {
             if (res.Countries.length > 0) {
                 countries = "<option value=0>Select</option>";
                 for (var i = 0; i < res.Countries.length; i++) {
-                    countries += "<option value='" + res.Countries[i].Id + "'>" + res.Countries[i].Name + "</option>";
+                    countries += "<option value='" + res.Countries[i].Id + "' name='" + res.Countries[i].Name + "' >" + res.Countries[i].Name + "</option>";
                 }
             }
             $("#ddlCountry").html(countries);
+            if ($.isNumeric($("#hdnCountryId").val()) == true) {
+                $("#ddlCountry option[value='" + $("#hdnCountryId").val() + "']").prop('selected', true);
+            }
+            else
+            {
+                $("#ddlCountry option[name='" + $("#hdnCountryId").val() + "']").prop('selected', true);
+            }
+            
         }
     });
 
@@ -29,13 +38,39 @@ $(document).ready(function () {
             if (res.States.length > 0) {
                 states = "<option value=0>Select</option>";
                 for (var i = 0; i < res.States.length; i++) {
-                    states += "<option value='" + res.States[i].Id + "'>" + res.States[i].State + "</option>";
+                    states += "<option value='" + res.States[i].Id + "' >" + res.States[i].State + "</option>";
                 }
                 $("#state").html(states);
+                $("#state option[value='" + $("#hdnStateId").val() + "']").prop('selected', true);
             }
         }
     })
 
+    $("#btnUpdate").click(function (res) {
+        var userDetails = {};
+        
+        $(".updateValues").each(function () {
+            console.log($(this));
+            if ($(this)[0].nodeName == "SELECT" || $(this)[0].nodeName == "TEXTAREA") {
+              
+                userDetails[$(this).attr("name")] = $(this)[0].value;
+            }
+            else
+            {
+                userDetails[$(this).attr("name")] = $(this).val();
+
+            }
+              
+        });
+        userDetails["AccountID"] = accountId;
+        userDetails["ProductId"] = productId;
+        userDetails["AccountProductId"] = AccountProductId;
+        ordersClient.UpdateAccountOnwerDetails(userDetails, function (res) {
+            if (res.Success == true) {
+                alert("success");
+            }
+        });
+    });
     $("#state [value='" + stateId + "']").attr("selected", true);
     $("#ddlCountry [value='" + countryId + "']").attr("selected", true);
 
@@ -56,6 +91,32 @@ $(document).ready(function () {
         $("#btnSave").show();
     }
 
+
+
+    ordersClient.GetAccountOwnersAndPlans(productId, function (res) {
+        if (res.Success == true) {
+            var plans = "", employees = "";
+            plans = "<option value=0>Select Plan</option>";
+            if (res.Plans.length > 0) {
+
+                for (var i = 0; i < res.Plans.length; i++) {
+                    plans += "<option value='" + res.Plans[i].Id + "'>" + res.Plans[i].PlanName + "</option>";
+                }
+            }
+
+            if (res.Employees.length > 0) {
+                for (var i = 0; i < res.Employees.length; i++) {
+                    employees += "<option value='" + res.Employees[i].Id + "' email='" + res.Employees[i].Email + "' >" + res.Employees[i].Name + "</option>";
+                }
+
+            }
+
+            $("#ddlRechargeType").html(plans);
+            $("#ddlAccountOwner").html(employees);
+            $("#ddlAccountOwner option[email='" + $("#hdnAccountOwnerEmail").val() + "']").prop('selected',true);
+        }
+
+    })
 
 })
 $("#btnSave").click(function () {
@@ -131,11 +192,23 @@ $("#btnSave").click(function () {
             occurance = 0;
             serviceId = $(this).attr("id");
             SenderName = $(this).attr("toolname");
+
+
             jobjStr += "'" + SenderName + "':"
             if ($('.properties_' + serviceId).length > 1) {
                 jobjStr += "[";
             }
-
+            //need to check for drop  down service name or meta data code.
+            //$(".dropdown_" + SenderName).each(function (e) {
+            //    isRequired = $(this).attr("isrequired");
+            //    if (isRequired) {
+            //        mandateFieldValue = $(this)[0].value;;
+            //        if (mandateFieldValue == "" || mandateFieldValue == "0") {
+            //            ErrorNotifier("Please enter " + $(this).attr("servicepropertycode"));
+            //            return false;
+            //        }
+            //    }
+            //});
 
             $('.properties_' + serviceId).each(function () {
                 occurance++;
@@ -151,9 +224,9 @@ $("#btnSave").click(function () {
                     if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
                         value = $(this).val();
                     }
-                    else if ($(this).is('type') == "select") {
-                        value = $(this).value();
-                    }
+                    //else if ($(this)[0].nodeName == "SELECT") {
+                    //    value = $(this)[0].value;
+                    //}
 
                     jobjStr += "'" + $(this).attr("servicepropertycode") + "':'" + value;
                     if ($(this).parents("tr").is(':last-child')) {
@@ -201,10 +274,12 @@ $("#btnSave").click(function () {
     if (jobjStr.substring(jobjStr.length - 1) == ',') {
         jobjStr = jobjStr.substring(0, jobjStr.length - 1);
     }
+    //{'Balance':{'Id':'1','Occurance':'1','Amt':'10','IBPrice':'1.2','OBPrice':'1.3','ValidityInDays':'150','Plan':'1'}}
+    
     jobjStr += "}";
-
+    var QuotationType = $("#hdnQuotationType").val();
     var ordersClient = new OrdersClient();
-    ordersClient.CreateQuotation(productId, accountId, 1, 1, jobjStr, statedId, function (res) {
+    ordersClient.CreateQuotation(productId, accountId, 1, 1, jobjStr, statedId, QuotationType, function (res) {
         console.log(res);
         if (res.Success == true) {
             var quotationId = res.QuotationId;
@@ -480,3 +555,5 @@ function blockSpecialChar(e) {
     document.all ? k = e.keyCode : k = e.which;
     return ((k > 64 && k < 91) || (k > 96 && k < 123) || k == 8 || k == 32 || (k >= 48 && k <= 57) || k == 190 || k == 188);
 }
+
+

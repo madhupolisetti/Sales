@@ -89,7 +89,7 @@ namespace Orders.DataAccessLayer
             return this._helper.GetResponse();
         }
 
-        public void CreateAccountProduct(AccountProducts accountProperty, out decimal accountId)
+        public dynamic CreateAccountProduct(AccountProducts accountProperty, out decimal accountId, out decimal accountProductID)
         {
             try
             {
@@ -97,6 +97,7 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand = new SqlCommand(StoredProcedure.CREATE_ACCOUNT_PRODUCT, this._sqlConnection);
                 this._sqlCommand.Parameters.Add(ProcedureParameters.NAME, SqlDbType.NVarChar, 50).Value = accountProperty.ProductAccountName;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.TinyInt).Value = accountProperty.ProductId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.MODE, SqlDbType.TinyInt).Value = 1;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.MOBILE, SqlDbType.VarChar, 15).Value = accountProperty.MobileNo;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.Email;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_USER_ID, SqlDbType.BigInt).Value = accountProperty.ProductAccountId;
@@ -105,14 +106,24 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.STATE_ID, SqlDbType.Int).Value = accountProperty.StateId;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COMPANY, SqlDbType.VarChar, 100).Value = accountProperty.Company;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY, SqlDbType.VarChar, 50).Value = accountProperty.Country;
-                this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;
+                if (accountProperty.OwnerShipEmail != null)
+                {
+                    this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;
+                }
+                else
+                {
+                    this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = "";
+                }
+                
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
                 this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_ID, System.Data.SqlDbType.Decimal).Direction = System.Data.ParameterDirection.Output;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ACCOUNT_ID, System.Data.SqlDbType.Decimal).Direction = System.Data.ParameterDirection.Output;
                 _da = new SqlDataAdapter(_sqlCommand);
                 _ds = new DataSet();
                 _da.Fill(_ds);
+                
                 this._ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
-
+                this._helper.ParseDataSet(_ds, null);
 
 
             }
@@ -126,8 +137,89 @@ namespace Orders.DataAccessLayer
 
             }
             accountId = Convert.ToDecimal(_sqlCommand.Parameters[ProcedureParameters.ACCOUNT_ID].Value);
-
+            accountProductID = Convert.ToDecimal(_sqlCommand.Parameters[ProcedureParameters.PRODUCT_ACCOUNT_ID].Value);
+            return this._helper.GetResponse();
         }
+        public dynamic UpdateAccountProduct(AccountProducts accountProperty)
+        {
+    
+            try
+            {
+                _sqlConnection = Connection;
+                this._sqlCommand = new SqlCommand(StoredProcedure.CREATE_ACCOUNT_PRODUCT, this._sqlConnection);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.NAME, SqlDbType.NVarChar, 50).Value = accountProperty.ProductAccountName;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.TinyInt).Value = accountProperty.ProductId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.MODE, SqlDbType.TinyInt).Value = 2;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.MOBILE, SqlDbType.VarChar, 20).Value = accountProperty.MobileNo;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.Email;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_USER_ID, SqlDbType.BigInt).Value = accountProperty.ProductAccountId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ADDRESS, SqlDbType.NVarChar, -1).Value = accountProperty.Address;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.GSTIN, SqlDbType.VarChar, 15).Value = accountProperty.Gstin;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.STATE_ID, SqlDbType.Int).Value = accountProperty.StateId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.COMPANY, SqlDbType.VarChar, 100).Value = accountProperty.Company;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY, SqlDbType.VarChar, 50).Value = accountProperty.Country;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAILID, SqlDbType.Int).Value = accountProperty.OwnerShipId;
+                
+
+                this.PopulateCommonOutputParameters(ref this._sqlCommand);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_ID, System.Data.SqlDbType.Decimal).Direction = System.Data.ParameterDirection.Output;
+                _da = new SqlDataAdapter(_sqlCommand);
+                _ds = new DataSet();
+                _da.Fill(_ds);
+              
+                this._ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+                this._helper.ParseDataSet(_ds, null);
+
+
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(string.Format("Unable to fetch QuotationStatuses. {0}", e.ToString()));
+                //throw new QuotationException(string.Format("Unable to fetch QuotationStatuses. {0}", e.Message));
+            }
+            finally
+            {
+
+            }
+            
+            return this._helper.GetResponse();
+        }
+
+        public dynamic GetAccountOwnersAndPlans(byte productId, out bool success)
+        {
+            try
+            {
+                _sqlConnection = Connection;
+                this._sqlCommand = new SqlCommand(StoredProcedure.GET_ACCOUNT_OWNERS_AND_PLANS, this._sqlConnection);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.TinyInt).Value = productId;
+                this.PopulateCommonOutputParameters(ref this._sqlCommand);
+                _da = new SqlDataAdapter(_sqlCommand);
+                _ds = new DataSet();
+                _da.Fill(_ds);
+                if (this._ds.Tables.Count > 1)
+                {
+                    this._ds.Tables[0].TableName = Label.PLANS;
+                    this._ds.Tables[1].TableName = Label.EMPLOYEES;
+
+                }
+                this._ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+                this._helper.ParseDataSet(_ds, null);
+               
+            }
+            catch (Exception e)
+            {
+                //Logger.Error(string.Format("Unable to fetch QuotationStatuses. {0}", e.ToString()));
+                //throw new QuotationException(string.Format("Unable to fetch QuotationStatuses. {0}", e.Message));
+            }
+            finally
+            {
+
+            }
+            success = Convert.ToBoolean(_sqlCommand.Parameters[ProcedureParameters.SUCCESS].Value);
+            return this._helper.GetResponse();
+        }
+
+
 
         internal void PopulateCommonOutputParameters(ref System.Data.SqlClient.SqlCommand sqlCommand)
         {

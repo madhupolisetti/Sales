@@ -38,8 +38,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="log4net">
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\log4net.dll</HintPath>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>bin\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
@@ -48,7 +49,7 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>E:\OrdersManagementLive\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>D:\Websites\Websites\staging git\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -194,8 +195,8 @@
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Messages_select.png" />
     <Content Include="assets\SelectedMenuIcons\Unprocessed_Request_select.png" />
     <Content Include="assets\SelectedMenuIcons\Voice_Route_select.png" />
-    <Content Include="bin\Sales.dll" />
     <Content Include="bin\Sales.pdb" />
+    <Content Include="CreateAccounts.aspx" />
     <Content Include="CreateQuotation.aspx" />
     <Content Include="CssFiles\accordion.css" />
     <Content Include="CssFiles\blue.min.css" />
@@ -283,6 +284,7 @@
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Scripts\AdminAccess.js" />
+    <Content Include="Scripts\createAccounts.js" />
     <Content Include="Scripts\getUserDetailsForCreateQuotation.js" />
     <Content Include="Scripts\orders.js" />
     <Content Include="Scripts\payment.js" />
@@ -336,6 +338,13 @@
     </Compile>
     <Compile Include="CommonClasses\MyConf.cs" />
     <Compile Include="CommonClasses\Role.cs" />
+    <Compile Include="CreateAccounts.aspx.cs">
+      <DependentUpon>CreateAccounts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateAccounts.aspx.designer.cs">
+      <DependentUpon>CreateAccounts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="CreateQuotation.aspx.cs">
       <DependentUpon>CreateQuotation.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

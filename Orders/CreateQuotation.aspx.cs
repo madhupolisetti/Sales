@@ -19,9 +19,14 @@ namespace Orders
         public string country = string.Empty;
         public string address = string.Empty;
         public string stateId = string.Empty;
+        public string QuotationType = string.Empty;
+        public string gstin = string.Empty;
+        public string AccountOwnerEmail = string.Empty;   
+        public string isFirstTime;
         public int quotationId = 0;
         public byte isPostPaid = 0;
         public OC.Role accessRole;
+        public Int64 AccountProductId;
         public string myPage;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -98,7 +103,27 @@ namespace Orders
                 stateId = Request["state"];
             }
 
+            if (!String.IsNullOrEmpty(Request["AccountproductId"]))
+            {
 
+                AccountProductId = Convert.ToInt64(Request["AccountproductId"]);
+            }
+            if (!String.IsNullOrEmpty(Request["QuotationType"]))
+            {
+                QuotationType = Convert.ToString(Request["QuotationType"]);
+            }
+            if (!String.IsNullOrEmpty(Request["isFirstTime"]))
+            {
+                isFirstTime = Convert.ToString(Request["isFirstTime"]);
+            }
+            if (!String.IsNullOrEmpty(Request["gstin"]))
+            {
+                gstin = Convert.ToString(Request["gstin"]);
+            }
+            if (!String.IsNullOrEmpty(Request["AccountOwner"]))
+            {
+                AccountOwnerEmail = Convert.ToString(Request["AccountOwner"]);
+            }
         }
     }
 }

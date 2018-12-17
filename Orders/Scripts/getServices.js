@@ -132,10 +132,14 @@ function getServiceProperties(serviceId) {
                         }
 
                     }
-                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "int") {
+                    //else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown")
+                    //{
+                    //    serviceProperties += "<select style='font-size:11px' placeholder='" + res.Services.Properties[i].DisplayName + "' servicePropertyCode='" + res.Services.Properties[i].MetaDataCode + "'  class='dropdown_" + res.Services.DisplayName + " check_tool form-control' id='" + res.Services.Properties[i].MetaDataCode + "'";
+                    //}
+                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || res.Services.Properties[i].InputTypeId.toLowerCase() == "textarea") && res.Services.Properties[i].InputDataTypeId.toLowerCase() == "int") {
                         serviceProperties += 'onkeypress="return isNumberKey(event)"';
                     }
-                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea") && (res.Services.Properties[i].InputDataTypeId.toLowerCase() == "float" || res.Services.Properties[i].InputDataTypeId.toLowerCase() == "money")) {
+                    if ((res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || res.Services.Properties[i].InputTypeId.toLowerCase() == "textarea") && (res.Services.Properties[i].InputDataTypeId.toLowerCase() == "float" || res.Services.Properties[i].InputDataTypeId.toLowerCase() == "money")) {
                         serviceProperties += 'onkeypress="return isNumberPointKey(event)"';
                     }
                     if (res.Services.Properties[i].IsRequired == true) {
@@ -143,12 +147,20 @@ function getServiceProperties(serviceId) {
                         serviceProperties += 'isRequired=true mandateText="' + res.Services.Properties[i].DisplayName + '"';
                     }
 
-                    serviceProperties += '/>'
-
-
-
-
-
+                    //if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown") {
+                        
+                    //    serviceProperties += "><option value=''>" + res.Services.Properties[i].DisplayName + "</option>";
+                    //    var servicedropdownObj;
+                    //    servicedropdownObj = res.Services.Properties[i].PropertyFields
+                    //    $.each(servicedropdownObj, function (key, value) {
+                    //        serviceProperties += "<option value='" + value.Id + "' class='selected' >" + value.Options + "</option>";
+                    //    });
+                    //    serviceProperties += "</select>";
+                    //}
+                    //else
+                    //{
+                        serviceProperties += '/>';
+                    //}
 
                     serviceProperties += "</tr></td>"
                 }

@@ -216,7 +216,7 @@ namespace Orders.AjaxHandlers
                 employeeId: employeeId,
                 channelId: channelId,
                 metaData: metadata.ToString(),
-                ipAddress: context.Request["IpAddress"] != null ? context.Request["IpAddress"].ToString() : context.Request.ServerVariables["REMOTE_ADDR"].ToString(), stateId: stateId));
+                ipAddress: context.Request["IpAddress"] != null ? context.Request["IpAddress"].ToString() : context.Request.ServerVariables["REMOTE_ADDR"].ToString(), stateId: stateId, quotationType: Convert.ToInt32(context.Request["quotationType"].ToString())));
         }
         private void Update(HttpContext context)
         {

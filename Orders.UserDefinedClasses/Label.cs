@@ -46,6 +46,7 @@ namespace Orders.UserDefinedClasses
         public const string OCCURANCE = "Occurance";
         public const string PRODUCT_ID = "ProductId";
         public const string ACCOUNT_ID = "AccountId";
+        public const string ACCOUNT_PRODUCT_ID = "ProductAccountId";
 
         public const string FIELDID = "FieldId";
         public const string MINLENGTH = "MinLength";
@@ -76,7 +77,10 @@ namespace Orders.UserDefinedClasses
         public const string UPDATE = "Update";
 
         public const string USER_DETAILS = "UserDetails";
-
+        public const string PLANS = "Plans";
+        public const string EMPLOYEES = "Employees";
+        public const string ISFIRSTTIME = "IsFirstTime";
+        public const string OWNERSHIPEMAIL = "OwnerShipEmail";
         #region LOG_4_NET_RELATED
             public const string LOG_NAME = "LogName";
             public const string DEFAULT_LOGGER = "DefaultLogger";

@@ -237,13 +237,24 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td><span>Account Quotation Type</span></td>
+                                <td><span>Account Type</span></td>
                                 <td>
 
                                     <input type="radio" id="RegisteredUser" name="User" value="1" class="RegisteredUser" />
                                     Registered User 
                                         <input type="radio" id="NonRegisteredUser" class="NonRegisteredUser margin-left-10" name="User" value="0" />
                                     Non-Registered User 
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span>Quotation Type</span>
+
+                                </td>
+                                <td>
+                                    <select id="ddlQuotationTypes" class="form-control">
+                                    </select>
+
                                 </td>
                             </tr>
                             <tr>
@@ -281,7 +292,7 @@
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=2"></script>
     <script type="text/javascript">
         $(function () {
             //  var globalFunction = globalFunction || {};

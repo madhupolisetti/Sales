@@ -42,15 +42,17 @@ namespace Orders.UserDefinedClasses
         public const string NAME = "@Name";
         public const string MOBILE = "@Mobile";
         public const string EMAIL = "@Email";
-        public const string PRODUCT_USER_ID = "@ProductUserId";
+        public const string PRODUCT_USER_ID = "@ProductUserId"; 
+        public const string PRODUCT_ACCOUNT_ID = "@AccountProductID"; // from AccountProducts table
         public const string ADDRESS = "@Address";
         public const string GSTIN = "@GSTIN";
         public const string COUNTRY_ID = "@CountryId";
         public const string COUNTRY = "@Country";
         public const string OWNER_EMAIL = "@OwnerEmail";
-
+        public const string OWNER_EMAILID = "@OwnerEmailId";
         public const string SUCCESS = "@Success";
         public const string MESSAGE = "@Message";
 
+        public const string MODE = "@mode";
     }
 }

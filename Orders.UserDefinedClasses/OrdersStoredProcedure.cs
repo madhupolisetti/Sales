@@ -19,5 +19,9 @@ namespace Orders.UserDefinedClasses
         #region Login Related
         public const string Admin_Login_Check = "AdminLoginCheck";
         #endregion
+        #region AccountOwners and Plans related
+        public const string GET_ACCOUNT_OWNERS_AND_PLANS = "GetAccountOwnersAndPlans";
+        #endregion
+
     }
 }

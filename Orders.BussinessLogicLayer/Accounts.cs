@@ -8,15 +8,15 @@ using System.Data;
 using Orders.DataAccessLayer;
 using System.Net;
 using System.IO;
-using Orders.UserDefinedClasses;
+using OU = Orders.UserDefinedClasses;
+
 using System.Xml;
+using Orders.UserDefinedClasses;
 
 namespace Orders.BussinessLogicLayer
 {
     public class Accounts
     {
-
-
         Helper _helper = new Helper(ResponseFormat.JSON);
         private JObject _jObj = null;
         private JArray _jArr = null;
@@ -34,7 +34,8 @@ namespace Orders.BussinessLogicLayer
         public JObject CreateAccountProducts(string sConnString, byte productId, string accountUrl, string mobileNumber)
         {
             bool success = false;
-            decimal accountId = 0;
+            decimal accountId = 0 , accountProductID = 0;
+            bool isFirstTime = false;
             JObject userObj;
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
             responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
@@ -44,6 +45,8 @@ namespace Orders.BussinessLogicLayer
                 //if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 //{
                 responseObj = GetAccountDetailApi(accountUrl, mobileNumber);
+                isFirstTime = true;
+
                 //}
                 //else
                 //{
@@ -55,6 +58,7 @@ namespace Orders.BussinessLogicLayer
 
             if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true && !success)
             {
+             
                 AccountProducts accountProductProperties = new AccountProducts();
                 accountProductProperties.ProductAccountName = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("NickName").ToString();
                 accountProductProperties.MobileNo = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("MobileNumber").ToString();
@@ -66,13 +70,16 @@ namespace Orders.BussinessLogicLayer
                 accountProductProperties.Country = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Country").ToString();
                 accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
                 accountProductProperties.ProductId = productId;
+                accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString(); ;
                 accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
                 Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
-                account.CreateAccountProduct(accountProductProperties, out accountId);
-                responseObj.Add(new JProperty(Label.ACCOUNT_ID, accountId));
-
+                account.CreateAccountProduct(accountProductProperties, out accountId , out accountProductID);
+                responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);
+                responseObj[Label.USER_DETAILS][Label.ACCOUNT_PRODUCT_ID] = Convert.ToInt64(accountProductID);
+                
             }
-
+                responseObj.Add(new JProperty(Label.ISFIRSTTIME, isFirstTime));
+            
             return responseObj;
         }
 
@@ -115,6 +122,25 @@ namespace Orders.BussinessLogicLayer
             }
             return accountObj;
         }
+
+        public JObject GetAccountOwnersAndPlans(string sConnString, byte productId)
+        {
+
+            bool success;
+            Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
+            responseObj = accountsObj.GetAccountOwnersAndPlans(productId, out success);
+            return responseObj;
+        }
+        public JObject UpdateAccountOwnerDetails(string sConnString, OU.AccountProducts Account)
+        {
+
+            decimal AccountID;
+            Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
+            responseObj = accountsObj.UpdateAccountProduct(Account);
+            return responseObj;
+        }
+
+
 
 
     }
