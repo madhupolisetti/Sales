@@ -67,7 +67,7 @@
                             </div>
                         </div>
                         <div>
-                            <label class="pull-left"><a id="btnAddNewQuotation" style="" class="btn margin-right-10 color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
+                            <label class="pull-left"><a id="btnAddNewQuotation" style="display:none;" class="btn margin-right-10 color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnSearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
                                 <input type="button" value="Cancel" id="btnCancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
@@ -98,7 +98,7 @@
                         <div class="col-sm-6">
                             <ul class="results-icns pull-right">
                                 <li>
-                                    <label class="btncreate" id="btncreate"><i class="icon icon-plus"></i></label>
+                                    <label class="btncreate" id="btncreate"><i class="icon icon-plus" style="display:none;"></i></label>
                                 </li>
                                 <li>
                                     <label class="btnview" id="btnView"><i class="icon icon-eye"></i></label>

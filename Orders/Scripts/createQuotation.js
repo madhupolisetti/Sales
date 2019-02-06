@@ -176,7 +176,7 @@ $("#btnSave").click(function () {
         $(this).prop("disabled", false);
         return false;
     }
-    $(".textboxValue").each(function (e) {
+    $(".textboxValue, .datetimevalue").each(function (e) {
         isRequired = $(this).attr("isrequired");
         if (isRequired) {
             mandateFieldValue = $(this).val();
@@ -187,7 +187,6 @@ $("#btnSave").click(function () {
         }
     })
     $("input[type=checkbox]").each(function () {
-
         if ($(this).prop("checked")) {
             occurance = 0;
             serviceId = $(this).attr("id");
@@ -221,8 +220,24 @@ $("#btnSave").click(function () {
 
 
                     var value = "";
-                    if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea") {
+                    if ($(this).attr('type') == "textbox" || $(this).attr('type') == "textarea"){
                         value = $(this).val();
+                    }
+                    if ($(this).attr('Inputdatatype') == 'Money') {
+                        value = (parseFloat($(this).val())).toFixed(2);
+                    }
+                    if ($(this).attr('name') == 'label') {
+                        value='Billing Cycle'
+                    }
+                    if ($(this).attr('type') == "text") {
+                        var objDate = new Date($(this).val());
+                        var day = objDate.toLocaleString("en", { day: "numeric" });
+                        if (day < 10)
+                            day = '0' + day;
+                         value =
+                            day + '-' +
+                            objDate.toLocaleString("en", { month: "short" }) + '-' +
+                            objDate.toLocaleString("en", { year: "numeric" });
                     }
                     //else if ($(this)[0].nodeName == "SELECT") {
                     //    value = $(this)[0].value;

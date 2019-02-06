@@ -11,7 +11,6 @@ $(document).ready(function () {
 
 $(document).on("change", ".check_tool", function () {
     if ($(this).attr("type") == "checkbox") {
-
         toolId = "";
         toolId += $(this).val().trim();
         if ($(this).prop("checked")) {
@@ -106,6 +105,10 @@ function getServices(productId, serviceId, onlyActive, includeProperties, render
 
 }
 
+$(document).on("focus", 'input[id^="plandate"]', function () {
+    $(this).datepicker();
+});
+
 
 function getServiceProperties(serviceId) {
     var serviceProperties = '';
@@ -118,13 +121,17 @@ function getServiceProperties(serviceId) {
             if (res.Services.Properties.length > 0) {
                 serviceProperties += "<table class='table no-border'><tbody>";
                 for (var i = 0; i < res.Services.Properties.length; i++) {
-                    serviceProperties += "<tr><td>"
+                    if (res.Services.Properties[i].InputTypeId.toLowerCase() == "label") {
+                        serviceProperties+="<tr><td style='font-weight:bold;text-align:center;'"
+                    }
+                    else
+                        serviceProperties += "<tr><td>"
 
                     if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox") {
                         var propertyFields = new Array();
                         propertyFields = res.Services.Properties[i].PropertyFields;
 
-                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" class="check_tool form-control textboxValue" id="Amount_1" toolpro="1"';
+                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" class="check_tool form-control textboxValue" id="Amount_1" toolpro="1"';
                         if (res.Services.Properties[i].PropertyFields.length > 0) {
                             if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
                                 serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
@@ -132,6 +139,29 @@ function getServiceProperties(serviceId) {
                         }
 
                     }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "datetime") {
+                        var propertyFields = new Array();
+                        propertyFields = res.Services.Properties[i].PropertyFields;
+                        serviceProperties += '  <input type="text" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="'+res.Services.Properties[i].InputDataTypeId+'" class="check_tool form-control plandatepicker datetimevalue" id="plandate' + res.Services.Properties[i].Id + '" toolpro="1"';
+                        if (res.Services.Properties[i].PropertyFields.length > 0) {
+                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
+                                serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                            }
+                        }
+
+                    }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "label") {
+                        var propertyFields = new Array();
+                        propertyFields = res.Services.Properties[i].PropertyFields;
+                        serviceProperties += '<label name="label" style="font-size:11px" value=""  servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" class="labelClass check_tool" id="label_' + res.Services.Properties[i].Id + '" toolpro="1"';
+                        if (res.Services.Properties[i].PropertyFields.length > 0) {
+                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
+                                serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                            }
+                        }
+
+                    }
+
                     //else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown")
                     //{
                     //    serviceProperties += "<select style='font-size:11px' placeholder='" + res.Services.Properties[i].DisplayName + "' servicePropertyCode='" + res.Services.Properties[i].MetaDataCode + "'  class='dropdown_" + res.Services.DisplayName + " check_tool form-control' id='" + res.Services.Properties[i].MetaDataCode + "'";
@@ -158,14 +188,18 @@ function getServiceProperties(serviceId) {
                     //    serviceProperties += "</select>";
                     //}
                     //else
-                    //{
+                    //{ 
+                    if (res.Services.Properties[i].InputTypeId.toLowerCase() == "label") {
+                        serviceProperties += '>' +res.Services.Properties[i].DisplayName + '</label>';
+                    }
+                    else
                         serviceProperties += '/>';
                     //}
 
                     serviceProperties += "</tr></td>"
                 }
                 serviceProperties += "</tbody></table>"
-                str += "<div class='properties_" + serviceId + " cont-box alert-default margin-top-10' ><table class='table no-border'>" + serviceProperties + "</table>";
+                str += "<div class='properties_" + serviceId + " cont-box alert-default margin-top-10 hideserviceprop' ><table class='table no-border'>" + serviceProperties + "</table>";
                 str += "<div class='pad-10'><hr class='margin-top-10 margin-bottom-5'></div>";
                 str += "<h5 class='mb-0'><span class='pull-left'>Extra Charges</span><label class='pull-right'><a id='addExtraCharge' toolId='" + serviceId + "'><img src='images/plus.png' height='16' alt='add' onclick='' style=''></a></label></h5>";
                 str += "<div class='clearfix'></div><div id='extracharge_" + serviceId + "'>";

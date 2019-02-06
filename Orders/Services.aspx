@@ -29,7 +29,7 @@
         }
 
         #property .modal-dialog {
-            width: 950px;
+            width: 1200px;
         }
 
         .page-sidebar .page-sidebar-menu > li > a, .page-sidebar-closed.page-sidebar-fixed .page-sidebar:hover .page-sidebar-menu > li > a {
@@ -560,7 +560,7 @@
                                 }
 
                                 //edit button
-                                serviceProperties += "<td><input class='btn btn-sm btn-default btn grey' type=button name=edit Value=Edit alt=" + res.Services.Properties[i].Id + " id=edit_" + res.Services.Properties[i].Id + " /><input class='btn btn-sm btn-default btn green' type=button name=save Value=Save style='display:none' alt=" + res.Services.Properties[i].Id + " id=save_" + res.Services.Properties[i].Id + " metadatacode='" + res.Services.Properties[i].MetaDataCode + "'/><input class='btn btn-sm btn-default btn grey' type=button name=cancel Value=Cancel style='display:none' id=cancel_" + res.Services.Properties[i].Id + " alt=" + res.Services.Properties[i].Id + " /></td></tr>"
+                                serviceProperties += "<td><input class='btn btn-sm btn-default btn grey' type=button typeid="+res.Services.Properties[i].TypeId+"  datatypeid="+res.Services.Properties[i].DataTypeId+" name=edit Value=Edit alt=" + res.Services.Properties[i].Id + " id=edit_" + res.Services.Properties[i].Id + " /><input class='btn btn-sm btn-default btn green' type=button name=save Value=Save style='display:none' alt=" + res.Services.Properties[i].Id + " id=save_" + res.Services.Properties[i].Id + " metadatacode='" + res.Services.Properties[i].MetaDataCode + "'/><input class='btn btn-sm btn-default btn grey' type=button name=cancel Value=Cancel style='display:none' id=cancel_" + res.Services.Properties[i].Id + " alt=" + res.Services.Properties[i].Id + " /></td></tr>"
                                 //SuccessNotifier(res.Property[i].inputid + "\n" + res.Property[i].Dataid);
 
 
@@ -578,8 +578,10 @@
             $(document).on('click', 'input[name="edit"]', function () {
                 var edit_id = this.id;
                 var tab_id = this.alt;
-
-
+                var typeid = $(this).attr('typeid');
+                var datatypeid = $(this).attr('datatypeid');
+                $("select[id=input_" + tab_id + "]").val(typeid);
+                $("select[id=data_" + tab_id + "]").val(datatypeid);
                 $("#chck_" + tab_id).bootstrapSwitch('disabled', false);
                 $("#includein_" + tab_id).bootstrapSwitch('disabled', false);
                 $("#active_" + tab_id).bootstrapSwitch('disabled', false);
@@ -613,6 +615,7 @@
                 serviceProperty.IncludeInOrderAmount = includeInOrderAmount;
                 serviceProperty.InputTypeId = inputTypeId;
                 serviceProperty.DataTypeId = dataTypeId;
+                serviceProperty.IsActive = isActive;
                 serviceProperty.PropertyFields = [];
                 if (inputTypeId == "1" || inputTypeId == "2") {
                     serviceProperty.PropertyFields.push({
