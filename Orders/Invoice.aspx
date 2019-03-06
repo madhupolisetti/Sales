@@ -8,6 +8,7 @@
         <div class="page-content">
             <input type="hidden" id="hdnQuotationId" value="<%= quotationId %>" />
             <input type="hidden" id="hdnInvoiceId" value="<%= invoiceId %>" />
+            <input type="hidden" id="hdnBillMode" value="<%= billMode %>" />
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="row" id="invoiceData">
             </div>
@@ -57,9 +58,10 @@
         $(document).ready(function () {
             var quotationId = $("#hdnQuotationId").val();
             var invoiceId = $("#hdnInvoiceId").val();
+            var isPostPaidInvoice = ($("#hdnBillMode").val() == "2" ? true : false);
             var ordersClient = new OrdersClient();
             var webUrl = $("#hdnWebUrl").val();
-            ordersClient.ViewInvoice(quotationId, false, function (res) {
+            ordersClient.ViewInvoice(quotationId, isPostPaidInvoice, function (res) {
                 $("#invoiceData").html(res);
             });
 
@@ -68,7 +70,7 @@
             });
 
             $("#btnDownload").click(function () {
-                ordersClient.DownloadInvoice(quotationId, false, function (res) {
+                ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {
                     console.log(res);
                     var a = document.createElement('a');
                     a.href = webUrl + res.FilePath;

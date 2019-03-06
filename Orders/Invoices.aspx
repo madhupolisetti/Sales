@@ -277,19 +277,23 @@ globalFunction = function () {
             $("#btnView").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
+                var billMode = $('.check_tool.Checked').attr("BillMode");
+
                 var $form = $("<form/>").attr("id", "data_form")
                                         .attr("action", "Invoice.aspx")
                                         .attr("method", "post");
                 $("body").append($form);
                 AddParameter($form, "QuotationId", quotationId);
                 AddParameter($form, "InvoiceId", invoiceId);
+                AddParameter($form, "BillMode", billMode);
+
                 $form[0].submit();
             });
             // Download Invoice
             $("#btnDownload").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
-                ordersClient.DownloadInvoice(quotationId, false, function (res) {
-                    console.log(res);
+                var isPostPaidInvoice = ( $('.check_tool.Checked').attr("BillMode") == "2" ? true : false );
+                ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {
                     var a = document.createElement('a');
                     a.href = webUrl + res.FilePath;
                     a.download = webUrl + res.FilePath;
