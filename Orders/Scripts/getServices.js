@@ -161,7 +161,17 @@ function getServiceProperties(serviceId) {
                         }
 
                     }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "radiobutton") {
+                        var propertyFields = new Array();
+                        propertyFields = res.Services.Properties[i].PropertyFields;
+                        serviceProperties += ' <input type="radio"  style="vertical-align: middle;" value="IncludeVAS" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" class="check_tool VAS" id="radio_' + res.Services.Properties[i].Id + '" toolpro="1"';
+                        if (res.Services.Properties[i].PropertyFields.length > 0) {
+                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
+                                serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                            }
+                        }
 
+                    }
                     //else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown")
                     //{
                     //    serviceProperties += "<select style='font-size:11px' placeholder='" + res.Services.Properties[i].DisplayName + "' servicePropertyCode='" + res.Services.Properties[i].MetaDataCode + "'  class='dropdown_" + res.Services.DisplayName + " check_tool form-control' id='" + res.Services.Properties[i].MetaDataCode + "'";
@@ -192,6 +202,9 @@ function getServiceProperties(serviceId) {
                     if (res.Services.Properties[i].InputTypeId.toLowerCase() == "label") {
                         serviceProperties += '>' +res.Services.Properties[i].DisplayName + '</label>';
                     }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "radiobutton") {
+                        serviceProperties += '/> <span style="vertical-align: middle;" class="">' + res.Services.Properties[i].DisplayName + '</span>';
+                    }
                     else
                         serviceProperties += '/>';
                     //}
@@ -209,6 +222,8 @@ function getServiceProperties(serviceId) {
                 str += "</div></div></div>";
                 $(".div_" + serviceId).find(".service-label").append(str);
                 $(".make-switch[id='IsBalanceValidity_" + serviceId + "']").bootstrapSwitch();
+                $(".VAS").prop('checked', true);
+                $(".VAS").data('waschecked', true);
             }
             else {
                 ErrorNotifier("No Properties are found");
@@ -220,6 +235,16 @@ function getServiceProperties(serviceId) {
 
 
 }
+
+$(document).on('click', '.VAS', function () {
+    var radio = $(this);
+    if (radio.data("waschecked") == true) {
+        radio.prop("checked", false);
+        radio.data("waschecked", false);
+    } else {
+        radio.data("waschecked", true);
+    }
+})
 
 function isNumberPointKey(evt) {
     if (evt.which != 46 && evt.which != 8 && evt.which != 0 && (evt.which < 48 || evt.which > 57)) {

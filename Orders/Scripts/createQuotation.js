@@ -229,6 +229,9 @@ $("#btnSave").click(function () {
                     if ($(this).attr('name') == 'label') {
                         value='Billing Cycle'
                     }
+                    if ($(this).attr('type') == 'radio') {
+                        value=($(this).data("waschecked") == true)?true:false;
+                    }
                     if ($(this).attr('type') == "text") {
                         var objDate = new Date($(this).val());
                         var day = objDate.toLocaleString("en", { day: "numeric" });
