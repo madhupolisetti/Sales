@@ -67,7 +67,7 @@ $(document).ready(function () {
         userDetails["AccountProductId"] = AccountProductId;
         ordersClient.UpdateAccountOnwerDetails(userDetails, function (res) {
             if (res.Success == true) {
-                alert("success");
+                alert("Updated Successfully. Logout and Login to reflect changes.");
             }
         });
     });

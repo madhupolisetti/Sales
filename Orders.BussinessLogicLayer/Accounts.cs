@@ -38,7 +38,7 @@ namespace Orders.BussinessLogicLayer
             bool isFirstTime = false;
             JObject userObj;
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
-            responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
+            
 
             //if (!success)
             //{
@@ -81,6 +81,7 @@ namespace Orders.BussinessLogicLayer
                 responseObj[Label.USER_DETAILS][Label.ACCOUNT_PRODUCT_ID] = Convert.ToInt64(accountProductID);
                 
             }
+            responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
                 responseObj.Add(new JProperty(Label.ISFIRSTTIME, isFirstTime));
             
             return responseObj;

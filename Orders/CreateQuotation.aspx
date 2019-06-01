@@ -163,7 +163,7 @@
     <script src="JsFiles/bootstrap-switch.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=v16"></script>
     <script src="Scripts/getServices.js?type=v5"></script>
-    <script src="Scripts/createquotation.js?type=v19"></script>
+    <script src="Scripts/createquotation.js?type=v20"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>
