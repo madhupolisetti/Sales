@@ -6,569 +6,569 @@ by editing this MSBuild file. In order to learn more about this please visit htt
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <TimeStampOfAssociatedLegacyPublishXmlFile />
-    <_PublishTargetUrl>\\192.168.75.36\SalesPublish</_PublishTargetUrl>
+    <_PublishTargetUrl>D:\Websites\Orders 26 March 2019\SalesPublish</_PublishTargetUrl>
   </PropertyGroup>
   <ItemGroup>
     <File Include="AdminAccessManagement.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Accounts.ashx">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/AdminAccess.ashx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Invoices.ashx">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Orders.ashx">
-      <publishTime>12/03/2018 16:30:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Payments.ashx">
-      <publishTime>06/03/2018 11:38:35</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Products.ashx">
-      <publishTime>12/03/2018 16:30:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Quotations.ashx">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="AjaxHandlers/Services.ashx">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/components.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/custom.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/images/DSC_0226.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/images/ui-bg_glass_100_fdf5ce_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/images/ui-bg_highlight-soft_100_eeeeee_1x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/jquiryUI.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/css/xviow.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/eidsou.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/img/DSC_0225.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/img/remove-icon-small.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap-datepicker/css/SysReqNotMet.ico.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap-datepicker/DSC_0237.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/BootStrap-DateTimePicker/bootstrap-datetimepicker-standalone.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/BootStrap-DateTimePicker/bootstrap-datetimepicker.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/BootStrap-DateTimePicker/bootstrap-datetimepicker.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/BootStrap-DateTimePicker/DSC_0250.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/BootStrap-DateTimePicker/moment.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap/css/bootstrap.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap/css/DSC_0224.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap/DSC_0223.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap/js/bootstrap.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/bootstrap/js/eula.rtf.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/composenew_v8.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/datatables.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/datatables.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.css">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/plugins/bootstrap/dataTables.bootstrap.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/plugins/bootstrap/slwcjl.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/plugins/eula.rtf.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/datatables/ruui.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/css/font-awesome.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/css/Print.ico.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/eula.rtf.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/fonts/fontawesome-webfont.ttf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/fonts/fontawesome-webfont.woff">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/font-awesome/fonts/wnal.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-1.11.0.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-file-upload/1029.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-file-upload/jquery.fileupload.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/animated-overlay.gif">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/DSC_0225.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_diagonals-thick_18_b81900_40x40.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_diagonals-thick_20_666666_40x40.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_flat_0_aaaaaa_40x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_flat_10_000000_40x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_flat_75_ffffff_40x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_100_f6f6f6_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_100_fdf5ce_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_55_fbf9ee_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_65_ffffff_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_75_dadada_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_75_e6e6e6_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_glass_95_fef1ec_1x400.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_gloss-wave_35_f6a828_500x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_highlight-soft_100_eeeeee_1x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_highlight-soft_75_cccccc_1x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-bg_highlight-soft_75_ffe45c_1x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_222222_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_228ef1_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_2e83ff_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_454545_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_888888_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_cd0a0a_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_ef8c08_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_ffd27a_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/images/ui-icons_ffffff_256x240.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui-1.10.3.custom.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/jquery-ui.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery-ui/LocalizedData.xml.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery.bootpag.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/jquery.min.map">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/ofuod.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/simple-line-icons/DSC_0246.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/simple-line-icons/fonts/qcyk.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/plugins/simple-line-icons/simple-line-icons.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/app.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/datatable.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/jquery.slimscroll.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/JQueryUI.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/LocalizedData.xml.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/global/scripts/metronic.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Access_Management_Module.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/accountlookup.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/balance_expire.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/CreateToken.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Create_Quotation.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Dashboard.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Invoice_Module_1.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Invoice_SmartView_SubModule.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/logo.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Management.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/manage_gateways.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/manage_templates.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Network_Mgmt.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/NumberAccess.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/openc.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/OrderSearchDetails.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Payments_SmartView.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Priority-Routing.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Quotations-SmartView.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Quotation_Module.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/SalesOrder.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/SCAM_message.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/sendaernames.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/SenderID_Module.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Sender_ID_-_gateway.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Sender_ID_accounts_Modulle.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Service_%283%29.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/sms-small.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/SMS_Route.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/token_management.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Unprocessed_Messages.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Unprocessed_Request.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/MenuIcons/Voice_Route.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/mome.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/Rotate6.ico.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Access_Management_Module_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/accountlookup_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/balance_expire_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/CreateToken_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Create_Quotation_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Dashboard_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/DSC_0283.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Invoice_Module_1_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Management_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/manage_gateways_active.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/manage_templates_active.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Network_Mgmt_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/NumberAccess_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/OrderSearchDetails_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Payments_SmartView_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Priority-Routing_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Quotations-SmartView_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Quotation_Module_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/SalesOrder_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/SCAM_message_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/sendaernames_active.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/SenderID_Module_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Sender_ID_-_gateway_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Sender_ID_accounts_Modulle_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Service_%283%29_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/SMS_Route_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/token_management-w.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Unprocessed_Messages_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Unprocessed_Request_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="assets/SelectedMenuIcons/Voice_Route_select.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="bin/log4net.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:43:51</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>02/10/2013 12:10:10</publishTime>
+      <publishTime>10/03/2013 00:40:10</publishTime>
     </File>
     <File Include="bin/OrdersManagement.dll">
-      <publishTime>09/10/2018 18:12:41</publishTime>
+      <publishTime>03/27/2019 19:48:45</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/28/2019 21:38:01</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/28/2019 21:38:01</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/28/2019 21:39:29</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/28/2019 21:38:00</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
-      <publishTime>03/10/2018 15:12:11</publishTime>
+      <publishTime>03/26/2019 17:43:50</publishTime>
     </File>
     <File Include="bin/Select.HtmlToPdf.dll">
-      <publishTime>03/10/2018 15:12:11</publishTime>
+      <publishTime>03/26/2019 17:43:50</publishTime>
     </File>
     <File Include="CommonClasses/css/DSC_0272.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CommonClasses/css/font-awesome.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CommonClasses/css/font-awesome.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CreateAccounts.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CreateQuotation.aspx">
-      <publishTime>10/10/2018 16:21:50</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/accordion.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/blue.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/bootstrap-datepicker3.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/bootstrap-switch.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/bootstrap.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/components.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/datepicker.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/datepicker3.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/DateTimePicker.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/css/DSC_0272.JPG.lnk">
       <publishTime>01/01/0001 00:00:00</publishTime>
@@ -580,442 +580,442 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/03/2018 11:02:25</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/DSC_0235.JPG.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/fontawesome-webfont.eot">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/fontawesome-webfont.svg">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/fontawesome-webfont.ttf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/fontawesome-webfont.woff">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/fontawesome-webfont.woff2">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/fonts/FontAwesome.otf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/animated.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/bordered-pulled.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/core.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/fixed-width.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/font-awesome.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/icons.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/larger.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/list.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/mixins.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/path.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/rotated-flipped.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/SetupResources.dll.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/stacked.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/less/variables.less">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/font-awesome.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/SetupResources.dll.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_animated.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_bordered-pulled.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_core.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_fixed-width.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_icons.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_larger.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_list.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_mixins.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_path.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_rotated-flipped.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_stacked.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/scss/_variables.scss">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/font-awesome/wbvegq.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/SetupResources.dll.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/Simple-Line-Icons.dev.svg">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/Simple-Line-Icons.eot">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/Simple-Line-Icons.svg">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/Simple-Line-Icons.ttf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/fonts/Simple-Line-Icons.woff">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/images/rkolxh.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/images/ui-bg_flat_75_ffffff_40x100.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/jPaginator.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/jquery-ui.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/jquery-ui.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/layout.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/layout.min.css">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/Redactor-style.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/redactor.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/select2.min.css">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/simple-line-icons.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/stop.ico.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/style.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CssFiles/toastr.min.css">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Exception_Logs/%28null%29.txt">
-      <publishTime>11/10/2018 19:38:10</publishTime>
+      <publishTime>03/27/2019 19:45:04</publishTime>
     </File>
     <File Include="fonts/axhdx.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.eot">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.svg">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.ttf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="fonts/fontawesome-webfont.woff">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="fonts/FontAwesome.otf">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Global.asax">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="GoogleLoginCallBack.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/bg-white-lock.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/bg3.jpg">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/cancel-red.png">
-      <publishTime>04/12/2017 12:33:38</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/plus.png">
-      <publishTime>04/12/2017 12:33:38</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/sms-logo.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="images/user.png">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Invoice.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Invoices.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/addImage.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/app.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/base64.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/bootpag.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/bootstrap-datepicker.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/bootstrap-switch.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/bootstrap.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/bootstrap.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/daterangepicker.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/bootstrap-datetimepicker.min.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/bootstrap-datetimepicker.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/Client.lnk">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/components-date-time-pickers.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/daterangepicker-bs2.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/daterangepicker-bs3.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/daterangepicker.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/DateTimePicker.css">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/DateTimePicker.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePicker/moment.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/DateTimePickerModified.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/highcharts.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jPaginator-min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-1.10.2.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-1.11.0.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-1.12.0.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-migrate-1.2.1.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-ui.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery-ui.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.base64.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.bootpag.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.confirm.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.dataTables.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.iframe-transport.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jquery.ui.widget.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jsPdf.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jspdfPluginTable.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/jsPluginTable.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/ladda.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/layout.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/metronic.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/moment.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/moment.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/png.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/redactor.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/redactor.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/S1.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/select2.full.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/SlimScroll.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/tableExport.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/toastr.min.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="JsFiles/ui-buttons.min.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="LoginWithGoogle.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="logout.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Orders.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Payment.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Payments.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="PostLogin.Master">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Quotation.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Quotations.aspx">
-      <publishTime>08/10/2018 20:01:26</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/AdminAccess.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/createAccounts.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/createQuotation.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/27/2019 18:03:55</publishTime>
     </File>
     <File Include="Scripts/getServices.js">
-      <publishTime>09/10/2018 15:20:32</publishTime>
+      <publishTime>03/26/2019 19:37:26</publishTime>
     </File>
     <File Include="Scripts/getUserDetailsForCreateQuotation.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/orders.js">
-      <publishTime>10/10/2018 16:50:35</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/OrdersClient.js">
-      <publishTime>10/10/2018 16:33:42</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/OrdersManagement.js">
-      <publishTime>05/03/2018 11:02:25</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/payment.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/payments.js">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/Quotations.js">
-      <publishTime>05/03/2018 11:06:28</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Services.aspx">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/01/0001 00:00:00</publishTime>
+      <publishTime>03/28/2019 21:39:30</publishTime>
     </File>
   </ItemGroup>
 </Project>

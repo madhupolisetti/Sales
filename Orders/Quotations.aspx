@@ -139,25 +139,25 @@
                             <div class="col-sm-6">
                                 <ul class="results-icns pull-right">
                                     <li>
-                                        <label class="btncreate" id="btncreate"><i class="icon icon-plus"></i></label>
+                                        <label class="btncreate" title="Create" id="btncreate"><i class="icon icon-plus"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btnview" id="btnview"><i class="icon icon-eye"></i></label>
+                                        <label class="btnview" title="View" id="btnview"><i class="icon icon-eye"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btnedit" id="btnedit"><i class="icon icon-pencil"></i></label>
+                                        <label class="btnedit" title="Edit" id="btnedit"><i class="icon icon-pencil"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btninvoice" id="btninvoice"><i class="icon icon-doc"></i></label>
+                                        <label class="btninvoice" title="Generate Invoice" id="btninvoice"><i class="icon icon-doc"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btndownload" id="btndownload"><i class="glyphicon glyphicon-download-alt"></i></label>
+                                        <label class="btndownload" title="Download" id="btndownload"><i class="glyphicon glyphicon-download-alt"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btnpayment" id="btnpayment"><i class="glyphicon glyphicon-credit-card"></i></label>
+                                        <label class="btnpayment" title="Payment" id="btnpayment"><i class="glyphicon glyphicon-credit-card"></i></label>
                                     </li>
                                     <li>
-                                        <label class="btn btn-circle btn-icon-only btn-default" id="btndelete"><i class="icon icon-trash"></i></label>
+                                        <label class="btn btn-circle btn-icon-only btn-default" title="Delete" id="btndelete"><i class="icon icon-trash"></i></label>
                                     </li>
                                 </ul>
                             </div>
@@ -295,13 +295,18 @@
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=2"></script>
     <script type="text/javascript">
         $(function () {
+            var adminId;
+            $("#lable_href_name").html('Quotations');
+            $("#btncreate").attr("class", "enable-icn");
+            adminId =<%=Session["AdminId"].ToString()%>;
+            
             //  var globalFunction = globalFunction || {};
             var quotationSearchData = {};
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
             //quotationSearchData.Limit = 2;
-            $("#btndownload,#btnview,#btncreate,#btnedit,#btninvoice,#btnpayment,#btndelete").attr("class", "enable-icn");
+            $("#btndownload,#btnview,#btnpayment,#btnedit,#btninvoice,#btndelete").attr("class", "disable-icn");
             $("#daterangetext").daterangepicker();
 
             bindQuotationStatuses();
@@ -356,13 +361,19 @@
                 else {
                     isPostPaid = true;
                 }
-                var $form = $("<form/>").attr("id", "data_form")
-                                        .attr("action", "Quotation.aspx")
-                                        .attr("method", "post");
-                $("body").append($form);
-                AddParameter($form, "QuotationId", quotationId);
-                AddParameter($form, "IsPostPaidQuotation", isPostPaid);
-                $form[0].submit();
+                if(quotationId){
+                    var $form = $("<form/>").attr("id", "data_form")
+                                            .attr("action", "Quotation.aspx")
+                                            .attr("method", "post");
+                    $("body").append($form);
+                    AddParameter($form, "QuotationId", quotationId);
+                    AddParameter($form, "IsPostPaidQuotation", isPostPaid);
+                    $form[0].submit();
+                }
+                else
+                {
+                    alert('Select a Quoation to View!');
+                }
             });
 
             $("#btninvoice").click(function () {
@@ -407,16 +418,11 @@
                 if ($(this).prop('checked')) {
                     $("#btnpayment").attr("class", "disable-icn");
                     if ($(this).attr("status") == 1) {
-                        $("#btninvoice").attr("class", "enable-icn");
-                        $("#btnedit").attr("class", "enable-icn");
-                        $("#btndelete").attr("class", "enable-icn");
-
-
-                    }
+                        $("#btninvoice,#btnedit,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
+                       }
                     else {
-                        $("#btninvoice").attr("class", "disable-icn");
-                        $("#btnedit").attr("class", "disable-icn");
-                        $("#btndelete").attr("class", "disable-icn");
+                        $("#btninvoice,#btnedit,#btndelete").attr("class", "disable-icn");
+                        $("#btnview,#btndownload").attr("class", "enable-icn");
                     }
 
                 }
@@ -427,29 +433,40 @@
             $("#btndelete").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var billMode = $('.check_tool.Checked').attr("BillMode");
-                ordersClient.DeleteQuotation(quotationId, false, function (res) {
-                    if (res.Success == true) {
-                        SuccessNotifier(res.Message)
-                        getQuotations();
-                    }
-                    else {
-                        ErrorNotifier(res.Message);
-                    }
-                });
+                if(quotationId){
+                    ordersClient.DeleteQuotation(quotationId, false, function (res) {
+                        if (res.Success == true) {
+                            SuccessNotifier(res.Message)
+                            getQuotations();
+                        }
+                        else {
+                            ErrorNotifier(res.Message);
+                        }
+                    });
+                }
+                else
+                {
+                    alert('Select a Quotation to delete!');
+                }
 
             });
 
             $("#btndownload").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var billMode = $('.check_tool.Checked').attr("BillMode");
-                ordersClient.DownloadQuotation(quotationId, false, function (res) {
-                    console.log(res);
-                    var a = document.createElement('a');
-                    a.href = webUrl + res.FilePath;
-                    a.download = webUrl + res.FilePath;
-                    document.body.appendChild(a);
-                    a.click();
-                });
+                if(quotationId){
+                    ordersClient.DownloadQuotation(quotationId, false, function (res) {
+                        console.log(res);
+                        var a = document.createElement('a');
+                        a.href = webUrl + res.FilePath;
+                        a.download = webUrl + res.FilePath;
+                        document.body.appendChild(a);
+                        a.click();
+                    });
+                }
+                else{
+                    alert('Select a Quotation to Download!');
+                }
             });
             $(document).on('change', '.check_tool', function () {
                 $("#hdnQuotationId").val($(this).attr("id"));
@@ -468,7 +485,7 @@
                 var productId = 1;
                 var mobileNo = $("#hdnMobile").val();
                 getProductRelatedUserInformation(productId, mobileNo, quotationId, isBillMode);
-                return false;
+                
 
                 if (chkcount > 1 && headerhckBoxId == true) {
                     $('#quotationdetails').find('input[type=checkbox]:checked').removeAttr('checked');

@@ -52,6 +52,9 @@ namespace Orders.AjaxHandlers
                     resJObj = GetEmployeeDetails(context);
                     context.Response.Write(resJObj);
                     return;
+                case 4: resJObj = GetProfileDetails(context);
+                    context.Response.Write(resJObj);
+                    return;
             }
         }
         private JObject EmployeeDetails(HttpContext context)
@@ -259,6 +262,13 @@ namespace Orders.AjaxHandlers
             resJObj = AA.GetEmployeeDetails(Convert.ToInt32(context.Request["pageLength"]), context.Request["AccountName"], context.Request["AccountEmail"], Convert.ToInt32(context.Request["pageIndex"]), OC.MyConf.MyConnectionString);
             //BlueKite.BAL.AdminAccount obj = new BlueKite.BAL.AdminAccount(BlueKite.UserDefinedClasses.ResponseFormat.JSON);
             //resJObj = obj.GetEmployeeDetails(Convert.ToInt32(context.Request["pageLength"]), context.Request["AccountName"], context.Request["AccountEmail"], Convert.ToInt32(context.Request["pageIndex"]));
+            return resJObj;
+        }
+        private JObject GetProfileDetails(HttpContext context)
+        {
+            JObject resJObj = new JObject();
+            BA.AdminAccess AA = new BA.AdminAccess();
+            resJObj = AA.GetProfileDetails(Convert.ToInt32(context.Request["id"]), OC.MyConf.MyConnectionString);
             return resJObj;
         }
         private JObject GetEmployeeData(HttpContext context)

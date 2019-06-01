@@ -228,4 +228,9 @@
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script src="Scripts/orders.js?type=v2" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lable_href_name").html('Orders');
+        });
+    </script>
 </asp:Content>

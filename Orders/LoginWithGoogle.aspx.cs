@@ -76,7 +76,7 @@ namespace AdminUI
 
                         else
                         {
-                            Response.Redirect("/Quotations.aspx", false);
+                            Response.Redirect("/Dashboard.aspx", false);
                         }
 
 

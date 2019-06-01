@@ -79,5 +79,28 @@ namespace Orders.BussinessLogicLayer
             return responseObj;
         }
 
+        public JObject GetProfileDetails(int id, string conString)
+        {
+            DataSet ds = new DataSet();
+            ODAl.AdminAccess rptObj = new ODAl.AdminAccess(conString);
+
+            UD.TablePreferences EmployeeTablePreferences = new UD.TablePreferences("", "", true, false);
+            Dictionary<string, UD.TablePreferences> EmployeeDictionary = new Dictionary<string, UD.TablePreferences>();
+            EmployeeDictionary.Add("Employees", EmployeeTablePreferences);
+
+            ds = rptObj.GetProfileDetails(id);
+            if (ds == null)
+            {
+                responseObj.Add(new JProperty("Success", "false"));
+                responseObj.Add(new JProperty("Message", "Data Base Error"));
+            }
+            else
+            {
+                helper.ParseDataSet(ds, EmployeeDictionary);
+                responseObj = helper.GetDataSetJobj;
+            }
+
+            return responseObj;
+        }
     }
 }

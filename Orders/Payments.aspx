@@ -427,4 +427,9 @@
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/payments.js?type=v2" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#lable_href_name").html('Payments');
+        });
+    </script>
 </asp:Content>

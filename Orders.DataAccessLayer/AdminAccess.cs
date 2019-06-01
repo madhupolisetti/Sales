@@ -131,6 +131,37 @@ namespace Orders.DataAccessLayer
             return ds;
         }
 
+        public DataSet GetProfileDetails(int id)
+        {
+
+            _sqlConnection = Connection;
+            this._sqlCommand = new SqlCommand("GetProfileDetails", _sqlConnection);
+            DataSet ds = new DataSet();
+            SqlDataAdapter da = new SqlDataAdapter();
+            try
+            {
+                this._sqlCommand.CommandType = CommandType.StoredProcedure;
+
+                this._sqlCommand.Parameters.Add("@empid", SqlDbType.Int).Value = id;
+                this._sqlCommand.Parameters.Add("@retval", SqlDbType.Bit).Direction = ParameterDirection.Output;
+                this._sqlCommand.Parameters.Add("@retmsg", SqlDbType.VarChar,100).Direction = ParameterDirection.Output;
+                da.SelectCommand = this._sqlCommand;
+                da.Fill(ds);
+                
+                if (ds.Tables.Count > 0)
+                {
+                    ds.Tables[0].TableName = "Employees";
+                }
+                ds.Tables.Add(this.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+            }
+            catch (Exception ex)
+            {
+                ds = null;
+                //  Utilities.Logger.Error(System.Reflection.MethodInfo.GetCurrentMethod().Name + "--" + ex.ToString());
+            }
+
+            return ds;
+        }
         internal DataTable ConvertOutputParametersToDataTable(System.Data.SqlClient.SqlParameterCollection parameters)
         {
             DataTable outputParameters = new DataTable("OutputParameters");

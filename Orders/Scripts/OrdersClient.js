@@ -905,6 +905,38 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
+    //Cancel Invoice 
+    OrdersClient.prototype.CancelInvoice = function (quotationId,adminId, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.invoicesHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            traditional: true,
+            data:
+                {
+                    "Action": "Cancel",
+                    "QuotationId": quotationId ? quotationId : 0,
+                    "AdminId": adminId ? adminId : 0
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
     // Payments Related
     OrdersClient.prototype.GetBankAccounts = function (onlyActive, callBackFunction) {
         var actionResponse;

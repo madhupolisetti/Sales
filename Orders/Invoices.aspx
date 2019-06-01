@@ -98,22 +98,25 @@
                         <div class="col-sm-6">
                             <ul class="results-icns pull-right">
                                 <li>
-                                    <label class="btncreate" id="btncreate"><i class="icon icon-plus" style="display:none;"></i></label>
+                                    <label class="btncreate" title="Create" id="btncreate"><i class="icon icon-plus" style="display:none;"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btnview" id="btnView"><i class="icon icon-eye"></i></label>
+                                    <label class="btnview" title="View" id="btnView"><i class="icon icon-eye"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btnedit" id="btnEdit"><i class="icon icon-pencil"></i></label>
+                                    <label class="btnedit"  id="btnEdit"><i class="icon icon-pencil"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btndownload" id="btnDownload"><i class="glyphicon glyphicon-download"></i></label>
+                                    <label class="btndownload" title="Download" id="btnDownload"><i class="glyphicon glyphicon-download"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btnpayment" id="btnPayment"><i class="glyphicon glyphicon-credit-card"></i></label>
+                                    <label class="btnpayment"  id="btnPayment"><i class="glyphicon glyphicon-credit-card"></i></label>
                                 </li>
                                 <li>
-                                    <label class="btndelete" id="btndelete"><i class="icon icon-trash"></i></label>
+                                    <label class="btndelete" title="Delete" id="btndelete"><i class="icon icon-trash"></i></label>
+                                </li>
+                                <li>
+                                    <label class="btnCancel" title="Cancel" id="btnCancelInvoice"><i class="fa fa-ban" aria-hidden="true"></i></label>
                                 </li>
                             </ul>
                         </div>
@@ -220,24 +223,38 @@
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
+    <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script type="text/javascript">
         $(document).ready(function () {
+            $("#lable_href_name").html('Invoices');
+            var accessRole;
+            accessRole ="<%=Session["AccessRole"].ToString()%>";
+            
             var dateRange = "";
-            var invoiceSearchData = {};
+            var invoiceSearchData =  {};
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
             globalPageNumber = 1;
             globalPageSize = 1;
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
+            if(accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER")
+            {
+                $('#btnCancelInvoice').addClass("enable-icn");
+            }
+            else
+                $('#btnCancelInvoice').attr("class", "disable-icn");
+
             $("#btnDownload,#btnView,#btnCreate,#btnPayment").attr("class", "enable-icn");
             $("#btnEdit,#btndelete").attr("class", "disable-icn");
             bindProducts();
             bindInvoiceStatuses();
             invoiceSearchData.PageNumber = globalPageNumber;
             invoiceSearchData.Limit = globalPageSize;
+           
             getInvoices();
-globalFunction = function () {
+            globalFunction = function () {
                 //invoiceSearchData.PageNumber = globalPageNumber;
                 //invoiceSearchData.Limit = globalPageSize;
                 AddSearchData();
@@ -278,28 +295,40 @@ globalFunction = function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
                 var billMode = $('.check_tool.Checked').attr("BillMode");
+                if(quotationId){
+                    var $form = $("<form/>").attr("id", "data_form")
+                                            .attr("action", "Invoice.aspx")
+                                            .attr("method", "post");
+                    $("body").append($form);
+                    AddParameter($form, "QuotationId", quotationId);
+                    AddParameter($form, "InvoiceId", invoiceId);
+                    AddParameter($form, "BillMode", billMode);
 
-                var $form = $("<form/>").attr("id", "data_form")
-                                        .attr("action", "Invoice.aspx")
-                                        .attr("method", "post");
-                $("body").append($form);
-                AddParameter($form, "QuotationId", quotationId);
-                AddParameter($form, "InvoiceId", invoiceId);
-                AddParameter($form, "BillMode", billMode);
-
-                $form[0].submit();
+                    $form[0].submit();
+                }
+                else
+                {
+                    alert("Select an Invoice to view!");
+                    return ;
+                }
             });
             // Download Invoice
             $("#btnDownload").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var isPostPaidInvoice = ( $('.check_tool.Checked').attr("BillMode") == "2" ? true : false );
-                ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {
-                    var a = document.createElement('a');
-                    a.href = webUrl + res.FilePath;
-                    a.download = webUrl + res.FilePath;
-                    document.body.appendChild(a);
-                    a.click();
-                });
+                if(quotationId){
+                    ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {
+                        var a = document.createElement('a');
+                        a.href = webUrl + res.FilePath;
+                        a.download = webUrl + res.FilePath;
+                        document.body.appendChild(a);
+                        a.click();
+                    });
+                }
+                else{
+                    alert("Select an Invoice to Download!");
+                    return ;
+                }
             });
             // Search Invoices
             $("#btnSearch").click(function () {
@@ -316,6 +345,28 @@ globalFunction = function () {
                 AddSearchData();
                 getInvoices();
             });
+
+            //cancel Invoice
+            $('#btnCancelInvoice').click(function () {
+                var adminId
+                adminId =<%=Session["AdminId"].ToString()%>;
+                var quotationId = $('.check_tool.Checked').attr("QuotationId");
+                var status =$('.check_tool.Checked').attr("Status");
+                var invoiceNo=$('.check_tool.Checked').attr("InvoiceNo");
+
+                if(status==4)
+                {alert('The Invoice "'+invoiceNo+'" is already cancelled');
+                return false;
+                }
+                if(quotationId){
+                    ordersClient.CancelInvoice(quotationId,adminId, function (res) {
+                        alert('The Invoice "'+invoiceNo+'" is cancelled');
+                        
+                    });
+                    getInvoices();}
+                else
+                    alert('Select an Invoice to Cancel!');
+            })
 
             function AddSearchData() {
                 invoiceSearchData.ProductId = $("#ddlProduct").val();
@@ -404,7 +455,7 @@ globalFunction = function () {
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {
-                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
                     invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
                     invoicesData += "<td>" + Invoices[i].AccountName + "</td>";
@@ -416,12 +467,12 @@ globalFunction = function () {
                     invoicesData += "<td>" + Invoices[i].InvoiceGeneratedTime + "</td>";
                     invoicesData += "<td class='alert-warning'>" + Invoices[i].QuotationNumber + "</td>";
                     invoicesData += "<td class='alert-warning'>" + Invoices[i].InvoiceNumber + "</td>";
-                    var amount = parseFloat(Invoices[i].OrderAmount);
+                    var amount = parseFloat(Invoices[i].TotalAmount);
                     var currencyName = Invoices[i].Currency;
-                    var taxMessage = ""
+                    var taxMessage = "Order Amount: "+parseFloat(Invoices[i].OrderAmount)+" TAX: "+Invoices[i].TaxDetails;
                     invoicesData += "<td><a href='javascript:;' class='font-grey-gallery'><label class='bold' data-toggle='tooltip' title='" + taxMessage + "'>" + amount + " " + currencyName + "</label></a></td>";
                     //Invoices += "<td><span class='label label-sm label-warning'>" + Invoices[i].Status + "</span></td></tr>";
-                    if (Invoices[i].Status == "Created") {
+                    if (Invoices[i].Status == "Cancelled") {
                         invoicesData += "<td><span class='label label-sm label-warning'>" + Invoices[i].Status + "</span></td></tr>";
                     }
                     else {
