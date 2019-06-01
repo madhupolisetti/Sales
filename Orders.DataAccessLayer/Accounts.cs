@@ -105,7 +105,11 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.GSTIN, SqlDbType.VarChar, 15).Value = accountProperty.Gstin;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.STATE_ID, SqlDbType.Int).Value = accountProperty.StateId;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COMPANY, SqlDbType.VarChar, 100).Value = accountProperty.Company;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.REGISTERED_DATE, SqlDbType.DateTime).Value = accountProperty.RegisteredDate;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY, SqlDbType.VarChar, 50).Value = accountProperty.Country;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ACCESS_TOKEN, SqlDbType.VarChar, 64).Value = accountProperty.AccessToken;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_DAY, SqlDbType.Int).Value = accountProperty.BillingDay;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_MODE_ID, SqlDbType.Int).Value = accountProperty.BillingMode;
                 if (accountProperty.OwnerShipEmail != null)
                 {
                     this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;

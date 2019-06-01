@@ -26,6 +26,9 @@ namespace Orders.UserDefinedClasses
         private string stateName = string.Empty;
         private string registeredDate = string.Empty;
         private string company = string.Empty;
+        private string accessToken = string.Empty;
+        private int billingMode = 0;
+        private int billingDay = 0;
         public int Id { get; set; }
         public decimal AccountId { get; set; }
         public decimal ProductAccountId { get; set; }
@@ -43,5 +46,8 @@ namespace Orders.UserDefinedClasses
         public string StateName { get; set; }
         public string RegisteredDate { get; set; }
         public string Company { get; set; }
+        public string AccessToken { get; set; }
+        public int BillingMode { get; set; }
+        public int BillingDay { get; set; }
     }
 }

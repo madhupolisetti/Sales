@@ -291,8 +291,8 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=2"></script>
+    <script src="Scripts/OrdersClient.js?type=1" type="text/javascript"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=3"></script>
     <script type="text/javascript">
         $(function () {
             var adminId;

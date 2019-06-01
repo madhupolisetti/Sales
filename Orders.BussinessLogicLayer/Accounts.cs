@@ -40,8 +40,8 @@ namespace Orders.BussinessLogicLayer
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
             responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
 
-            if (!success)
-            {
+            //if (!success)
+            //{
                 //if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 //{
                 responseObj = GetAccountDetailApi(accountUrl, mobileNumber);
@@ -54,9 +54,9 @@ namespace Orders.BussinessLogicLayer
                 //        new JProperty("Message", "No User details Found"));
                 //    return responseObj;
                 //}
-            }
+            //}
 
-            if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true && !success)
+            if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true )
             {
              
                 AccountProducts accountProductProperties = new AccountProducts();
@@ -72,6 +72,9 @@ namespace Orders.BussinessLogicLayer
                 accountProductProperties.ProductId = productId;
                 accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString(); ;
                 accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
+                accountProductProperties.AccessToken = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccessToken").ToString();
+                accountProductProperties.BillingDay = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingDay"));
+                accountProductProperties.BillingMode=Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingModeId"));
                 Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
                 account.CreateAccountProduct(accountProductProperties, out accountId , out accountProductID);
                 responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);

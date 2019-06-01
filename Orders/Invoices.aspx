@@ -221,8 +221,8 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
+    <script src="Scripts/OrdersClient.js?type=1" type="text/javascript"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=3"></script>
     <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script type="text/javascript">

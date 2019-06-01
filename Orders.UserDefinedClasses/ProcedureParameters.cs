@@ -52,7 +52,9 @@ namespace Orders.UserDefinedClasses
         public const string OWNER_EMAILID = "@OwnerEmailId";
         public const string SUCCESS = "@Success";
         public const string MESSAGE = "@Message";
-
+        public const string ACCESS_TOKEN="@AccountAccessToken";
+        public const string BILLING_DAY="@BillingDay";
+        public const string REGISTERED_DATE = "@RegisteredTime";
         public const string MODE = "@mode";
     }
 }
