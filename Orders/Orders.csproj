@@ -467,38 +467,11 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\global\css\images\DSC_0226.JPG.lnk" />
-    <Content Include="assets\global\css\xviow.lnk" />
-    <Content Include="assets\global\eidsou.lnk" />
-    <Content Include="assets\global\img\DSC_0225.JPG.lnk" />
-    <Content Include="assets\global\plugins\bootstrap-datepicker\css\SysReqNotMet.ico.lnk" />
-    <Content Include="assets\global\plugins\bootstrap-datepicker\DSC_0237.JPG.lnk" />
-    <Content Include="assets\global\plugins\BootStrap-DateTimePicker\DSC_0250.JPG.lnk" />
-    <Content Include="assets\global\plugins\bootstrap\css\DSC_0224.JPG.lnk" />
-    <Content Include="assets\global\plugins\bootstrap\DSC_0223.JPG.lnk" />
-    <Content Include="assets\global\plugins\bootstrap\js\eula.rtf.lnk" />
-    <Content Include="assets\global\plugins\datatables\plugins\bootstrap\slwcjl.lnk" />
-    <Content Include="assets\global\plugins\datatables\plugins\eula.rtf.lnk" />
-    <Content Include="assets\global\plugins\datatables\ruui.lnk" />
-    <Content Include="assets\global\plugins\font-awesome\css\Print.ico.lnk" />
-    <Content Include="assets\global\plugins\font-awesome\eula.rtf.lnk" />
     <Content Include="assets\global\plugins\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="assets\global\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
-    <Content Include="assets\global\plugins\font-awesome\fonts\wnal.lnk" />
-    <Content Include="assets\global\plugins\jquery-file-upload\1029.lnk" />
-    <Content Include="assets\global\plugins\jquery-ui\images\DSC_0225.JPG.lnk" />
-    <Content Include="assets\global\plugins\jquery-ui\LocalizedData.xml.lnk" />
     <Content Include="assets\global\plugins\jquery.min.map" />
-    <Content Include="assets\global\plugins\ofuod.lnk" />
-    <Content Include="assets\global\plugins\simple-line-icons\DSC_0246.JPG.lnk" />
-    <Content Include="assets\global\plugins\simple-line-icons\fonts\qcyk.lnk" />
-    <Content Include="assets\global\scripts\LocalizedData.xml.lnk" />
-    <Content Include="assets\MenuIcons\openc.lnk" />
-    <Content Include="assets\Rotate6.ico.lnk" />
-    <Content Include="assets\SelectedMenuIcons\DSC_0283.JPG.lnk" />
     <Content Include="PostLogin.Master" />
-    <Content Include="CommonClasses\css\DSC_0272.JPG.lnk" />
-    <Content Include="CssFiles\font-awesome\fonts\DSC_0235.JPG.lnk" />
+    
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.woff" />
@@ -515,11 +488,11 @@
     <Content Include="CssFiles\font-awesome\less\mixins.less" />
     <Content Include="CssFiles\font-awesome\less\path.less" />
     <Content Include="CssFiles\font-awesome\less\rotated-flipped.less" />
-    <Content Include="CssFiles\font-awesome\less\SetupResources.dll.lnk" />
+    
     <Content Include="CssFiles\font-awesome\less\stacked.less" />
     <Content Include="CssFiles\font-awesome\less\variables.less" />
     <Content Include="CssFiles\font-awesome\scss\font-awesome.scss" />
-    <Content Include="CssFiles\font-awesome\scss\SetupResources.dll.lnk" />
+    
     <Content Include="CssFiles\font-awesome\scss\_animated.scss" />
     <Content Include="CssFiles\font-awesome\scss\_bordered-pulled.scss" />
     <Content Include="CssFiles\font-awesome\scss\_core.scss" />
@@ -532,19 +505,16 @@
     <Content Include="CssFiles\font-awesome\scss\_rotated-flipped.scss" />
     <Content Include="CssFiles\font-awesome\scss\_stacked.scss" />
     <Content Include="CssFiles\font-awesome\scss\_variables.scss" />
-    <Content Include="CssFiles\font-awesome\wbvegq.lnk" />
-    <Content Include="CssFiles\fonts\SetupResources.dll.lnk" />
+    
+    
     <Content Include="CssFiles\fonts\Simple-Line-Icons.eot" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.ttf" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.woff" />
-    <Content Include="CssFiles\images\rkolxh.lnk" />
-    <Content Include="CssFiles\stop.ico.lnk" />
-    <Content Include="fonts\axhdx.lnk" />
+    
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\FontAwesome.otf" />
-    <Content Include="JsFiles\DateTimePicker\Client.lnk" />
     <Content Include="AjaxHandlers\Quotations.ashx" />
     <Content Include="AjaxHandlers\Accounts.ashx" />
     <Content Include="AjaxHandlers\Invoices.ashx" />
@@ -565,6 +535,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="assets\global\plugins\simple-line-icons\fonts\" />
     <Folder Include="Exception_Logs\Exceptions\" />
     <Folder Include="Files\Invoices\" />
     <Folder Include="Files\Quotations\" />
