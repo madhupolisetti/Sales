@@ -161,9 +161,9 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v16"></script>
-    <script src="Scripts/getServices.js?type=v5"></script>
-    <script src="Scripts/createquotation.js?type=v20"></script>
+    <script src="Scripts/OrdersClient.js?type=v17"></script>
+    <script src="Scripts/getServices.js?type=v6"></script>
+    <script src="Scripts/createquotation.js?type=v21"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>

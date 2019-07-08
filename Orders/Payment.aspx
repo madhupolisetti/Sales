@@ -258,22 +258,24 @@
                                                                         <td>
                                                                             <input id="txtCashDepositeAmount" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>
                                                                     </tr>
-                                                                    <tr id="trCashpercentageOfAmt">
-                                                                        <td><span>Activate Amount</span></td>
-                                                                        <td>
+                                                                    <%--<tr id="trCashpercentageOfAmt">--%>
+                                                                        <%--<td><span>Activate Amount</span></td>--%>
+                                                                        <%--<td>
                                                                             <select id="txtCashPercentageOfAmt" class="form-control">
                                                                                 <option value="25">25</option>
                                                                                 <option value="50">50</option>
                                                                                 <option value="75">75</option>
                                                                                 <option value="100" selected="selected">100</option>
-                                                                            </select></td>
-                                                                    </tr>
-                                                                    <tr>
+                                                                            </select></td>--%>
+                                                                        <%--<td>
+                                                                            <input id="txtCashOfAmt" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>--%>
+                                                                    <%--</tr>--%>
+                                                                    <%--<tr>
                                                                         <td><span></span></td>
                                                                         <td>
                                                                             <input type="checkbox" class="check_tool" id="chkCash" />
                                                                             Is TDS Applicable</td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <%--<tr id="trCashTanNumber" style="display: none;">
                                                                         <td><span>Enter GSTIN Number#</span></td>
                                                                         <td>
@@ -322,22 +324,24 @@
                                                                         <td>
                                                                             <input id="txtChequeAmount" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>
                                                                     </tr>
-                                                                    <tr id="trChequePercentageOfAmt">
-                                                                        <td><span>Activate Amount</span></td>
-                                                                        <td>
+                                                                    <%--<tr id="trChequePercentageOfAmt">
+                                                                        <td><span>Activate Amount</span></td>--%>
+                                                                        <%--<td>
                                                                             <select id="txtChequePercentageOfAmt" class="form-control">
                                                                                 <option value="25">25</option>
                                                                                 <option value="50">50</option>
                                                                                 <option value="75">75</option>
                                                                                 <option value="100" selected="selected">100</option>
-                                                                            </select></td>
-                                                                    </tr>
-                                                                    <tr>
+                                                                            </select></td>--%>
+                                                                       <%-- <td>
+                                                                            <input id="txtChequeOfAmt" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>
+                                                                    </tr>--%>
+                                                                   <%-- <tr>
                                                                         <td><span></span></td>
                                                                         <td>
                                                                             <input type="checkbox" class="check_tool" id="chkCheque" />
                                                                             Is TDS Applicable</td>
-                                                                    </tr>
+                                                                    </tr>--%>
 
                                                                     <tr id="trChequeTanAmount" style="display: none;">
                                                                         <td><span>Enter GSTIN Amount</span></td>
@@ -401,27 +405,29 @@
                                                                         <td>
                                                                             <input id="txtOnlineTransferTransferAmount" type="text" class="form-control" onkeypress="return isNumberKey(event)"></td>
                                                                     </tr>
-                                                                    <tr id="trOnlineTransferPercentageOfAmt">
-                                                                        <td><span>Activate Amount</span></td>
-                                                                        <td>
+                                                                    <%--<tr id="trOnlineTransferPercentageOfAmt">
+                                                                        <td><span>Activate Amount</span></td>--%>
+                                                                        <%--<td>
                                                                             <select id="txtOnlineTransferPercentageOfAmt" class="form-control">
                                                                                 <option value="25">25</option>
                                                                                 <option value="50">50</option>
                                                                                 <option value="75">75</option>
                                                                                 <option value="100" selected="selected">100</option>
-                                                                            </select></td>
-                                                                    </tr>
+                                                                            </select></td>--%>
+                                                                       <%-- <td>
+                                                                            <input id="txtOnlineTransferAmt" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>
+                                                                    </tr>--%>
                                                                     <tr id="trOnlineTransferTransactionNumber">
                                                                         <td><span>Transaction Number</span></td>
                                                                         <td>
                                                                             <input id="txtOnlineTransferTransactionNumber" type="text" class="form-control"></td>
                                                                     </tr>
-                                                                    <tr>
+                                                                    <%--<tr>
                                                                         <td></td>
                                                                         <td>
                                                                             <input type="checkbox" class="check_tool" id="chkOnline">
                                                                             Is TDS Applicable</td>
-                                                                    </tr>
+                                                                    </tr>--%>
                                                                     <%--<tr id="trOnlineTanNumber" style="display: none;">
                                                                         <td><span>Enter GSTIN Number#</span></td>
                                                                         <td>
@@ -442,7 +448,7 @@
                                                                             <input id="txtOnlineTransferDueDate" type="text" class="form-control hasDatepicker"></td>
                                                                     </tr>--%>
                                                                     <tr>
-                                                                        <td><span>Client Account#</span></td>
+                                                                        <td><span>Client Account No</span></td>
                                                                         <td>
                                                                             <input id="txtOnlineTransferClientAccount" type="text" class="form-control"></td>
                                                                     </tr>
@@ -496,16 +502,18 @@
                                                                         <td>
                                                                             <input id="txtOnlineTransferCCAvenueTransactionNumber" type="text" class="form-control"></td>
                                                                     </tr>
-                                                                    <tr id="trOnlineTransferThroughCCAvenuePercentageOfAmt">
-                                                                        <td><span>Activate Amount</span></td>
-                                                                        <td>
+                                                                    <%--<tr id="trOnlineTransferThroughCCAvenuePercentageOfAmt">
+                                                                        <td><span>Activate Amount</span></td>--%>
+                                                                        <%--<td>
                                                                             <select id="txtOnlineTransferThroughCCAvenuePercentageOfAmt" class="form-control">
                                                                                 <option value="25">25</option>
                                                                                 <option value="50">50</option>
                                                                                 <option value="75">75</option>
                                                                                 <option value="100" selected="selected">100</option>
-                                                                            </select></td>
-                                                                    </tr>
+                                                                            </select></td>--%>
+                                                                        <%--<td>
+                                                                            <input id="txtOnlineTransferThroughCCAvenueAmt" type="text" class="form-control" onkeypress="return isNumberKey(event)" /></td>
+                                                                    </tr>--%>
                                                                     <tr>
                                                                         <td><span>Comments (if any)</span></td>
                                                                         <td>
@@ -704,8 +712,8 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.3.0/js/bootstrap-datepicker.min.js"></script>
-    <script type="text/javascript" src="Scripts/OrdersClient.js"></script>
-    <script type="text/javascript" src="Scripts/payment.js?type=v3"></script>
+    <script type="text/javascript" src="Scripts/OrdersClient.js?type=v4"></script>
+    <script type="text/javascript" src="Scripts/payment.js?type=v4"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');

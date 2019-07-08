@@ -337,7 +337,7 @@
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.productsHandler,
-            async: this.options.async,
+            async: false,
             dataType: "JSON",
             data:
                 {
@@ -1225,7 +1225,7 @@
             return actionResponse;
     }
 
-    OrdersClient.prototype.VerifyOrderStatuses = function (orderId, callBackFunction) {
+    OrdersClient.prototype.VerifyOrderStatuses = function (orderId,activationAmount,isActivated, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1235,7 +1235,9 @@
             data:
                 {
                     "Action": "VerifyOrderStatuses",
-                    "OrderId": orderId
+                    "OrderId": orderId,
+                    "ActivationAmount": activationAmount,
+                    "IsActivated": isActivated
                 },
             success: function (response) {
                 actionResponse = response;
@@ -1309,23 +1311,22 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.ActivateOrder = function (activationUrl, metaData, quotationId, billingModeId, isPostPaid, activatedPercentage, callBackFunction) {
+    OrdersClient.prototype.ActivateOrder = function (activationUrl, quotationId, isPostPaid, activationAmount, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.ordersHandler,
-            async: this.options.async,
+            async: true,
             dataType: "JSON",
             data:
                 {
                     "Action": "Activate",
-                    "MetaData": JSON.stringify(metaData),
-                    "SearchData": searchData,
+                   
                     "QuotationId": quotationId,
-                    "BillingMode": billingModeId,
+                   
                     "ActivationUrl": activationUrl,
                     "IsPostPaid": isPostPaid,
-                    "ActivatedPercentage": activatedPercentage
+                    "ActivationAmount": activationAmount
                 },
             success: function (response) {
                 actionResponse = response;

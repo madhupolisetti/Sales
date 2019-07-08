@@ -87,7 +87,7 @@
                                 <span class="margin-right-10">Show Entries :</span>
                                 <label>
                                     <select id="dropPages" class="form-control input-inline" name="Quotation-Details-Length" aria-controls="reportstable">
-                                        <option value="10">10</option>
+                                         <option value="10">10</option>
                                         <option value="20">20</option>
                                         <option value="50">50</option>
                                     </select>
@@ -221,7 +221,7 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=1" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=2" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=4"></script>
     <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
@@ -236,7 +236,7 @@
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
             globalPageNumber = 1;
-            globalPageSize = 1;
+            globalPageSize = 10;
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
             if(accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER")
@@ -298,6 +298,7 @@
                 if(quotationId){
                     var $form = $("<form/>").attr("id", "data_form")
                                             .attr("action", "Invoice.aspx")
+                                            .attr("target","_blank")
                                             .attr("method", "post");
                     $("body").append($form);
                     AddParameter($form, "QuotationId", quotationId);
@@ -377,7 +378,7 @@
                 invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
                 invoiceSearchData.AccountName = $("#txtAccountName").val();
                 invoiceSearchData.PageNumber = globalPageNumber;
-                invoiceSearchData.Limit = globalPageSize;
+                invoiceSearchData.Limit = $("#dropPages :selected").val();
                 dateRange = $("#txtDateRange").val();
             }
 

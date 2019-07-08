@@ -2,6 +2,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
     <link href="/CssFiles/bootstrap-switch.min.css" rel="stylesheet" />
+    
+    <link href="CssFiles/font-awesome.min.css" rel="stylesheet" />
     <style type="text/css">
         .btn grey {
             background-color: #BDBDBD;
@@ -113,6 +115,17 @@
                                 <div id="errorbox">
                                 </div>
                                 <table class="table no-border">
+                                    <tr>
+                                        <td>
+                                            <label class="table-head">Product</label>
+
+                                        </td>
+                                        <td>
+                                            <select id="ddlProduct" name="PaymentStatus" class="form-control form-filter input-sm">
+                                            </select>
+
+                                        </td>
+                                    </tr>
                                     <tr>
                                         <td>Name</td>
                                         <td>
@@ -245,7 +258,9 @@
         var option_inputdatatype = "";
 
         $(document).ready(function () {
+            bindProducts();
             getServices();
+            
             ordersClient.GetInputTypes(true, function (res) {
                 if (res.Success == true) {
 
@@ -393,7 +408,12 @@
                 var displayname = $("#ser_name").val();
                 var metaDataCode = $("#meta_code").val();
                 var isActive = $("#ser_active").is(":checked");
+                var productId = $("#ddlProduct option:selected").val();
                 var areMultipleEntriesAllowed = $("#ser_multiple").is(":checked");
+                if (productId == 0) {
+                    ErrorNotifier('Please select a product');
+                    return false;
+                }
                 if (displayname.length == 0) {
                     ErrorNotifier('Please enter display name');
                     return false;
@@ -402,7 +422,7 @@
                     ErrorNotifier('Please enter metadatacode');
                     return false;
                 }
-                ordersClient.CreateService(1, displayname, metaDataCode, areMultipleEntriesAllowed, isActive, function (res) {
+                ordersClient.CreateService(productId, displayname, metaDataCode, areMultipleEntriesAllowed, isActive, function (res) {
                     if (res.Success == true) {
                         SuccessNotifier("Successfully added");
                         $("#addserv").modal('hide');
@@ -414,15 +434,18 @@
             });
 
             function getServices() {
-                ordersClient.GetServices(1, 0, false, false, false, function (res) {
+                ordersClient.GetServices(0, 0, false, false, false, function (res) {
                     if (res.Success == true) {
                         var services = "";
-                        services += '<table id="Services_data" border="" class="table table-bordered " style="text-align:centre"><tbody><tr><th>Code</th><th>Services</th><th>Multiple allowed</th><th>Active</th><th>Edit</th><th>Create Property</th></tr>'
+                        services += '<table id="Services_data" border="" class="table table-bordered " style="text-align:centre"><tbody><tr><th>Code</th><th>Product</th><th>Services</th><th>Multiple allowed</th><th>Active</th><th>Edit</th><th>Create Property</th></tr>'
                         if (res.Services.length > 0) {
                             for (var i = 0; i < res.Services.length; i++) {
+                                var prodid=res.Services[i].ProductId;
                                 services += "<tr serviceId='" + res.Services[i].Id + "'>";
                                 services += "<td><input type=text  id=displayserv_" + res.Services[i].Id + " value='" + res.Services[i].DisplayName + "' class='form-control' style='border:none' disabled='true'  /></td>";
+                                services += "<td><input type=text  id=product_" + res.Services[i].Id + " value='" + $("#ddlProduct")[0].options[prodid].text + "' class='form-control' style='border:none' disabled='true'  /></td>";
                                 services += "<td><input type=text  id=metadataserv_" + res.Services[i].Id + " value='" + res.Services[i].MetaDataCode + "' class='form-control' style='border:none' disabled='true'  /></td>";
+                                
                                 if (res.Services[i].AreMultipleEntriesAllowed == true) {
                                     services += "<td width='150px'><input id='multiple_" + res.Services[i].Id + "' type='checkbox' checked disabled class='make-switch' data-on-text='Yes' data-off-text='No'  /></td>";
                                 }
@@ -451,6 +474,34 @@
                         $(".make-switch").bootstrapSwitch('state', true);
                     }
                 });
+            }
+
+            function bindProducts() {
+                var productsData = "<option value='0'>--- All ---</option>";
+                var quotationTypesData = "<option value='0'>Select One</option>";
+                ordersClient.GetProducts(true, function (res) {
+
+                    if (res.Success == true) {
+                        if (res.Products.length > 0) {
+
+                            for (var i = 0; i < res.Products.length; i++) {
+                                productsData += "<option value='" + res.Products[i].Id + "' accountUrl='" + res.Products[i].AccountInformationUrl + "' isTestInvoiceAvailable='" + res.Products[i].IsTestInvoicesAvailable + "'>" + res.Products[i].Name + "</option>"
+                            }
+                        }
+                        if (res.QuotationTypes.length > 0) {
+
+                            for (var i = 0; i < res.QuotationTypes.length; i++) {
+                                quotationTypesData += "<option value='" + res.QuotationTypes[i].Id + "' >" + res.QuotationTypes[i].Type + "</option>"
+                            }
+                        }
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                    $("#ddlProduct,#ddlProducts").html(productsData);
+                    $("#ddlQuotationTypes").html(quotationTypesData);
+                });
+
             }
 
             function ConfirmDelete() {
@@ -509,7 +560,11 @@
                 $("#data_" + servicePropertyId).attr("disabled", "true");
                 $("#save_" + servicePropertyId).hide();
                 $("#edit_" + servicePropertyId).show();
-
+                $("#inputProp_" + servicePropertyId).attr("disabled", "true");
+                $("#inputPropText_" + servicePropertyId).val('');
+                $("#inputPropText_" + servicePropertyId).hide();
+                $('#faCheck_' + servicePropertyId).hide();
+                $('#faClose_' + servicePropertyId).hide();
             }
 
             function getServiceProperties(serviceId) {
@@ -517,7 +572,7 @@
                     if (res.Success == true) {
                         var serviceProperties = "";
                         if (res.Services.Properties.length > 0) {
-                            serviceProperties += "<table style='text-align:centre' id='property_data' border='' class='table table-bordered'><tr><th>Code</th><th>Service Property</th><th>Active</th><th>Mandatory</th><th width='15%'>Default Value</th><th>Input Type</th><th>Data Type</th><th>Included In OrderAmount</th><th width='15%'>Edit</th></tr>"
+                            serviceProperties += "<table style='text-align:centre' id='property_data' border='' class='table table-bordered'><tr><th>Code</th><th>Service Property</th><th>Active</th><th>Mandatory</th><th width='8%'>Default Value</th><th>Input Type</th><th>Data Type</th><th>Input Property</th><th>Included In OrderAmount</th><th width='14%'>Edit</th></tr>"
                             for (var i = 0; i < res.Services.Properties.length; i++) {
 
                                 serviceProperties += "<tr><td><label>" + res.Services.Properties[i].MetaDataCode + "</label></td>";
@@ -551,6 +606,14 @@
                                 //Priority
                                 //serviceProperties += "<td><input type=text disabled style='border:none' onkeypress='return isNumberKey(event)' class='form-control' value='" + res.Services.Properties[i].Priority + "' id=priority_" + res.Services.Properties[i].Id + " /></td>";
 
+                                if (res.Services.Properties[i].InputTypeId == 'DropDown') {
+                                    serviceProperties += "<td><select style='width:80%;'  class='form-control pull-left' disabled id='inputProp_" + res.Services.Properties[i].Id + "' disabled > </select> <label class='pull-right' disabled><a id='addInputProp' alt='" + res.Services.Properties[i].Id + "'><img src='images/plus.png' height='16' ait='add'  onclick='' style=''></a></label>"
+                                    serviceProperties += "<input type=text style='display:none;padding:5px;width:65%;' id='inputPropText_" + res.Services.Properties[i].Id + "' /><label id='faCheck_" + res.Services.Properties[i].Id + "' alt=" + res.Services.Properties[i].Id + "  name='faCheck' style='display:none;padding:5px;' ><a><i class='fa fa-check'></i></a></label><label id='faClose_" + res.Services.Properties[i].Id + "' alt=" + res.Services.Properties[i].Id + "  name='faClose' style='display:none;padding:5px;'><a><i class='fa fa-close'></i></a></label></td>";
+                                }
+                                else {
+                                    serviceProperties += "<td><input type=text disabled style='border:none' class='form-control' value='" + res.Services.Properties[i].DefaultValue + "' id=default_" + res.Services.Properties[i].Id + " /></td>";
+                                }
+
                                 //IncludedInOrderAmount
                                 if (res.Services.Properties[i].IncludeInOrderAmount == true) {
                                     serviceProperties += "<td><input name=includeinorderamount id='includein_" + res.Services.Properties[i].Id + "'  type='checkbox' checked disabled class='make-switch' data-on-text='Yes' data-off-text='No'  /></td>";
@@ -580,6 +643,9 @@
                 var tab_id = this.alt;
                 var typeid = $(this).attr('typeid');
                 var datatypeid = $(this).attr('datatypeid');
+                if ($("select[id=input_" + tab_id + "]")[0].options[typeid-1].text == 'DropDown')
+                    $("select[id=inputProp_" + tab_id + "]").removeAttr("disabled");
+
                 $("select[id=input_" + tab_id + "]").val(typeid);
                 $("select[id=data_" + tab_id + "]").val(datatypeid);
                 $("#chck_" + tab_id).bootstrapSwitch('disabled', false);
@@ -625,6 +691,18 @@
 
                     })
                 }
+                else if (inputTypeId == "3") {
+                    var i = 1; var jsonStr = '{';
+                    $('#inputProp_' + servicePropertId + ' > option').each(function () {
+                        jsonStr += '"' + i + '": "' + $(this).text() + '",'
+                        i = i + 1;
+                    });
+                    if (jsonStr.substring(jsonStr.length - 1) == ',') {
+                        jsonStr = jsonStr.substring(0, jsonStr.length - 1);
+                    }
+                    jsonStr += "}";
+                    serviceProperty.InputProperty = (jsonStr == "{}" ? null : jsonStr);
+                }
                 ordersClient.UpdateServiceProperties(servicePropertId, serviceProperty, function (res) {
                     if (res.Success == true) {
                         SuccessNotifier("Property updated successfully");
@@ -653,6 +731,34 @@
                     $("#trMinLength,#trMaxLength,#trAllowSpecialChars").hide();
                 }
             })
+
+            $(document).on('click', '#addInputProp', function () {
+                var tab_id = $(this).attr('alt');
+                if (!$("select[id=input_" + tab_id + "]").prop('disabled')) {
+                    $('#inputPropText_' + tab_id).show();
+                    $('#faCheck_' + tab_id).show();
+                    $('#faClose_' + tab_id).show();
+                }
+            });
+
+            $(document).on('click', 'label[name="faClose"]', function () {
+                var tab_id = $(this).attr('alt');
+                
+                    $('#inputPropText_' + tab_id).hide();
+                    $('#faCheck_' + tab_id).hide();
+                    $('#faClose_' + tab_id).hide();
+                
+            });
+            
+            $(document).on('click', 'label[name="faCheck"]', function () {
+                var tab_id = $(this).attr('alt');
+                
+                $('#inputProp_' + tab_id).append("<option value='" + $('#inputPropText_' + tab_id).val() + "' >" + $('#inputPropText_' + tab_id).val() + "</option>");
+                $('#inputPropText_' + tab_id).hide();
+                $('#faCheck_' + tab_id).hide();
+                $('#faClose_' + tab_id).hide();
+
+            });
 
         })
     </script>

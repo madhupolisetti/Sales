@@ -2,6 +2,7 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
     <link href="JsFiles/DateTimePicker/daterangepicker-bs3.css" rel="stylesheet" />
+    <link href="CssFiles/components.min.css" rel="stylesheet" />
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-content-wrapper">
@@ -111,11 +112,12 @@
                                         <%--<th>Payment Mode</th>--%>
                                         <th>Total Amount</th>
                                         <th>Payment Status</th>
+                                        <th>Due Date</th>
                                         <th>Account Status</th>
-                                        <th>Activation Status</th>
-                                        <th>Activation</th>
+                                        <th>Order Status</th>
+                                        <%--<th>Activation</th>--%>
                                         <th>Comments</th>
-                                        <th>Order Actions</th>
+                                        <%--<th>Order Actions</th>--%>
                                     </tr>
                                 </thead>
                                 <tbody id="data"></tbody>
@@ -149,7 +151,7 @@
                     </div>
                     <div class="modal-body">
                         <%--Modal body goes here --%>
-                        <div id="divmodalbody" style="overflow-x: scroll; overflow-y: scroll;"></div>
+                        <div id="divmodalbody" style="display:inline-block;"></div>
                         <label><b>Total Amount : </b></label>
                         <label class="label label-primary label-sm"><b id="bTotalPayment"></b></label>
                         <br>
@@ -195,13 +197,13 @@
       
 
 
-        <div class="modal fade in" id="quotationServicesModal" tabindex="-1" aria-hidden="true" style="position: relative; margin-top: -70px; margin-left: -180px;">
-            <div class="modal-dialog">
+        <div class="modal fade in" id="quotationServicesModal" tabindex="-1" aria-hidden="true" >
+            <div class="modal-dialog" style="width:850px;">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h4 class="modal-title" style="padding-left: 150px;"><b>Activate Order</b></h4>
+                        <h4 class="modal-title" style="text-align:center;"><b>Activate Order</b></h4>
                     </div>
-                    <div class="modal-body" id="divQuotationservices">
+                    <div class="modal-body" id="divQuotationservices" >
 
                     </div>
 
@@ -225,8 +227,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
-    <script src="Scripts/orders.js?type=v2" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
+    <script src="Scripts/orders.js?type=v3" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
