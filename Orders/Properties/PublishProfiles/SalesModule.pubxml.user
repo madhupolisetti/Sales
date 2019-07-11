@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/14/2019 11:09:26</publishTime>
     </File>
     <File Include="AdminAccessManagement.aspx">
-      <publishTime>05/14/2019 11:09:13</publishTime>
+      <publishTime>07/01/2019 15:27:44</publishTime>
     </File>
     <File Include="AjaxHandlers/Accounts.ashx">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -508,19 +508,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/28/2016 14:22:24</publishTime>
     </File>
     <File Include="bin/OrdersManagement.dll">
-      <publishTime>05/06/2019 14:53:12</publishTime>
+      <publishTime>07/08/2019 18:26:56</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>06/01/2019 19:07:43</publishTime>
+      <publishTime>07/08/2019 19:17:24</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>06/01/2019 19:07:43</publishTime>
+      <publishTime>07/08/2019 19:17:24</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>06/01/2019 19:07:46</publishTime>
+      <publishTime>07/08/2019 19:17:25</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>01/06/2019 16:47:14</publishTime>
+      <publishTime>07/08/2019 19:17:23</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
       <publishTime>03/26/2019 17:43:50</publishTime>
@@ -541,7 +541,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CreateQuotation.aspx">
-      <publishTime>06/01/2019 19:00:46</publishTime>
+      <publishTime>07/06/2019 15:45:23</publishTime>
     </File>
     <File Include="CssFiles/accordion.css">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -754,7 +754,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/14/2019 11:09:41</publishTime>
     </File>
     <File Include="Exception_Logs/%28null%29.txt">
-      <publishTime>06/01/2019 18:29:59</publishTime>
+      <publishTime>07/08/2019 15:45:10</publishTime>
     </File>
     <File Include="fonts/axhdx.lnk">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -799,10 +799,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Invoice.aspx">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>07/06/2019 15:29:12</publishTime>
     </File>
     <File Include="Invoices.aspx">
-      <publishTime>06/01/2019 19:00:43</publishTime>
+      <publishTime>07/08/2019 12:43:03</publishTime>
     </File>
     <File Include="JsFiles/addImage.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -967,64 +967,64 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Orders.aspx">
-      <publishTime>05/14/2019 11:12:27</publishTime>
+      <publishTime>07/08/2019 16:15:36</publishTime>
     </File>
     <File Include="Payment.aspx">
-      <publishTime>05/14/2019 11:11:51</publishTime>
+      <publishTime>07/08/2019 19:00:20</publishTime>
     </File>
     <File Include="Payments.aspx">
-      <publishTime>05/14/2019 11:12:57</publishTime>
+      <publishTime>07/06/2019 15:40:23</publishTime>
     </File>
     <File Include="PostLogin.Master">
-      <publishTime>05/14/2019 11:17:21</publishTime>
+      <publishTime>07/08/2019 12:39:19</publishTime>
     </File>
     <File Include="Profile.aspx">
-      <publishTime>01/06/2019 13:53:19</publishTime>
+      <publishTime>06/01/2019 13:53:19</publishTime>
     </File>
     <File Include="Quotation.aspx">
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Quotations.aspx">
-      <publishTime>01/06/2019 15:59:39</publishTime>
+      <publishTime>07/08/2019 12:42:03</publishTime>
     </File>
     <File Include="Scripts/AdminAccess.js">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>07/01/2019 15:28:21</publishTime>
     </File>
     <File Include="Scripts/createAccounts.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/createQuotation.js">
-      <publishTime>06/01/2019 18:59:22</publishTime>
+      <publishTime>07/01/2019 15:41:32</publishTime>
     </File>
     <File Include="Scripts/getServices.js">
-      <publishTime>03/26/2019 19:37:26</publishTime>
+      <publishTime>06/22/2019 16:54:30</publishTime>
     </File>
     <File Include="Scripts/getUserDetailsForCreateQuotation.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/orders.js">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>07/08/2019 18:53:10</publishTime>
     </File>
     <File Include="Scripts/OrdersClient.js">
-      <publishTime>03/05/2019 14:58:19</publishTime>
+      <publishTime>07/08/2019 18:51:56</publishTime>
     </File>
     <File Include="Scripts/OrdersManagement.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/payment.js">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>07/08/2019 18:34:40</publishTime>
     </File>
     <File Include="Scripts/payments.js">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>07/08/2019 18:45:06</publishTime>
     </File>
     <File Include="Scripts/Quotations.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Services.aspx">
-      <publishTime>03/26/2019 17:44:22</publishTime>
+      <publishTime>06/22/2019 16:10:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/06/2019 16:48:23</publishTime>
+      <publishTime>07/08/2019 19:17:42</publishTime>
     </File>
   </ItemGroup>
 </Project>
