@@ -115,7 +115,7 @@
                                 </td>
                                 <td>
                                     
-                                    <input type="button" value="Update Details" style="display:none;" id="btnUpdate" class="btn btn-primary"/>&nbsp;
+                                    <input type="button" value="Update Details"  id="btnUpdate" class="btn btn-primary"/>&nbsp;
                                 </td>
 
                             </tr>
