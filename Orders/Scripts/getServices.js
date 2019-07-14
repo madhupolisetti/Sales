@@ -172,6 +172,16 @@ function getServiceProperties(serviceId) {
                         }
 
                     }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown") {
+                        var propertyFields = new Array();
+                        propertyFields = res.Services.Properties[i].PropertyFields;
+                        serviceProperties += '<label>' + res.Services.Properties[i].DisplayName + ' </label> :  <select servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" name="dropdown" class="check_tool DropdwnProp" id="dropdown_' + res.Services.Properties[i].Id + '" toolpro="1"';
+                        if (res.Services.Properties[i].PropertyFields.length > 0) {
+                            if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
+                                serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
+                            }
+                        }
+                    }
                     //else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown")
                     //{
                     //    serviceProperties += "<select style='font-size:11px' placeholder='" + res.Services.Properties[i].DisplayName + "' servicePropertyCode='" + res.Services.Properties[i].MetaDataCode + "'  class='dropdown_" + res.Services.DisplayName + " check_tool form-control' id='" + res.Services.Properties[i].MetaDataCode + "'";
@@ -204,6 +214,14 @@ function getServiceProperties(serviceId) {
                     }
                     else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "radiobutton") {
                         serviceProperties += '/> <span style="vertical-align: middle;" class="">' + res.Services.Properties[i].DisplayName + '</span>';
+                    }
+                    else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "dropdown") {
+                        serviceProperties += '>';
+                        var jobj = jQuery.parseJSON(res.Services.Properties[i].InputProperty)
+                        $.each(jobj, function (key, val) {
+                            serviceProperties += '<option value="'+key+'">'+val+'</option>';
+                        })
+                        serviceProperties += '</select>';
                     }
                     else
                         serviceProperties += '/>';

@@ -4,7 +4,7 @@ var paymentsResponse = [];
 var paymentStatusesLength = 0;
 $(document).ready(function () {
     var ordersClient = new OrdersClient();
-    dateRange = $("#daterangetext").val();
+    dateRange = $("#daterangetext").val().trim();
     bindProducts();
     $("#daterangetext").daterangepicker();
     $("#btnview,#btnpayment,#btncreate").attr("class", "enable-icn");
@@ -22,7 +22,7 @@ $(document).ready(function () {
     });
     
     paymentSearchData.PageNumber = globalPageNumber;
-    paymentSearchData.Limit = globalPageSize;
+    paymentSearchData.Limit = 0;
 
     getPayments();
     globalFunction = function () {
@@ -47,14 +47,14 @@ $(document).ready(function () {
     });
     function AddSearchData() {
         paymentSearchData.ProductId = $("#ddlProduct").val();
-        paymentSearchData.Number = $("#txtNumber").val();
-        paymentSearchData.Mobile = $("#txtMobile").val();
-        paymentSearchData.Email = $("#txtEmail").val();
+        paymentSearchData.Number = $("#txtNumber").val().trim();
+        paymentSearchData.Mobile = $("#txtMobile").val().trim();
+        paymentSearchData.Email = $("#txtEmail").val().trim();
         paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();
         paymentSearchData.BillingMode = $("#ddlBillMode :selected").val();
-        paymentSearchData.AccountName = $("#txtAccountName").val();
+        paymentSearchData.AccountName = $("#txtAccountName").val().trim();
         paymentSearchData.PageNumber = globalPageNumber;
-        paymentSearchData.Limit = globalPageSize;
+        paymentSearchData.Limit = 0;
     }
     $(document).delegate('#FilterByMore', 'click', function () {
         var anchorText = $(this).text();
@@ -93,7 +93,7 @@ $(document).ready(function () {
     function getPayments() {
         
 
-        dateRange = $("#daterangetext").val();
+        dateRange = $("#daterangetext").val().trim();
         var ordersClient = new OrdersClient();
         if (dateRange == "This Month") {
             var date = new Date();
@@ -123,10 +123,11 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].InvoiceRaisedTime + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].InvoiceNumber + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].TotalAmount + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentStatus + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].LastPaidDate + "</td>";
-                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
+                        
                         payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
                         payments += "<td>" + res.Payments[i].ActivationStatus + "</td></tr>";
                     }
@@ -175,15 +176,23 @@ $(document).ready(function () {
         var ordersClient = new OrdersClient();
         var paymentsWiseArray;
         var paymentDetailsTable = "";
+        var paymentGateway = 0;
+        $("#divMultiplePaymentDetails").html('');
         ordersClient.ViewPayment(1, orderId, function (res) {
             if (res.Success == true) {
                 $("#divMultiplePayments").modal('show');
                 if (res.PaymentDetails.length > 0) {
                     $("#totalAmount").html($("#hdnTotalAmount").val());
                     $("#pendingAmount").html($("#hdnDueAmount").val());
+                    paymentStatusesLength = Object.keys( res.DistinctGateways).length;
+                    
                     for (var i = 1; i <= paymentStatusesLength; i++) {
                         paymentsWiseArray = new Array();
-                        paymentsWiseArray = sortPaymentDetailsArray(i, res.PaymentDetails);
+                        if (paymentStatusesLength == 1)
+                            paymentGateway = res.DistinctGateways.PaymentGatewayID;
+                        else
+                            paymentGateway = res.DistinctGateways[i - 1].PaymentGatewayID;
+                        paymentsWiseArray = sortPaymentDetailsArray(paymentGateway, res.PaymentDetails);
                         if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 1) {
                             paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
                             paymentDetailsTable += "<th >Client Account Number</th><th >Client Account Name</th><th >Comments</th></tr></thead>"
@@ -236,8 +245,7 @@ $(document).ready(function () {
                                 paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
                                 paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
                                 paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
-                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
-                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                                paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";                                
                                 paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
                             }
                             paymentDetailsTable += "</table>";

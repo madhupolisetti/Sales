@@ -288,7 +288,7 @@ namespace Orders.AjaxHandlers
             serviceProperty.IncludeInOrderAmount = includeInOrderAmount;
             serviceProperty.InputTypeId = inputTypeId;
             serviceProperty.DataTypeId = dataTypeId;
-
+            serviceProperty.InputProperty = propertyObject.SelectToken("InputProperty") == null ? string.Empty : propertyObject.SelectToken("InputProperty").ToString();
 
             return serviceProperty;
         }

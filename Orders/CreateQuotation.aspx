@@ -115,7 +115,7 @@
                                 </td>
                                 <td>
                                     
-                                    <input type="button" value="Update Details" id="btnUpdate" class="btn btn-primary"/>&nbsp;
+                                    <input type="button" value="Update Details"  id="btnUpdate" class="btn btn-primary"/>&nbsp;
                                 </td>
 
                             </tr>
@@ -155,15 +155,16 @@
             <input type="hidden" name="hdnCountryId" id="hdnCountryId" value="<%= country %>" />
             <input type="hidden" name="hdnIsFirstTime" id="hdnIsFirstTime" value="<%= isFirstTime %>" />
             <input type="hidden" name="hdnGstin" id="hdnGstin" value="<%= gstin %>" />
+            <input type="hidden" name="hdnAccessRole" id="hdnAccessRole" value="<%=accessRole  %>" />
             <input type="hidden" name="hdnAccountOwnerEmail" id="hdnAccountOwnerEmail" value="<%= AccountOwnerEmail %>" />
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v16"></script>
-    <script src="Scripts/getServices.js?type=v5"></script>
-    <script src="Scripts/createquotation.js?type=v20"></script>
+    <script src="Scripts/OrdersClient.js?type=v17"></script>
+    <script src="Scripts/getServices.js?type=v6"></script>
+    <script src="Scripts/createquotation.js?type=v21"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>

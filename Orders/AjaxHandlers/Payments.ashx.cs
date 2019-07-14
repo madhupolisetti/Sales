@@ -119,8 +119,10 @@ namespace Orders.AjaxHandlers
             string comments = string.Empty;
             string ipAddress = string.Empty;
             int activatePercentage = 0;
+            int activationAmount = 0;
             int billingModeId = 0;
             DateTime depositeDate = new DateTime();
+            DateTime dueDate = new DateTime();
             bool isTDSApplicable = false;
             int tdsPercentage = 0;
             JObject paymentData = new JObject();
@@ -150,8 +152,12 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("bankAccountId Amount must be a number"));
             if (paymentData.SelectToken("DepositeDate") != null && !DateTime.TryParse(paymentData.SelectToken("DepositeDate").ToString(), out depositeDate))
                 GenerateErrorResponse(400, string.Format("FromDateTime is not a valid datetime"));
-            if (paymentData.SelectToken("ActivatePercentage") != null && !int.TryParse(paymentData.SelectToken("ActivatePercentage").ToString(), out activatePercentage))
-                GenerateErrorResponse(400, string.Format("Activate percentage must be a number"));
+            if (paymentData.SelectToken("DueDate") != null && !DateTime.TryParse(paymentData.SelectToken("DueDate").ToString(), out dueDate))
+                GenerateErrorResponse(400, string.Format("DueDate is not a valid datetime"));
+            //if (paymentData.SelectToken("ActivatePercentage") != null && !int.TryParse(paymentData.SelectToken("ActivatePercentage").ToString(), out activatePercentage))
+            //    GenerateErrorResponse(400, string.Format("Activate percentage must be a number"));
+            //if (paymentData.SelectToken("ActivationAmount") != null && !int.TryParse(paymentData.SelectToken("ActivationAmount").ToString(), out activationAmount))
+            //    GenerateErrorResponse(400, string.Format("Activation Amount must be a number"));
             if (paymentData.SelectToken("IsTDSApplicable") != null && !bool.TryParse(paymentData.SelectToken("IsTDSApplicable").ToString(), out isTDSApplicable))
                 GenerateErrorResponse(400, string.Format("IsTDSApplicable percentage must be a boolean"));
             if (isTDSApplicable == true && (paymentData.SelectToken("TDSPercentage") != null && !int.TryParse(paymentData.SelectToken("TDSPercentage").ToString(), out tdsPercentage)))
@@ -179,7 +185,7 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.CreatePayment(productId: productId, accountId: accountId, employeeId: employeeId,
            invoiceId: invoiceId, billingModeId: billingModeId, paymentGatewayId: paymentGatewayId, paymentAmount: paymentAmount,
-           bankAccountId: bankAccountId, depositeDate: depositeDate, activatePercentage: activatePercentage,
+           bankAccountId: bankAccountId, depositeDate: depositeDate, dueDate: dueDate,
            comments: comments, isTDSApplicable: isTDSApplicable, tdsPercentage: tdsPercentage, chequeNumber: chequeNumber, attachments: attachments,
            transactionNumber: transactionNumber, clientAccountNumber: clientAccountNumber, clientAccountName: clientAccountName,
            clientBankName: clientBankName, clientBankBranch: clientBankBranch, onlinePaymentGatewayId: onlinePaymentGatewayId,

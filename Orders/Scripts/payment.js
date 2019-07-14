@@ -1,8 +1,8 @@
 ﻿var ordersClient = new OrdersClient();
 $(document).ready(function () {
     var taxSummary = "";
-    $('#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
-    $("#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPODate").datepicker().datepicker("setDate", new Date());
+    $('#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPendingDueDate,#txtPODate').datepicker({ autoclose: !0, format: "yyyy-mm-dd" });
+    $("#txtCashDepositeDate,#txtOnlineTransferDepositDate,#txtChequeDepositDate,#txtPendingDueDate,#txtPODate").datepicker().datepicker("setDate", new Date());
     ordersClient.GetOrderSummary($("#hdnQuotationId").val(), function (res) {
         if (res.Success == true) {
             var dueAmount = 0;
@@ -90,6 +90,7 @@ $("#btnConfirm").click(function () {
     var PaymentAmount;
     var bankAccountId;
     var activatePercentage;
+    var activationAmount;
     var isTdsApplicable;
     var tdsPercentage;
     var Comments;
@@ -100,74 +101,112 @@ $("#btnConfirm").click(function () {
     var chequeNumber;
     var paymentGatewayRefernceId;
     var onlinePaymentGatewayId;
+    var dueDate;
     if (paymentGateWayId == 1) {
         bankAccountId = $("#ddlOnlineTransferBank :selected").val();
-        depositDate = $("#txtOnlineTransferDepositDate").val();
-        PaymentAmount = $("#txtOnlineTransferTransferAmount").val();
-        activatePercentage = $("#txtOnlineTransferPercentageOfAmt :selected").val();
-        transactionNumber = $("#txtOnlineTransferTransactionNumber").val();
-        clientAccountNumber = $("#txtOnlineTransferClientAccount").val();
-        clientAccountName = $("#txtOnlineTransferClientAccountName").val();
-        Comments = $("#OnlineTransfrComments").val();
+        depositDate = $("#txtOnlineTransferDepositDate").val().trim();
+        PaymentAmount = $("#txtOnlineTransferTransferAmount").val().trim();
+        //activatePercentage = $("#txtOnlineTransferPercentageOfAmt :selected").val();
+        //activationAmount = $("#txtOnlineTransferAmt").val();
+        transactionNumber = $("#txtOnlineTransferTransactionNumber").val().trim();
+        clientAccountNumber = $("#txtOnlineTransferClientAccount").val().trim();
+        clientAccountName = $("#txtOnlineTransferClientAccountName").val().trim();
+        Comments = $("#OnlineTransfrComments").val().trim();
         isTdsApplicable = $("#chkOnline").is(":checked");
-        tdsPercentage = $("#ddlOnlineTANAmount :selected").val();
+        tdsPercentage = $("#ddlOnlineTANAmount :selected").val().trim();
         if (transactionNumber == "") {
             ErrorNotifier("Please enter transaction number");
             return false;
         }
-
-
-
-
-    }
-    else if (paymentGateWayId == 2) {
-        bankAccountId = $("#ddlChequeDepositingBankAccount :selected").val();
-        depositDate = $("#txtOnlineTransferDepositDate").val();
-        PaymentAmount = $("#txtChequeAmount").val();
-        activatePercentage = $("#txtChequePercentageOfAmt :selected").val();
-        chequeNumber = $("#txtCheque").val();
-        Comments = $("#ChequeComments").val();
-        alert(Comments);
-        tdsPercentage = $("#ddlChequeTANAmount :selected").val();
-        clientAccountName = $("#txtChequeHolderName").val();
-        isTdsApplicable = $("#chkCheque").is(':checked');
-
-    }
-    else if (paymentGateWayId == 3) {
-        depositDate = $("#txtCashDepositeDate").val();
-        PaymentAmount = $("#txtPOAmount").val();
-        bankAccountId = $("#ddlpurchaseOrderDepositingBank :selected").val();
-        Comments = $("#txtPOComments").val();
-    }
-    else if (paymentGateWayId == 4) {
-
-    }
-    else if (paymentGateWayId == 5) {
-        depositDate = $("#txtCashDepositeDate").val();
-        PaymentAmount = $("#txtCashDepositeAmount").val();
-        bankAccountId = $("#ddlCashDepositingBankAccount :selected").val();
-        activatePercentage = $("#txtCashPercentageOfAmt :selected").val();
-        isTdsApplicable = $("#chkCash").is(':checked');
-        tdsPercentage = $("#ddlCashTANAmount :selected").val();
-        Comments = $("#CashComments").val();
-
-
-
-    }
-    if (paymentGateWayId == 1 || paymentGateWayId == 2) {
         if (clientAccountNumber == "") {
             ErrorNotifier("Please enter client account number");
             return false;
         }
     }
-    if (depositDate.length == 0) {
-        ErrorNotifier("Please Select DueDate");
-        return false;
-    }
-    if (PaymentAmount == 0) {
-        ErrorNotifier("Please enter deposit amount");
-        return false;
+    else if (paymentGateWayId == 2) {
+        bankAccountId = $("#ddlChequeDepositingBankAccount :selected").val();
+        depositDate = $("#txtOnlineTransferDepositDate").val().trim();
+        PaymentAmount = $("#txtChequeAmount").val().trim();
+        //activatePercentage = $("#txtChequePercentageOfAmt :selected").val();
+        //activationAmount = $("#txtChequeOfAmt").val();
+        chequeNumber = $("#txtCheque").val().trim();
+        Comments = $("#ChequeComments").val().trim();
+        tdsPercentage = $("#ddlChequeTANAmount :selected").val();
+        clientAccountName = $("#txtChequeHolderName").val().trim();
+        isTdsApplicable = $("#chkCheque").is(':checked');
+        if (chequeNumber == "") {
+            ErrorNotifier("Please enter cheque number");
+            return false;
+        }
 
+    }
+    else if (paymentGateWayId == 3) {
+        depositDate = $("#txtCashDepositeDate").val().trim();
+        PaymentAmount = $("#txtPOAmount").val().trim();
+        bankAccountId = $("#ddlpurchaseOrderDepositingBank :selected").val().trim();
+        Comments = $("#txtPOComments").val().trim();
+    }
+    else if (paymentGateWayId == 4) {
+        dueDate = $("#txtPendingDueDate").val();
+        Comments=$("#txtPendingComments").val().trim();
+
+    }
+    else if (paymentGateWayId == 5) {
+        depositDate = $("#txtCashDepositeDate").val().trim();
+        PaymentAmount = $("#txtCashDepositeAmount").val().trim();
+        bankAccountId = $("#ddlCashDepositingBankAccount :selected").val().trim();
+        //activatePercentage = $("#txtCashPercentageOfAmt :selected").val();
+        //activationAmount = $("#txtCashOfAmt").val();
+        isTdsApplicable = $("#chkCash").is(':checked');
+        tdsPercentage = $("#ddlCashTANAmount :selected").val();
+        Comments = $("#CashComments").val().trim();
+
+
+
+    }
+    //else if (paymentGateWayId == 6) {
+    //    onlinePaymentGatewayId = $("#txtOnlineTransferThroughCCAvenueOnlinePaymentGateway :selected").val();
+    //    paymentGatewayRefernceId = $("#txtOnlineTransferPaymentReferenceId").val();
+    //    PaymentAmount = $("#txtOnlineTransferCCAvenueEnterAmount").val();
+    //    transactionNumber = $("#txtOnlineTransferCCAvenueTransactionNumber").val();
+    //    tdsPercentage = $("#txtOnlineTransferThroughCCAvenuePercentageOfAmt :selected").val();
+    //    Comments = $("#txtOnlineTransferThroughCCAvenueComments").val();
+
+    //}
+    PaymentAmount = isNaN(PaymentAmount ) ? 0 : PaymentAmount;
+    bankAccountId = isNaN(bankAccountId) ? 0 : bankAccountId;
+    activationAmount = isNaN(activationAmount) ? 0 : activationAmount;
+    isTdsApplicable = typeof isTdsApplicable == "undefined" ? false : isTdsApplicable;
+    tdsPercentage = typeof tdsPercentage == "undefined" ? 0 : tdsPercentage;
+    Comments = typeof Comments == "undefined" ? '' : Comments;
+    depositDate = typeof depositDate == "undefined" ? '1/1/1900' : depositDate;
+    dueDate = typeof dueDate == "undefined" ? '1/1/1900' : dueDate;
+    clientAccountNumber = typeof clientAccountNumber == "undefined" ? '' : clientAccountNumber;
+    transactionNumber = typeof transactionNumber == "undefined" ? '' : transactionNumber;
+    clientAccountName = typeof clientAccountName == "undefined" ? '' : clientAccountName;
+    chequeNumber = typeof chequeNumber == "undefined" ? '' : chequeNumber;
+    paymentGatewayRefernceId = typeof paymentGatewayRefernceId == "undefined" ? '' : paymentGatewayRefernceId;
+    
+    if (paymentGateWayId != 4) {
+        if (PaymentAmount == 0) {
+            ErrorNotifier("Please enter deposit amount");
+            return false;
+
+        }
+        if (bankAccountId == "") {
+            ErrorNotifier("Please select bank account");
+            return false;
+        }
+        if (depositDate.length == 0) {
+            ErrorNotifier("Please Select Deposit Date");
+            return false;
+        }
+    }
+    else {
+        if (dueDate.length == 0) {
+            ErrorNotifier("Please Select Due Date");
+            return false;
+        }
     }
     if (paymentGateWayId != 3) {
         if (isTdsApplicable == true) {
@@ -178,20 +217,9 @@ $("#btnConfirm").click(function () {
             }
         }
     }
-    if (bankAccountId == "") {
-        ErrorNotifier("Please select bank account");
-        return false;
-    }
-    else if (paymentGateWayId == 6) {
-        onlinePaymentGatewayId = $("#txtOnlineTransferThroughCCAvenueOnlinePaymentGateway :selected").val();
-        paymentGatewayRefernceId = $("#txtOnlineTransferPaymentReferenceId").val();
-        PaymentAmount = $("#txtOnlineTransferCCAvenueEnterAmount").val();
-        transactionNumber = $("#txtOnlineTransferCCAvenueTransactionNumber").val();
-        tdsPercentage = $("#txtOnlineTransferThroughCCAvenuePercentageOfAmt :selected").val();
-        Comments = $("#txtOnlineTransferThroughCCAvenueComments").val();
-
-    }
-    var searchData = '{"ProductId":"' + productId + '","InvoiceId":"' + invoiceId + '","AccountId":"' + accountId + '","BillingModeId":"' + billingModeId + '","PaymentGatewayId":"' + paymentGateWayId + '","PaymentAmount":"' + PaymentAmount + '","BankAccountId":"' + bankAccountId + '","DepositeDate":"' + depositDate + '","ActivatePercentage":"' + activatePercentage + '","IsTDSApplicable":"' + isTdsApplicable + '","TDSPercentage":"' + tdsPercentage + '","Comments":"' + Comments + '","TransactionNumber":"' + transactionNumber + '","ClientAccountNumber":"' + clientAccountNumber + '","ClientAccountName":"' + clientAccountName + '"}'
+   
+   
+    var searchData = '{"ProductId":"' + productId + '","InvoiceId":"' + invoiceId + '","AccountId":"' + accountId + '","DueDate":"' + dueDate + '","BillingModeId":"' + billingModeId + '","PaymentGatewayId":"' + paymentGateWayId + '","PaymentAmount":"' + PaymentAmount + '","BankAccountId":"' + bankAccountId + '","ChequeNumber":"' + chequeNumber + '","DepositeDate":"' + depositDate + '","IsTDSApplicable":"' + isTdsApplicable + '","TDSPercentage":"' + tdsPercentage + '","Comments":"' + Comments + '","TransactionNumber":"' + transactionNumber + '","ClientAccountNumber":"' + clientAccountNumber + '","ClientAccountName":"' + clientAccountName + '"}'
     ordersClient.GeneratePayment(searchData, function (res) {
         console.log(res);
         if (res.Success == true) {

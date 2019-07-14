@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $("#defaultrange").daterangepicker();
     searchData.PageNumber = globalPageNumber;
-    searchData.Limit = globalPageSize;
+    searchData.Limit = 0;
     getOrders(searchData);
     globalFunction = function () {
 
@@ -45,10 +45,10 @@ $(document).ready(function () {
         searchData.Mobile = $("#txtMobile").val().trim();
         searchData.Email = $("#txtEmail").val().trim();
         searchData.OrderStatus = $("#ddlOrderStatus").val();
-        searchData.Number = $("#txtNumber").val();
-        searchData.AccountName = $("#txtAccountName").val();
+        searchData.Number = $("#txtNumber").val().trim();
+        searchData.AccountName = $("#txtAccountName").val().trim();
         searchData.PageNumber = globalPageNumber;
-        searchData.Limit = globalPageSize;
+        searchData.Limit = 0;
     }
     $(document).delegate('#FilterByMore', 'click', function () {
         var anchorText = $(this).text();
@@ -87,7 +87,7 @@ $(document).ready(function () {
     function getOrders(ordersSearchData) {
 
         var ordersData = "";
-        var dateRange = $("#daterangetext").val();
+        var dateRange = $("#daterangetext").val().trim();
 
         if (dateRange == "This Month") {
             var date = new Date();
@@ -114,6 +114,7 @@ $(document).ready(function () {
                         ordersData += "<td>" + res.Orders[i].LastPaidDate + "</td>";
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";
                         ordersData += "<td>" + res.Orders[i].PaymentStatus + "</td>";
+                        ordersData += "<td>" + res.Orders[i].DueDate + "</td>";
                         ordersData += "<td><select id='" + res.Orders[i].OrderId + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'";
                         if (res.Orders[i].PaymentStatusId == "1") {
                             ordersData += "><option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
@@ -125,27 +126,29 @@ $(document).ready(function () {
                         }
 
                         ordersData += "</select></td>";
-                        ordersData += "<td>" + res.Orders[i].ActivationStatus + "</td>";
-                        if (res.Orders[i].OrderStatusId == "1") {
-                            ordersData += "<td class='activation' id='active_" + res.Orders[i].OrderId + "'>";
-                            ordersData += "<input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='Activation' metadata='' accountid='' percentageofamount=''>"
+                        //ordersData += "<td>" + res.Orders[i].OrderStatus + "</td>";
+                        
+                        //if (res.Orders[i].ActivationStatus != "3") {
+                            ordersData += "<td class='activation' >";
+                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
                             ordersData += "</td>";
-                        }
-                        else {
-                            ordersData += "<td class='activation' id='active_" + res.Orders[i].OrderId + "'>Activated</td>"
-                        }
+                        //}
+                        //else {
+                        //    ordersData += "<td class='activation' id='active_" + res.Orders[i].OrderId + "'>Activated</td>"
+                        //}
                         ordersData += "<td></td>";
 
-                        ordersData += "<td><input type='button' class='btnChargeBack btn btn-warning btn-sm margin-bottom-5' style='width:100px;' id='" + res.Orders[i].InvoiceId + "' value='Charge Back'";
-                        if (res.Orders[i].PaymentStatusId == "2") {
-                            ordersData += "disabled";
-                        }
+                        //ordersData += "<td><input type='button' class='btnChargeBack btn btn-warning btn-sm margin-bottom-5' style='width:100px;' id='" + res.Orders[i].InvoiceId + "' value='Charge Back'";
+                        //if (res.Orders[i].PaymentStatusId == "2") {
+                        //    ordersData += "disabled";
+                        //}
 
-                        ordersData += "><input type='button' style='width:100px;' class='btnRefund btn btn-success btn-sm' id='" + res.Orders[i].InvoiceId + "' value='Refund'";
-                        if (res.Orders[i].PaymentStatusId == "2") {
-                            ordersData += "disabled";
-                        }
-                        ordersData += "></td></tr>";
+                        //ordersData += "><input type='button' style='width:100px;' class='btnRefund btn btn-success btn-sm' id='" + res.Orders[i].InvoiceId + "' value='Refund'";
+                        //if (res.Orders[i].PaymentStatusId == "2") {
+                        //    ordersData += "disabled";
+                        //}
+                        //ordersData += "></td>";
+                        ordersData += "</tr>";
                     }
 
                 }
@@ -159,35 +162,64 @@ $(document).ready(function () {
             }
         });
     }
+
     $(document).delegate('.btnActivation', 'click', function () {
         var quotationId = $(this).attr("QuotationId");
         var billingMode = $(this).attr("BillingModeId");
         var orderId = $(this).attr("OrderId");
         var activationUrl = $(this).attr("ActivationCallBackUrl");
         var productAccountId = $(this).attr("ProductAccountId");
+        //var activatePercentage = $(this).attr("percentageofamount");
+        var activatedAmount = $(this).attr("activationAmount");
+        var InvoiceNumber = $(this).attr("InvoiceNumber");
+        var totalAmount = $(this).attr("TotalAmt");
+        var amountPaid = $(this).attr("AmountPaid");
+        var orderAmount = $(this).attr("OrderAmount");
+        var pendingAmount = totalAmount - amountPaid;
+        var pendingAmountToActivate = orderAmount - activatedAmount;
+        
+        
         $("#btnActivate").attr("QuotationId", quotationId);
         $("#btnActivate").attr("BillingMode", billingMode);
         $("#btnActivate").attr("OrderId", orderId);
         $("#btnActivate").attr("ActivationCallBackUrl", activationUrl);
         $("#btnActivate").attr("ProductAccountId", productAccountId);
+        $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);
+        //$("#btnActivate").attr("activationAmount", activationAmount);
+        var service = '';
         ordersClient.GetQuotationServices(quotationId, billingMode, true, function (res) {
             console.log(res);
             var quotationServices = "";
             if (res.Success == true) {
+                quotationServices += "<label style='padding-left:100px;'><strong>Total Amount : </strong></label><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
+                quotationServices += "<label style='padding-left:100px;'><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
+                quotationServices += "<label style='padding-left : 100px;'><strong>Due :</strong></label > <label  class='label label-warning label-sm'>  <b>" + pendingAmount + "</b> </label> </br>"
+                quotationServices += "<table class='table table-bordered margin-top-20 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th><th>Order Amount</th>";
+                quotationServices += "<th >Amount Activated</th> <th >Pending Amount to Activate</th> </tr></thead>"
                 for (var i = 0; i < res.QuotationServices.length; i++) {
 
-                    if (res.QuotationServices[i].Service == "Balance") {
-                        quotationServices += "<input type='checkbox' IsBalanceService='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;"
-                        quotationServices += "<Select id='ddlActivatePercentage' class=''><option value='25'>25</option><option value='50'>50</option><option value='75'>75</option><option selected value='100'>100</option></select></br>"
+                    if (res.QuotationServices[i].Service == "PerMinutePlan") {
+                        service = "PerMinutePlan";
+                        //quotationServices += "<input type='checkbox' IsPerMinutePlan='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;</br>"
+                        quotationServices += "<tr><td><label IsPerMinutePlan='True' class='LabelQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'>" + res.QuotationServices[i].Service + " </label></td>"
+                        quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td><td>" + orderAmount + "</td>"
+                        quotationServices += "<td>" + activatedAmount + "</td><td>" + pendingAmountToActivate + "</td>"
                     }
                     else {
-                        quotationServices += "<input type='checkbox' IsBalanceService='False' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span></br>;"
+                        quotationServices += "<input type='checkbox' IsPerMinutePlan='False' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span></br>"
                     }
 
                 }
+                quotationServices += "</tr></table>"
+                quotationServices += "<div style='text-align:center;'> <label><strong> Activation Amount :  </strong></label> <input type='text' style='width:30%;display:inline-block;' placeholder='Enter Amount to be Activated' class='form-control' onkeypress='return isNumberKey(event)' id='activationAmount'";
+                if (pendingAmountToActivate <= 0)
+                    quotationServices+=" disabled title='total Amount Activated'";
+                quotationServices += "/> </div>"
                 $("#divQuotationservices").html(quotationServices);
-
-                $("#quotationServicesModal").modal('show');
+                if (service != '')
+                    $("#quotationServicesModal").modal('show');
+                else
+                    alert('Activations are only for grptalk Per-Minute Service');
 
             }
             else {
@@ -196,28 +228,65 @@ $(document).ready(function () {
         });
 
     });
+
     $("#btnActivate").click(function () {
         var searchData = "";
-        var quotationId = 0;
         var quotationId = $(this).attr("QuotationId");
         var billingMode = $(this).attr("BillingMode");
         var orderId = $(this).attr("OrderId");
         var activationUrl = $(this).attr("ActivationCallBackUrl");
         var quotationServiceProperties = [];
-        var productAccountId = $(this).attr("ProductAccountId");
+        var productAccountId = parseFloat($(this).attr("ProductAccountId"));
+        var pendingActivationAmount = $(this).attr("pendingActivationAmount");
+        //var activatePercentage = $(this).attr("activatePercentage");
+        var activationAmount = parseFloat($("#activationAmount").val().trim());
         var isPostPaid = false;
+        var success='';
         if (billingMode == 2)
             isPostPaid = true;
-        var activatedPercentage = $("#ddlActivatePercentage").val();
+        activationAmount = isNaN(activationAmount) ? 0 : activationAmount;
+        if (pendingActivationAmount <= 0) {
+            ErrorNotifier("There is no pending amount to Activate");
+            return false;
+        }
+        else if (activationAmount <= 0) {
+            ErrorNotifier("Activation amount should be greater than zero");
+            return false;
+        }
+        else if (activationAmount == '') {
+            ErrorNotifier("Enter Activation Amount");
+            return false;
+        }
+        else if (activationAmount > pendingActivationAmount) {
+            ErrorNotifier("Activation amount should not be greater than " + pendingActivationAmount);
+            return false;
+        }
+              
+        
+            //var activatedPercentage = $("#ddlActivatePercentage").val();
 
-        ordersClient.ActivateOrder(activationUrl, searchData, quotationId, billingMode, isPostPaid, activatedPercentage, function (res) {
-            ordersClient.VerifyOrderStatuses(orderId, function (res) {
-                $('#active_' + orderId).html('<span>Activated</span>');
-                console.log(res);
-            })
+            ordersClient.ActivateOrder(activationUrl, quotationId, isPostPaid, activationAmount, function (res) {
+                if (res.success == "true") {
+                    success = true;
+                    SuccessNotifier("Amount Activated Succesfully");
+                    ordersClient.VerifyOrderStatuses(orderId, activationAmount, success, function (res) {
+                        setTimeout(function () { window.location.href = "/Orders.aspx" }, 1000);
+                        console.log(res);
+                    })
+                    
+                }
+                else {
+                    success = false;
+                    ErrorNotifier(res.Response.Reason);
+                    ordersClient.VerifyOrderStatuses(orderId, activationAmount, success, function (res) {
+                        setTimeout(function () { window.location.href = "/Orders.aspx" }, 1000);
+                        console.log(res);
+                    })
+                }
 
-
-        });
+            });
+            
+           
     });
 
 
@@ -226,7 +295,7 @@ $(document).ready(function () {
 
 $(document).delegate('.AccountStatus', 'change', function () {
     AccountStatusorderid = $(this).attr("id");
-    AccountStatusVal = $(this).val();
+    AccountStatusVal = $(this).val().trim();
 
     //
     var hdnorderid = $(this).attr("id");
@@ -254,7 +323,7 @@ function ViewPaymentDetails(orderId) {
                     paymentsWiseArray = new Array();
                     paymentsWiseArray = sortPaymentDetailsArray(i, res.PaymentDetails);
                     if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 1) {
-                        paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
+                        paymentDetailsTable += "<table class='table table-bordered margin-top-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
                         paymentDetailsTable += "<th >Client Account Number</th><th >Client Account Name</th><th >Comments</th></tr></thead>"
                         for (var p = 0; p < paymentsWiseArray.length; p++) {
                             paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";

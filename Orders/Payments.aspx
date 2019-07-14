@@ -165,10 +165,10 @@
                                         <th>Invoice Raised Date</th>
                                         <th>Invoice #</th>
                                         <th>Total Amount</th>
+                                        <th>Received Amount</th>
                                         <th>Due Amount</th>
                                         <th>Payment Status</th>
-                                        <th>Last PaidDate</th>
-                                        <th>Received Amount</th>
+                                        <th>Last PaidDate</th>                                        
                                         <th>GSTIN Amount</th>
                                         <th>Activation Status</th>
                                     </tr>
@@ -426,7 +426,7 @@
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v2" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v3" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');

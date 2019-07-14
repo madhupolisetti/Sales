@@ -10,6 +10,9 @@ $(document).ready(function () {
     var mobile = $("#hdnMobileNo").val();
     var countryId = $("#hdnCountryId").val();
     var stateId = $("#hdnStateId").val();
+    var accessRole = $("#hdnAccessRole").val();
+    //if (accessRole == "SUPER_USER")
+    //    $("#btnUpdate").show();           
     var isPostPaid = 0;
     ordersClient.GetCountries(function (res) {
         if (res.Success == true) {
@@ -227,7 +230,7 @@ $("#btnSave").click(function () {
                         value = (parseFloat($(this).val())).toFixed(2);
                     }
                     if ($(this).attr('name') == 'label') {
-                        value='Billing Cycle'
+                        value = $(this).text();
                     }
                     if ($(this).attr('type') == 'radio') {
                         value=($(this).data("waschecked") == true)?true:false;
@@ -241,6 +244,9 @@ $("#btnSave").click(function () {
                             day + '-' +
                             objDate.toLocaleString("en", { month: "short" }) + '-' +
                             objDate.toLocaleString("en", { year: "numeric" });
+                    }
+                    if ($(this).attr('name') == 'dropdown') {
+                        value = $(this).children("option:selected").text();
                     }
                     //else if ($(this)[0].nodeName == "SELECT") {
                     //    value = $(this)[0].value;
