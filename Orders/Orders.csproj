@@ -40,6 +40,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\log4net.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -471,7 +475,6 @@
     <Content Include="assets\global\plugins\font-awesome\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\global\plugins\jquery.min.map" />
     <Content Include="PostLogin.Master" />
-    
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.eot" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.ttf" />
     <Content Include="CssFiles\font-awesome\fonts\fontawesome-webfont.woff" />
@@ -488,11 +491,9 @@
     <Content Include="CssFiles\font-awesome\less\mixins.less" />
     <Content Include="CssFiles\font-awesome\less\path.less" />
     <Content Include="CssFiles\font-awesome\less\rotated-flipped.less" />
-    
     <Content Include="CssFiles\font-awesome\less\stacked.less" />
     <Content Include="CssFiles\font-awesome\less\variables.less" />
     <Content Include="CssFiles\font-awesome\scss\font-awesome.scss" />
-    
     <Content Include="CssFiles\font-awesome\scss\_animated.scss" />
     <Content Include="CssFiles\font-awesome\scss\_bordered-pulled.scss" />
     <Content Include="CssFiles\font-awesome\scss\_core.scss" />
@@ -505,12 +506,9 @@
     <Content Include="CssFiles\font-awesome\scss\_rotated-flipped.scss" />
     <Content Include="CssFiles\font-awesome\scss\_stacked.scss" />
     <Content Include="CssFiles\font-awesome\scss\_variables.scss" />
-    
-    
     <Content Include="CssFiles\fonts\Simple-Line-Icons.eot" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.ttf" />
     <Content Include="CssFiles\fonts\Simple-Line-Icons.woff" />
-    
     <Content Include="fonts\fontawesome-webfont.eot" />
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
