@@ -97,8 +97,15 @@ $(document).ready(function () {
         var ordersClient = new OrdersClient();
         if (dateRange == "This Month") {
             var date = new Date();
-            paymentSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-            paymentSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+            var from = new Date(date.getFullYear(), date.getMonth(), 1);
+            from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+            var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+            to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+            paymentSearchData.FromDateTime = from;
+            paymentSearchData.ToDateTime = to;
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -126,9 +133,10 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentStatus + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentMode + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].LastPaidDate + "</td>";
                         
-                        payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
+                        //payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
                         payments += "<td>" + res.Payments[i].ActivationStatus + "</td></tr>";
                     }
                 }

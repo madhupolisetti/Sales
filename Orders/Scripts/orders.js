@@ -91,8 +91,16 @@ $(document).ready(function () {
 
         if (dateRange == "This Month") {
             var date = new Date();
-            ordersSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-            ordersSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+            var from = new Date(date.getFullYear(), date.getMonth(), 1);
+            from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+            var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+            to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+            ordersSearchData.FromDateTime = from;
+            
+            ordersSearchData.ToDateTime = to;
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -115,6 +123,7 @@ $(document).ready(function () {
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";
                         ordersData += "<td>" + res.Orders[i].PaymentStatus + "</td>";
                         ordersData += "<td>" + res.Orders[i].DueDate + "</td>";
+                        ordersData += "<td>" + res.Orders[i].PaymentMode + "</td>";
                         ordersData += "<td><select id='" + res.Orders[i].OrderId + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'";
                         if (res.Orders[i].PaymentStatusId == "1") {
                             ordersData += "><option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
@@ -130,7 +139,7 @@ $(document).ready(function () {
                         
                         //if (res.Orders[i].ActivationStatus != "3") {
                             ordersData += "<td class='activation' >";
-                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
+                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' taxAmount='" + res.Orders[i].TaxAmount + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
                             ordersData += "</td>";
                         //}
                         //else {
@@ -175,6 +184,7 @@ $(document).ready(function () {
         var totalAmount = $(this).attr("TotalAmt");
         var amountPaid = $(this).attr("AmountPaid");
         var orderAmount = $(this).attr("OrderAmount");
+        var taxAmount = $(this).attr("taxAmount");
         var pendingAmount = totalAmount - amountPaid;
         var pendingAmountToActivate = orderAmount - activatedAmount;
         
@@ -185,16 +195,19 @@ $(document).ready(function () {
         $("#btnActivate").attr("ActivationCallBackUrl", activationUrl);
         $("#btnActivate").attr("ProductAccountId", productAccountId);
         $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);
+        $("#btnActivate").attr("taxAmount", taxAmount);
         //$("#btnActivate").attr("activationAmount", activationAmount);
         var service = '';
         ordersClient.GetQuotationServices(quotationId, billingMode, true, function (res) {
             console.log(res);
             var quotationServices = "";
             if (res.Success == true) {
-                quotationServices += "<label style='padding-left:100px;'><strong>Total Amount : </strong></label><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
-                quotationServices += "<label style='padding-left:100px;'><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
-                quotationServices += "<label style='padding-left : 100px;'><strong>Due :</strong></label > <label  class='label label-warning label-sm'>  <b>" + pendingAmount + "</b> </label> </br>"
-                quotationServices += "<table class='table table-bordered margin-top-20 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th><th>Order Amount</th>";
+                quotationServices += "<label style='padding-left:20px;'><strong>Order Amount : </strong></label></td><td><label  class='label label-info label-sm '><b>" + orderAmount + "</b> </label>"
+                quotationServices += "<label style='padding-left:20px;' ><strong>Tax Amount : </strong></label></td><td><label  class='label label-warning label-sm '><b>" + taxAmount + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Total Amount : </strong></label></td><td><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Due :</strong></label > <label  class='label label-danger label-sm'>  <b>" + pendingAmount + "</b> </label> "
+                quotationServices += "<table class='table table-bordered margin-top-40 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th>";
                 quotationServices += "<th >Amount Activated</th> <th >Pending Amount to Activate</th> </tr></thead>"
                 for (var i = 0; i < res.QuotationServices.length; i++) {
 
@@ -202,7 +215,7 @@ $(document).ready(function () {
                         service = "PerMinutePlan";
                         //quotationServices += "<input type='checkbox' IsPerMinutePlan='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;</br>"
                         quotationServices += "<tr><td><label IsPerMinutePlan='True' class='LabelQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'>" + res.QuotationServices[i].Service + " </label></td>"
-                        quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td><td>" + orderAmount + "</td>"
+                        quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td>"
                         quotationServices += "<td>" + activatedAmount + "</td><td>" + pendingAmountToActivate + "</td>"
                     }
                     else {
@@ -238,6 +251,7 @@ $(document).ready(function () {
         var quotationServiceProperties = [];
         var productAccountId = parseFloat($(this).attr("ProductAccountId"));
         var pendingActivationAmount = $(this).attr("pendingActivationAmount");
+        var taxAmount = $(this).attr("taxAmount");
         //var activatePercentage = $(this).attr("activatePercentage");
         var activationAmount = parseFloat($("#activationAmount").val().trim());
         var isPostPaid = false;

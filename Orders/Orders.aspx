@@ -113,8 +113,10 @@
                                         <th>Total Amount</th>
                                         <th>Payment Status</th>
                                         <th>Due Date</th>
+                                        <th>Payment Modes</th>
                                         <th>Account Status</th>
                                         <th>Order Status</th>
+                                        
                                         <%--<th>Activation</th>--%>
                                         <th>Comments</th>
                                         <%--<th>Order Actions</th>--%>
@@ -228,7 +230,7 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
-    <script src="Scripts/orders.js?type=v3" type="text/javascript"></script>
+    <script src="Scripts/orders.js?type=v4" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

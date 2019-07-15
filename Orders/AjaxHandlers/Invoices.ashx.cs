@@ -5,6 +5,7 @@ using System.Web;
 using OrdersManagement.Core;
 using OrdersManagement.Exceptions;
 using OrdersManagement.Model;
+
 using Newtonsoft.Json.Linq;
 using System.Web.SessionState;
 
@@ -52,6 +53,12 @@ namespace Orders.AjaxHandlers
                         break;
                     case "Cancel":
                         CancelInvoice(context);
+                        break;
+                    case "GetInvoiceAccountDetails":
+                        GetInvoiceAccountDetails(context);
+                        break;
+                    case "UpdateInvoice":
+                        UpdateInvoice(context);
                         break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
@@ -108,6 +115,50 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.CancelInvoice(quotationId, adminId));
         }
 
+        private void UpdateInvoice(HttpContext context)
+        {
+            
+            JObject InvoiceDetails = JObject.Parse(context.Request["payload"]);
+
+            string mobile = string.Empty;
+            string email = string.Empty;
+            string address = string.Empty;
+            string GSTIN = string.Empty;
+            string companyName = string.Empty;
+            int stateId = 0;
+            int invoiceId = 0;
+
+            if (InvoiceDetails.SelectToken("Mobile") != null)
+                mobile = Convert.ToString(InvoiceDetails.SelectToken("Mobile"));
+            if (InvoiceDetails.SelectToken("BusinessMailID") != null)
+                email = Convert.ToString(InvoiceDetails.SelectToken("BusinessMailID"));
+            if (InvoiceDetails.SelectToken("ContactAddress") != null)
+                address = Convert.ToString(InvoiceDetails.SelectToken("ContactAddress"));
+            if (InvoiceDetails.SelectToken("GSTIN") != null)
+                GSTIN = Convert.ToString(InvoiceDetails.SelectToken("GSTIN"));
+            if (InvoiceDetails.SelectToken("CompanyName") != null)
+                companyName = Convert.ToString(InvoiceDetails.SelectToken("CompanyName"));
+            if (InvoiceDetails.SelectToken("States") != null)
+                stateId = Convert.ToInt32(InvoiceDetails.SelectToken("States"));
+            if (InvoiceDetails.SelectToken("InvoiceId") != null)
+                invoiceId = Convert.ToInt32(InvoiceDetails.SelectToken("InvoiceId"));
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.UpdateInvoice(invoiceId:invoiceId,mobile: mobile, email: email, address: address, GSTIN: GSTIN, companyName: companyName, stateId: stateId));                     
+           
+        }
+
+        private void GetInvoiceAccountDetails(HttpContext context)
+        {
+            int invoiceId = 0;
+
+            if (context.Request["invoiceId"] != null && !int.TryParse(context.Request["invoiceId"].ToString(), out invoiceId))
+                GenerateErrorResponse(400, string.Format("InvoiceId Must be a number"));
+
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetInvoiceAccountDetails(invoiceId: invoiceId));
+        }
         private void Search(HttpContext context)
         {
             byte productId = 0;

@@ -585,8 +585,14 @@
 
                 if (dateRange == "This Month") {
                     var date = new Date();
-                    quotationSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-                    quotationSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    var from = new Date(date.getFullYear(), date.getMonth(), 1);
+                    from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+                    var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+                    to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+                    quotationSearchData.FromDateTime =from;
+                    quotationSearchData.ToDateTime = to;
 
                 }
                 else {

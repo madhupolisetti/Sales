@@ -168,8 +168,9 @@
                                         <th>Received Amount</th>
                                         <th>Due Amount</th>
                                         <th>Payment Status</th>
+                                        <th>Payment Modes</th>
                                         <th>Last PaidDate</th>                                        
-                                        <th>GSTIN Amount</th>
+                                        <%--<th>GSTIN Amount</th>--%>
                                         <th>Activation Status</th>
                                     </tr>
                                 </thead>
@@ -426,7 +427,7 @@
     <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v3" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v4" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');
