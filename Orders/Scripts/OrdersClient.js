@@ -847,32 +847,55 @@
     }
     OrdersClient.prototype.GetInvoices = function (searchData, callBackFunction) {
         var actionResponse;
-        failedActionResponse.Message = defaultErrorMessage;
-        $.ajax({
-            url: this.options.invoicesHandler,
-            async: this.options.async,
-            dataType: "JSON",
-            traditional: true,
-            data:
+        if (searchData.isdownload == false) {
+            failedActionResponse.Message = defaultErrorMessage;
+            $.ajax({
+                url: this.options.invoicesHandler,
+                async: this.options.async,
+                dataType: "JSON",
+                traditional: true,
+                data:
                 {
                     Action: "Search",
                     SearchData: JSON.stringify(searchData)
                 },
-            success: function (response) {
-                actionResponse = response;
-                if (CanCallBack(callBackFunction))
-                    callBackFunction(actionResponse);
-            },
-            error: function (response) {
-                failedActionResponse.Response = response;
-                failedActionResponse.Message = response.responseJSON.Message;
-                actionResponse = failedActionResponse;
-                if (CanCallBack(callBackFunction))
-                    callBackFunction(actionResponse);
-            }
-        });
-        if (!CanCallBack(callBackFunction))
-            return actionResponse;
+                success: function (response) {
+                    actionResponse = response;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                },
+                error: function (response) {
+                    failedActionResponse.Response = response;
+                    failedActionResponse.Message = response.responseJSON.Message;
+                    actionResponse = failedActionResponse;
+                    if (CanCallBack(callBackFunction))
+                        callBackFunction(actionResponse);
+                }
+            });
+            if (!CanCallBack(callBackFunction))
+                return actionResponse;
+        } else {
+            var type = "downloadInvoices"
+            var from = ""+searchData.FromDateTime;
+            var to = ""+searchData.ToDateTime;
+            var fromdate = moment(new Date(from.substr(0, 16)));
+            var todate = moment(new Date(to.substr(0, 16)));
+            fromdate = fromdate.format("MM-DD-YYYY");
+            todate = todate.format("MM-DD-YYYY");
+            var urltodownload = "/AjaxHandlers/Invoices.ashx?Action=" + type 
+                + "&ProductId=" + searchData.ProductId //+ "&InvoiceId=" + searchData.InvoiceId
+                + "&QuotationNumber=" + searchData.QuotationNumber
+                + "&AccountName=" + searchData.AccountName //+ "&AccountId=" + searchData.AccountId
+                //+ "&EmployeeId=" + searchData.EmployeeId + "&OwnerShipId=" + searchData.OwnerShipId 
+                + "&StatusId=" + searchData.StatusId
+                //+ "&ChannelId=" + searchData.ChannelId
+                + "&BillingModeId=" + searchData.BillingModeId
+                + "&FromDateTime=" + fromdate + "&ToDateTime=" + todate
+                //+ "&PageNumber=" + searchData.PageNumber + "&Limit=" + searchData.Limit 
+                + "&Mobile=" + searchData.Mobile
+                + "&Email=" + searchData.Email;
+            window.open(urltodownload);
+        }
     }
     OrdersClient.prototype.DownloadInvoice = function (quotationId, isPostPaidQuotation, callBackFunction) {
         var actionResponse;

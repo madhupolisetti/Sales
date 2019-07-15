@@ -194,7 +194,7 @@ $(document).ready(function () {
         $("#btnActivate").attr("OrderId", orderId);
         $("#btnActivate").attr("ActivationCallBackUrl", activationUrl);
         $("#btnActivate").attr("ProductAccountId", productAccountId);
-        $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);
+        $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);             
         $("#btnActivate").attr("taxAmount", taxAmount);
         //$("#btnActivate").attr("activationAmount", activationAmount);
         var service = '';

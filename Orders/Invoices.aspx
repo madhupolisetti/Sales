@@ -70,6 +70,7 @@
                             <label class="pull-left"><a id="btnAddNewQuotation" style="display:none;" class="btn margin-right-10 color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnSearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                                <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                                 <input type="button" value="Cancel" id="btnCancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                             </label>
                             <div class="clearfix"></div>
@@ -87,9 +88,8 @@
                                 <span class="margin-right-10">Show Entries :</span>
                                 <label>
                                     <select id="dropPages" class="form-control input-inline" name="Quotation-Details-Length" aria-controls="reportstable">
-                                         <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
+                                        <option value="10">10</option>                                        <option value="20">20</option>
+										<option value="20">20</option>                                        <option value="50">50</option>
                                     </select>
 
                                 </label>
@@ -128,7 +128,7 @@
                                     <th></th>
                                     <th>Product Name</th>
                                     <th>Account Name</th>
-                                    <th>Contact Name</th>
+                                    <th>Company Name</th>
                                     <th>OwnerShip Name</th>
                                     <th>Mobile #</th>
                                     <th>Mail ID</th>
@@ -315,6 +315,7 @@
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=4"></script>
     <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Invoices');
@@ -344,12 +345,13 @@
             invoiceSearchData.PageNumber = globalPageNumber;
             invoiceSearchData.Limit = globalPageSize;
            
-            getInvoices();
+
+            getInvoices(false);
             globalFunction = function () {
                 //invoiceSearchData.PageNumber = globalPageNumber;
                 //invoiceSearchData.Limit = globalPageSize;
                 AddSearchData();
-                getInvoices();
+                getInvoices(false);
             };
 
             
@@ -515,8 +517,14 @@
                 //invoiceSearchData.AccountName = $("#txtAccountName").val();
               
                 AddSearchData();
-                getInvoices();
+                getInvoices(false);
             });
+
+            //download searched invoices
+            $('#btn_download').click(function () {
+                AddSearchData();                
+                getInvoices(true);
+            })
 
             //cancel Invoice
             $('#btnCancelInvoice').click(function () {
@@ -535,7 +543,7 @@
                         alert('The Invoice "'+invoiceNo+'" is cancelled');
                         
                     });
-                    getInvoices();}
+                    getInvoices(false);}
                 else
                     alert('Select an Invoice to Cancel!');
             })
@@ -606,7 +614,7 @@
 
             }
             
-            function getInvoices() {
+            function getInvoices(isdownload) {
                 if (dateRange == "This Month") {
                     var date = new Date();
                     var from = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -623,6 +631,7 @@
                     invoiceSearchData.FromDateTime = fromDateT0date[0];
                     invoiceSearchData.ToDateTime = fromDateT0date[1];
                 }
+                invoiceSearchData.isdownload = isdownload;
                 ordersClient.GetInvoices(invoiceSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Invoices.length > 0) {
@@ -671,8 +680,6 @@
                 return invoicesData;
 
             }
-
-            
 
             function AddParameter(form, name, value) {
                 var $input = $("<input />").attr("type", "hidden")
