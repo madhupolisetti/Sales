@@ -139,7 +139,7 @@ $(document).ready(function () {
                         
                         //if (res.Orders[i].ActivationStatus != "3") {
                             ordersData += "<td class='activation' >";
-                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' taxAmount='" + res.Orders[i].TaxAmount + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
+                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' dueamount='" + res.Orders[i].DueAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' taxAmount='" + res.Orders[i].TaxAmount + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
                             ordersData += "</td>";
                         //}
                         //else {
@@ -184,8 +184,9 @@ $(document).ready(function () {
         var totalAmount = $(this).attr("TotalAmt");
         var amountPaid = $(this).attr("AmountPaid");
         var orderAmount = $(this).attr("OrderAmount");
+        
         var taxAmount = $(this).attr("taxAmount");
-        var pendingAmount = totalAmount - amountPaid;
+        var pendingAmount = $(this).attr("dueamount");
         var pendingAmountToActivate = orderAmount - activatedAmount;
         
         
