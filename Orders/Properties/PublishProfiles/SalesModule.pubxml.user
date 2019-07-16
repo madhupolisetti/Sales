@@ -13,7 +13,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/14/2019 11:09:26</publishTime>
     </File>
     <File Include="AdminAccessManagement.aspx">
-      <publishTime>07/01/2019 15:27:44</publishTime>
+      <publishTime>01/07/2019 15:27:44</publishTime>
     </File>
     <File Include="AjaxHandlers/Accounts.ashx">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -514,16 +514,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/15/2019 20:13:18</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>07/15/2019 20:13:48</publishTime>
+      <publishTime>07/16/2019 14:50:02</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>07/15/2019 20:13:48</publishTime>
+      <publishTime>07/16/2019 14:50:02</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>07/16/2019 13:36:00</publishTime>
+      <publishTime>07/16/2019 14:50:04</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>07/15/2019 20:13:47</publishTime>
+      <publishTime>07/16/2019 14:50:01</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
       <publishTime>03/26/2019 17:43:50</publishTime>
@@ -802,7 +802,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Invoice.aspx">
-      <publishTime>07/06/2019 15:29:12</publishTime>
+      <publishTime>06/07/2019 15:29:12</publishTime>
     </File>
     <File Include="Invoices.aspx">
       <publishTime>07/15/2019 19:05:55</publishTime>
@@ -982,7 +982,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/08/2019 12:39:19</publishTime>
     </File>
     <File Include="Profile.aspx">
-      <publishTime>06/01/2019 13:53:19</publishTime>
+      <publishTime>01/06/2019 13:53:19</publishTime>
     </File>
     <File Include="Quotation.aspx">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -991,7 +991,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/14/2019 19:52:05</publishTime>
     </File>
     <File Include="Scripts/AdminAccess.js">
-      <publishTime>07/01/2019 15:28:21</publishTime>
+      <publishTime>01/07/2019 15:28:21</publishTime>
     </File>
     <File Include="Scripts/createAccounts.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -1027,7 +1027,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2019 16:10:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/16/2019 13:36:02</publishTime>
+      <publishTime>07/16/2019 14:50:25</publishTime>
     </File>
   </ItemGroup>
 </Project>

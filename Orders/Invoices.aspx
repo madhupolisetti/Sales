@@ -656,7 +656,7 @@
                     invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
                     invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
-                    invoicesData += "<td>" + Invoices[i].AccountName + "</td>";
+                    invoicesData += "<td>" + Invoices[i].CompanyName + "</td>";
                     invoicesData += "<td>" + Invoices[i].OwnerShipName + "</td>";
                     invoicesData += "<td>" + Invoices[i].Mobile + "</td>";
                     invoicesData += "<td class='font-blue-soft'>" + Invoices[i].Email + "</td>";
