@@ -2,7 +2,7 @@
 var ordersClient = new OrdersClient();
 var paymentStatusesLength = 7;
 $(document).ready(function () {
-    
+
     bindProducts()
     ordersClient.GetOrderStatuses(true, function (res) {
         if (res.Success == true) {
@@ -17,14 +17,21 @@ $(document).ready(function () {
 
 
     $("#daterangetext").daterangepicker();
+    searchData.isdownload = false;
     searchData.PageNumber = globalPageNumber;
     searchData.Limit = 0;
     getOrders(searchData);
     globalFunction = function () {
-
+        searchData.isdownload = false;
         AddSearchData();
         getOrders(searchData);
     };
+
+    $("#btn_download").click(function () {
+        searchData.isdownload = true;
+        AddSearchData();
+        getOrders(searchData);
+    });
 
     $("#btnsearch").click(function () {
         //searchData.BillingMode = $("#ddlBillMode").val();
@@ -36,6 +43,7 @@ $(document).ready(function () {
         //searchData.AccountName = $("#txtAccountName").val();
         //searchData.PageNumber = globalPageNumber;
         //searchData.Limit = globalPageSize;
+        searchData.isdownload = false;
         AddSearchData();
         getOrders(searchData);
     });

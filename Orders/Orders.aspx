@@ -67,6 +67,7 @@
                         </div>
                         <div class="text-right">
                             <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                            <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                             <input type="button" value="Cancel" id="btncancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                         </div>
 
@@ -230,8 +231,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
-    <script src="Scripts/orders.js?type=v4" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v5" type="text/javascript"></script>
+    <script src="Scripts/orders.js?type=v5" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

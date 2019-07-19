@@ -109,6 +109,7 @@
                             <label class="pull-left"><a id="btnAddNewQuotation" style="" class="btn color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                                <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                                 <input type="button" value="Cancel" id="btncancel" class="btn btn-default btn-3" style="width: 66px; margin-left: 11px;" />
                             </label>
                             <div class="clearfix"></div>
@@ -173,7 +174,6 @@
                                         <th></th>
                                         <th>Product Name</th>
                                         <th>Account Name</th>
-                                        <th>Contact Name</th>
                                         <th>OwnerShip Name</th>
                                         <th>Company Name</th>
                                         <th>Mobile #</th>
@@ -291,7 +291,7 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=1" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=18july" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=3"></script>
     <script type="text/javascript">
         $(function () {
@@ -302,6 +302,7 @@
             
             //  var globalFunction = globalFunction || {};
             var quotationSearchData = {};
+            quotationSearchData.isdownload = false;
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
@@ -320,10 +321,16 @@
                 //quotationSearchData.PageNumber = globalPageNumber;
                 //quotationSearchData.Limit = globalPageSize;
                 AddSearchData();
+                quotationSearchData.isdownload = false;
                 getQuotations();
             };
 
 
+            $("#btn_download").click(function () {
+                AddSearchData();
+                quotationSearchData.isdownload = true;
+                getQuotations();
+            });
 
             $("#btnsearch").click(function () {
                 // globalPageSize = 10, globalPageNumber = 1;
@@ -337,6 +344,7 @@
 
                 //quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 //quotationSearchData.AccountName = $("#txtAccountName").val();
+                quotationSearchData.isdownload = false;
                 AddSearchData();
                 getQuotations();
             });
@@ -436,6 +444,7 @@
                 if(quotationId){
                     ordersClient.DeleteQuotation(quotationId, false, function (res) {
                         if (res.Success == true) {
+                            quotationSearchData.isdownload = false;
                             SuccessNotifier(res.Message)
                             getQuotations();
                         }
@@ -625,9 +634,8 @@
                     quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1' mobile='" + Quotations[i].Mobile + "'/></td>";
                     quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
-                    quotations += "<td>" + Quotations[i].AccountName + "</td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";
-                    quotations += "<td>" + Quotations[i].Country + "</td>";
+                    quotations += "<td>" + Quotations[i].CompanyName + "</td>";
                     quotations += "<td>" + Quotations[i].Mobile + "</td>";
                     quotations += "<td class='font-blue-soft'>" + Quotations[i].Email + "</td>";
                     quotations += "<td>" + Quotations[i].Country + "</td>";

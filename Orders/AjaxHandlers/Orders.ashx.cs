@@ -53,6 +53,9 @@ namespace Orders.AjaxHandlers
                     case "VerifyOrderStatuses":
                         VerifyOrderStatuses(context);
                         break;
+                    case "downloadOrderActivations":
+                        downloadOrderActivations(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -65,6 +68,51 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void downloadOrderActivations(HttpContext context)
+        {
+            byte productId = 0;
+            int accountId = 0;
+            string accountName = string.Empty;
+            string mobile = string.Empty;
+            string email = string.Empty;
+            string number = string.Empty;
+            byte orderStatus = 0;
+            byte billingMode = 1;
+            DateTime fromDateTime = DateTime.Now.Date;
+            DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
+            int pageNumber = 1;
+            byte limit = 20;
+
+            if (context.Request["ProductId"] != null && !byte.TryParse(context.Request["productId"].ToString(), out productId))
+                GenerateErrorResponse(400, string.Format("ProductId must be a number"));
+            if (context.Request["Number"] != null)
+                number = context.Request["Number"].ToString();
+            if (context.Request["AccountName"] != null)
+                accountName = context.Request["AccountName"].ToString();
+            if (context.Request["OrderStatus"] != null && !byte.TryParse(context.Request["OrderStatus"].ToString(), out orderStatus))
+                GenerateErrorResponse(400, string.Format("OrderStatus must be a number"));
+            if (context.Request["BillingMode"] != null && !byte.TryParse(context.Request["BillingMode"].ToString(), out billingMode))
+                GenerateErrorResponse(400, string.Format("BillingModeId must be a number"));
+            if (context.Request["mobile"] != null)
+                mobile = Convert.ToString(context.Request["mobile"]);
+            if (context.Request["email"] != null)
+                email = Convert.ToString(context.Request["email"]);
+            if (context.Request["FromDateTime"] != null)
+                fromDateTime = Convert.ToDateTime(context.Request["fromDateTime"]);
+            if (context.Request["ToDateTime"] != null)
+                toDateTime = Convert.ToDateTime(context.Request["ToDateTime"]);
+            
+            TablePreferences ordersTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> ordersDictionary = new Dictionary<string, TablePreferences>();
+            ordersDictionary.Add("Orders", ordersTablePreferences);
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, orderStatus: orderStatus,
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
+                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: ordersDictionary, isdownload: true));
+
         }
 
         private void GetOrderStatuses(HttpContext context)
@@ -124,7 +172,7 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetOrders(productId: productId, accountId: accountId, mobile: mobile, email: email, orderStatus: orderStatus,
                 number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
-                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: ordersDictionary));
+                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: ordersDictionary, isdownload: false));
         }
         private void GetOrderSummary(HttpContext context)
         {

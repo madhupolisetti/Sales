@@ -58,6 +58,9 @@ namespace Orders.AjaxHandlers
                     case "View":
                         View(context);
                         break;
+                    case "downloadPayments":
+                        downloadPayments(context);
+                        break;
                     case "VerifyPaymentStatuses":
                         VerifyPaymentStatuses(context);
                         break;
@@ -74,6 +77,49 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void downloadPayments(HttpContext context)
+        {
+            byte productId = 0;
+            int accountId = 0;
+            string accountName = string.Empty;
+            string mobile = string.Empty;
+            string email = string.Empty;
+            string number = string.Empty;
+            byte PaymentStatus = 0;
+            byte billingMode = 1;
+            DateTime fromDateTime = DateTime.Now.Date;
+            DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
+            int pageNumber = 1;
+            byte limit = 20;
+
+            if (context.Request["ProductId"] != null && !byte.TryParse(context.Request["productId"].ToString(), out productId))
+                GenerateErrorResponse(400, string.Format("ProductId must be a number"));
+            if (context.Request["Number"] != null)
+                number = context.Request["Number"].ToString();
+            if (context.Request["AccountName"] != null)
+                accountName = context.Request["AccountName"].ToString();
+            if (context.Request["PaymentStatus"] != null && !byte.TryParse(context.Request["PaymentStatus"].ToString(), out PaymentStatus))
+                GenerateErrorResponse(400, string.Format("OrderStatus must be a number"));
+            if (context.Request["BillingMode"] != null && !byte.TryParse(context.Request["BillingMode"].ToString(), out billingMode))
+                GenerateErrorResponse(400, string.Format("BillingModeId must be a number"));
+            if (context.Request["mobile"] != null)
+                mobile = Convert.ToString(context.Request["mobile"]);
+            if (context.Request["email"] != null)
+                email = Convert.ToString(context.Request["email"]);
+            if (context.Request["FromDateTime"] != null)
+                fromDateTime = Convert.ToDateTime(context.Request["fromDateTime"]);
+            if (context.Request["ToDateTime"] != null)
+                toDateTime = Convert.ToDateTime(context.Request["ToDateTime"]);
+            TablePreferences paymentsTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> paymentsDictionary = new Dictionary<string, TablePreferences>();
+            paymentsDictionary.Add("Payments", paymentsTablePreferences);
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: PaymentStatus,
+                number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
+                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary, isdownload: true));
         }
         private void GetBankAccounts(HttpContext context)
         {
@@ -238,7 +284,7 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.GetPayments(productId: productId, accountId: accountId, mobile: mobile, email: email, paymentStatus: paymentStatus,
                 number: number, billingMode: billingMode, fromDateTime: fromDateTime, toDateTime: toDateTime,
-                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary));
+                accountName: accountName, pageNumber: pageNumber, limit: limit, tablePreferences: paymentsDictionary, isdownload: false));
         }
 
         private void View(HttpContext context)

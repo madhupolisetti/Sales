@@ -88,6 +88,7 @@
                         <div>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnSearch" class="btn btn-success" style="width: 66px;" />
+                                <input type="button" value="Download" id="btn_downlaod" class="btn btn-success" style="width: 90px;" />
                                 <input type="button" value="Cancel" id="btnCancel" class="btn btn-default" style="width: 66px; margin-left: 0px;" />
                             </label>
                             <div class="clearfix"></div>
@@ -424,10 +425,10 @@
     <script src="JsFiles/daterangepicker.js"></script>
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v1" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v4" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v5" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');
