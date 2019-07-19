@@ -158,7 +158,7 @@
                                         <th></th>
                                         <th>Product Name</th>
                                         <th>Account Name</th>
-                                        <th>Contact Name</th>
+                                        <th>Company Name</th>
                                         <th>OwnerShip Name</th>
                                         <th>Mobile #</th>
                                         <th>Mail ID</th>

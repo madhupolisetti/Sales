@@ -104,7 +104,8 @@
                                         <%--  <th></th>--%>
                                         <th>Product Name</th>
                                         <th>Account Name</th>
-                                        <th>OwnerShip Name</th>
+                                        <th>Company Name</th>
+                                        <th>Ownership Name</th>                                        
                                         <th>Mobile #</th>
                                         <th>Invoice #</th>
                                         <th>Invoice Raised Date</th>

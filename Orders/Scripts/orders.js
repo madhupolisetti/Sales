@@ -2,7 +2,7 @@
 var ordersClient = new OrdersClient();
 var paymentStatusesLength = 7;
 $(document).ready(function () {
-
+    
     bindProducts()
     ordersClient.GetOrderStatuses(true, function (res) {
         if (res.Success == true) {
@@ -16,7 +16,7 @@ $(document).ready(function () {
     });
 
 
-    $("#defaultrange").daterangepicker();
+    $("#daterangetext").daterangepicker();
     searchData.PageNumber = globalPageNumber;
     searchData.Limit = 0;
     getOrders(searchData);
@@ -115,7 +115,8 @@ $(document).ready(function () {
                         ordersData += "<tr>";
                         ordersData += "<td>" + res.Orders[i].ProductName + "</td>";
                         ordersData += "<td><a class='nameHypClass'>" + res.Orders[i].AccountName + "</a></td>";
-                        ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].CompanyName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].OwnershipName + "</td>";
                         ordersData += "<td>" + res.Orders[i].Mobile + "</td>";
                         ordersData += "<td><a class='downloadInvoice' billmode='undefined' isbillgenerated='undefined' invoiceid='" + res.Orders[i].InvoiceId + "'>" + res.Orders[i].InvoiceNumber + "</a></td>";
                         ordersData += "<td>" + res.Orders[i].InvoiceRaisedTime + "</td>";
@@ -162,7 +163,7 @@ $(document).ready(function () {
 
                 }
                 else {
-                    ordersData = "<tr><td colspan='14'> No Orders Available </td></tr>";
+                    ordersData = "<tr><td colspan='15'> No Orders Available </td></tr>";
                 }
                 $("#data").html(ordersData);
             }
@@ -368,14 +369,14 @@ function ViewPaymentDetails(orderId) {
                         paymentDetailsTable += "</table>";
                     }
                     else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 3) {
-                        paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Client Company</th>";
+                        paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th>";
                         paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
                         for (var p = 0; p < paymentsWiseArray.length; p++) {
                             paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
-                            paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                            
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
                         }
@@ -389,7 +390,7 @@ function ViewPaymentDetails(orderId) {
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
-                            paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                            
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
                         }

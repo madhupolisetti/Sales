@@ -123,7 +123,7 @@ $(document).ready(function () {
                         payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProductName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
-                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].CompanyName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].OwnershipName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;' >" + res.Payments[i].Mobile + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].Email + "</td>";
