@@ -16,7 +16,8 @@ $(document).ready(function () {
     });
 
 
-    $("#defaultrange").daterangepicker();
+    $("#daterangetext").daterangepicker();
+    searchData.isdownload = false;
     searchData.PageNumber = globalPageNumber;
     searchData.Limit = 0;
     getOrders(searchData);
@@ -25,6 +26,12 @@ $(document).ready(function () {
         AddSearchData();
         getOrders(searchData);
     };
+    
+    $("#btn_download").click(function () {
+        searchData.isdownload = true;
+        AddSearchData();
+        getOrders(searchData);
+    });
 
     $("#btnsearch").click(function () {
         //searchData.BillingMode = $("#ddlBillMode").val();
@@ -36,6 +43,7 @@ $(document).ready(function () {
         //searchData.AccountName = $("#txtAccountName").val();
         //searchData.PageNumber = globalPageNumber;
         //searchData.Limit = globalPageSize;
+        searchData.isdownload = false;
         AddSearchData();
         getOrders(searchData);
     });
@@ -115,7 +123,8 @@ $(document).ready(function () {
                         ordersData += "<tr>";
                         ordersData += "<td>" + res.Orders[i].ProductName + "</td>";
                         ordersData += "<td><a class='nameHypClass'>" + res.Orders[i].AccountName + "</a></td>";
-                        ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].OwnershipName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].CompanyName + "</td>";
                         ordersData += "<td>" + res.Orders[i].Mobile + "</td>";
                         ordersData += "<td><a class='downloadInvoice' billmode='undefined' isbillgenerated='undefined' invoiceid='" + res.Orders[i].InvoiceId + "'>" + res.Orders[i].InvoiceNumber + "</a></td>";
                         ordersData += "<td>" + res.Orders[i].InvoiceRaisedTime + "</td>";

@@ -1,4 +1,5 @@
 ﻿var paymentSearchData = {};
+paymentSearchData.isdownload = false;
 var dateRange;
 var paymentsResponse = [];
 var paymentStatusesLength = 0;
@@ -30,12 +31,18 @@ $(document).ready(function () {
         AddSearchData();
         getPayments();
     };
-
-
+    
+    $("#btn_downlaod").click(function () {
+        paymentSearchData.AccountId = 0;
+        paymentSearchData.isdownload = true;
+        AddSearchData();
+        getPayments();
+    });
     $("#btnSearch").click(function () {
         //paymentSearchData.ProductId = $("#ddlProduct").val();
         //paymentSearchData.Number = $("#txtNumber").val();
         paymentSearchData.AccountId = 0;
+        paymentSearchData.isdownload = false;
         //paymentSearchData.Mobile = $("#txtMobile").val();
         //paymentSearchData.Email = $("#txtEmail").val();
         //paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();

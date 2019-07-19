@@ -67,6 +67,7 @@
                         </div>
                         <div class="text-right">
                             <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                            <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                             <input type="button" value="Cancel" id="btncancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                         </div>
 
@@ -105,6 +106,7 @@
                                         <th>Product Name</th>
                                         <th>Account Name</th>
                                         <th>OwnerShip Name</th>
+                                        <th>Company Name</th>
                                         <th>Mobile #</th>
                                         <th>Invoice #</th>
                                         <th>Invoice Raised Date</th>
