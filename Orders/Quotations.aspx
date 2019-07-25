@@ -483,18 +483,31 @@
                 $("#hdnMobile").val($(this).attr("mobile"));
 
             });
+
             $("#btnedit").click(function () {//To edit Quotation 
                 var statusId = $('.check_tool.Checked').attr("status");
+                var productId = $('.check_tool.Checked').attr("productid");
+                var isPostPaid = 0;
+                var quotationId = $("#hdnQuotationId").val()
+                var isBillMode = $("#hdnIsPostPaid").val();
+                if (isBillMode == "2") {
+                    isPostPaid = 1;
+                }
                 if (statusId == "2") {
                     ErrorNotifier("Invoice already raised for this quotation you can't edit");
                     return false;
                 }
-                var quotationId = $("#hdnQuotationId").val()
-                var isBillMode = $("#hdnIsPostPaid").val();
+               
                 var productId = 1;
                 var mobileNo = $("#hdnMobile").val();
-                getProductRelatedUserInformation(productId, mobileNo, quotationId, isBillMode);
+               // QuotationRelatedUserInformation(productId, '', mobileNo, quotationId, isBillMode, 0);
                 
+                ordersClient.GetQuotationDetails(quotationId, isPostPaid, function (res) {
+                    if (res.Success == true) {
+                        quotationData = res.Quotation;
+                       // formQuotationServicesData(quotationData);
+                    }
+                });
 
                 if (chkcount > 1 && headerhckBoxId == true) {
                     $('#quotationdetails').find('input[type=checkbox]:checked').removeAttr('checked');
@@ -657,7 +670,53 @@
 
             }
 
+            function QuotationRelatedUserInformation(productId, accountUrl, mobileNo, quotationId, billMode, quotationType) {
 
+                ordersClient.GetProductWiseAccountRelatedInformation(productId, accountUrl, mobileNo, function (res) {
+                    if (res.Success == true) {
+
+                        var accountId = res.UserDetails.AccountId;
+                        if (accountId == 0) {
+                            accountId = res.AccountId;
+                        }
+                        var QotationReqType = 1;
+
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "EditQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "AccountproductId", res.UserDetails.ProductAccountId);
+                        AddParameter($form, "address", res.UserDetails.Address);
+                        AddParameter($form, "state", res.UserDetails.StateId);
+                        AddParameter($form, "contactName", res.UserDetails.NickName);
+                        AddParameter($form, "company", res.UserDetails.Company);
+            
+                        AddParameter($form, "registeredDate", res.UserDetails.RegisteredDate);
+                        AddParameter($form, "email", res.UserDetails.EmailID);
+                        AddParameter($form, "mobile", res.UserDetails.MobileNumber);
+                        AddParameter($form, "gstin", res.UserDetails.GSTIN);
+                        if (typeof res.UserDetails.Country === 'undefined' || res.UserDetails.Country == "") {
+                            AddParameter($form, "country", res.UserDetails.CountryId);
+                        }
+                        else if (typeof res.UserDetails.CountryId === 'undefined' || res.UserDetails.CountryId == "")
+                        {
+                            AddParameter($form, "country", res.UserDetails.Country);
+                        }
+                        AddParameter($form, "isFirstTime", res.IsFirstTime);
+                        AddParameter($form, "BillMode", billMode);
+                        AddParameter($form, "QuotationId", quotationId);
+                        AddParameter($form, "QuotationType", quotationType);
+                        AddParameter($form, "AccountOwner", res.UserDetails.OwnerShip);
+                        $form[0].submit();
+
+                    }
+                });
+            }
 
         });
 

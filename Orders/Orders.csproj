@@ -229,6 +229,7 @@
     <Content Include="CssFiles\style.css" />
     <Content Include="CssFiles\toastr.min.css" />
     <Content Include="Dashboard.aspx" />
+    <Content Include="EditQuotation.aspx" />
     <Content Include="Exception_Logs\%28null%29.txt" />
     <Content Include="fonts\fontawesome-webfont.svg" />
     <Content Include="Global.asax" />
@@ -370,6 +371,13 @@
     </Compile>
     <Compile Include="Dashboard.aspx.designer.cs">
       <DependentUpon>Dashboard.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="EditQuotation.aspx.cs">
+      <DependentUpon>EditQuotation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="EditQuotation.aspx.designer.cs">
+      <DependentUpon>EditQuotation.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

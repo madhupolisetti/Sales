@@ -24,7 +24,9 @@ namespace Orders
 
                 if (accessRole == OC.Role.SUPER_USER ||                  
                     accessRole == OC.Role.ACCOUNTS ||
-                    accessRole == OC.Role.ACCOUNTS_MANAGER)
+                    accessRole == OC.Role.ACCOUNTS_MANAGER||
+                     accessRole == OC.Role.IT_SOFTWARE ||
+                    accessRole == OC.Role.IT_SOFTWARE_TL)
                 {
 
                 }
