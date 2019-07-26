@@ -16,15 +16,22 @@ $(document).ready(function () {
     });
 
 
-    $("#defaultrange").daterangepicker();
+    $("#daterangetext").daterangepicker();
+    searchData.isdownload = false;
     searchData.PageNumber = globalPageNumber;
     searchData.Limit = 0;
     getOrders(searchData);
     globalFunction = function () {
-
+        searchData.isdownload = false;
         AddSearchData();
         getOrders(searchData);
     };
+
+    $("#btn_download").click(function () {
+        searchData.isdownload = true;
+        AddSearchData();
+        getOrders(searchData);
+    });
 
     $("#btnsearch").click(function () {
         //searchData.BillingMode = $("#ddlBillMode").val();
@@ -36,6 +43,7 @@ $(document).ready(function () {
         //searchData.AccountName = $("#txtAccountName").val();
         //searchData.PageNumber = globalPageNumber;
         //searchData.Limit = globalPageSize;
+        searchData.isdownload = false;
         AddSearchData();
         getOrders(searchData);
     });
@@ -91,8 +99,16 @@ $(document).ready(function () {
 
         if (dateRange == "This Month") {
             var date = new Date();
-            ordersSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-            ordersSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+            var from = new Date(date.getFullYear(), date.getMonth(), 1);
+            from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+            var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+            to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+            ordersSearchData.FromDateTime = from;
+            
+            ordersSearchData.ToDateTime = to;
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -107,7 +123,8 @@ $(document).ready(function () {
                         ordersData += "<tr>";
                         ordersData += "<td>" + res.Orders[i].ProductName + "</td>";
                         ordersData += "<td><a class='nameHypClass'>" + res.Orders[i].AccountName + "</a></td>";
-                        ordersData += "<td>" + res.Orders[i].AccountName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].CompanyName + "</td>";
+                        ordersData += "<td>" + res.Orders[i].OwnershipName + "</td>";
                         ordersData += "<td>" + res.Orders[i].Mobile + "</td>";
                         ordersData += "<td><a class='downloadInvoice' billmode='undefined' isbillgenerated='undefined' invoiceid='" + res.Orders[i].InvoiceId + "'>" + res.Orders[i].InvoiceNumber + "</a></td>";
                         ordersData += "<td>" + res.Orders[i].InvoiceRaisedTime + "</td>";
@@ -115,6 +132,7 @@ $(document).ready(function () {
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";
                         ordersData += "<td>" + res.Orders[i].PaymentStatus + "</td>";
                         ordersData += "<td>" + res.Orders[i].DueDate + "</td>";
+                        ordersData += "<td>" + res.Orders[i].PaymentMode + "</td>";
                         ordersData += "<td><select id='" + res.Orders[i].OrderId + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'";
                         if (res.Orders[i].PaymentStatusId == "1") {
                             ordersData += "><option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
@@ -130,7 +148,7 @@ $(document).ready(function () {
                         
                         //if (res.Orders[i].ActivationStatus != "3") {
                             ordersData += "<td class='activation' >";
-                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
+                            ordersData += "<span id='active_" + res.Orders[i].OrderId + "'><input type='button' ProductAccountId='" + res.Orders[i].ProductAccountId + "' TotalAmt='" + res.Orders[i].TotalAmount + "' OrderAmount='" + res.Orders[i].OrderAmount + "' dueamount='" + res.Orders[i].DueAmount + "' AmountPaid='" + res.Orders[i].ReceivedAmount + "' ActivationCallBackUrl='" + res.Orders[i].ActivationCallBackUrl + "' InvoiceNumber='" + res.Orders[i].InvoiceNumber + "' OrderId='" + res.Orders[i].OrderId + "' BillingModeId='" + res.Orders[i].BillingModeId + "' QuotationId='" + res.Orders[i].QuotationId + "' class='btnActivation btn-link' id='360' value='" + res.Orders[i].ActivationStatus + "' metadata='' accountid='" + res.Orders[i].AccountId + "' taxAmount='" + res.Orders[i].TaxAmount + "' activationAmount='" + res.Orders[i].ActivationAmount + "'></span>"
                             ordersData += "</td>";
                         //}
                         //else {
@@ -153,7 +171,7 @@ $(document).ready(function () {
 
                 }
                 else {
-                    ordersData = "<tr><td colspan='14'> No Orders Available </td></tr>";
+                    ordersData = "<tr><td colspan='15'> No Orders Available </td></tr>";
                 }
                 $("#data").html(ordersData);
             }
@@ -175,7 +193,9 @@ $(document).ready(function () {
         var totalAmount = $(this).attr("TotalAmt");
         var amountPaid = $(this).attr("AmountPaid");
         var orderAmount = $(this).attr("OrderAmount");
-        var pendingAmount = totalAmount - amountPaid;
+        
+        var taxAmount = $(this).attr("taxAmount");
+        var pendingAmount = $(this).attr("dueamount");
         var pendingAmountToActivate = orderAmount - activatedAmount;
         
         
@@ -184,17 +204,20 @@ $(document).ready(function () {
         $("#btnActivate").attr("OrderId", orderId);
         $("#btnActivate").attr("ActivationCallBackUrl", activationUrl);
         $("#btnActivate").attr("ProductAccountId", productAccountId);
-        $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);
+        $("#btnActivate").attr("pendingActivationAmount", pendingAmountToActivate);             
+        $("#btnActivate").attr("taxAmount", taxAmount);
         //$("#btnActivate").attr("activationAmount", activationAmount);
         var service = '';
         ordersClient.GetQuotationServices(quotationId, billingMode, true, function (res) {
             console.log(res);
             var quotationServices = "";
             if (res.Success == true) {
-                quotationServices += "<label style='padding-left:100px;'><strong>Total Amount : </strong></label><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
-                quotationServices += "<label style='padding-left:100px;'><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
-                quotationServices += "<label style='padding-left : 100px;'><strong>Due :</strong></label > <label  class='label label-warning label-sm'>  <b>" + pendingAmount + "</b> </label> </br>"
-                quotationServices += "<table class='table table-bordered margin-top-20 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th><th>Order Amount</th>";
+                quotationServices += "<label style='padding-left:20px;'><strong>Order Amount : </strong></label></td><td><label  class='label label-info label-sm '><b>" + orderAmount + "</b> </label>"
+                quotationServices += "<label style='padding-left:20px;' ><strong>Tax Amount : </strong></label></td><td><label  class='label label-warning label-sm '><b>" + taxAmount + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Total Amount : </strong></label></td><td><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
+                quotationServices += "<label style='padding-left:20px;' ><strong>Due :</strong></label > <label  class='label label-danger label-sm'>  <b>" + pendingAmount + "</b> </label> "
+                quotationServices += "<table class='table table-bordered margin-top-40 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th>";
                 quotationServices += "<th >Amount Activated</th> <th >Pending Amount to Activate</th> </tr></thead>"
                 for (var i = 0; i < res.QuotationServices.length; i++) {
 
@@ -202,7 +225,7 @@ $(document).ready(function () {
                         service = "PerMinutePlan";
                         //quotationServices += "<input type='checkbox' IsPerMinutePlan='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;</br>"
                         quotationServices += "<tr><td><label IsPerMinutePlan='True' class='LabelQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'>" + res.QuotationServices[i].Service + " </label></td>"
-                        quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td><td>" + orderAmount + "</td>"
+                        quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td>"
                         quotationServices += "<td>" + activatedAmount + "</td><td>" + pendingAmountToActivate + "</td>"
                     }
                     else {
@@ -238,6 +261,7 @@ $(document).ready(function () {
         var quotationServiceProperties = [];
         var productAccountId = parseFloat($(this).attr("ProductAccountId"));
         var pendingActivationAmount = $(this).attr("pendingActivationAmount");
+        var taxAmount = $(this).attr("taxAmount");
         //var activatePercentage = $(this).attr("activatePercentage");
         var activationAmount = parseFloat($("#activationAmount").val().trim());
         var isPostPaid = false;
@@ -353,14 +377,14 @@ function ViewPaymentDetails(orderId) {
                         paymentDetailsTable += "</table>";
                     }
                     else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 3) {
-                        paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Client Company</th>";
+                        paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th>";
                         paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
                         for (var p = 0; p < paymentsWiseArray.length; p++) {
                             paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
-                            paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                            
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
                         }
@@ -374,7 +398,7 @@ function ViewPaymentDetails(orderId) {
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Name + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].BankName + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].DepositDate + "</td>";
-                            paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
+                            
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Amount + "</td>";
                             paymentDetailsTable += "<td>" + paymentsWiseArray[p].Comments + "</td></tr>";
                         }

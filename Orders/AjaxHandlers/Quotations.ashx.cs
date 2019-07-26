@@ -70,6 +70,9 @@ namespace Orders.AjaxHandlers
                     case "GetQuotationServiceProperties":
                         GetQuotationServiceProperties(context);
                         break;
+                    case "downloadQuotations":
+                        downloadQuotations(context);
+                        break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
                         break;
@@ -85,6 +88,55 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void downloadQuotations(HttpContext context)
+        {
+            byte productId = 0;
+            int quotationId = 0;
+            string quotationNumber = string.Empty;
+            string accountName = string.Empty;
+            string mobile = string.Empty;
+            string email = string.Empty;
+            int accountId = 0;
+            int employeeId = Convert.ToInt32(context.Session["AdminId"]);
+            int ownerShipId = 0;
+            byte statusId = 0;
+            sbyte channelId = 0;
+            string ipAddress = string.Empty;
+            byte billingModeId = 1;
+            DateTime fromDateTime = DateTime.Now.Date;
+            DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
+            int pageNumber = 1;
+            byte limit = 20;
+            if (context.Request["ProductId"] != null && !byte.TryParse(context.Request["productId"].ToString(), out productId))
+                GenerateErrorResponse(400, string.Format("ProductId must be a number"));
+            if (context.Request["QuotationNumber"] != null)
+                quotationNumber = context.Request["QuotationNumber"].ToString();
+            if (context.Request["AccountName"] != null)
+                accountName = context.Request["AccountName"].ToString();
+            if (context.Request["StatusId"] != null && !byte.TryParse(context.Request["StatusId"].ToString(), out statusId))
+                GenerateErrorResponse(400, string.Format("StatusId must be a number"));
+            if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
+                GenerateErrorResponse(400, string.Format("BillingModeId must be a number"));
+            if(context.Request["mobile"] != null)
+                mobile = Convert.ToString(context.Request["mobile"]);
+            if (context.Request["email"] != null)
+                email = Convert.ToString(context.Request["email"]);
+            if (context.Request["FromDateTime"] != null)                
+                fromDateTime = Convert.ToDateTime(context.Request["fromDateTime"]);
+            if (context.Request["ToDateTime"] != null)
+                toDateTime = Convert.ToDateTime(context.Request["ToDateTime"]);
+
+            TablePreferences quotationTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> quotationsDictionary = new Dictionary<string, TablePreferences>();
+            quotationsDictionary.Add("Quotations", quotationTablePreferences);
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
+                employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: quotationsDictionary, isdownload: true));
+        
         }
         private void GetQuotationStatuses(HttpContext context)
         {
@@ -163,7 +215,7 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.GetQuotations(productId: productId, quotationId: quotationId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
                 billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
-                mobile: mobile, email: email, accountName: accountName, tablePreferences: quotationsDictionary));
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: quotationsDictionary, isdownload: false));
         }
         private void GetQuotationDetails(HttpContext context)
         {

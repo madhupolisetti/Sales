@@ -10,6 +10,9 @@ $(document).ready(function () {
     var mobile = $("#hdnMobileNo").val();
     var countryId = $("#hdnCountryId").val();
     var stateId = $("#hdnStateId").val();
+    var accessRole = $("#hdnAccessRole").val();
+    //if (accessRole == "SUPER_USER")
+    //    $("#btnUpdate").show();           
     var isPostPaid = 0;
     ordersClient.GetCountries(function (res) {
         if (res.Success == true) {

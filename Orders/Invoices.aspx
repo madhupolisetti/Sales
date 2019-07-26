@@ -70,6 +70,7 @@
                             <label class="pull-left"><a id="btnAddNewQuotation" style="display:none;" class="btn margin-right-10 color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnSearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                                <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                                 <input type="button" value="Cancel" id="btnCancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                             </label>
                             <div class="clearfix"></div>
@@ -87,9 +88,8 @@
                                 <span class="margin-right-10">Show Entries :</span>
                                 <label>
                                     <select id="dropPages" class="form-control input-inline" name="Quotation-Details-Length" aria-controls="reportstable">
-                                         <option value="10">10</option>
-                                        <option value="20">20</option>
-                                        <option value="50">50</option>
+                                        <option value="10">10</option>                                        <option value="20">20</option>
+										<option value="20">20</option>                                        <option value="50">50</option>
                                     </select>
 
                                 </label>
@@ -128,7 +128,7 @@
                                     <th></th>
                                     <th>Product Name</th>
                                     <th>Account Name</th>
-                                    <th>Contact Name</th>
+                                    <th>Company Name</th>
                                     <th>OwnerShip Name</th>
                                     <th>Mobile #</th>
                                     <th>Mail ID</th>
@@ -153,7 +153,7 @@
             <div id="MetaData"></div>
         </div>
     <div class="modal fade in" id="createQuotation" tabindex="-1" aria-hidden="true" style="position: absolute;">
-        <div class="modal-dialog">
+        <div class="modal-dialog" >
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title" style="padding-left: 150px;"><b>Create Quotation</b></h4>
@@ -214,6 +214,96 @@
         </div>
         <!-- /.modal-dialog -->
     </div>
+
+         <div class="modal fade in" id="editInvoice" tabindex="-1" aria-hidden="true" style="position: absolute;">
+        <div class="modal-dialog" style="width:700px;">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h4 class="modal-title" style="padding-left: 150px;"><b>Update Invoice : <span id="InvoiceNumber"></span></b></h4>
+    </div>
+                <div class="modal-body">
+        <div class="table-responsive">
+
+                        <table class="table no-border table-head">
+                            <tr>
+                               <%-- <td class="col-sm-4">
+                                    <label>Registered Date</label>
+                                    <input type="text" id="txtRegisteredDate" name ="RegisteredDate" class="txtRegisteredDate form-control updateValues"  />
+                                </td>--%>
+
+                                <td class="col-sm-4">
+                                    <label>Company/Business Name</label>
+                                    <input type="text" id="txtCompanyNameEdit" name="CompanyName" class="txtCompanyName form-control updateValues"  />
+                                </td>
+                                  <td>
+                                    <label>Business Mail ID</label>
+                                    <input type="text" id="txtBusinessMailIDEdit" name ="BusinessMailID" class="txtBusinessMailID form-control updateValues" />
+                                </td>
+
+                                <td>
+                                    <label>Mobile</label>
+                                    <input type="text" id="txtMobileEdit" name ="Mobile" class="txtMobile form-control updateValues" />
+                                </td>
+                                <%--<td class="col-sm-4">
+                                    <label>Contact Name</label>
+                                    <input type="text" id="txtContactName" name ="ContactName" class="txtContactName form-control updateValues" />
+                                </td>--%>
+                            </tr>
+
+                            <tr>
+
+
+                              
+                                <td>
+                                    <%--<label>Alternate Mobile / Landline</label>
+                                    <input type="text" id="txtAlternateMobile" class="txtAlternateMobile form-control" />--%>
+                                    <label>GSTIN</label>
+                                    <input type="text" id="txtGSTINEdit"  name ="GSTIN" class="updateValues txtGSTIN form-control" />
+                                </td>
+                                <td colspan="2">
+                                    <label>Address</label>
+                                    <textarea id="txtContactAddressEdit" name ="ContactAddress" class="txtContactAddress form-control updateValues" rows="3" cols="5"></textarea>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <%--<label>Country</label>
+                                    <select id="ddlCountry" class="ddlCountry form-control updateValues" name="Country">
+                                    </select><br />--%>
+                                    <label id="lblstate" >State</label>
+                                    <select id="stateEdit" class="form-control updateValues" name="States">
+                                    </select>
+                                </td>
+                                
+
+                            </tr>
+                         <%--   <tr>
+                                <td>
+                                    <label>Account Owner</label>
+                                    <select id="ddlAccountOwner" name ="AccountOwner" class="ddlCountry form-control updateValues" name="AccountOwner">
+                                    </select><br />
+
+                                </td>
+                                <td style ="display:none;">
+                                    <label>Plans</label>
+                                    <select id="ddlRechargeType" name ="RechargeType" class="ddlCountry form-control updateValues" name="RechargeType"></select><br />
+                                </td>
+                                
+
+                            </tr>--%>
+                        </table>
+                    </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <input type="button" value="Update Details"  id="btnUpdateEdit" class="btn btn-primary"/>&nbsp;
+                    <button id="btnCloseEdit" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                </div>
+                </div>
+            </div>
+             </div>
     </div>
 
 </asp:Content>
@@ -221,10 +311,11 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=2" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=4"></script>
     <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Invoices');
@@ -241,25 +332,45 @@
             dateRange = $("#txtDateRange").val();
             if(accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER")
             {
-                $('#btnCancelInvoice').addClass("enable-icn");
+                $('#btnCancelInvoice,#btnEdit').addClass("enable-icn");
+                
             }
             else
                 $('#btnCancelInvoice').attr("class", "disable-icn");
 
             $("#btnDownload,#btnView,#btnCreate,#btnPayment").attr("class", "enable-icn");
-            $("#btnEdit,#btndelete").attr("class", "disable-icn");
+            $("#btndelete").attr("class", "disable-icn");
             bindProducts();
             bindInvoiceStatuses();
             invoiceSearchData.PageNumber = globalPageNumber;
             invoiceSearchData.Limit = globalPageSize;
            
-            getInvoices();
+
+            getInvoices(false);
             globalFunction = function () {
                 //invoiceSearchData.PageNumber = globalPageNumber;
                 //invoiceSearchData.Limit = globalPageSize;
                 AddSearchData();
-                getInvoices();
+                getInvoices(false);
             };
+
+            
+
+            ordersClient.GetStates(true, function (res) {
+                if (res.Success == true) {
+                    var states = "";
+                    if (res.States.length > 0) {
+                        states = "<option value=0>Select</option>";
+                        for (var i = 0; i < res.States.length; i++) {
+                            states += "<option value='" + res.States[i].Id + "' >" + res.States[i].State + "</option>";
+                        }
+                        $("#stateEdit").html(states);
+                        //$("#state option[value='" + $("#hdnStateId").val() + "']").prop('selected', true);
+                    }
+                }
+            })
+
+            
 
             $("#btnAddNewQuotation,#btncreate").click(function () {
                 $("#createQuotation").modal("show");
@@ -313,6 +424,68 @@
                     return ;
                 }
             });
+            //Edit Invoice
+            $("#btnEdit").click(function () {
+                var quotationId = $('.check_tool.Checked').attr("QuotationId");
+                var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
+                var billMode = $('.check_tool.Checked').attr("BillMode");
+                clearEditInvoiceDetails();
+                $('#InvoiceNumber').text($('.check_tool.Checked').attr("InvoiceNo"));
+                
+                if(quotationId){
+                    //getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0, quotationType);
+                    ordersClient.getInvoiceAccountDetails(invoiceId, function (res) {
+                        if(res.Success==true){
+                            $('#txtCompanyNameEdit').val(res.InvoiceAccountDetails.CompanyName);
+                            $('#txtBusinessMailIDEdit').val(res.InvoiceAccountDetails.EmailID);
+                            $('#txtMobileEdit').val(res.InvoiceAccountDetails.MobileNumber);
+                            $('#txtGSTINEdit').val(res.InvoiceAccountDetails.GSTIN);
+                            $('#txtContactAddressEdit').val(res.InvoiceAccountDetails.Address);
+                            $("#stateEdit option[value='" + res.InvoiceAccountDetails.StateId + "']").prop('selected', true);
+                            $("#btnUpdateEdit").attr('invoiceId',invoiceId);
+                            $('#editInvoice').modal('show');
+                        }
+                        else
+                        {
+                            ErrorNotifier(res.Message);
+                        }
+                    });
+                    
+                }
+                else
+                {
+                    alert("Select an Invoice to edit!");
+                    return ;
+                }
+            });
+
+            $("#btnUpdateEdit").click(function (res) {
+                var invoiceId=$(this).attr('invoiceId');
+                var userDetails = {};
+        
+                $(".updateValues").each(function () {
+                    console.log($(this));
+                    if ($(this)[0].nodeName == "SELECT" || $(this)[0].nodeName == "TEXTAREA") {
+              
+                        userDetails[$(this).attr("name")] = $(this)[0].value;
+                    }
+                    else
+                    {
+                        userDetails[$(this).attr("name")] = $(this).val();
+
+                    }
+              
+                });
+                userDetails["InvoiceId"] = invoiceId;
+                
+                ordersClient.UpdateInvoice(userDetails, function (res) {
+                    if (res.Success == true) {
+                        alert("Invoice Updated Successfully.");
+                        window.location.reload();
+
+                    }
+                });
+            });
             // Download Invoice
             $("#btnDownload").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
@@ -344,8 +517,14 @@
                 //invoiceSearchData.AccountName = $("#txtAccountName").val();
               
                 AddSearchData();
-                getInvoices();
+                getInvoices(false);
             });
+
+            //download searched invoices
+            $('#btn_download').click(function () {
+                AddSearchData();                
+                getInvoices(true);
+            })
 
             //cancel Invoice
             $('#btnCancelInvoice').click(function () {
@@ -364,7 +543,7 @@
                         alert('The Invoice "'+invoiceNo+'" is cancelled');
                         
                     });
-                    getInvoices();}
+                    getInvoices(false);}
                 else
                     alert('Select an Invoice to Cancel!');
             })
@@ -403,6 +582,17 @@
 
             }
 
+            function clearEditInvoiceDetails(){
+                $('#txtCompanyNameEdit').val('');
+                $('#txtBusinessMailIDEdit').val('');
+                $('#txtMobileEdit').val('');
+                $('#txtGSTINEdit').val('');
+                $('#txtContactAddressEdit').val('');
+                $("#stateEdit option[value='" + 0 + "']").prop('selected', true);
+                $("#btnUpdateEdit").attr('invoiceId','');
+                $('#InvoiceNumber').text('');
+            }
+
             function bindInvoiceStatuses() {
                 var invoiceStatusesData = "<option value='0'>--- All ---</option>";
                 ordersClient.GetInvoiceStatuses(true, function (res) {
@@ -424,17 +614,24 @@
 
             }
             
-            function getInvoices() {
+            function getInvoices(isdownload) {
                 if (dateRange == "This Month") {
                     var date = new Date();
-                    invoiceSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-                    invoiceSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    var from = new Date(date.getFullYear(), date.getMonth(), 1);
+                    from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+                    var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+                    to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+                    invoiceSearchData.FromDateTime = from;
+                    invoiceSearchData.ToDateTime = to;
                 }
                 else {
                     var fromDateT0date = dateRange.split("-");
                     invoiceSearchData.FromDateTime = fromDateT0date[0];
                     invoiceSearchData.ToDateTime = fromDateT0date[1];
                 }
+                invoiceSearchData.isdownload = isdownload;
                 ordersClient.GetInvoices(invoiceSearchData, function (res) {
                     if (res.Success == true) {
                         if (res.Invoices.length > 0) {
@@ -456,10 +653,10 @@
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {
-                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
                     invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
-                    invoicesData += "<td>" + Invoices[i].AccountName + "</td>";
+                    invoicesData += "<td>" + Invoices[i].CompanyName + "</td>";
                     invoicesData += "<td>" + Invoices[i].OwnerShipName + "</td>";
                     invoicesData += "<td>" + Invoices[i].Mobile + "</td>";
                     invoicesData += "<td class='font-blue-soft'>" + Invoices[i].Email + "</td>";

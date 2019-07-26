@@ -1,4 +1,5 @@
 ﻿var paymentSearchData = {};
+
 var dateRange;
 var paymentsResponse = [];
 var paymentStatusesLength = 0;
@@ -23,19 +24,25 @@ $(document).ready(function () {
     
     paymentSearchData.PageNumber = globalPageNumber;
     paymentSearchData.Limit = 0;
-
+    paymentSearchData.isdownload = false;
     getPayments();
     globalFunction = function () {
-        
+        paymentSearchData.isdownload = false;
         AddSearchData();
         getPayments();
     };
-
-
+    
+    $("#btn_downlaod").click(function () {
+        paymentSearchData.AccountId = 0;
+        paymentSearchData.isdownload = true;
+        AddSearchData();
+        getPayments();
+    });
     $("#btnSearch").click(function () {
         //paymentSearchData.ProductId = $("#ddlProduct").val();
         //paymentSearchData.Number = $("#txtNumber").val();
         paymentSearchData.AccountId = 0;
+        paymentSearchData.isdownload = false;
         //paymentSearchData.Mobile = $("#txtMobile").val();
         //paymentSearchData.Email = $("#txtEmail").val();
         //paymentSearchData.PaymentStatus = $("#ddlOrderStatus :selected").val();
@@ -97,8 +104,15 @@ $(document).ready(function () {
         var ordersClient = new OrdersClient();
         if (dateRange == "This Month") {
             var date = new Date();
-            paymentSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-            paymentSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+            var from = new Date(date.getFullYear(), date.getMonth(), 1);
+            from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+            var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+            to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+            paymentSearchData.FromDateTime = from;
+            paymentSearchData.ToDateTime = to;
         }
         else {
             var fromDateT0date = dateRange.split("-");
@@ -116,7 +130,7 @@ $(document).ready(function () {
                         payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProductName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
-                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].CompanyName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].OwnershipName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;' >" + res.Payments[i].Mobile + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].Email + "</td>";
@@ -126,9 +140,10 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentStatus + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentMode + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].LastPaidDate + "</td>";
                         
-                        payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
+                        //payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
                         payments += "<td>" + res.Payments[i].ActivationStatus + "</td></tr>";
                     }
                 }

@@ -22,15 +22,11 @@ namespace Orders
             {
                 accessRole = (OC.Role)Session["AccessRole"];
 
-                if (accessRole == OC.Role.SUPER_USER ||
-                   accessRole == OC.Role.CRM_TL ||
-                   accessRole == OC.Role.CRM ||
-                   accessRole == OC.Role.IT_SOFTWARE ||
-                   accessRole == OC.Role.IT_SOFTWARE_TL ||
-                    accessRole == OC.Role.SALES ||
-                    accessRole == OC.Role.SALES_TL ||
+                if (accessRole == OC.Role.SUPER_USER ||                  
                     accessRole == OC.Role.ACCOUNTS ||
-                    accessRole == OC.Role.ACCOUNTS_MANAGER)
+                    accessRole == OC.Role.ACCOUNTS_MANAGER||
+                     accessRole == OC.Role.IT_SOFTWARE ||
+                    accessRole == OC.Role.IT_SOFTWARE_TL)
                 {
 
                 }

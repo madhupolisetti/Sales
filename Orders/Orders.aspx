@@ -67,6 +67,7 @@
                         </div>
                         <div class="text-right">
                             <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                            <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                             <input type="button" value="Cancel" id="btncancel" class="btn btn-default" style="width: 66px; margin-left: 11px;" />
                         </div>
 
@@ -104,7 +105,8 @@
                                         <%--  <th></th>--%>
                                         <th>Product Name</th>
                                         <th>Account Name</th>
-                                        <th>OwnerShip Name</th>
+                                        <th>Company Name</th>
+                                        <th>Ownership Name</th>                                        
                                         <th>Mobile #</th>
                                         <th>Invoice #</th>
                                         <th>Invoice Raised Date</th>
@@ -113,8 +115,10 @@
                                         <th>Total Amount</th>
                                         <th>Payment Status</th>
                                         <th>Due Date</th>
+                                        <th>Payment Modes</th>
                                         <th>Account Status</th>
                                         <th>Order Status</th>
+                                        
                                         <%--<th>Activation</th>--%>
                                         <th>Comments</th>
                                         <%--<th>Order Actions</th>--%>
@@ -227,8 +231,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
-    <script src="Scripts/orders.js?type=v3" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v5" type="text/javascript"></script>
+    <script src="Scripts/orders.js?type=v5" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

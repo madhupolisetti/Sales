@@ -109,6 +109,7 @@
                             <label class="pull-left"><a id="btnAddNewQuotation" style="" class="btn color-green"><i class="fa fa-plus"></i>Create New Quotation</a></label>
                             <label class="pull-right">
                                 <input type="button" value="Search" id="btnsearch" class="btn btn-success" style="width: 66px; margin-left: 10px;" />
+                                <input type="button" value="Download" id="btn_download" class="btn btn-success" style="width: 90px; margin-left: 10px;" />
                                 <input type="button" value="Cancel" id="btncancel" class="btn btn-default btn-3" style="width: 66px; margin-left: 11px;" />
                             </label>
                             <div class="clearfix"></div>
@@ -173,7 +174,6 @@
                                         <th></th>
                                         <th>Product Name</th>
                                         <th>Account Name</th>
-                                        <th>Contact Name</th>
                                         <th>OwnerShip Name</th>
                                         <th>Company Name</th>
                                         <th>Mobile #</th>
@@ -291,7 +291,7 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=1" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=18july" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=3"></script>
     <script type="text/javascript">
         $(function () {
@@ -302,6 +302,7 @@
             
             //  var globalFunction = globalFunction || {};
             var quotationSearchData = {};
+            quotationSearchData.isdownload = false;
             var dateRange = "";
             var webUrl = $("#hdnWebUrl").val();
             var ordersClient = new OrdersClient();
@@ -320,10 +321,16 @@
                 //quotationSearchData.PageNumber = globalPageNumber;
                 //quotationSearchData.Limit = globalPageSize;
                 AddSearchData();
+                quotationSearchData.isdownload = false;
                 getQuotations();
             };
 
 
+            $("#btn_download").click(function () {
+                AddSearchData();
+                quotationSearchData.isdownload = true;
+                getQuotations();
+            });
 
             $("#btnsearch").click(function () {
                 // globalPageSize = 10, globalPageNumber = 1;
@@ -337,6 +344,7 @@
 
                 //quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 //quotationSearchData.AccountName = $("#txtAccountName").val();
+                quotationSearchData.isdownload = false;
                 AddSearchData();
                 getQuotations();
             });
@@ -436,6 +444,7 @@
                 if(quotationId){
                     ordersClient.DeleteQuotation(quotationId, false, function (res) {
                         if (res.Success == true) {
+                            quotationSearchData.isdownload = false;
                             SuccessNotifier(res.Message)
                             getQuotations();
                         }
@@ -474,18 +483,31 @@
                 $("#hdnMobile").val($(this).attr("mobile"));
 
             });
+
             $("#btnedit").click(function () {//To edit Quotation 
                 var statusId = $('.check_tool.Checked').attr("status");
+                var productId = $('.check_tool.Checked').attr("productid");
+                var isPostPaid = 0;
+                var quotationId = $("#hdnQuotationId").val()
+                var isBillMode = $("#hdnIsPostPaid").val();
+                if (isBillMode == "2") {
+                    isPostPaid = 1;
+                }
                 if (statusId == "2") {
                     ErrorNotifier("Invoice already raised for this quotation you can't edit");
                     return false;
                 }
-                var quotationId = $("#hdnQuotationId").val()
-                var isBillMode = $("#hdnIsPostPaid").val();
+               
                 var productId = 1;
                 var mobileNo = $("#hdnMobile").val();
-                getProductRelatedUserInformation(productId, mobileNo, quotationId, isBillMode);
+               // QuotationRelatedUserInformation(productId, '', mobileNo, quotationId, isBillMode, 0);
                 
+                ordersClient.GetQuotationDetails(quotationId, isPostPaid, function (res) {
+                    if (res.Success == true) {
+                        quotationData = res.Quotation;
+                       // formQuotationServicesData(quotationData);
+                    }
+                });
 
                 if (chkcount > 1 && headerhckBoxId == true) {
                     $('#quotationdetails').find('input[type=checkbox]:checked').removeAttr('checked');
@@ -585,8 +607,14 @@
 
                 if (dateRange == "This Month") {
                     var date = new Date();
-                    quotationSearchData.FromDateTime = new Date(date.getFullYear(), date.getMonth(), 1);
-                    quotationSearchData.ToDateTime = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+                    var from = new Date(date.getFullYear(), date.getMonth(), 1);
+                    from.setMinutes(from.getMinutes() - from.getTimezoneOffset());
+
+                    var to = new Date(date.getFullYear(), date.getMonth() + 1, 1);
+                    to.setMinutes(to.getMinutes() + to.getTimezoneOffset());
+
+                    quotationSearchData.FromDateTime =from;
+                    quotationSearchData.ToDateTime = to;
 
                 }
                 else {
@@ -619,9 +647,8 @@
                     quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1' mobile='" + Quotations[i].Mobile + "'/></td>";
                     quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
-                    quotations += "<td>" + Quotations[i].AccountName + "</td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";
-                    quotations += "<td>" + Quotations[i].Country + "</td>";
+                    quotations += "<td>" + Quotations[i].CompanyName + "</td>";
                     quotations += "<td>" + Quotations[i].Mobile + "</td>";
                     quotations += "<td class='font-blue-soft'>" + Quotations[i].Email + "</td>";
                     quotations += "<td>" + Quotations[i].Country + "</td>";
@@ -643,7 +670,53 @@
 
             }
 
+            function QuotationRelatedUserInformation(productId, accountUrl, mobileNo, quotationId, billMode, quotationType) {
 
+                ordersClient.GetProductWiseAccountRelatedInformation(productId, accountUrl, mobileNo, function (res) {
+                    if (res.Success == true) {
+
+                        var accountId = res.UserDetails.AccountId;
+                        if (accountId == 0) {
+                            accountId = res.AccountId;
+                        }
+                        var QotationReqType = 1;
+
+                        var $form = $("<form/>").attr("id", "data_form")
+                                        .attr("action", "EditQuotation.aspx")
+                                        .attr("method", "post");
+                        $("body").append($form);
+                        //Append the values to be send
+                        //AddParameter($form, "QotationReqType", QotationReqType);
+
+                        AddParameter($form, "ID", accountId);
+                        AddParameter($form, "productId", productId);
+                        AddParameter($form, "AccountproductId", res.UserDetails.ProductAccountId);
+                        AddParameter($form, "address", res.UserDetails.Address);
+                        AddParameter($form, "state", res.UserDetails.StateId);
+                        AddParameter($form, "contactName", res.UserDetails.NickName);
+                        AddParameter($form, "company", res.UserDetails.Company);
+            
+                        AddParameter($form, "registeredDate", res.UserDetails.RegisteredDate);
+                        AddParameter($form, "email", res.UserDetails.EmailID);
+                        AddParameter($form, "mobile", res.UserDetails.MobileNumber);
+                        AddParameter($form, "gstin", res.UserDetails.GSTIN);
+                        if (typeof res.UserDetails.Country === 'undefined' || res.UserDetails.Country == "") {
+                            AddParameter($form, "country", res.UserDetails.CountryId);
+                        }
+                        else if (typeof res.UserDetails.CountryId === 'undefined' || res.UserDetails.CountryId == "")
+                        {
+                            AddParameter($form, "country", res.UserDetails.Country);
+                        }
+                        AddParameter($form, "isFirstTime", res.IsFirstTime);
+                        AddParameter($form, "BillMode", billMode);
+                        AddParameter($form, "QuotationId", quotationId);
+                        AddParameter($form, "QuotationType", quotationType);
+                        AddParameter($form, "AccountOwner", res.UserDetails.OwnerShip);
+                        $form[0].submit();
+
+                    }
+                });
+            }
 
         });
 

@@ -115,7 +115,7 @@
                                 </td>
                                 <td>
                                     
-                                    <input type="button" value="Update Details" id="btnUpdate" class="btn btn-primary"/>&nbsp;
+                                    <input type="button" value="Update Details"  id="btnUpdate" class="btn btn-primary"/>&nbsp;
                                 </td>
 
                             </tr>
@@ -155,6 +155,7 @@
             <input type="hidden" name="hdnCountryId" id="hdnCountryId" value="<%= country %>" />
             <input type="hidden" name="hdnIsFirstTime" id="hdnIsFirstTime" value="<%= isFirstTime %>" />
             <input type="hidden" name="hdnGstin" id="hdnGstin" value="<%= gstin %>" />
+            <input type="hidden" name="hdnAccessRole" id="hdnAccessRole" value="<%=accessRole  %>" />
             <input type="hidden" name="hdnAccountOwnerEmail" id="hdnAccountOwnerEmail" value="<%= AccountOwnerEmail %>" />
         </div>
     </div>

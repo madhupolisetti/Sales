@@ -5,6 +5,7 @@ using System.Web;
 using OrdersManagement.Core;
 using OrdersManagement.Exceptions;
 using OrdersManagement.Model;
+
 using Newtonsoft.Json.Linq;
 using System.Web.SessionState;
 
@@ -53,6 +54,15 @@ namespace Orders.AjaxHandlers
                     case "Cancel":
                         CancelInvoice(context);
                         break;
+                    case "downloadInvoices":
+                        downloadInvoices(context);
+                        break;
+                    case "GetInvoiceAccountDetails":
+                        GetInvoiceAccountDetails(context);
+                        break;
+                    case "UpdateInvoice":
+                        UpdateInvoice(context);
+                        break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
                         break;
@@ -68,6 +78,70 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void downloadInvoices(HttpContext context)
+        {
+            byte productId = 0;
+            int invoiceId = 0;
+            string quotationNumber = string.Empty;
+            string accountName = string.Empty;
+            string mobile = string.Empty;
+            string email = string.Empty;
+            string ipAddress = string.Empty;
+            int accountId = 0;
+            int employeeId = 0;
+            int ownerShipId = 0;
+            byte statusId = 0;
+            sbyte channelId = 0;
+            byte billingModeId = 1;
+            bool isdownload = true;
+            DateTime fromDateTime = DateTime.Now.Date;
+            DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
+            int pageNumber = 1;
+            byte limit = 20;
+
+            if (context.Request["ProductId"] != null && !byte.TryParse(context.Request["productId"].ToString(), out productId))
+                GenerateErrorResponse(400, string.Format("ProductId must be a number"));
+            //if (context.Request["InvoiceId"] != null && !int.TryParse(context.Request["InvoiceId"].ToString(), out invoiceId))
+            //    GenerateErrorResponse(400, string.Format("InvoiceId must be a number"));
+            if (context.Request["QuotationNumber"] != null)
+                quotationNumber = context.Request["QuotationNumber"].ToString();
+            if (context.Request["AccountName"] != null)
+                accountName = context.Request["AccountName"].ToString();
+            //if (context.Request["AccountId"] != null && !int.TryParse(context.Request["AccountId"].ToString(), out accountId))
+            //    GenerateErrorResponse(400, string.Format("AccountId must be a number"));
+            //if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
+            //    GenerateErrorResponse(400, string.Format("EmployeeId must be a number"));
+            //if (context.Request["OwnerShipId"] != null && !int.TryParse(context.Request["OwnerShipId"].ToString(), out ownerShipId))
+            //    GenerateErrorResponse(400, string.Format("OwnerShipId must be a number"));
+            if (context.Request["StatusId"] != null && !byte.TryParse(context.Request["StatusId"].ToString(), out statusId))
+                GenerateErrorResponse(400, string.Format("StatusId must be a number"));
+            //if (context.Request["ChannelId"] != null && !sbyte.TryParse(context.Request["ChannelId"].ToString(), out channelId))
+            //    GenerateErrorResponse(400, string.Format("ChannelId must be a number"));
+            if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
+                GenerateErrorResponse(400, string.Format("BillingModeId must be a number"));
+            if(context.Request["mobile"] != null)
+                mobile = Convert.ToString(context.Request["mobile"]);
+            if (context.Request["email"] != null)
+                email = Convert.ToString(context.Request["email"]);
+            if (context.Request["FromDateTime"] != null)                
+                fromDateTime = Convert.ToDateTime(context.Request["fromDateTime"]);
+            if (context.Request["ToDateTime"] != null)
+                toDateTime = Convert.ToDateTime(context.Request["ToDateTime"]);
+
+            TablePreferences invoiceTablePreferences = new TablePreferences("", "", true, false);
+            Dictionary<string, TablePreferences> invoiceDictionary = new Dictionary<string, TablePreferences>();
+            invoiceDictionary.Add("Invoices", invoiceTablePreferences);
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            //JObject jobj = new JObject();
+            context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
+                employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
+                billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary, isdownload: isdownload));
+            //string resp = jobj.ToString();
+            //if (isdownload == false)
+              //  context.Response.Write(jobj);
         }
 
         private void GetStatuses(HttpContext context)
@@ -108,6 +182,50 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.CancelInvoice(quotationId, adminId));
         }
 
+        private void UpdateInvoice(HttpContext context)
+        {
+            
+            JObject InvoiceDetails = JObject.Parse(context.Request["payload"]);
+
+            string mobile = string.Empty;
+            string email = string.Empty;
+            string address = string.Empty;
+            string GSTIN = string.Empty;
+            string companyName = string.Empty;
+            int stateId = 0;
+            int invoiceId = 0;
+
+            if (InvoiceDetails.SelectToken("Mobile") != null)
+                mobile = Convert.ToString(InvoiceDetails.SelectToken("Mobile"));
+            if (InvoiceDetails.SelectToken("BusinessMailID") != null)
+                email = Convert.ToString(InvoiceDetails.SelectToken("BusinessMailID"));
+            if (InvoiceDetails.SelectToken("ContactAddress") != null)
+                address = Convert.ToString(InvoiceDetails.SelectToken("ContactAddress"));
+            if (InvoiceDetails.SelectToken("GSTIN") != null)
+                GSTIN = Convert.ToString(InvoiceDetails.SelectToken("GSTIN"));
+            if (InvoiceDetails.SelectToken("CompanyName") != null)
+                companyName = Convert.ToString(InvoiceDetails.SelectToken("CompanyName"));
+            if (InvoiceDetails.SelectToken("States") != null)
+                stateId = Convert.ToInt32(InvoiceDetails.SelectToken("States"));
+            if (InvoiceDetails.SelectToken("InvoiceId") != null)
+                invoiceId = Convert.ToInt32(InvoiceDetails.SelectToken("InvoiceId"));
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.UpdateInvoice(invoiceId:invoiceId,mobile: mobile, email: email, address: address, GSTIN: GSTIN, companyName: companyName, stateId: stateId));                     
+           
+        }
+
+        private void GetInvoiceAccountDetails(HttpContext context)
+        {
+            int invoiceId = 0;
+
+            if (context.Request["invoiceId"] != null && !int.TryParse(context.Request["invoiceId"].ToString(), out invoiceId))
+                GenerateErrorResponse(400, string.Format("InvoiceId Must be a number"));
+
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GetInvoiceAccountDetails(invoiceId: invoiceId));
+        }
         private void Search(HttpContext context)
         {
             byte productId = 0;
@@ -123,6 +241,7 @@ namespace Orders.AjaxHandlers
             sbyte channelId = 0;
             string ipAddress = string.Empty;
             byte billingModeId = 1;
+            bool isdownload = false;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
             int pageNumber = 1;
@@ -169,7 +288,7 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
                 billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
-                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary));
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary, isdownload: isdownload));
         }
         private void View(HttpContext context)
         {
