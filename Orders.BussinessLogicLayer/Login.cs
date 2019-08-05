@@ -48,7 +48,7 @@ namespace Orders.BussinessLogicLayer
                emailAddress = Jobj.SelectToken("email").ToString();
                Boolean Success;
                string Message;
-               if (!emailAddress.EndsWith("smscountry.com"))
+               if (!emailAddress.EndsWith("smscountry.com") && !emailAddress.EndsWith("telebu.com"))
                {
                    responseObj.Add(new JProperty("Success", "false"));
                    responseObj.Add(new JProperty("Message", "unAuthorized"));

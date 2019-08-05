@@ -426,7 +426,7 @@
                 if ($(this).prop('checked')) {
                     $("#btnpayment").attr("class", "disable-icn");
                     if ($(this).attr("status") == 1) {
-                        $("#btninvoice,#btnedit,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
+                        $("#btninvoice,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
                        }
                     else {
                         $("#btninvoice,#btnedit,#btndelete").attr("class", "disable-icn");
@@ -500,7 +500,7 @@
                
                 var productId = 1;
                 var mobileNo = $("#hdnMobile").val();
-               // QuotationRelatedUserInformation(productId, '', mobileNo, quotationId, isBillMode, 0);
+                QuotationRelatedUserInformation(productId, '', mobileNo, quotationId, isBillMode, 0);
                 
                 ordersClient.GetQuotationDetails(quotationId, isPostPaid, function (res) {
                     if (res.Success == true) {
@@ -682,7 +682,7 @@
                         var QotationReqType = 1;
 
                         var $form = $("<form/>").attr("id", "data_form")
-                                        .attr("action", "EditQuotation.aspx")
+                                        .attr("action", "CreateQuotation.aspx")
                                         .attr("method", "post");
                         $("body").append($form);
                         //Append the values to be send

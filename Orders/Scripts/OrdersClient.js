@@ -719,7 +719,7 @@
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.quotationsHandler,
-            async: this.options.async,
+            async: false,
             dataType: "JSON",
             data:
                 {
@@ -757,6 +757,7 @@
                     OnlyActive: onlyActive ? onlyActive : true,
                     QuotationId: quotationId,
                     BillingModeId: billingModeId
+                    
                 },
             success: function (response) {
                 actionResponse = response;
