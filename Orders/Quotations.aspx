@@ -345,6 +345,7 @@
                 //quotationSearchData.StatusId = $("#ddlQuotationStatuses").val();
                 //quotationSearchData.AccountName = $("#txtAccountName").val();
                 quotationSearchData.isdownload = false;
+                globalPageNumber=1;
                 AddSearchData();
                 getQuotations();
             });
@@ -372,6 +373,7 @@
                 if(quotationId){
                     var $form = $("<form/>").attr("id", "data_form")
                                             .attr("action", "Quotation.aspx")
+                                            .attr("target","_blank")
                                             .attr("method", "post");
                     $("body").append($form);
                     AddParameter($form, "QuotationId", quotationId);
@@ -426,7 +428,7 @@
                 if ($(this).prop('checked')) {
                     $("#btnpayment").attr("class", "disable-icn");
                     if ($(this).attr("status") == 1) {
-                        $("#btninvoice,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
+                        $("#btninvoice,#btnedit,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
                        }
                     else {
                         $("#btninvoice,#btnedit,#btndelete").attr("class", "disable-icn");

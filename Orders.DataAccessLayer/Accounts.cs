@@ -144,7 +144,7 @@ namespace Orders.DataAccessLayer
             accountProductID = Convert.ToDecimal(_sqlCommand.Parameters[ProcedureParameters.PRODUCT_ACCOUNT_ID].Value);
             return this._helper.GetResponse();
         }
-        public dynamic UpdateAccountProduct(AccountProducts accountProperty)
+        public dynamic UpdateAccountProduct(AccountProducts accountProperty,int quotationId)
         {
     
             try
@@ -163,6 +163,7 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COMPANY, SqlDbType.VarChar, 100).Value = accountProperty.Company;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.COUNTRY, SqlDbType.VarChar, 50).Value = accountProperty.Country;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAILID, SqlDbType.Int).Value = accountProperty.OwnerShipId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.QUOTATION_ID, SqlDbType.BigInt).Value = quotationId;
                 
 
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);

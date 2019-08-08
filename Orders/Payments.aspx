@@ -428,7 +428,7 @@
     <script src="Scripts/OrdersClient.js?type=v1" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v5" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v6" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');

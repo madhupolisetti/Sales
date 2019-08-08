@@ -515,7 +515,7 @@
                 //invoiceSearchData.Limit = globalPageSize;
                 //invoiceSearchData.StatusId = $("#ddlInvoiceStatus").val();
                 //invoiceSearchData.AccountName = $("#txtAccountName").val();
-              
+                globalPageNumber=1;
                 AddSearchData();
                 getInvoices(false);
             });

@@ -1,4 +1,5 @@
 ﻿var srvPropJsonObject = new Array();
+var quotationId = $('#hdnQuotationId').val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
     var srvServiceJsonObject = "";
@@ -10,21 +11,35 @@ $(document).ready(function () {
 
 
 $(document).on("change", ".check_tool", function () {
-    if ($(this).attr("type") == "checkbox") {
-        toolId = "";
-        toolId += $(this).val().trim();
-        if ($(this).prop("checked")) {
-            getServiceProperties(toolId);
-            //$(".make-switch").bootstrapSwitch('state', false);
-            if ($(this).parent().parent().parent().parent().attr("isMultipleAllowed") == "true") {
-                $(".div_" + toolId).find(".service-label img").show();
+    if(quotationId==0){
+        if ($(this).attr("type") == "checkbox") {                    
+            $('.check_tool').removeAttr('checked');
+            $(this).prop("checked", true);
+            toolId = "";
+            toolId += $(this).val().trim();
+            if ($(this).prop("checked")) {
+                 getServiceProperties(toolId);
+                //$(".make-switch").bootstrapSwitch('state', false);
+                if ($(this).parent().parent().parent().parent().attr("isMultipleAllowed") == "true") {
+                    $(".div_" + toolId).find(".service-label img").show();
+                }
             }
+            else {
+                $("div").remove(".properties_" + toolId + "");
+                $(".div_" + toolId).find(".service-label img.add").hide();
+            }
+            return false;
         }
-        else {
-            $("div").remove(".properties_" + toolId + "");
-            $(".div_" + toolId).find(".service-label img.add").hide();
+    }
+    else {
+        if ($(this).attr("type") == "checkbox") {
+            if ($(this).parent().parent().parent().children().eq(1).length == 0) {
+                ErrorNotifier('Cannot edit other service');
+                $(this).prop("checked", false);
+            }
+            else
+                $(this).prop("checked", true);
         }
-        return false;
     }
 });
 
@@ -230,6 +245,7 @@ function getServiceProperties(serviceId) {
                     serviceProperties += "</tr></td>"
                 }
                 serviceProperties += "</tbody></table>"
+
                 str += "<div class='properties_" + serviceId + " cont-box alert-default margin-top-10 hideserviceprop' ><table class='table no-border'>" + serviceProperties + "</table>";
                 str += "<div class='pad-10'><hr class='margin-top-10 margin-bottom-5'></div>";
                 str += "<h5 class='mb-0'><span class='pull-left'>Extra Charges</span><label class='pull-right'><a id='addExtraCharge' toolId='" + serviceId + "'><img src='images/plus.png' height='16' alt='add' onclick='' style=''></a></label></h5>";
@@ -238,6 +254,8 @@ function getServiceProperties(serviceId) {
                 str += "<label class='block'><input type='textbox' style='font-size:11px' placeholder='Description' class='form-control extracharges' id='extDescription'></label>";
                 str += "<label class='block'><input type='textbox' style='font-size:11px' placeholder='Amount' class='form-control extracharges' id='extAmount' onkeypress='return isNumberKey(event)'></label>";
                 str += "</div></div></div>";
+                
+                $("[class^=div_]").find("[class^=properties_]").remove();
                 $(".div_" + serviceId).find(".service-label").append(str);
                 $(".make-switch[id='IsBalanceValidity_" + serviceId + "']").bootstrapSwitch();
                 $(".VAS").prop('checked', true);

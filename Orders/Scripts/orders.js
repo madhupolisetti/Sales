@@ -44,6 +44,7 @@ $(document).ready(function () {
         //searchData.PageNumber = globalPageNumber;
         //searchData.Limit = globalPageSize;
         searchData.isdownload = false;
+        globalPageNumber = 1;
         AddSearchData();
         getOrders(searchData);
     });

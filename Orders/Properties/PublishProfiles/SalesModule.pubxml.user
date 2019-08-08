@@ -508,22 +508,22 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:43:51</publishTime>
     </File>
     <File Include="bin/Newtonsoft.Json.dll">
-      <publishTime>01/28/2016 14:22:24</publishTime>
+      <publishTime>08/05/2019 12:59:53</publishTime>
     </File>
     <File Include="bin/OrdersManagement.dll">
-      <publishTime>07/19/2019 18:26:18</publishTime>
+      <publishTime>08/05/2019 12:44:08</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>07/25/2019 11:51:54</publishTime>
+      <publishTime>08/05/2019 13:00:24</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>07/25/2019 11:51:53</publishTime>
+      <publishTime>08/05/2019 13:00:24</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>07/25/2019 13:26:50</publishTime>
+      <publishTime>08/05/2019 13:00:25</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>07/25/2019 11:51:52</publishTime>
+      <publishTime>08/05/2019 13:00:23</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
       <publishTime>03/26/2019 17:43:50</publishTime>
@@ -757,10 +757,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>05/14/2019 11:09:41</publishTime>
     </File>
     <File Include="EditQuotation.aspx">
-      <publishTime>07/25/2019 13:19:47</publishTime>
+      <publishTime>08/02/2019 13:11:15</publishTime>
     </File>
     <File Include="Exception_Logs/%28null%29.txt">
-      <publishTime>07/25/2019 12:01:47</publishTime>
+      <publishTime>08/02/2019 17:50:46</publishTime>
     </File>
     <File Include="fonts/axhdx.lnk">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -975,6 +975,9 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="Orders.aspx">
       <publishTime>07/19/2019 18:52:05</publishTime>
     </File>
+    <File Include="packages.config">
+      <publishTime>08/05/2019 12:50:17</publishTime>
+    </File>
     <File Include="Payment.aspx">
       <publishTime>07/08/2019 19:00:20</publishTime>
     </File>
@@ -991,7 +994,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Quotations.aspx">
-      <publishTime>07/25/2019 13:26:00</publishTime>
+      <publishTime>08/05/2019 12:27:35</publishTime>
     </File>
     <File Include="Scripts/AdminAccess.js">
       <publishTime>07/01/2019 15:28:21</publishTime>
@@ -1000,7 +1003,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/createQuotation.js">
-      <publishTime>07/12/2019 19:19:58</publishTime>
+      <publishTime>08/05/2019 12:41:08</publishTime>
     </File>
     <File Include="Scripts/getServices.js">
       <publishTime>06/22/2019 16:54:30</publishTime>
@@ -1012,7 +1015,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/19/2019 18:50:46</publishTime>
     </File>
     <File Include="Scripts/OrdersClient.js">
-      <publishTime>07/19/2019 19:11:07</publishTime>
+      <publishTime>08/05/2019 12:40:27</publishTime>
     </File>
     <File Include="Scripts/OrdersManagement.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -1030,7 +1033,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2019 16:10:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/25/2019 13:30:10</publishTime>
+      <publishTime>08/05/2019 13:00:34</publishTime>
     </File>
   </ItemGroup>
 </Project>

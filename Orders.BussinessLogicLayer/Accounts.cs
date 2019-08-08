@@ -135,12 +135,12 @@ namespace Orders.BussinessLogicLayer
             responseObj = accountsObj.GetAccountOwnersAndPlans(productId, out success);
             return responseObj;
         }
-        public JObject UpdateAccountOwnerDetails(string sConnString, OU.AccountProducts Account)
+        public JObject UpdateAccountOwnerDetails(string sConnString, OU.AccountProducts Account,int quotationId)
         {
 
             decimal AccountID;
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
-            responseObj = accountsObj.UpdateAccountProduct(Account);
+            responseObj = accountsObj.UpdateAccountProduct(Account, quotationId);
             return responseObj;
         }
 

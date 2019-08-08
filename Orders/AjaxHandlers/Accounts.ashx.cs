@@ -114,6 +114,7 @@ namespace Orders.AjaxHandlers
             //IDictionary<string, string> AccountDetailsList = new Dictionary<string, string>();
             //IDictionary<string, string> AccountPropertiesList = new Dictionary<string, string>();
             JObject AccountDetails = JObject.Parse(context.Request["payload"]);
+            int quotationId = Convert.ToInt32(AccountDetails.SelectToken("QuotationId").ToString());
             //OU.AccountDetails Account = new OU.AccountDetails();
 
             
@@ -139,7 +140,7 @@ namespace Orders.AjaxHandlers
             accountProductProperties.ProductId = Convert.ToByte(Convert.ToString(AccountDetails.SelectToken("ProductId")));
             accountProductProperties.OwnerShipId = Convert.ToInt32(Convert.ToString(AccountDetails.SelectToken("AccountOwner")));
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
-            context.Response.Write(accountsObj.UpdateAccountOwnerDetails(MyConf.MyConnectionString, accountProductProperties));
+            context.Response.Write(accountsObj.UpdateAccountOwnerDetails(MyConf.MyConnectionString, accountProductProperties,quotationId));
 
         }
         private void GenerateErrorResponse(int statusCode, string message)

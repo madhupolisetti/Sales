@@ -51,7 +51,7 @@ $(document).ready(function () {
 
     $("#btnUpdate").click(function (res) {
         var userDetails = {};
-        
+        userDetails["QuotationId"] = quotationId;
         $(".updateValues").each(function () {
             console.log($(this));
             if ($(this)[0].nodeName == "SELECT" || $(this)[0].nodeName == "TEXTAREA") {
@@ -356,7 +356,7 @@ function getServicePropertiesForEdit(serviceId, quotationServiceProperties, quot
     var serviceProperties = '';
     var str = '';
     var extra = 0;
-
+    var waschecked = 1;
     var ordersClient = new OrdersClient();
     ordersClient.GetServiceProperties(serviceId, true, function (res) {
         if (res.Success == true && res.Services.length != 0) {
@@ -454,8 +454,11 @@ function getServicePropertiesForEdit(serviceId, quotationServiceProperties, quot
                     for (var j = 0; j < quotationServiceProperties.length; j++) {
                         if (quotationServiceProperties[j].MetaDataCode == res.Services.Properties[i].MetaDataCode) {
                             if (res.Services.Properties[i].InputTypeId.toLowerCase() == "radiobutton") {
-                                if (quotationServiceProperties[j].Value == true)
-                                    serviceProperties += ' checked ';
+                                if (quotationServiceProperties[j].Value == true) {
+                                    serviceProperties += ' checked '; waschecked = 1;
+                                }
+                                else
+                                    waschecked = 0;
                             }
                             else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "datetime") {
                                 var date = new Date(quotationServiceProperties[j].Value);
@@ -522,6 +525,10 @@ function getServicePropertiesForEdit(serviceId, quotationServiceProperties, quot
                 str += "</div></div>";
                 $(".div_" + serviceId).find(".service-label").append(str);
                 $(".make-switch[id='IsBalanceValidity_" + serviceId + "']").bootstrapSwitch();
+                if(waschecked==1)
+                    $(".VAS").data('waschecked', true);
+                else
+                    $(".VAS").data('waschecked', false);
             }
             else {
                 ErrorNotifier("No Properties are found");

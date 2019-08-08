@@ -41,6 +41,7 @@ $(document).ready(function () {
     $("#btnSearch").click(function () {
         //paymentSearchData.ProductId = $("#ddlProduct").val();
         //paymentSearchData.Number = $("#txtNumber").val();
+        globalPageNumber = 1;
         paymentSearchData.AccountId = 0;
         paymentSearchData.isdownload = false;
         //paymentSearchData.Mobile = $("#txtMobile").val();

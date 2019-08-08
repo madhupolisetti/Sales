@@ -90,7 +90,7 @@
                             <tr>
                                 <td>
                                     <label>Country</label>
-                                    <select id="ddlCountry" class="ddlCountry form-control updateValues" name="Country">
+                                    <select id="ddlCountry" disabled class="ddlCountry form-control updateValues" name="Country">
                                     </select><br />
                                     <label id="lblstate" style="display: none">State</label>
                                     <select id="state" class="form-control updateValues" name="States">
@@ -163,8 +163,8 @@
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=v17"></script>
-    <script src="Scripts/getServices.js?type=v6"></script>
-    <script src="Scripts/createquotation.js?type=v21"></script>
+    <script src="Scripts/getServices.js?type=v7"></script>
+    <script src="Scripts/createquotation.js?type=v22"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>
