@@ -137,11 +137,9 @@ $(document).ready(function () {
                         ordersData += "<td><select id='" + res.Orders[i].OrderId + "' class='AccountStatus form-control input-inline' paymentGatewayId='" + res.Orders[i].PaymentGatewayId + "' totalamount='" + res.Orders[i].TotalAmount + "' dueamount='" + res.Orders[i].DueAmount + "' invoicenumber='" + res.Orders[i].InvoiceNumber + "'";
                         if (res.Orders[i].PaymentStatusId == "1") {
                             ordersData += "><option value='1'>Verified</option><option value='2' selected>Not Verified</option>";
-
                         }
                         else {
                             ordersData += "disabled ><option value='1' selected>Verified</option><option value='2'>Not Verified</option>"
-
                         }
 
                         ordersData += "</select></td>";

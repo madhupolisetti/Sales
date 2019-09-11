@@ -24,7 +24,7 @@ namespace Orders
         public string AccountOwnerEmail = string.Empty;   
         public string isFirstTime;
         public int quotationId = 0;
-        public byte isPostPaid = 0;
+        public byte isPostPaid = 0; // should be public byte billingMode = 0;
         public OC.Role accessRole;
         public Int64 AccountProductId;
         public string myPage;

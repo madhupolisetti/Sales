@@ -38,8 +38,9 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Billing Mode</label>
                                 <select id="ddlBillingMode" name="BillingMode" class="form-control form-filter input-sm">
-                                    <option value="1">PrePaid</option>
-                                    <option value="2">Post Paid</option>
+                                    <option value="1">Prepaid</option>
+                                    <option value="2">Postpaid</option>
+                                    <option value="3">Unlimited</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">

@@ -147,7 +147,7 @@
             <input type="hidden" name="hdnProductId" id="hdnProductId" value="<%=productId %>" />
             <input type="hidden" name="hdnQuotationType" id="hdnQuotationType" value="<%= QuotationType%>" />
             <input type="hidden" name="hdnAccountId" id="hdnAccountId" value="<%=accountId %>" />
-            <input type="hidden"name="hdnAccountProductId" id="AccountProductId" value="<%=AccountProductId %>" />
+            <input type="hidden" name="hdnAccountProductId" id="AccountProductId" value="<%=AccountProductId %>" />
             <input type="hidden" name="hdnQuotationId" id="hdnQuotationId" value="<%=quotationId %>" />
             <input type="hidden" name="hdnIsPostPaid" id="hdnIsPostPaid" value="<%=isPostPaid %>" />
             <input type="hidden" name="hdnMobileNumber" id="hdnMobileNo" value="<%=mobile %>" />

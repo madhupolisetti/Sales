@@ -134,9 +134,8 @@ $("#btnSave").click(function () {
     var countryId = $("#ddlCountry :selected").val();
     var address = $(".txtContactAddress").val();
     var statedId = $("#state :selected").val();
-    var isRequired;
-    var mandateField;
-    var mandateFieldValue;
+    var isRequired; var mandateField; var mandateFieldValue;
+
     if (registeredDate.length == 0) {
         ErrorNotifier("Please select registered date");
         return false;
