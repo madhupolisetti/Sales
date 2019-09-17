@@ -406,6 +406,7 @@
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
                 var billMode = $('.check_tool.Checked').attr("BillMode");
+                var employeeId =$('.check_tool.Checked').attr("EmployeeId");
                 if(quotationId){
                     var $form = $("<form/>").attr("id", "data_form")
                                             .attr("action", "Invoice.aspx")
@@ -415,6 +416,7 @@
                     AddParameter($form, "QuotationId", quotationId);
                     AddParameter($form, "InvoiceId", invoiceId);
                     AddParameter($form, "BillMode", billMode);
+                    AddParameter($form, "EmployeeId", employeeId);
 
                     $form[0].submit();
                 }
@@ -653,7 +655,7 @@
             function renderInvoices(Invoices) {
                 var invoicesData = "";
                 for (var i = 0; i < Invoices.length; i++) {
-                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
+                    invoicesData += "<tr><td><input type='checkbox' InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' EmployeeId='"+Invoices[i].EmployeeId+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' /></td>";
                     invoicesData += "<td>" + Invoices[i].ProductName + "</td>";
                     invoicesData += "<td><a class='nameHypClass' id='" + Invoices[i].AccountId + "'>" + Invoices[i].AccountName + "</a></td>";
                     invoicesData += "<td>" + Invoices[i].CompanyName + "</td>";

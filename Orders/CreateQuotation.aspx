@@ -157,6 +157,7 @@
             <input type="hidden" name="hdnGstin" id="hdnGstin" value="<%= gstin %>" />
             <input type="hidden" name="hdnAccessRole" id="hdnAccessRole" value="<%=accessRole  %>" />
             <input type="hidden" name="hdnAccountOwnerEmail" id="hdnAccountOwnerEmail" value="<%= AccountOwnerEmail %>" />
+            <input type="hidden" name="hdnAdminId" id="hdnAdminId" value="<%= AdminId %>" />
         </div>
     </div>
 </asp:Content>

@@ -28,12 +28,17 @@ namespace Orders
         public OC.Role accessRole;
         public Int64 AccountProductId;
         public string myPage;
+        public int AdminId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");
+            }
+            else
+            {
+                AdminId =Convert.ToInt32(Session["AdminId"]);
             }
             if (Session["AccessRole"] != null || Session["AccessRole"].ToString() != "")
             {

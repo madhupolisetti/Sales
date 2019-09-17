@@ -285,7 +285,7 @@
      <script src="JsFiles/bootstrap-datepicker.min.js" type="text/javascript"></script>   
        <script src="JsFiles/jquery.bootpag.min.js"></script>
      <script src="JsFiles/app.min.js" type="text/javascript"></script>   
-    <script src="Scripts/AdminAccess.js" type="text/javascript"></script>
+    <script src="Scripts/AdminAccess.js?vType=1" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Admin Access Management');

@@ -126,8 +126,8 @@ $("#btnRegEmp").click(function () {
     }
 
 
-    else if (email.substring(len - 15, len).toUpperCase() != '@smscountry.com'.toUpperCase()) {
-        ErrorNotifier("Enter Smscountry Mail");
+    else if (email.substring(len - 15, len).toUpperCase() != '@smscountry.com'.toUpperCase() && email.substring(len - 11, len).toUpperCase() != '@telebu.com'.toUpperCase()) {
+        ErrorNotifier("Enter Smscountry or Telebu Mail");
     }
     else {
         mode = 1;

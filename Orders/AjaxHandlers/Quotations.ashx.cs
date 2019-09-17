@@ -253,15 +253,14 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("StateId must ne a number"));
             if (stateId <= 0)
                 GenerateErrorResponse(400, "StateId must be greater than 0");
-            if (channelId == 1)
-            {
-                if (context.Request["EmployeeId"] == null && context.Session["EmployeeId"] == null)
-                    GenerateErrorResponse(403, string.Format("EmployeeId is mandatory"));
-                if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
-                    GenerateErrorResponse(400, string.Format("EmployeeId must be a number"));
-                //else if (!int.TryParse(context.Session["EmployeeId"].ToString(), out employeeId))
-                // GenerateErrorResponse(400, string.Format("EmployeeId must be a number."));
-            }
+            //if (channelId == 1)
+            //{
+            //    if (context.Request["EmployeeId"] == null && context.Session["EmployeeId"] == null)
+            //        GenerateErrorResponse(403, string.Format("EmployeeId is mandatory"));
+            //    if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
+            //        GenerateErrorResponse(400, string.Format("EmployeeId must be a number"));
+                
+            //}
             var metadata = new JavaScriptSerializer().DeserializeObject(context.Request["MetaData"]);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.CreateQuotation(productId, accountId: accountId,

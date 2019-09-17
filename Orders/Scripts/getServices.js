@@ -1,12 +1,16 @@
 ﻿var srvPropJsonObject = new Array();
 var quotationId = $('#hdnQuotationId').val();
+var adminId = $("#hdnAdminId").val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
     var srvServiceJsonObject = "";
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
-    getServices(productId, 0, true, false, false);
+    if (adminId == "2209")
+        getServices(productId, 8, true, false, false);
+    else
+        getServices(productId, 0, true, false, false);
 })
 
 
