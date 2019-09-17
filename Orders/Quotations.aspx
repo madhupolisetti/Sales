@@ -76,8 +76,9 @@
                             <div class="col-sm-3">
                                 <label class="table-head">Bill Mode</label>
                                 <select id="ddlBillMode" name="PaymentStatus" class="form-control form-filter input-sm">
-                                    <option value="1">PrePaid</option>
-                                    <option value="2">PostPaid</option>
+                                    <option value="1">Prepaid</option>
+                                    <option value="2">Postpaid</option>
+                                    <option value="3">Unlimited</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -389,11 +390,13 @@
             $("#btninvoice").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var statusId = $('.check_tool.Checked').attr("status");
+                var billingModeId = $('.check_tool.Checked').attr("billmode");
+
                 if (statusId == "2") {
                     ErrorNotifier("Invoice already Generated");
                     return false;
                 }
-                ordersClient.CreateInvoice(quotationId, 1, 1, function (res) {
+                ordersClient.CreateInvoice(quotationId, billingModeId, 1, function (res) {
                     if (res.Success == true) {
                         var $form = $("<form/>").attr("id", "data_form")
                                         .attr("action", "Invoice.aspx")
