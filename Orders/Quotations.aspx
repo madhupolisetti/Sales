@@ -263,7 +263,6 @@
                                 <td>
                                     <button type="button" class="btn btn-primary margin-right-5" id="btnSubmit">Submit</button>
                                     <button id="btnCancel" type="button" class="btn btn-default">Cancel</button>
-
                                 </td>
                             </tr>
                         </table>
@@ -365,12 +364,17 @@
             $("#btnview").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var isPostPaid;
-                if ($('.check_tool.Checked').attr("billmode") == "1") {
-                    isPostPaid = false;
-                }
-                else {
+                //if ($('.check_tool.Checked').attr("billmode") == "1")
+                //    isPostPaid = false;
+                
+                //else 
+                //    isPostPaid = true;
+
+                if ($('.check_tool.Checked').attr("billmode") == "2")
                     isPostPaid = true;
-                }
+                else
+                    isPostPaid = false;
+                
                 if(quotationId){
                     var $form = $("<form/>").attr("id", "data_form")
                                             .attr("action", "Quotation.aspx")
@@ -383,7 +387,7 @@
                 }
                 else
                 {
-                    alert('Select a Quoation to View!');
+                    alert('Select a Quotation to View!');
                 }
             });
 
@@ -393,7 +397,7 @@
                 var billingModeId = $('.check_tool.Checked').attr("billmode");
 
                 if (statusId == "2") {
-                    ErrorNotifier("Invoice already Generated");
+                    ErrorNotifier("Invoice already generated");
                     return false;
                 }
                 ordersClient.CreateInvoice(quotationId, billingModeId, 1, function (res) {
