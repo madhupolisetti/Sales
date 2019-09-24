@@ -156,6 +156,7 @@
             <input type="hidden" name="hdnIsFirstTime" id="hdnIsFirstTime" value="<%= isFirstTime %>" />
             <input type="hidden" name="hdnGstin" id="hdnGstin" value="<%= gstin %>" />
             <input type="hidden" name="hdnAccessRole" id="hdnAccessRole" value="<%=accessRole  %>" />
+            <input type="hidden" name="hdnAdminId" id="hdnAdminId" value="<%= AdminId %>" />
             <input type="hidden" name="hdnAccountOwnerEmail" id="hdnAccountOwnerEmail" value="<%= AccountOwnerEmail %>" />
         </div>
     </div>

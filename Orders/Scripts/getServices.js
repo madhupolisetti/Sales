@@ -1,4 +1,5 @@
 ﻿var srvPropJsonObject = new Array();
+var adminId = $("#hdnAdminId").val();
 var quotationId = $('#hdnQuotationId').val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
@@ -6,6 +7,9 @@ $(document).ready(function () {
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
+    if (adminId == "2209")
+        getServices(productId, 8, true, false, false);
+    else
     getServices(productId, 0, true, false, false);
 })
 

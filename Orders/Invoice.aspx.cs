@@ -12,6 +12,7 @@ namespace Orders
     {
         public int quotationId = 0;
         public int invoiceId = 0;
+        public int employeeId = 0;
         public int billMode = 1;
         public OC.Role accessRole;
         public string myPage;
@@ -20,6 +21,7 @@ namespace Orders
             quotationId = Convert.ToInt32(Context.Request["QuotationId"]);
             invoiceId = Convert.ToInt32(Context.Request["InvoiceId"]);
             billMode = Convert.ToInt32(Context.Request["BillMode"]);
+            employeeId = Convert.ToInt32(Context.Request["EmployeeId"]);
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");

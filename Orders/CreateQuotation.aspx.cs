@@ -27,6 +27,7 @@ namespace Orders
         public byte isPostPaid = 0; // should be public byte billingMode = 0;
         public OC.Role accessRole;
         public Int64 AccountProductId;
+        public Int32 AdminId=0;
         public string myPage;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -34,6 +35,10 @@ namespace Orders
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");
+            }
+            else
+            {
+                AdminId = Convert.ToInt32(Session["AdminId"]);
             }
             if (Session["AccessRole"] != null || Session["AccessRole"].ToString() != "")
             {

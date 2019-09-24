@@ -9,6 +9,7 @@
             <input type="hidden" id="hdnQuotationId" value="<%= quotationId %>" />
             <input type="hidden" id="hdnInvoiceId" value="<%= invoiceId %>" />
             <input type="hidden" id="hdnBillMode" value="<%= billMode %>" />
+            <input type="hidden" id="hdnEmployeeId" value="<%= employeeId %>" />
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="row" id="invoiceData">
             </div>
@@ -16,7 +17,7 @@
             <div class="row text-center margin-bottom-20">
                 <input type="button" value="Back" id="btnBack" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #3a6a77 !important; background-color: #447583; border: 1px solid transparent;" />
                 <input type="button" value="DownLoad" id="btnDownload" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #79af2d !important; background-color: #8dc73f; border: 1px solid transparent;" />
-
+                <input type="button" value="Activate" id="btnActivate" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
                 <input type="button" value="Generate Payment" id="btnPayment" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;" />
                 <input type="button" value="Email To Client" id="btnSendAnEmailToClient" isbillgenerated="" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #f15048 !important; background-color: #fe6555; border: 1px solid transparent;" />
             </div>
@@ -57,8 +58,16 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var quotationId = $("#hdnQuotationId").val();
-            var invoiceId = $("#hdnInvoiceId").val();
+            var invoiceId = $("#hdnInvoiceId").val();            
             var isPostPaidInvoice = ($("#hdnBillMode").val() == "2" ? true : false);
+            
+            var employeeId = $("#hdnEmployeeId").val();
+            if (employeeId == 2209) {
+                $("#btnActivate").show(); $("#btnPayment").hide();
+            }
+            else {
+                $("#btnActivate").hide(); $("#btnPayment").show();
+            }
             var ordersClient = new OrdersClient();
             var webUrl = $("#hdnWebUrl").val();
             ordersClient.ViewInvoice(quotationId, isPostPaidInvoice, function (res) {
@@ -93,7 +102,9 @@
                 AddParameter($form, "QuotationId", quotationId);
                 $form[0].submit();
             });
-
+            $("#btnActivate").click(function () {
+                window.location.href = "/Orders.aspx";
+            })
             function AddParameter(form, name, value) {
                 var $input = $("<input />").attr("type", "hidden")
                                         .attr("name", name)
