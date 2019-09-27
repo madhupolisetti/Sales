@@ -218,7 +218,7 @@ namespace Orders.AjaxHandlers
 
             if (String.IsNullOrEmpty(context.Request["maritalStatus"]) == false)
             {
-                maritalStatus = Convert.ToInt32(context.Request["martialStatus"]);
+                maritalStatus = Convert.ToInt32(context.Request["maritalStatus"]);
                 empObj.MaritalStatus = maritalStatus;
 
             }

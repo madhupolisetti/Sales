@@ -16,7 +16,7 @@ namespace Orders.AjaxHandlers
     /// </summary>
     public class Payments : IHttpHandler, IRequiresSessionState
     {
-        private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
+        private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", "")); 
         public void ProcessRequest(HttpContext context)
         {
             if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
@@ -26,6 +26,7 @@ namespace Orders.AjaxHandlers
                 context.Response.End();
 
             }
+
             if (context.Request["Action"] == null)
             {
                 context.Response.StatusCode = 400;
@@ -64,6 +65,12 @@ namespace Orders.AjaxHandlers
                     case "VerifyPaymentStatuses":
                         VerifyPaymentStatuses(context);
                         break;
+                    case "PaymentStatuses":
+                        PaymentStatuses(context);
+                        break;
+                    case "UpdatePaymentStatus":
+                        UpdatePaymentStatus(context);
+                        break;  
 
                 }
             }
@@ -77,6 +84,29 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void UpdatePaymentStatus(HttpContext context)
+        {
+            long invoiceId = 0;
+            byte statusId = 0;
+            string comment = "";
+            int adminId = Convert.ToInt32(context.Session["AdminId"]);
+            if (context.Request["invoiceid"] != null && !long.TryParse(context.Request["invoiceid"].ToString(), out invoiceId))
+                GenerateErrorResponse(400, string.Format("invoice id must be a number"));
+            if (context.Request["statusid"] != null && !byte.TryParse(context.Request["statusid"].ToString(), out statusId))
+                GenerateErrorResponse(400, string.Format("status id must be a number"));
+            if (context.Request["comment"] != null)
+                comment = Convert.ToString(context.Request["comment"]);
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.UpdatePaymentStatus(adminId, invoiceId, statusId, comment));
+        }
+
+        private void PaymentStatuses(HttpContext context)
+        {
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.PaymentStatuses());
         }
 
         private void downloadPayments(HttpContext context)

@@ -107,7 +107,7 @@
                         <input type="hidden" id="hdnInvoiceNumber" class="hdnInvoiceNumber" />
                         <input type="hidden" id="hdnTotalAmount" class="hdnInvoiceNumber" />
                         <input type="hidden" id="hdnDueAmount" class="hdnInvoiceNumber" />
-
+                        <input type="hidden" id="AccessRole" class="hdnAccessRole" value="<%= (int)accessRole %>"/>
                         <input type="hidden" id="hdnCount" class="hdnCount" />
 
 
@@ -209,6 +209,49 @@
 
                         <!-- class="container" end-->
 
+
+                    <div class="modal fade in" id="UpdatePaymentStatus" tabindex="-1" aria-hidden="true" style="position: absolute;">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title" style="padding-left: 150px;"><b>Update Payment Status</b></h4>
+                                </div>
+                                <div class="modal-body">
+                                    <%--Modal body goes here --%>
+                                    <table class="table no-border">
+                                        <tr>
+                                            <td>
+                                                <span>payment Status</span>
+
+                                            </td>
+                                            <td>
+                                                <select id="paymentstatuses" class="form-control">
+                                                </select>
+
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span>Comments </span>
+
+                                            </td>
+                                            <td>
+                                                <textarea maxlength="500" id="comment" class="form-control" data-hj-whitelist=""></textarea>
+                                            </td>
+                                        </tr>                                        
+                                    </table>
+
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button id="updateStatus" type="button" class="btn btn-success" >UpdateStatus</button>
+                                    <button  type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                                </div>
+                            </div>
+                            <!-- /.modal-content -->
+                        </div>
+                        <!-- /.modal-dialog -->
+                    </div>
 
                     </form>
                 </div>
@@ -426,10 +469,10 @@
     <script src="JsFiles/daterangepicker.js"></script>
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v1" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v2" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v6" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v7" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');

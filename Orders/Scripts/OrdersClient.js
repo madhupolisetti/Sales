@@ -1254,6 +1254,67 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
+    //payment statuses
+    OrdersClient.prototype.PaymentStatuses = function (callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.paymentsHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            data:
+                {
+                    "Action": "PaymentStatuses",
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+    
+    OrdersClient.prototype.UpdatePaymentStatus = function (invoiceid, statusid, comment, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.paymentsHandler,
+            async: this.options.async,
+            method: "POST",
+            data:
+                {
+                    Action: "UpdatePaymentStatus",
+                    invoiceid: invoiceid,
+                    statusid: statusid,
+                    comment: comment,
+                },
+            dataType: "JSON",
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
     OrdersClient.prototype.VerifyPaymentStatuses = function (orderId, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
