@@ -292,7 +292,7 @@
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=18july" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=3"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=4"></script>
     <script type="text/javascript">
         $(function () {
             var adminId;

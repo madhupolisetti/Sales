@@ -1,16 +1,20 @@
 ﻿var srvPropJsonObject = new Array();
 var adminId = $("#hdnAdminId").val();
 var quotationId = $('#hdnQuotationId').val();
+var billingModeId = $('#hdnIsPostPaid').val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
     var srvServiceJsonObject = "";
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
-    if (adminId == "2209")
+    if (billingModeId == 1)
         getServices(productId, 8, true, false, false);
-    else
-    getServices(productId, 0, true, false, false);
+    else if (billingModeId == 3)
+        getServices(productId, 7, true, false, false);
+    else {
+        alert('You Cannot Raise Quotation for PostPaid Account');        
+    }
 })
 
 

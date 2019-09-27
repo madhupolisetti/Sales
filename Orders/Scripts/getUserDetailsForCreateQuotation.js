@@ -43,7 +43,7 @@ function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quota
                 accountId = res.AccountId;
             }
             var QotationReqType = 1;
-
+            billMode = res.UserDetails.BillingModeId;
             var $form = $("<form/>").attr("id", "data_form")
                             .attr("action", "CreateQuotation.aspx")
                             .attr("method", "post");
