@@ -32,7 +32,7 @@ namespace Orders
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
+             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");
             }
