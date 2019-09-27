@@ -64,6 +64,7 @@ $(document).ready(function () {
         paymentSearchData.PageNumber = globalPageNumber;
         paymentSearchData.Limit = 0;
     }
+
     $(document).delegate('#FilterByMore', 'click', function () {
         var anchorText = $(this).text();
         if (anchorText == "Search by more") {
@@ -77,6 +78,7 @@ $(document).ready(function () {
             $("#filterIcn").removeClass("fa fa-caret-up").addClass("fa fa-caret-down");
         }
     });
+
     function bindProducts() {
         var productsData = "<option value='0'>--- All ---</option>";
         ordersClient.GetProducts(true, function (res) {
@@ -128,7 +130,7 @@ $(document).ready(function () {
                 {
                     pagination(res.Count, globalPageSize);
                     for (var i = 0; i < res.Payments.length; i++) {
-                        payments += "<tr><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoiceid='10401' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
+                        payments += "<tr InvoiceId = " + res.Payments[i].invoiceId + " StatusId = " + res.Payments[i].StatusId + " ><td><input type='checkbox' statusid='" + res.Payments[i].StatusId + "' id='" + res.Payments[i].OrderId + "' countryid=''tannumber='' class='check_tool' status='" + res.Payments[i].PaymentStatus + "' invoicenumber='" + res.Payments[i].InvoiceNumber + "' totalamount='" + res.Payments[i].TotalAmount + "' dueamount='" + res.Payments[i].DueAmount + "' value='10379' ><label class='css-label' for='" + res.Payments[i].OrderId + "'></label></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProductName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].AccountName + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].CompanyName + "</td>";
@@ -140,7 +142,7 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].TotalAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";
-                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentStatus + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'><a data-toggle='modal' data-target='#UpdatePaymentStatus' class='status'>" + res.Payments[i].PaymentStatus + "</a></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentMode + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].LastPaidDate + "</td>";
                         
@@ -186,6 +188,50 @@ $(document).ready(function () {
     $("#btnview").click(function () {
         var orderId = $("#hdnOrderId").val();
         ViewPaymentDetails(orderId);
+    })
+
+    //set updateStatus Model values on model show
+    $('#tblDiv').delegate('.status', 'click', function () {
+        var accessRole = parseInt($('#AccessRole').val())
+        if (accessRole == 2 || accessRole == 5 || accessRole == 6) {
+            ordersClient.PaymentStatuses(function (res) {
+                if (res.Success == true) {
+                    var paymentStatus = "";
+                    for (var i = 0; i < res.PaymentStatuses.length; i++) {
+                        paymentStatus += "<option value=" + res.PaymentStatuses[i].Id + " bank>" + res.PaymentStatuses[i].Status + "</option>"
+                    }
+                    $("#paymentstatuses").html(paymentStatus);
+                }
+            });
+            $('#paymentstatuses').val($(this).parent().parent().attr('statusid'))
+            $('#updateStatus').attr('invoiceid', $(this).parent().parent().attr('invoiceid'))
+        } else return false;
+    })
+
+    //update status
+    $("#updateStatus").click(function () {
+        var accessRole = parseInt($('#AccessRole').val())
+        if ($("#comment").val() != '') {
+            ordersClient.UpdatePaymentStatus($(this).attr('invoiceid'), $('#paymentstatuses').val(), $('#comment').val(), function (res) {
+                if (res.Success == true) {
+                    $('#UpdatePaymentStatus').modal('hide');
+                    SuccessNotifier(res.Message);
+                    getPayments()
+                }
+                else {
+                    ErrorNotifier(res.Message);
+                }
+            })
+        } else {
+            alert("Enter Comment");
+        }
+    })
+
+    //clear model data on model close
+    $('#UpdatePaymentStatus').on('hidden.bs.modal', function () {
+        $('#paymentstatuses').val('0');
+        $('#comment').val('');
+        $('#updateStatus').attr('invoiceid','');
     })
 
     function ViewPaymentDetails(orderId) {
