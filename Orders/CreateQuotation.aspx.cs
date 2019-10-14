@@ -28,6 +28,7 @@ namespace Orders
         public OC.Role accessRole;
         public Int64 AccountProductId;
         public Int32 AdminId=0;
+        public Int32 TestCreditsAdminId = 0;
         public string myPage;
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -129,6 +130,7 @@ namespace Orders
             {
                 AccountOwnerEmail = Convert.ToString(Request["AccountOwner"]);
             }
+            TestCreditsAdminId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["TestCreditsAdminId"].ToString());
         }
     }
 }

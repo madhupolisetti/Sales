@@ -2,13 +2,14 @@
 var adminId = $("#hdnAdminId").val();
 var quotationId = $('#hdnQuotationId').val();
 var billingModeId = $('#hdnIsPostPaid').val();
+var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
     var srvServiceJsonObject = "";
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
-    if (billingModeId == 1)
+    if (billingModeId == 1 || (billingModeId != 2 && adminId == TestCreditsAdminId))
         getServices(productId, 8, true, false, false);
     else if (billingModeId == 3)
         getServices(productId, 7, true, false, false);
