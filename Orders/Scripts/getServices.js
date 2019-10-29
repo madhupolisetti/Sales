@@ -9,12 +9,15 @@ $(document).ready(function () {
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
-    if (billingModeId == 1 || (billingModeId != 2 && adminId == TestCreditsAdminId))
+    if (billingModeId == 1)
         getServices(productId, 8, true, false, false);
-    else if (billingModeId == 3)
+    else if (billingModeId == 3 && adminId != TestCreditsAdminId)
         getServices(productId, 7, true, false, false);
     else {
-        alert('You Cannot Raise Quotation for PostPaid Account');        
+        if (adminId == TestCreditsAdminId)
+            alert('You Can raise only Prepaid Invoices');
+        else
+            alert('You Cannot Raise Quotation for PostPaid Account');        
     }
 })
 
