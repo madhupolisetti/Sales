@@ -210,7 +210,7 @@ $(document).ready(function () {
                             paymentGateway = res.DistinctGateways[i - 1].PaymentGatewayID;
                         paymentsWiseArray = sortPaymentDetailsArray(paymentGateway, res.PaymentDetails);
                         if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 1) {
-                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
                             paymentDetailsTable += "<th >Client Account Number</th><th >Client Account Name</th><th >Comments</th></tr></thead>"
                             for (var p = 0; p < paymentsWiseArray.length; p++) {
                                 paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
@@ -225,7 +225,7 @@ $(document).ready(function () {
                             paymentDetailsTable += "</table>";
                         }
                         else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 2) {
-                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Amount Paid</th>";
                             paymentDetailsTable += "<th >ChequeNo</th><th >Cheque Holder Name</th><th >Comments</th></tr></thead>"
                             for (var p = 0; p < paymentsWiseArray.length; p++) {
                                 paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
@@ -240,7 +240,7 @@ $(document).ready(function () {
                             paymentDetailsTable += "</table>";
                         }
                         else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 3) {
-                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Client Company</th>";
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th><th>Client Company</th>";
                             paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
                             for (var p = 0; p < paymentsWiseArray.length; p++) {
                                 paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";
@@ -254,7 +254,7 @@ $(document).ready(function () {
                             paymentDetailsTable += "</table>";
                         }
                         else if (paymentsWiseArray.length > 0 && paymentsWiseArray[0].PaymentGatewayID == 5) {
-                            paymentDetailsTable += "<table class='table table-bordered margin-top-20 margin-left-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th>";
+                            paymentDetailsTable += "<table class='table table-bordered margin-top-20'><thead style='background-color:#2977AA;color:white;'><tr><th>Invoice Number</th><th >Payment Type</th><th >Bank Account</th><th class='th'>Deposit Date</th>";
                             paymentDetailsTable += "<th>Amount Paid</th><th >Comments</th></tr></thead>"
                             for (var p = 0; p < paymentsWiseArray.length; p++) {
                                 paymentDetailsTable += "<tr><td>" + $("#hdnInvoiceNumber").val() + "</td>";

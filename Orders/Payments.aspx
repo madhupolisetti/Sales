@@ -182,19 +182,27 @@
 
 
                         <div class="modal fade in" id="divMultiplePayments" tabindex="-1" aria-hidden="true">
-                            <div class="modal-dialog" style="width: 1000px;">
-                                <div class="modal-content">
+                            <div class="modal-dialog"> 
+                                <div class="modal-content  modal-lg">  
                                     <div class="modal-header">
-                                        <div align="center">
+                                        <div> 
                                             <h3 class="modal-title" style="color: #2977aa;">Payment Details</h3>
-                                        </div>
+                                        </div> 
                                     </div>
-                                    <div class="modal-body" id="divmodalbody" style="overflow-x: scroll; overflow-y: scroll;">
-                                        <label class="" style="padding-left: 210px;"><b>Total Amount : </b></label>
+                                    <div class="modal-body" id="divmodalbody">
+                                        <div class="row">
+                                        <div class="col-sm-4 col-xs-6"> 
+                                       <label class=""><b>Total Amount : </b></label> 
                                         <label class="label label-primary label-sm"><b id="totalAmount"></b></label>
-                                        <label class="" style="padding-left: 200px;"><b>Pending Amount : </b></label>
+                                        </div> 
+                                        <div class="col-sm-4 col-xs-6"> 
+                                        <label class=""><b>Pending Amount : </b></label>
                                         <label class="label label-warning label-sm "><b id="pendingAmount"></b></label>
-                                        <div id="divMultiplePaymentDetails"></div>
+                                            </div>
+                                            </div>
+                                        <div class="row">
+                                        <div id="divMultiplePaymentDetails" class="table-responsive"></div>
+                                            </div>
                                     </div>
                                     <div class="modal-footer">
                                         <button id="btnClose" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>

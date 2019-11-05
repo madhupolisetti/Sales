@@ -213,12 +213,12 @@ $(document).ready(function () {
             console.log(res);
             var quotationServices = "";
             if (res.Success == true) {
-                quotationServices += "<label style='padding-left:20px;'><strong>Order Amount : </strong></label></td><td><label  class='label label-info label-sm '><b>" + orderAmount + "</b> </label>"
-                quotationServices += "<label style='padding-left:20px;' ><strong>Tax Amount : </strong></label></td><td><label  class='label label-warning label-sm '><b>" + taxAmount + "</b> </label> "
-                quotationServices += "<label style='padding-left:20px;' ><strong>Total Amount : </strong></label></td><td><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> "
-                quotationServices += "<label style='padding-left:20px;' ><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> "
-                quotationServices += "<label style='padding-left:20px;' ><strong>Due :</strong></label > <label  class='label label-danger label-sm'>  <b>" + pendingAmount + "</b> </label> "
-                quotationServices += "<table class='table table-bordered margin-top-40 margin-bottom-20 '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th>";
+                quotationServices += "<div class='row label-container'><div class='label-group'> <label><strong>Order Amount : </strong></label><label  class='label label-info label-sm '><b>" + orderAmount + "</b> </label></div>"
+                quotationServices += "<div class='label-group'> <label><strong>Tax Amount : </strong></label></td><td><label  class='label label-warning label-sm '><b>" + taxAmount + "</b> </label></div> "
+                quotationServices += "<div class='label-group'> <label><strong>Total Amount : </strong></label></td><td><label  class='label label-primary label-sm '><b>" + totalAmount + "</b> </label> </div>"
+                quotationServices += "<div class='label-group'><label ><strong>Amount Received : </strong></label > <label  class='label label-success label-sm'>  <b>" + amountPaid + "</b> </label> </div>"
+                quotationServices += "<div class='label-group'><label ><strong>Due :</strong></label > <label  class='label label-danger label-sm'>  <b>" + pendingAmount + "</b> </label></div></div> "
+                quotationServices += "<div class='table-responsive'><table class='table table-bordered '><thead style='background-color:#2977AA;color:white;'><tr><th>Service</th><th>Invoice No</th><th>Order ID</th>";
                 quotationServices += "<th >Amount Activated</th> <th >Pending Amount to Activate</th> </tr></thead>"
                 for (var i = 0; i < res.QuotationServices.length; i++) {
 
@@ -234,8 +234,8 @@ $(document).ready(function () {
                     }
 
                 }
-                quotationServices += "</tr></table>"
-                quotationServices += "<div style='text-align:center;'> <label><strong> Activation Amount :  </strong></label> <input type='text' style='width:30%;display:inline-block;' placeholder='Enter Amount to be Activated' class='form-control' onkeypress='return isNumberKey(event)' id='activationAmount'";
+                quotationServices += "</tr></table></div>"
+                quotationServices += "<div style='text-align:center;'> <label><strong> Activation Amount :  </strong></label> <input type='text' style='width:30%;display:inline-block;margin-top: 10px;' placeholder='Enter Amount to be Activated' class='form-control' onkeypress='return isNumberKey(event)' id='activationAmount'";
                 if (pendingAmountToActivate <= 0)
                     quotationServices+=" disabled title='total Amount Activated'";
                 quotationServices += "/> </div>"
