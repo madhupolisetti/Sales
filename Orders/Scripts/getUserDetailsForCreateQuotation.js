@@ -99,6 +99,9 @@ function bindProducts() {
                     quotationTypesData += "<option value='" + res.QuotationTypes[i].Id + "' >" + res.QuotationTypes[i].Type + "</option>"
                 }
             }
+            else if (typeof (res.QuotationTypes.length)== "undefined") {
+                quotationTypesData += "<option value='" + res.QuotationTypes.Id + "' >" + res.QuotationTypes.Type + "</option>"
+            }
         }
         else {
             ErrorNotifier(res.Message);

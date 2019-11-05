@@ -313,7 +313,7 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=5"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=6"></script>
     <link href="CommonClasses/css/font-awesome.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/momentjs/2.14.1/moment-with-locales.min.js"></script>
@@ -391,15 +391,25 @@
             });
 
             $(document).delegate('.check_tool', 'change', function () {
-                $('.check_tool').prop('checked', false);
-                $('.check_tool').removeClass("Checked");
-                $(this).prop('checked', true);
-                $(this).addClass("Checked");
-                if ($(this).attr("status") == 2) {
-                    $("#btnPayment").attr("class", "disable-icn");
+
+                if ($(this).prop('checked'))
+                {
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+
+                    $(this).prop('checked', true);
+                    $(this).addClass("Checked");
+
+                
+                if ($(this).attr("status") == 2)
+                    $("#btnPayment").attr("class", "disable-icn");                
+                else 
+                    $("#btnPayment").attr("class", "enable-icn");
                 }
                 else {
-                    $("#btnPayment").attr("class", "enable-icn");
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+                    $("#btnPayment").attr("class", "disable-icn"); 
                 }
             });
             // View Invoice

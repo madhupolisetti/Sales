@@ -4,6 +4,8 @@ var AccountProductId = $("#AccountProductId").val();
 var quotationData;
 var employeeId = $("#hdnAdminId").val();
 var ordersClient = new OrdersClient();
+var adminId = $("#hdnAdminId").val();
+var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
 $(document).ready(function () {
 
     var quotationId = $("#hdnQuotationId").val();
@@ -305,6 +307,8 @@ $("#btnSave").click(function () {
     
     jobjStr += "}";
     var QuotationType = $("#hdnQuotationType").val();
+    if (adminId == TestCreditsAdminId)
+        QuotationType=2
     var ordersClient = new OrdersClient();
     ordersClient.CreateQuotation(productId, accountId, employeeId, 1, jobjStr, statedId, QuotationType, function (res) {
         console.log(res);
