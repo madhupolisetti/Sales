@@ -163,26 +163,33 @@ $(document).ready(function () {
 
     }
 
-    $(document).on("click", ".check_tool", function () {
-        $('.check_tool').prop('checked', false);
-        $('.check_tool').removeClass("Checked");
-        $(this).prop('checked', true);
-        $(this).addClass("Checked");
+    $(document).on("click", ".check_tool", function () {        
+
         if ($(this).attr("type") == "checkbox") {
             if ($(this).prop("checked")) {
+
+                $('.check_tool').prop('checked', false);
+                $('.check_tool').removeClass("Checked");
+
+                $(this).prop('checked', true);
+                $(this).addClass("Checked");
+
                 $("#hdnOrderId").val($(this).attr("id"));
                 $("#hdnInvoiceNumber").val($(this).attr("invoicenumber"));
                 $("#hdnTotalAmount").val($(this).attr("totalamount"));
                 $("#hdnDueAmount").val($(this).attr("dueamount"));
-                if($(this).attr("statusid") == "2"){
+
+                if ($(this).attr("statusid") == "2")
                     $("#btnpayment").attr("class", "disable-icn");
-                }
-                else {
+                else
                     $("#btnpayment").attr("class", "enable-icn");
-                }
+            }
+            else {
+                $('.check_tool').prop('checked', false);
+                $('.check_tool').removeClass("Checked");
+                $("#btnpayment").attr("class", "disable-icn");
             }
         }
-
     })
 
     $("#btnview").click(function () {
