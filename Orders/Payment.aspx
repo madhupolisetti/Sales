@@ -93,9 +93,9 @@
         .tab-content .tab-pane {
             display: none;
             background-color: #fff;
-            padding: 1.6rem;
+            padding: 0;
             overflow-y: auto;
-        }
+        } 
 
         .tab-content .active {
             display: block;
