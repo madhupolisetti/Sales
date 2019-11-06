@@ -337,7 +337,7 @@
                 
             }
             else
-                $('#btnCancelInvoice').attr("class", "disable-icn");
+                $('#btnCancelInvoice,#btnEdit').attr("class", "disable-icn");
 
             $("#btnDownload,#btnView,#btnCreate,#btnPayment").attr("class", "enable-icn");
             $("#btndelete").attr("class", "disable-icn");

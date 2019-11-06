@@ -95,7 +95,7 @@ $(document).ready(function () {
     }
     else {
         $("#btnSave").show();
-        if (billMode == "2") {
+        if (billMode == "2" || (adminId==TestCreditsAdminId && billMode!=1)) {
             $("#btnSave").hide();
         }
     }
