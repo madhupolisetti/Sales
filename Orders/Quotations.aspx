@@ -427,26 +427,36 @@
                     $("#filterIcn").removeClass("fa fa-caret-up").addClass("fa fa-caret-down");
                 }
             });
-            $(document).delegate('.check_tool', 'change', function () {
-                $('.check_tool').prop('checked', false);
-                $('.check_tool').removeClass("Checked");
-                $(this).prop('checked', true);
-                $(this).addClass("Checked");
-                if ($(this).prop('checked')) {
-                    $("#btnpayment").attr("class", "disable-icn");
-                    if ($(this).attr("status") == 1) {
+            $(document).delegate('.check_tool', 'change', function ()
+            {
+                if ($(this).prop('checked'))
+                {
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+
+                    $(this).prop('checked', true);
+                    $(this).addClass("Checked");
+
+                    $("#btnpayment,#btncreate").attr("class", "disable-icn");
+                    
+
+                    if ($(this).attr("status") == 1)
                         $("#btninvoice,#btnedit,#btndelete,#btnview,#btndownload").attr("class", "enable-icn");
-                       }
+
                     else {
                         $("#btninvoice,#btnedit,#btndelete").attr("class", "disable-icn");
                         $("#btnview,#btndownload").attr("class", "enable-icn");
                     }
-
                 }
-
-
-
+                else {
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+                    $("#btninvoice,#btnedit,#btndelete,#btnview,#btndownload").attr("class", "disable-icn");
+                    $("#btncreate").attr("class", "enable-icn");
+                }
+                
             });
+
             $("#btndelete").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
                 var billMode = $('.check_tool.Checked').attr("BillMode");

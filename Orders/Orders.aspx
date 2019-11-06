@@ -3,6 +3,12 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="CSS" runat="server">
     <link href="JsFiles/DateTimePicker/daterangepicker-bs3.css" rel="stylesheet" />
     <link href="CssFiles/components.min.css" rel="stylesheet" />
+    <style>
+
+        #divQuotationservices label>strong {
+       font-size: 12px;
+        }
+    </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-content-wrapper">
@@ -203,10 +209,10 @@
 
 
         <div class="modal fade in" id="quotationServicesModal" tabindex="-1" aria-hidden="true" >
-            <div class="modal-dialog" style="width:850px;">
+            <div class="modal-dialog modal-lg"> 
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title" style="text-align:center;"><b>Activate Order</b></h4>
+                    <div class="modal-header">  
+                        <h4 class="modal-title"><b>Activate Order</b></h4>
                     </div>
                     <div class="modal-body" id="divQuotationservices" >
 

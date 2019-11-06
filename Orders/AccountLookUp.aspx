@@ -90,7 +90,7 @@
 
 @media only screen and (max-width: 767px) {
   .notfound .notfound-404 h1 {
-    font-size: 148px;
+    font-size:20px;
   }
 }
 
@@ -100,7 +100,7 @@
     margin: 0px auto 10px;
   }
   .notfound .notfound-404 h1 {
-    font-size: 86px;
+    font-size: 20px;
   }
   .notfound .notfound-404 h2 {
     font-size: 16px;

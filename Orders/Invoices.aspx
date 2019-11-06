@@ -217,11 +217,11 @@
     </div>
 
          <div class="modal fade in" id="editInvoice" tabindex="-1" aria-hidden="true" style="position: absolute;">
-        <div class="modal-dialog" style="width:700px;">
+        <div class="modal-dialog modal-lg"> 
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h4 class="modal-title" style="padding-left: 150px;"><b>Update Invoice : <span id="InvoiceNumber"></span></b></h4>
+                    <h4 class="modal-title"><b>Update Invoice : <span id="InvoiceNumber"></span></b></h4>
     </div>
                 <div class="modal-body">
         <div class="table-responsive">
@@ -391,15 +391,25 @@
             });
 
             $(document).delegate('.check_tool', 'change', function () {
-                $('.check_tool').prop('checked', false);
-                $('.check_tool').removeClass("Checked");
-                $(this).prop('checked', true);
-                $(this).addClass("Checked");
-                if ($(this).attr("status") == 2) {
-                    $("#btnPayment").attr("class", "disable-icn");
+
+                if ($(this).prop('checked'))
+                {
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+
+                    $(this).prop('checked', true);
+                    $(this).addClass("Checked");
+
+                
+                if ($(this).attr("status") == 2)
+                    $("#btnPayment").attr("class", "disable-icn");                
+                else 
+                    $("#btnPayment").attr("class", "enable-icn");
                 }
                 else {
-                    $("#btnPayment").attr("class", "enable-icn");
+                    $('.check_tool').prop('checked', false);
+                    $('.check_tool').removeClass("Checked");
+                    $("#btnPayment").attr("class", "disable-icn"); 
                 }
             });
             // View Invoice
