@@ -159,14 +159,15 @@
             <input type="hidden" name="hdnAdminId" id="hdnAdminId" value="<%= AdminId %>" />
             <input type="hidden" name="hdnTestCreditsAdminId" id="hdnTestCreditsAdminId" value="<%= TestCreditsAdminId %>" />
             <input type="hidden" name="hdnAccountOwnerEmail" id="hdnAccountOwnerEmail" value="<%= AccountOwnerEmail %>" />
+            <input type="hidden" name="hdnAccountTypeId" id="hdnAccountTypeId" value="<%= AccountTypeId %>" />
         </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=v17"></script>
-    <script src="Scripts/getServices.js?type=v9"></script>
-    <script src="Scripts/createquotation.js?type=v24"></script>
+    <script src="Scripts/getServices.js?type=v10"></script>
+    <script src="Scripts/createquotation.js?type=v25"></script>
 
     <%--   <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>--%>
     <script src="JsFiles/jquery-ui.js"></script>

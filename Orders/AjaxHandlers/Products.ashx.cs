@@ -16,8 +16,10 @@ namespace Orders.AjaxHandlers
     public class Products : IHttpHandler, IRequiresSessionState
     {
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
+        Int32 adminId = 0;
         public void ProcessRequest(HttpContext context)
         {
+             adminId= Convert.ToInt32(HttpContext.Current.Session["AdminId"]);
             if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
             {
                 context.Response.StatusCode = 401;
@@ -61,7 +63,7 @@ namespace Orders.AjaxHandlers
             Dictionary<string, TablePreferences> productsDictionary = new Dictionary<string, TablePreferences>();
             productsDictionary.Add("Products", productsTablePreferences);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetProducts(onlyActive: onlyActive, tablePreferences: productsDictionary));
+            context.Response.Write(client.GetProducts(onlyActive: onlyActive,adminId: adminId, tablePreferences: productsDictionary));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

@@ -6,6 +6,7 @@ var employeeId = $("#hdnAdminId").val();
 var ordersClient = new OrdersClient();
 var adminId = $("#hdnAdminId").val();
 var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
+var AccountTypeId = $('#hdnAccountTypeId').val();
 $(document).ready(function () {
 
     var quotationId = $("#hdnQuotationId").val();
@@ -95,7 +96,7 @@ $(document).ready(function () {
     }
     else {
         $("#btnSave").show();
-        if (billMode == "2" || (adminId==TestCreditsAdminId && billMode!=1)) {
+        if (billMode == "2" || (adminId == TestCreditsAdminId && billMode != 1) || AccountTypeId==2) {
             $("#btnSave").hide();
         }
     }
@@ -307,8 +308,8 @@ $("#btnSave").click(function () {
     
     jobjStr += "}";
     var QuotationType = $("#hdnQuotationType").val();
-    if (adminId == TestCreditsAdminId)
-        QuotationType=2
+    //if (adminId == TestCreditsAdminId)
+    //    QuotationType=2
     var ordersClient = new OrdersClient();
     ordersClient.CreateQuotation(productId, accountId, employeeId, 1, jobjStr, statedId, QuotationType, function (res) {
         console.log(res);

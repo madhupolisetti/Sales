@@ -30,6 +30,7 @@ namespace Orders.UserDefinedClasses
         public const string CHANNEL_ID = "@ChannelId";
         public const string IP_ADDRESS = "@IpAddress";
         public const string BILLING_MODE_ID = "@BillingModeId";
+        public const string ACCOUNT_TYPE_ID = "@AccountTypeId";
         public const string FROM_DATE_TIME = "@FromDateTime";
         public const string TO_DATE_TIME = "@ToDateTime";
         public const string PAGE_NUMBER = "@PageNumber";

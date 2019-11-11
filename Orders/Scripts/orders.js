@@ -299,8 +299,8 @@ $(document).ready(function () {
                     
                 }
                 else {
-                    success = false;
-                    ErrorNotifier(res.Response.Reason);
+                    success = false;                    
+                    setTimeout(ErrorNotifier(res.Response[0].Reason),5000);
                     ordersClient.VerifyOrderStatuses(orderId, activationAmount, success, function (res) {
                         setTimeout(function () { window.location.href = "/Orders.aspx" }, 1000);
                         console.log(res);

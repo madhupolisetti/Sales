@@ -171,6 +171,7 @@
                                         <th>Due Amount</th>
                                         <th>Payment Status</th>
                                         <th>Payment Modes</th>
+                                        <th>Comments</th>
                                         <th>Last PaidDate</th>                                        
                                         <%--<th>GSTIN Amount</th>--%>
                                         <th>Activation Status</th>
@@ -478,9 +479,9 @@
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="Scripts/OrdersClient.js?type=v2" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=7"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/payments.js?type=v7" type="text/javascript"></script>
+    <script src="Scripts/payments.js?type=v8" type="text/javascript"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             $("#lable_href_name").html('Payments');

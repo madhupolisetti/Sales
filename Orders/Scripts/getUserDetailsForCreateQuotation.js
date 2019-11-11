@@ -74,6 +74,7 @@ function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quota
             AddParameter($form, "BillMode", billMode);
             AddParameter($form, "QuotationId", quotationId);
             AddParameter($form, "QuotationType", quotationType);
+            AddParameter($form, "AccountTypeId", res.UserDetails.AccountTypeId);
             AddParameter($form, "AccountOwner", res.UserDetails.OwnerShip);
             $form[0].submit();
 

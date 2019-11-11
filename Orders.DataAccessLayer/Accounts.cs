@@ -110,6 +110,7 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.ACCESS_TOKEN, SqlDbType.VarChar, 64).Value = accountProperty.AccessToken;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_DAY, SqlDbType.Int).Value = accountProperty.BillingDay;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_MODE_ID, SqlDbType.Int).Value = accountProperty.BillingMode;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_TYPE_ID, SqlDbType.Int).Value = accountProperty.AccountTypeId;
                 if (accountProperty.OwnerShipEmail != null)
                 {
                     this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;

@@ -29,6 +29,7 @@ namespace Orders.UserDefinedClasses
         private string accessToken = string.Empty;
         private int billingMode = 0;
         private int billingDay = 0;
+        private int accountTypeId = 0;
         public int Id { get; set; }
         public decimal AccountId { get; set; }
         public decimal ProductAccountId { get; set; }
@@ -49,5 +50,7 @@ namespace Orders.UserDefinedClasses
         public string AccessToken { get; set; }
         public int BillingMode { get; set; }
         public int BillingDay { get; set; }
+
+        public int AccountTypeId { get; set; }
     }
 }

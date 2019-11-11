@@ -75,6 +75,7 @@ namespace Orders.BussinessLogicLayer
                 accountProductProperties.AccessToken = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccessToken").ToString();
                 accountProductProperties.BillingDay = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingDay"));
                 accountProductProperties.BillingMode=Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingModeId"));
+                accountProductProperties.AccountTypeId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccountTypeId"));
                 Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
                 account.CreateAccountProduct(accountProductProperties, out accountId , out accountProductID);
                 responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);

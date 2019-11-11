@@ -283,6 +283,7 @@
         <input type="hidden" name="hdnQuotationId" id="hdnQuotationId" />
         <input type="hidden" name="hdnIsPostPaid" id="hdnIsPostPaid" />
         <input type="hidden" name="hdnMobile" id="hdnMobile" />
+        <input type="hidden" name="hdnAdminId" id="hdnAdminId" value="<%=Session["AdminId"].ToString()%>" />
     </div>
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
@@ -292,13 +293,13 @@
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/OrdersClient.js?type=18july" type="text/javascript"></script>
-    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=6"></script>
+    <script src="Scripts/getUserDetailsForCreateQuotation.js?type=7"></script>
     <script type="text/javascript">
         $(function () {
             var adminId;
             $("#lable_href_name").html('Quotations');
             $("#btncreate").attr("class", "enable-icn");
-            adminId =<%=Session["AdminId"].ToString()%>;
+            adminId =<%=Session["AdminId"].ToString()%>;            
             
             //  var globalFunction = globalFunction || {};
             var quotationSearchData = {};
@@ -731,6 +732,7 @@
                         AddParameter($form, "QuotationId", quotationId);
                         AddParameter($form, "QuotationType", quotationType);
                         AddParameter($form, "AccountOwner", res.UserDetails.OwnerShip);
+                        AddParameter($form, "AccountTypeId", res.UserDetails.AccountTypeId);
                         $form[0].submit();
 
                     }

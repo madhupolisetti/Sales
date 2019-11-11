@@ -3,21 +3,26 @@ var adminId = $("#hdnAdminId").val();
 var quotationId = $('#hdnQuotationId').val();
 var billingModeId = $('#hdnIsPostPaid').val();
 var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
+var AccountTypeId = $('#hdnAccountTypeId').val();
 $(document).ready(function () {
     var productId = $("#hdnProductId").val();
     var srvServiceJsonObject = "";
     var servicePropertiesJsonobject = "";
     var servPropertiesId = "";
     var srvCallerIdJsonObject = "";
-    if (billingModeId == 1)
-        getServices(productId, 8, true, false, false);
-    else if (billingModeId == 3 && adminId != TestCreditsAdminId)
-        getServices(productId, 7, true, false, false);
+    if (AccountTypeId == 2)
+        alert('Cannot Raise Quotation for SubAccount');
     else {
-        if (adminId == TestCreditsAdminId)
-            alert('You Can raise only Prepaid Invoices');
-        else
-            alert('You Cannot Raise Quotation for PostPaid Account');        
+        if (billingModeId == 1)
+            getServices(productId, 8, true, false, false);
+        else if (billingModeId == 3 && adminId != TestCreditsAdminId)
+            getServices(productId, 7, true, false, false);
+        else {
+            if (adminId == TestCreditsAdminId)
+                alert('You Can raise only Prepaid Invoices');
+            else
+                alert('You Cannot Raise Quotation for PostPaid Account');
+        }
     }
 })
 
@@ -158,12 +163,12 @@ function getServiceProperties(serviceId) {
                         var propertyFields = new Array();
                         propertyFields = res.Services.Properties[i].PropertyFields;
 
-                        serviceProperties += '<input type="textbox" style="font-size:11px" value="" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" class="check_tool form-control textboxValue" id="Amount_1" toolpro="1"';
+                        serviceProperties += '<input type="textbox" style="font-size:11px" value="' + res.Services.Properties[i].DefaultValue + '" placeholder="' + res.Services.Properties[i].DisplayName + '" servicepropertycode="' + res.Services.Properties[i].MetaDataCode + '" Inputdatatype="' + res.Services.Properties[i].InputDataTypeId + '" class="check_tool form-control textboxValue" id="Amount_1" toolpro="1"';
                         if (res.Services.Properties[i].PropertyFields.length > 0) {
                             if (res.Services.Properties[i].InputTypeId.toLowerCase() == "textbox" || $(res.Services.Properties[i].InputTypeId).toLowerCase() == "textarea" || $(res.Services.Properties[i].InputDataTypeId).toLowerCase() == "string" && (res.Services.Properties[i].PropertyFields.MaxLength != 0 && res.Services.Properties[i].PropertyFields.MaxLength != "")) {
                                 serviceProperties += 'maxlength="' + propertyFields[0].MaxLength + '"';
                             }
-                        }
+                        }   
 
                     }
                     else if (res.Services.Properties[i].InputTypeId.toLowerCase() == "datetime") {

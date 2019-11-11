@@ -144,6 +144,7 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'><a data-toggle='modal' data-target='#UpdatePaymentStatus' class='status'>" + res.Payments[i].PaymentStatus + "</a></td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].PaymentMode + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].Comments + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].LastPaidDate + "</td>";
                         
                         //payments += "<td style='border-color:#C0C0C0;'>&nbsp;</td>";
