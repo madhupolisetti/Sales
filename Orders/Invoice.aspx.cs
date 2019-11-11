@@ -16,12 +16,14 @@ namespace Orders
         public int billMode = 1;
         public OC.Role accessRole;
         public string myPage;
+        public Int32 TestCreditsAdminId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             quotationId = Convert.ToInt32(Context.Request["QuotationId"]);
             invoiceId = Convert.ToInt32(Context.Request["InvoiceId"]);
             billMode = Convert.ToInt32(Context.Request["BillMode"]);
             employeeId = Convert.ToInt32(Context.Request["EmployeeId"]);
+            TestCreditsAdminId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["TestCreditsAdminId"].ToString());
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");

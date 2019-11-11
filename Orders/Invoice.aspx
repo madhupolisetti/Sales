@@ -10,6 +10,7 @@
             <input type="hidden" id="hdnInvoiceId" value="<%= invoiceId %>" />
             <input type="hidden" id="hdnBillMode" value="<%= billMode %>" />
             <input type="hidden" id="hdnEmployeeId" value="<%= employeeId %>" />
+            <input type="hidden" name="hdnTestCreditsAdminId" id="hdnTestCreditsAdminId" value="<%= TestCreditsAdminId %>" />
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="row" id="invoiceData">
             </div>
@@ -62,7 +63,8 @@
             var isPostPaidInvoice = ($("#hdnBillMode").val() == "2" ? true : false);
             
             var employeeId = $("#hdnEmployeeId").val();
-            if (employeeId == 2209) {
+            var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
+            if (employeeId == TestCreditsAdminId) {
                 $("#btnActivate").show(); $("#btnPayment").hide();
             }
             else {
