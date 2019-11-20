@@ -15,6 +15,12 @@ $(document).ready(function () {
     var countryId = $("#hdnCountryId").val();
     var stateId = $("#hdnStateId").val();
     var accessRole = $("#hdnAccessRole").val();
+    if (accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER") {
+        $('#ddlAccountOwner').prop("disabled", false);
+
+    }
+    else
+        $('#ddlAccountOwner').prop("disabled", true);
     //if (accessRole == "SUPER_USER")
     //    $("#btnUpdate").show();           
     var isPostPaid = 0;
