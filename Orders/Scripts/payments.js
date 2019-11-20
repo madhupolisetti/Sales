@@ -139,6 +139,7 @@ $(document).ready(function () {
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].Email + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].InvoiceRaisedTime + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].InvoiceNumber + "</td>";
+                        payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ProformaInvoiceNumber + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].TotalAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].ReceivedAmount + "</td>";
                         payments += "<td style='border-color:#C0C0C0;'>" + res.Payments[i].DueAmount + "</td>";

@@ -10,6 +10,10 @@
         .modal{
             z-index: 100599999;
         }
+        td.invoice-tar a {
+        color: #0703fb91 !important;
+        }
+
     </style>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -101,15 +105,15 @@
                                 <li>
                                     <label class="btncreate" title="Create" id="btncreate"><i class="icon icon-plus" style="display:none;"></i></label>
                                 </li>
-                                <li>
+                                <%--<li>
                                     <label class="btnview" title="View" id="btnView"><i class="icon icon-eye"></i></label>
-                                </li>
+                                </li>--%>
                                 <li>
                                     <label class="btnedit"  id="btnEdit"><i class="icon icon-pencil"></i></label>
                                 </li>
-                                <li>
+                                <%--<li>
                                     <label class="btndownload" title="Download" id="btnDownload"><i class="glyphicon glyphicon-download"></i></label>
-                                </li>
+                                </li>--%>
                                 <li>
                                     <label class="btnpayment"  id="btnPayment"><i class="glyphicon glyphicon-credit-card"></i></label>
                                 </li>
@@ -138,6 +142,7 @@
                                     <th>Invoice Raised Date</th>
                                     <th>Quotation #</th>
                                     <th>Invoice #</th>
+                                    <th>Proforma Invoice</th>
                                     <th>Total Amount</th>
                                     <th>Payment Status</th>
                                 </tr>
@@ -560,6 +565,32 @@
                     alert('Select an Invoice to Cancel!');
             })
 
+            $(document).delegate('.ViewInvoice', 'click', function () {
+                var quotationId = $(this).attr("QuotationId");
+                var invoiceId = $(this).attr("InvoiceId");
+                var billMode = $(this).attr("BillMode");
+                var employeeId =$(this).attr("EmployeeId");
+                var isProformaInvoice = $(this).attr("IsProformaInvoice");
+                if(quotationId){
+                    var $form = $("<form/>").attr("id", "data_form")
+                                            .attr("action", "Invoice.aspx")
+                                            .attr("target","_blank")
+                                            .attr("method", "post");
+                    $("body").append($form);
+                    AddParameter($form, "QuotationId", quotationId);
+                    AddParameter($form, "InvoiceId", invoiceId);
+                    AddParameter($form, "BillMode", billMode);
+                    AddParameter($form, "EmployeeId", employeeId);
+                    AddParameter($form, "IsProformaInvoice", isProformaInvoice);
+                    $form[0].submit();
+                }
+                else
+                {
+                    alert("Select an Invoice to view!");
+                    return ;
+                }
+            });
+
             function AddSearchData() {
                 invoiceSearchData.ProductId = $("#ddlProduct").val();
                 invoiceSearchData.QuotationNumber = $("#txtSearchById").val();
@@ -675,8 +706,9 @@
                     invoicesData += "<td>" + Invoices[i].Country + "</td>";
                     invoicesData += "<td>" + Invoices[i].QuotationCreatedTime + "</td>";
                     invoicesData += "<td>" + Invoices[i].InvoiceGeneratedTime + "</td>";
-                    invoicesData += "<td class='alert-warning'>" + Invoices[i].QuotationNumber + "</td>";
-                    invoicesData += "<td class='alert-warning'>" + Invoices[i].InvoiceNumber + "</td>";
+                    invoicesData += "<td class=''>" + Invoices[i].QuotationNumber + "</td>";
+                    invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=false InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].InvoiceNumber + "</u></b></a></td>";
+                    invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=true InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].ProformaInvoiceNumber + "</u></b></a></td>";
                     var amount = parseFloat(Invoices[i].TotalAmount);
                     var currencyName = Invoices[i].Currency;
                     var taxMessage = "Order Amount: "+parseFloat(Invoices[i].OrderAmount)+" TAX: "+Invoices[i].TaxDetails;

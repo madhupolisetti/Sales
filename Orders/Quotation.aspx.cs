@@ -13,12 +13,16 @@ namespace Orders
     {
         public int quotationId = 0;
         public bool isPostPaid = false;
+        public int employeeId = 0;
         public OC.Role accessRole;
         public string myPage;
+        public Int32 TestCreditsAdminId = 0;
         protected void Page_Load(object sender, EventArgs e)
         {
             quotationId = Convert.ToInt32(Request["QuotationId"]);
             isPostPaid = Convert.ToBoolean(Request["IsPostPaidQuotation"]);
+            employeeId = Convert.ToInt32(Context.Request["EmployeeId"]);
+            TestCreditsAdminId = Convert.ToInt32(System.Configuration.ConfigurationManager.AppSettings["TestCreditsAdminId"].ToString());
             if (Session["AdminId"] == null || Session["AdminId"].ToString() == string.Empty)
             {
                 Response.Redirect("LoginWithGoogle.aspx");

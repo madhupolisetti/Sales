@@ -320,6 +320,7 @@ $("#btnSave").click(function () {
                                     .attr("method", "post");
             $("body").append($form);
             AddParameter($form, "QuotationId", quotationId);
+            AddParameter($form, "EmployeeId", employeeId);
             $form[0].submit();
         }
         else {

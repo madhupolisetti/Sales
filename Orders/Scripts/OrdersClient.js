@@ -804,7 +804,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.CreateInvoice = function (quotationId, billingModeId, employeeId, callBackFunction) {
+    OrdersClient.prototype.CreateInvoice = function (quotationId, billingModeId, employeeId,isProformaInvoice, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -816,7 +816,8 @@
                     Action: "Create",
                     QuotationId: quotationId ? quotationId : 0,
                     BillingModeId: billingModeId ? billingModeId : 0,
-                    EmployeeId: employeeId ? employeeId : 0
+                    EmployeeId: employeeId ? employeeId : 0,
+                    IsProformaInvoice: isProformaInvoice ? isProformaInvoice : false
                 },
             success: function (response) {
                 actionResponse = response;
@@ -834,7 +835,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.ViewInvoice = function (quotationId, isPostPaidQuotation, callBackFunction) {
+    OrdersClient.prototype.ViewInvoice = function (quotationId, isPostPaidQuotation, isProformaInvoice, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -846,8 +847,38 @@
                 {
                     "Action": "View",
                     "QuotationId": quotationId ? quotationId : 0,
-                    "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+                    "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false,
+                    "IsProformaInvoice": isProformaInvoice ? isProformaInvoice : false
 
+                },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+    OrdersClient.prototype.GenerateSaleInvoice = function (invoiceId, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.invoicesHandler,
+            async: this.options.async,
+            dataType: "json",
+            traditional: true,
+            data:
+                {
+                    "Action": "GenerateSaleInvoice",
+                    "InvoiceId": invoiceId ? invoiceId : 0
                 },
             success: function (response) {
                 actionResponse = response;

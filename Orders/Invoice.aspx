@@ -10,6 +10,7 @@
             <input type="hidden" id="hdnInvoiceId" value="<%= invoiceId %>" />
             <input type="hidden" id="hdnBillMode" value="<%= billMode %>" />
             <input type="hidden" id="hdnEmployeeId" value="<%= employeeId %>" />
+            <input type="hidden" id="hdnIsProformaInvoice" value="<%= isProformaInvoice %>" />
             <input type="hidden" name="hdnTestCreditsAdminId" id="hdnTestCreditsAdminId" value="<%= TestCreditsAdminId %>" />
             <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
             <div class="row" id="invoiceData">
@@ -19,6 +20,7 @@
                 <input type="button" value="Back" id="btnBack" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #3a6a77 !important; background-color: #447583; border: 1px solid transparent;" />
                 <input type="button" value="DownLoad" id="btnDownload" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #79af2d !important; background-color: #8dc73f; border: 1px solid transparent;" />
                 <input type="button" value="Activate" id="btnActivate" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
+                <input type="button" value="Generate Sale Invoice" id="btnGenerateInvoice" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
                 <input type="button" value="Generate Payment" id="btnPayment" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;" />
                 <input type="button" value="Email To Client" id="btnSendAnEmailToClient" isbillgenerated="" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #f15048 !important; background-color: #fe6555; border: 1px solid transparent;" />
             </div>
@@ -59,7 +61,8 @@
     <script type="text/javascript">
         $(document).ready(function () {
             var quotationId = $("#hdnQuotationId").val();
-            var invoiceId = $("#hdnInvoiceId").val();            
+            var invoiceId = $("#hdnInvoiceId").val();
+            var isProformaInvoice = $("#hdnIsProformaInvoice").val();
             var isPostPaidInvoice = ($("#hdnBillMode").val() == "2" ? true : false);
             
             var employeeId = $("#hdnEmployeeId").val();
@@ -72,12 +75,47 @@
             }
             var ordersClient = new OrdersClient();
             var webUrl = $("#hdnWebUrl").val();
-            ordersClient.ViewInvoice(quotationId, isPostPaidInvoice, function (res) {
+            ordersClient.ViewInvoice(quotationId, isPostPaidInvoice, isProformaInvoice, function (res) {
                 $("#invoiceData").html(res);
+                if (isProformaInvoice == "True")
+                    $('#btnGenerateInvoice').show();
             });
 
             $("#btnBack").click(function () {
                 window.location.href = "/Invoices.aspx";
+            });
+
+            $('#btnGenerateInvoice').click(function () {
+                ordersClient.GenerateSaleInvoice(invoiceId, function (res) {
+                    if (res.Success == true) {
+                        var quotationId = res.Invoices.QuotationId;
+                        var invoiceId = res.Invoices.InvoiceId;
+                        var billMode = res.Invoices.BillingModeId;
+                        var employeeId = res.Invoices.EmployeeId;
+                        var isProformaInvoice = false;
+                        if (quotationId) {
+                            var $form = $("<form/>").attr("id", "Invoicedata_form")
+                                                    .attr("action", "Invoice.aspx")
+                                                    .attr("target", "_blank")
+                                                    .attr("method", "post");
+                            $("body").append($form);
+                            AddParameter($form, "QuotationId", quotationId);
+                            AddParameter($form, "InvoiceId", invoiceId);
+                            AddParameter($form, "BillMode", billMode);
+                            AddParameter($form, "EmployeeId", employeeId);
+                            AddParameter($form, "IsProformaInvoice", isProformaInvoice);
+                            $form[0].submit();
+                        }
+                        else {
+                            alert("Select an Invoice to view!");
+                            return;
+                        }
+                    }
+                    else
+                    {
+                        ErrorNotifier(res.Message);
+                    }
+                });
             });
 
             $("#btnDownload").click(function () {

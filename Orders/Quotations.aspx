@@ -364,6 +364,7 @@
             }
             $("#btnview").click(function () {
                 var quotationId = $('.check_tool.Checked').attr("id");
+                var employeeId =  $('.check_tool.Checked').attr("employeeId");
                 var isPostPaid;
                 //if ($('.check_tool.Checked').attr("billmode") == "1")
                 //    isPostPaid = false;
@@ -384,6 +385,7 @@
                     $("body").append($form);
                     AddParameter($form, "QuotationId", quotationId);
                     AddParameter($form, "IsPostPaidQuotation", isPostPaid);
+                    AddParameter($form, "EmployeeId", employeeId);
                     $form[0].submit();
                 }
                 else
@@ -664,7 +666,7 @@
             function renderQuotations(Quotations) {
                 var quotations = "";
                 for (var i = 0; i < Quotations.length; i++) {
-                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1' mobile='" + Quotations[i].Mobile + "'/></td>";
+                    quotations += "<tr><td><input type='checkbox'  id='" + Quotations[i].Id + "' employeeId='"+Quotations[i].EmployeeId+"' status='" + Quotations[i].StatusId + "' class='check_tool' value='" + Quotations[i]["Id"] + "' AccountId='" + Quotations[i]["AccountId"] + "' BillMode = '" + Quotations[i]["BillingModeId"] + "' InvoiceId='" + Quotations[i]["InvoiceId"] + "' productid='1' mobile='" + Quotations[i].Mobile + "'/></td>";
                     quotations += "<td>" + Quotations[i].ProductName + "</td>";
                     quotations += "<td><a class='nameHypClass' id='" + Quotations[i].AccountId + "'>" + Quotations[i].AccountName + "</a></td>";
                     quotations += "<td>" + Quotations[i].OwnerShipName + "</td>";

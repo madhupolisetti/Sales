@@ -128,6 +128,7 @@ $(document).ready(function () {
                         ordersData += "<td>" + res.Orders[i].OwnershipName + "</td>";
                         ordersData += "<td>" + res.Orders[i].Mobile + "</td>";
                         ordersData += "<td><a class='downloadInvoice' billmode='undefined' isbillgenerated='undefined' invoiceid='" + res.Orders[i].InvoiceId + "'>" + res.Orders[i].InvoiceNumber + "</a></td>";
+                        ordersData += "<td><b>" + res.Orders[i].ProformaInvoiceNumber + "</b></td>";
                         ordersData += "<td>" + res.Orders[i].InvoiceRaisedTime + "</td>";
                         ordersData += "<td>" + res.Orders[i].LastPaidDate + "</td>";
                         ordersData += "<td><label class='bold' data-toggle='tooltip'>" + res.Orders[i].TotalAmount + "<br>" + res.Orders[i].CurrencyCode + "</label></td>";

@@ -166,6 +166,7 @@
                                         <th>Mail ID</th>
                                         <th>Invoice Raised Date</th>
                                         <th>Invoice #</th>
+                                        <th>Proforma Invoice #</th>
                                         <th>Total Amount</th>
                                         <th>Received Amount</th>
                                         <th>Due Amount</th>

@@ -5,6 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <input type="hidden" id="hdnQuotationId" value="<%= quotationId %>" />
     <input type="hidden" id="hdnIsPostPaid" value="<%= isPostPaid %>" />
+    <input type="hidden" id="hdnEmployeeId" value="<%= employeeId %>" />
+    <input type="hidden" name="hdnTestCreditsAdminId" id="hdnTestCreditsAdminId" value="<%= TestCreditsAdminId %>" />
     <input type="hidden" id="hdnWebUrl" value="<%= ConfigurationManager.AppSettings["WebUrl"].ToString() %>" />
     <header>
 
@@ -15,7 +17,8 @@
                 <div class="row text-center margin-bottom-20">
                     <input type="button" value="Back" id="btnBack" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #3a6a77 !important; background-color: #447583; border: 1px solid transparent;" />
                     <input type="button" value="DownLoad" id="btnDownload" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #79af2d !important; background-color: #8dc73f; border: 1px solid transparent;" />
-                    <input type="button" value="Generate Invoice" id="btnGenerateInvoice" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;" />
+                    <input type="button" value="Generate Invoice" isProformaInvoice = false id="btnGenerateInvoice" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
+                    <input type="button" value="Generate Proforma Invoice" isProformaInvoice = true id="btnGenerateProformaInvoice" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;" />
                     <input type="button" value="Email To Client" id="btnSendAnEmailToClient" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #f15048 !important; background-color: #fe6555; border: 1px solid transparent;" email="" quotationid="" billmode="" isbillgenerated="" />
                     <input type="button" value="Edit" id="btnEditQuotation" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #f15048 !important; background-color: #fe6555; border: 1px solid transparent;" />
                 </div>
@@ -35,6 +38,13 @@
             var ordersClient = new OrdersClient();
             var webUrl = $("#hdnWebUrl").val();
             var isPostPaid = $("#hdnIsPostPaid").val();
+            var employeeId = $("#hdnEmployeeId").val();
+            var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
+            if (employeeId == TestCreditsAdminId)
+            {
+                $('#btnGenerateProformaInvoice').hide();
+                $('#btnGenerateInvoice').show();
+            }
             ordersClient.ViewQuotation(quotationId, isPostPaid, function (res) {
                 $("#QuotaionData").html(res);
             });
@@ -50,12 +60,13 @@
                 });
             });
 
-            $("#btnGenerateInvoice").click(function () {
+            $("#btnGenerateProformaInvoice,#btnGenerateInvoice").click(function () {
                 var billingModeId = 1;
+                var isProformaInvoice = $(this).attr('isProformaInvoice');
                 if (isPostPaid == "True") {
                     billingModeId = 2;
                 }
-                ordersClient.CreateInvoice(quotationId, billingModeId, 1, function (res) {
+                ordersClient.CreateInvoice(quotationId, billingModeId, 1,isProformaInvoice, function (res) {
                     if (res.Success == true) {
                         console.log(res);
                         SuccessNotifier(res.Message);

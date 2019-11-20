@@ -48,6 +48,9 @@ namespace Orders.AjaxHandlers
                     case "View":
                         View(context);
                         break;
+                    case "GenerateSaleInvoice":
+                        GenerateSaleInvoice(context);
+                        break;
                     case "Download":
                         Download(context);
                         break;
@@ -157,15 +160,18 @@ namespace Orders.AjaxHandlers
             int quotationId = 0;
             byte billingModeId = 0;
             int employeeId = 0;
+            bool isProformaInvoice = false;
             if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("QuotationId Must be a number"));
             if (context.Request["BillingModeId"] != null && !byte.TryParse(context.Request["BillingModeId"].ToString(), out billingModeId))
                 GenerateErrorResponse(400, string.Format("BillingModeId Must be a number"));
+            if (context.Request["IsProformaInvoice"] != null && !bool.TryParse(context.Request["IsProformaInvoice"].ToString(), out isProformaInvoice))
+                GenerateErrorResponse(400, string.Format("IsProformaInvoice value ({0}) is not a valid boolean value", context.Request["IsProformaInvoice"].ToString()));
             //if (context.Request["EmployeeId"] != null && !int.TryParse(context.Request["EmployeeId"].ToString(), out employeeId))
             //    GenerateErrorResponse(400, string.Format("EmployeeId Must be a number"));
             employeeId = Convert.ToInt32(context.Session["AdminId"]);
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.CreateInvoice(quotationId, billingModeId, employeeId));
+            context.Response.Write(client.CreateInvoice(quotationId, billingModeId, employeeId, isProformaInvoice));
         }
 
         //cancel Invoice
@@ -294,14 +300,27 @@ namespace Orders.AjaxHandlers
         {
             int quotationId = 0;
             bool isPostPaidQuotation = false;
+            bool isProformaInvoice = false;
             if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
-                GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
+                GenerateErrorResponse(400, string.Format("QuotationId must be a number"));
             if (quotationId <= 0)
                 GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
             if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
+            if (context.Request["IsProformaInvoice"] != null && !bool.TryParse(context.Request["IsProformaInvoice"].ToString(), out isProformaInvoice))
+                GenerateErrorResponse(400, string.Format("IsProformaInvoice must be a boolean value"));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.ViewInvoice(quotationId, isPostPaidQuotation));
+            context.Response.Write(client.ViewInvoice(quotationId, isPostPaidQuotation,isProformaInvoice));
+        }
+        private void GenerateSaleInvoice(HttpContext context)
+        {
+            int invoiceId = 0;            
+            if (context.Request["InvoiceId"] != null && !int.TryParse(context.Request["InvoiceId"].ToString(), out invoiceId))
+                GenerateErrorResponse(400, string.Format("InvoiceId must be a number"));
+            if (invoiceId <= 0)
+                GenerateErrorResponse(400, string.Format("InvoiceId must be greater than 0"));           
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.GenerateSaleInvoice(invoiceId));
         }
         private void Download(HttpContext context)
         {

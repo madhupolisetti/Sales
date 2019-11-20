@@ -116,6 +116,7 @@
                                         <th>Ownership Name</th>                                        
                                         <th>Mobile #</th>
                                         <th>Invoice #</th>
+                                        <th>Proforma Invoice #</th>
                                         <th>Invoice Raised Date</th>
                                         <th>Latest Paid Date</th>
                                         <%--<th>Payment Mode</th>--%>
