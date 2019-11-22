@@ -7,6 +7,7 @@ var ordersClient = new OrdersClient();
 var adminId = $("#hdnAdminId").val();
 var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
 var AccountTypeId = $('#hdnAccountTypeId').val();
+var OwnerShipId = 0;
 $(document).ready(function () {
 
     var quotationId = $("#hdnQuotationId").val();
@@ -14,13 +15,7 @@ $(document).ready(function () {
     var mobile = $("#hdnMobileNo").val();
     var countryId = $("#hdnCountryId").val();
     var stateId = $("#hdnStateId").val();
-    var accessRole = $("#hdnAccessRole").val();
-    if (accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER") {
-        $('#ddlAccountOwner').prop("disabled", false);
-
-    }
-    else
-        $('#ddlAccountOwner').prop("disabled", true);
+    var accessRole = $("#hdnAccessRole").val();    
     //if (accessRole == "SUPER_USER")
     //    $("#btnUpdate").show();           
     var isPostPaid = 0;
@@ -129,10 +124,17 @@ $(document).ready(function () {
 
             $("#ddlRechargeType").html(plans);
             $("#ddlAccountOwner").html(employees);
-            $("#ddlAccountOwner option[email='" + $("#hdnAccountOwnerEmail").val() + "']").prop('selected',true);
+            $("#ddlAccountOwner option[email='" + $("#hdnAccountOwnerEmail").val() + "']").prop('selected', true);
+            OwnerShipId = $("#ddlAccountOwner option:selected").val();
         }
 
-    })
+    });
+    if (accessRole == "SUPER_USER" || accessRole == "ACCOUNTS" || accessRole == "ACCOUNTS_MANAGER" || OwnerShipId == 1) {
+        $('#ddlAccountOwner').prop("disabled", false);
+
+    }
+    else
+        $('#ddlAccountOwner').prop("disabled", true);
 
 })
 $("#btnSave").click(function () {
