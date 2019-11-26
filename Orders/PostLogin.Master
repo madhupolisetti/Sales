@@ -224,7 +224,13 @@
                                     <span class="title">Quotation</span>
                                 </a>
                             </li>
+                            <li class="nav-item start" id="ProformaInvoiceSmartView">
+                                <a href="ProformaInvoices.aspx" class="nav-link slectclick">
 
+                                    <img src="assets/MenuIcons/Invoice_SmartView_SubModule.png" selectedsrc="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png" width="18" />
+                                    <span class="title">Proforma Invoices</span>
+                                </a>
+                            </li>
                             <li class="nav-item start" id="InvoiceSmartView">
                                 <a href="Invoices.aspx" class="nav-link slectclick">
 

@@ -48,8 +48,8 @@ namespace Orders.AjaxHandlers
                     case "View":
                         View(context);
                         break;
-                    case "GenerateSaleInvoice":
-                        GenerateSaleInvoice(context);
+                    case "GenerateTaxInvoice":
+                        GenerateTaxInvoice(context);
                         break;
                     case "Download":
                         Download(context);
@@ -248,6 +248,7 @@ namespace Orders.AjaxHandlers
             string ipAddress = string.Empty;
             byte billingModeId = 1;
             bool isdownload = false;
+            bool isProformaInvoice = false;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.AddDays(1).AddTicks(-1);
             int pageNumber = 1;
@@ -283,6 +284,8 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("PageNumber must be a number"));
             if (searchData.SelectToken("Limit") != null && !byte.TryParse(searchData.SelectToken("Limit").ToString(), out limit))
                 GenerateErrorResponse(400, string.Format("Limit must be a number"));
+            if (searchData.SelectToken("isProformaInvoice") != null && !bool.TryParse(searchData.SelectToken("isProformaInvoice").ToString(), out isProformaInvoice))
+                GenerateErrorResponse(400, string.Format("IsProformaInvoice must be a boolean value"));
             if (searchData.SelectToken("Mobile") != null)
                 mobile = searchData.SelectToken("Mobile").ToString();
             if (searchData.SelectToken("Email") != null)
@@ -294,7 +297,7 @@ namespace Orders.AjaxHandlers
             context.Response.Write(client.GetInvoices(productId: productId, invoiceId: invoiceId, quotationNumber: quotationNumber, accountId: accountId,
                 employeeId: employeeId, ownerShipId: ownerShipId, statusId: statusId, channelId: channelId, ipAddress: ipAddress,
                 billingModeId: billingModeId, fromDateTime: fromDateTime, toDateTime: toDateTime, pageNumber: pageNumber, limit: limit,
-                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary, isdownload: isdownload));
+                mobile: mobile, email: email, accountName: accountName, tablePreferences: invoiceDictionary, isdownload: isdownload, isProformaInvoice: isProformaInvoice));
         }
         private void View(HttpContext context)
         {
@@ -312,15 +315,17 @@ namespace Orders.AjaxHandlers
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(client.ViewInvoice(quotationId, isPostPaidQuotation,isProformaInvoice));
         }
-        private void GenerateSaleInvoice(HttpContext context)
+        private void GenerateTaxInvoice(HttpContext context)
         {
-            int invoiceId = 0;            
+            int invoiceId = 0,adminId=0;            
             if (context.Request["InvoiceId"] != null && !int.TryParse(context.Request["InvoiceId"].ToString(), out invoiceId))
                 GenerateErrorResponse(400, string.Format("InvoiceId must be a number"));
+            if (context.Request["AdminId"] != null && !int.TryParse(context.Request["AdminId"].ToString(), out adminId))
+                GenerateErrorResponse(400, string.Format("AdminId must be a number"));
             if (invoiceId <= 0)
                 GenerateErrorResponse(400, string.Format("InvoiceId must be greater than 0"));           
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GenerateSaleInvoice(invoiceId));
+            context.Response.Write(client.GenerateTaxInvoice(invoiceId, adminId));
         }
         private void Download(HttpContext context)
         {

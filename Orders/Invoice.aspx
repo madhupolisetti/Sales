@@ -20,7 +20,6 @@
                 <input type="button" value="Back" id="btnBack" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #3a6a77 !important; background-color: #447583; border: 1px solid transparent;" />
                 <input type="button" value="DownLoad" id="btnDownload" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #79af2d !important; background-color: #8dc73f; border: 1px solid transparent;" />
                 <input type="button" value="Activate" id="btnActivate" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
-                <input type="button" value="Generate Sale Invoice" id="btnGenerateInvoice" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;display:none;" />
                 <input type="button" value="Generate Payment" id="btnPayment" class="btn btn-lg green" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #2db5bf !important;" />
                 <input type="button" value="Email To Client" id="btnSendAnEmailToClient" isbillgenerated="" class="btn btn-primary" style="margin-left: 10px; margin-top: 30px; border-radius: 0px !important; border-bottom: 5px solid #f15048 !important; background-color: #fe6555; border: 1px solid transparent;" />
             </div>
@@ -85,38 +84,7 @@
                 window.location.href = "/Invoices.aspx";
             });
 
-            $('#btnGenerateInvoice').click(function () {
-                ordersClient.GenerateSaleInvoice(invoiceId, function (res) {
-                    if (res.Success == true) {
-                        var quotationId = res.Invoices.QuotationId;
-                        var invoiceId = res.Invoices.InvoiceId;
-                        var billMode = res.Invoices.BillingModeId;
-                        var employeeId = res.Invoices.EmployeeId;
-                        var isProformaInvoice = false;
-                        if (quotationId) {
-                            var $form = $("<form/>").attr("id", "Invoicedata_form")
-                                                    .attr("action", "Invoice.aspx")
-                                                    .attr("target", "_blank")
-                                                    .attr("method", "post");
-                            $("body").append($form);
-                            AddParameter($form, "QuotationId", quotationId);
-                            AddParameter($form, "InvoiceId", invoiceId);
-                            AddParameter($form, "BillMode", billMode);
-                            AddParameter($form, "EmployeeId", employeeId);
-                            AddParameter($form, "IsProformaInvoice", isProformaInvoice);
-                            $form[0].submit();
-                        }
-                        else {
-                            alert("Select an Invoice to view!");
-                            return;
-                        }
-                    }
-                    else
-                    {
-                        ErrorNotifier(res.Message);
-                    }
-                });
-            });
+            
 
             $("#btnDownload").click(function () {
                 ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {

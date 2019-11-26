@@ -61,7 +61,7 @@
             });
 
             $("#btnGenerateProformaInvoice,#btnGenerateInvoice").click(function () {
-                var billingModeId = 1;
+                var billingModeId = 1;                
                 var isProformaInvoice = $(this).attr('isProformaInvoice');
                 if (isPostPaid == "True") {
                     billingModeId = 2;
@@ -76,6 +76,8 @@
                         $("body").append($form);
                         AddParameter($form, "QuotationId", quotationId);
                         AddParameter($form, "InvoiceId", res.InvoiceId);
+                        AddParameter($form, "BillMode", billingModeId);
+                        AddParameter($form, "EmployeeId", employeeId);
                         $form[0].submit();
 
                     } else {

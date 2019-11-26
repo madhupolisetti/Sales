@@ -105,15 +105,15 @@
                                 <li>
                                     <label class="btncreate" title="Create" id="btncreate"><i class="icon icon-plus" style="display:none;"></i></label>
                                 </li>
-                                <%--<li>
+                                <li>
                                     <label class="btnview" title="View" id="btnView"><i class="icon icon-eye"></i></label>
-                                </li>--%>
+                                </li>
                                 <li>
                                     <label class="btnedit"  id="btnEdit"><i class="icon icon-pencil"></i></label>
                                 </li>
-                                <%--<li>
+                                <li>
                                     <label class="btndownload" title="Download" id="btnDownload"><i class="glyphicon glyphicon-download"></i></label>
-                                </li>--%>
+                                </li>
                                 <li>
                                     <label class="btnpayment"  id="btnPayment"><i class="glyphicon glyphicon-credit-card"></i></label>
                                 </li>
@@ -708,7 +708,7 @@
                     invoicesData += "<td>" + Invoices[i].InvoiceGeneratedTime + "</td>";
                     invoicesData += "<td class=''>" + Invoices[i].QuotationNumber + "</td>";
                     invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=false InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].InvoiceNumber + "</u></b></a></td>";
-                    invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=true InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].ProformaInvoiceNumber + "</u></b></a></td>";
+                    invoicesData += "<td class='invoice-tar' >" + Invoices[i].ProformaInvoiceNumber + "</td>";
                     var amount = parseFloat(Invoices[i].TotalAmount);
                     var currencyName = Invoices[i].Currency;
                     var taxMessage = "Order Amount: "+parseFloat(Invoices[i].OrderAmount)+" TAX: "+Invoices[i].TaxDetails;

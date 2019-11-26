@@ -867,7 +867,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.GenerateSaleInvoice = function (invoiceId, callBackFunction) {
+    OrdersClient.prototype.GenerateTaxInvoice = function (invoiceId,adminId, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -877,8 +877,9 @@
             traditional: true,
             data:
                 {
-                    "Action": "GenerateSaleInvoice",
-                    "InvoiceId": invoiceId ? invoiceId : 0
+                    "Action": "GenerateTaxInvoice",
+                    "InvoiceId": invoiceId ? invoiceId : 0,
+                    "AdminId": adminId ? adminId : 0
                 },
             success: function (response) {
                 actionResponse = response;
