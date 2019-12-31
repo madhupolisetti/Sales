@@ -67,6 +67,7 @@
                                     <option value="0">All</option>
                                     <option value="1">Unactivated</option>
                                     <option value="2">Activated</option>
+                                    <option value="3">Partially Activated</option>
                                 </select>
                             </div>
                             <div class="col-sm-3">
@@ -145,7 +146,7 @@
                                     <th>Invoice Raised Date</th>
                                     <th>Quotation #</th>                                    
                                     <th>Proforma Invoice</th>
-                                    <th>Invoice #</th>
+                                    <%--<th>Invoice #</th>--%>
                                     <th>Total Amount</th>
                                     <th>Payment Status</th>
                                 </tr>
@@ -471,6 +472,7 @@
                     AddParameter($form, "InvoiceId", invoiceId);
                     AddParameter($form, "BillMode", billMode);
                     AddParameter($form, "EmployeeId", employeeId);
+                    AddParameter($form, "IsProformaInvoice", true);
                     $form[0].submit();
                 }
                 else
@@ -748,10 +750,10 @@
                     invoicesData += "<td class=''>" + Invoices[i].QuotationNumber + "</td>";                    
                     //invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=false InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].InvoiceNumber + "</u></b></a></td>";
                     invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=true InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].ProformaInvoiceNumber + "</u></b></a></td>";
-                    if(Invoices[i].InvoiceNumber =='')
-                        invoicesData+='<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_'+Invoices[i].InvoiceId+'" invoiceId="'+Invoices[i].InvoiceId+'" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
-                    else
-                        invoicesData += "<td class='invoice-tar' ><a class='font-red-soft ViewInvoice' IsProformaInvoice=false InvoiceId='" + Invoices[i].InvoiceId + "'  QuotationId='" + Invoices[i].QuotationId + "' status='" + Invoices[i].StatusId + "' class='check_tool' value='" + Invoices[i]["QuotationId"] + "' InvoiceNo='"+Invoices[i].InvoiceNumber+"' AccountName='"+Invoices[i].AccountName+"' AccountGSTIN='"+Invoices[i].GSTIN+"' AccountMobile='"+Invoices[i].Mobile+"' AccountEmail='"+Invoices[i].Email+"' AccountId='" + Invoices[i]["AccountId"] + "' BillMode = '" + Invoices[i]["BillingModeId"] + "'  EmployeeId='"+Invoices[i].EmployeeId+"'><b><u>" + Invoices[i].InvoiceNumber + "</u></b></a></td>";
+                    //if(Invoices[i].InvoiceNumber =='')
+                    //    invoicesData+='<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_'+Invoices[i].InvoiceId+'" invoiceId="'+Invoices[i].InvoiceId+'" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
+                    //else
+                    //    invoicesData += "<td class='invoice-tar' >" + Invoices[i].InvoiceNumber + "</td>";
                     var amount = parseFloat(Invoices[i].TotalAmount);
                     var currencyName = Invoices[i].Currency;
                     var taxMessage = "Order Amount: "+parseFloat(Invoices[i].OrderAmount)+" TAX: "+Invoices[i].TaxDetails;

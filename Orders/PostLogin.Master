@@ -221,7 +221,7 @@
                             <li class="nav-item start " id="QuotationSmartView">
                                 <a href="Quotations.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/Quotations-SmartView.png" selectedsrc="assets/SelectedMenuIcons/Quotations-SmartView_select.png" width="18" />
-                                    <span class="title">Quotation</span>
+                                    <span class="title">Quotations</span>
                                 </a>
                             </li>
                             <li class="nav-item start" id="ProformaInvoiceSmartView">
@@ -231,13 +231,7 @@
                                     <span class="title">Proforma Invoices</span>
                                 </a>
                             </li>
-                            <li class="nav-item start" id="InvoiceSmartView">
-                                <a href="Invoices.aspx" class="nav-link slectclick">
-
-                                    <img src="assets/MenuIcons/Invoice_SmartView_SubModule.png" selectedsrc="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png" width="18" />
-                                    <span class="title">Invoice</span>
-                                </a>
-                            </li>
+                            
                             <li class="nav-item start " id="lstPaymentSmartView">
                                 <a href="Payments.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/Payments_SmartView.png" selectedsrc="assets/SelectedMenuIcons/Payments_SmartView_select.png" width="18" />
@@ -248,6 +242,13 @@
                                 <a href="Orders.aspx" class="nav-link ">
                                     <img src="assets/MenuIcons/OrderSearchDetails.png" selectedsrc="assets/SelectedMenuIcons/OrderSearchDetails_select.png" width="18" />
                                     <span class="title">Activations</span>
+                                </a>
+                            </li>
+                            <li class="nav-item start" id="InvoiceSmartView">
+                                <a href="Invoices.aspx" class="nav-link slectclick">
+
+                                    <img src="assets/MenuIcons/Invoice_SmartView_SubModule.png" selectedsrc="assets/SelectedMenuIcons/Invoice_SmartView_SubModule_select.png" width="18" />
+                                    <span class="title">Tax Invoices</span>
                                 </a>
                             </li>
                             <li class="nav-item start " id="lstBalanceExpiryDetails" style="display: none;">

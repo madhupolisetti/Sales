@@ -1,6 +1,10 @@
 ﻿var searchData = {};
 var ordersClient = new OrdersClient();
 var paymentStatusesLength = 7;
+var adminId = "";
+function getAdminId(admin_Id) {
+    adminId = admin_Id;
+}
 $(document).ready(function () {
 
     bindProducts()
@@ -154,6 +158,11 @@ $(document).ready(function () {
                         //else {
                         //    ordersData += "<td class='activation' id='active_" + res.Orders[i].OrderId + "'>Activated</td>"
                         //}
+                            
+                        if ((res.Orders[i].BillingModeId == 3 || (res.Orders[i].BillingModeId == 1 && res.Orders[i].ActivationStatusId != "1")) && res.Orders[i].InvoiceNumber == "")
+                            ordersData += '<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_' + res.Orders[i].InvoiceId + '" invoiceId="' + res.Orders[i].InvoiceId + '" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
+                        else
+                            ordersData += "<td></td>";
                         ordersData += "<td></td>";
 
                         //ordersData += "<td><input type='button' class='btnChargeBack btn btn-warning btn-sm margin-bottom-5' style='width:100px;' id='" + res.Orders[i].InvoiceId + "' value='Charge Back'";
@@ -171,7 +180,7 @@ $(document).ready(function () {
 
                 }
                 else {
-                    ordersData = "<tr><td colspan='15'> No Orders Available </td></tr>";
+                    ordersData = "<tr><td colspan='17'> No Orders Available </td></tr>";
                 }
                 $("#data").html(ordersData);
             }
@@ -180,6 +189,41 @@ $(document).ready(function () {
             }
         });
     }
+
+    $(document).on('click', '.btnGenerateInvoice', function () {
+        var invoiceId = 0;
+        invoiceId = $(this).attr("invoiceId");        
+        ordersClient.GenerateTaxInvoice(invoiceId, adminId, function (res) {
+            if (res.Success == true) {
+                var quotationId = res.Invoices.QuotationId;
+                var invoiceId = res.Invoices.InvoiceId;
+                var billMode = res.Invoices.BillingModeId;
+                var employeeId = res.Invoices.EmployeeId;
+                var isProformaInvoice = false;
+                if (quotationId) {
+                    var $form = $("<form/>").attr("id", "Invoicedata_form")
+                                            .attr("action", "Invoice.aspx")
+                                            .attr("target", "_blank")
+                                            .attr("method", "post");
+                    $("body").append($form);
+                    AddParameter($form, "QuotationId", quotationId);
+                    AddParameter($form, "InvoiceId", invoiceId);
+                    AddParameter($form, "BillMode", billMode);
+                    AddParameter($form, "EmployeeId", employeeId);
+                    AddParameter($form, "IsProformaInvoice", isProformaInvoice);
+                    $form[0].submit();
+                }
+                else {
+                    alert("Select an Invoice to view!");
+                    return;
+                }
+            }
+            else {
+                ErrorNotifier(res.Message);
+            }
+            window.location.reload();
+        });
+    });
 
     $(document).delegate('.btnActivation', 'click', function () {
         var quotationId = $(this).attr("QuotationId");
@@ -317,6 +361,7 @@ $(document).ready(function () {
 });
 
 
+
 $(document).delegate('.AccountStatus', 'change', function () {
     AccountStatusorderid = $(this).attr("id");
     AccountStatusVal = $(this).val().trim();
@@ -434,3 +479,9 @@ function sortPaymentDetailsArray(paymentGateWayId, paymentDetails) {
 
 
 
+function AddParameter(form, name, value) {
+    var $input = $("<input />").attr("type", "hidden")
+                            .attr("name", name)
+                            .attr("value", value);
+    form.append($input);
+}

@@ -945,7 +945,7 @@
             window.open(urltodownload);
         }
     }
-    OrdersClient.prototype.DownloadInvoice = function (quotationId, isPostPaidQuotation, callBackFunction) {
+    OrdersClient.prototype.DownloadInvoice = function (quotationId, isPostPaidQuotation, isProformaInvoice, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -957,7 +957,8 @@
                 {
                     "Action": "Download",
                     "QuotationId": quotationId ? quotationId : 0,
-                    "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false
+                    "IsPostPaidQuotation": isPostPaidQuotation ? isPostPaidQuotation : false,
+                    IsProformaInvoice: isProformaInvoice ? isProformaInvoice : false
 
                 },
             success: function (response) {

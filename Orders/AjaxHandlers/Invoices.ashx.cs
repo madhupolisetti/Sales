@@ -331,14 +331,17 @@ namespace Orders.AjaxHandlers
         {
             int quotationId = 0;
             bool isPostPaidQuotation = false;
+            bool isProformaInvoice = false;
             if (context.Request["QuotationId"] != null && !int.TryParse(context.Request["QuotationId"].ToString(), out quotationId))
                 GenerateErrorResponse(400, string.Format("OnlyActive value ({0}) is not a valid boolean value", context.Request["OnlyActive"].ToString()));
             if (quotationId <= 0)
                 GenerateErrorResponse(400, string.Format("QuoationId must be greater than 0"));
             if (context.Request["IsPostPaidQuotation"] != null && !bool.TryParse(context.Request["IsPostPaidQuotation"].ToString(), out isPostPaidQuotation))
                 GenerateErrorResponse(400, string.Format("IsPostPaidQuotation must be a boolean value"));
+            if (context.Request["IsProformaInvoice"] != null && !bool.TryParse(context.Request["IsProformaInvoice"].ToString(), out isProformaInvoice))
+                GenerateErrorResponse(400, string.Format("IsProformaInvoice value ({0}) is not a valid boolean value", context.Request["IsProformaInvoice"].ToString()));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation));
+            context.Response.Write(client.DownloadInvoice(quotationId, isPostPaidQuotation, isProformaInvoice));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {

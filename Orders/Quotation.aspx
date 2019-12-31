@@ -78,6 +78,7 @@
                         AddParameter($form, "InvoiceId", res.InvoiceId);
                         AddParameter($form, "BillMode", billingModeId);
                         AddParameter($form, "EmployeeId", employeeId);
+                        AddParameter($form, "IsProformaInvoice", isProformaInvoice);
                         $form[0].submit();
 
                     } else {

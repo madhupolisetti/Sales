@@ -126,7 +126,7 @@
                                         <th>Payment Modes</th>
                                         <th>Account Status</th>
                                         <th>Order Status</th>
-                                        
+                                        <th>Generate Tax Invoice #</th>
                                         <%--<th>Activation</th>--%>
                                         <th>Comments</th>
                                         <%--<th>Order Actions</th>--%>
@@ -244,6 +244,8 @@
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
+            var adminId = "<%=Session["AdminId"].ToString()%>";
+            getAdminId(adminId);
             $("#lable_href_name").html('Orders');
         });
     </script>

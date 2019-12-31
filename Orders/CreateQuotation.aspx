@@ -84,7 +84,7 @@
                                     <%--<label>Alternate Mobile / Landline</label>
                                     <input type="text" id="txtAlternateMobile" class="txtAlternateMobile form-control" />--%>
                                     <label>GSTIN</label>
-                                    <input type="text" id="txtGSTIN"  name ="GSTIN" class="updateValues txtGSTIN form-control" value ="<% = gstin %>" />
+                                    <input type="text" id="txtGSTIN" maxlength="15" name ="GSTIN" class="updateValues txtGSTIN form-control" value ="<% = gstin %>" />
                                 </td>
                             </tr>
                             <tr>

@@ -87,7 +87,8 @@
             
 
             $("#btnDownload").click(function () {
-                ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, function (res) {
+                var isProformaInvoice = $('#hdnIsProformaInvoice').val();
+                ordersClient.DownloadInvoice(quotationId, isPostPaidInvoice, isProformaInvoice, function (res) {
                     console.log(res);
                     var a = document.createElement('a');
                     a.href = webUrl + res.FilePath;

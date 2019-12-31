@@ -7,6 +7,7 @@ var ordersClient = new OrdersClient();
 var adminId = $("#hdnAdminId").val();
 var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
 var AccountTypeId = $('#hdnAccountTypeId').val();
+var stateCodes = [];
 $(document).ready(function () {
 
     var quotationId = $("#hdnQuotationId").val();
@@ -15,8 +16,6 @@ $(document).ready(function () {
     var countryId = $("#hdnCountryId").val();
     var stateId = $("#hdnStateId").val();
     var accessRole = $("#hdnAccessRole").val();
-    //if (accessRole == "SUPER_USER")
-    //    $("#btnUpdate").show();           
     var isPostPaid = 0;
     ordersClient.GetCountries(function (res) {
         if (res.Success == true) {
@@ -45,10 +44,12 @@ $(document).ready(function () {
             if (res.States.length > 0) {
                 states = "<option value=0>Select</option>";
                 for (var i = 0; i < res.States.length; i++) {
-                    states += "<option value='" + res.States[i].Id + "' >" + res.States[i].State + "</option>";
+                    states += "<option value='" + res.States[i].StateCode + "' >" + res.States[i].State + "</option>";
+                    stateCodes[i] = (res.States[i].StateCode.length == 1 ? '0' + res.States[i].StateCode : res.States[i].StateCode);
                 }
                 $("#state").html(states);
                 $("#state option[value='" + $("#hdnStateId").val() + "']").prop('selected', true);
+                console.log(stateCodes);
             }
         }
     })
@@ -69,6 +70,17 @@ $(document).ready(function () {
             }
               
         });
+        if (userDetails["States"] != userDetails["GSTIN"].substring(0, 2) && userDetails["GSTIN"].trim()!="") {
+            alert('GSTIN code does not match with state');
+            return false;
+        }
+
+        if (userDetails["GSTIN"].trim() != "" && userDetails["GSTIN"].trim().length != 15) 
+        {
+            alert('GSTIN number is incorrect');
+            return false;
+        }
+
         userDetails["AccountID"] = accountId;
         userDetails["ProductId"] = productId;
         userDetails["AccountProductId"] = AccountProductId;
@@ -78,7 +90,19 @@ $(document).ready(function () {
             }
         });
     });
-    $("#state [value='" + stateId + "']").attr("selected", true);
+
+    var gstin = $("#hdnGstin").val().trim();
+    var gstincode = ""
+    if (gstin != "")
+    {
+        gstincode = gstin.substring(0, 2);
+        $("#state,#txtGSTIN").attr("disabled", "disabled");
+        //$("#state [value='" + stateId + "']").attr("selected", true);
+    }
+    else {
+        $("#state [value='" + stateId + "']").attr("selected", true);
+    }
+    
     $("#ddlCountry [value='" + countryId + "']").attr("selected", true);
 
     if (billMode == "2") {
@@ -127,6 +151,17 @@ $(document).ready(function () {
         }
 
     })
+
+    $("#txtGSTIN").keyup(function () {
+        var GSTIN = $("#txtGSTIN").val().trim();
+        if (GSTIN.length>=2){
+            $("#state option[value='" + GSTIN.substring(0, 2) + "']").prop('selected', true);
+            $('#state').attr('disabled', true);
+        }
+        else {
+            $('#state').attr('disabled', false);
+        }        
+    });
 
 })
 $("#btnSave").click(function () {
