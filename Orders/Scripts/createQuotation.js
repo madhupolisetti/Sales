@@ -44,7 +44,7 @@ $(document).ready(function () {
             if (res.States.length > 0) {
                 states = "<option value=0>Select</option>";
                 for (var i = 0; i < res.States.length; i++) {
-                    states += "<option value='" + res.States[i].StateCode + "' >" + res.States[i].State + "</option>";
+                    states += "<option value='" + res.States[i].Id + "' statecode='"+res.States[i].StateCode+"' >" + res.States[i].State + "</option>";
                     stateCodes[i] = (res.States[i].StateCode.length == 1 ? '0' + res.States[i].StateCode : res.States[i].StateCode);
                 }
                 $("#state").html(states);
@@ -69,8 +69,8 @@ $(document).ready(function () {
 
             }
               
-        });
-        if (userDetails["States"] != userDetails["GSTIN"].substring(0, 2) && userDetails["GSTIN"].trim()!="") {
+        });        
+        if ($("#state option[value='"+userDetails["States"]+"']").attr('statecode') != userDetails["GSTIN"].substring(0, 2) && userDetails["GSTIN"].trim()!="") {
             alert('GSTIN code does not match with state');
             return false;
         }
@@ -155,7 +155,7 @@ $(document).ready(function () {
     $("#txtGSTIN").keyup(function () {
         var GSTIN = $("#txtGSTIN").val().trim();
         if (GSTIN.length>=2){
-            $("#state option[value='" + GSTIN.substring(0, 2) + "']").prop('selected', true);
+            $("#state option[statecode='" + GSTIN.substring(0, 2) + "']").prop('selected', true);
             $('#state').attr('disabled', true);
         }
         else {

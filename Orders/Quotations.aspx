@@ -237,7 +237,7 @@
                                     <span id="lblerrMobile" style="color: Red;"></span>
                                 </td>
                             </tr>
-                            <tr>
+                            <%--<tr>
                                 <td><span>Account Type</span></td>
                                 <td>
 
@@ -246,7 +246,7 @@
                                         <input type="radio" id="NonRegisteredUser" class="NonRegisteredUser margin-left-10" name="User" value="0" />
                                     Non-Registered User 
                                 </td>
-                            </tr>
+                            </tr>--%>
                             <tr>
                                 <td>
                                     <span>Quotation Type</span>
