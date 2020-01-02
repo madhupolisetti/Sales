@@ -105,7 +105,7 @@
                             <tr>
                                 <td>
                                     <label>Account Owner</label>
-                                    <select id="ddlAccountOwner" name ="AccountOwner" class="ddlCountry form-control updateValues" name="AccountOwner">
+                                    <select id="ddlAccountOwner" disabled name ="AccountOwner" class="ddlCountry form-control updateValues" name="AccountOwner">
                                     </select><br />
 
                                 </td>
@@ -165,7 +165,7 @@
 </asp:Content>
 <asp:Content ID="Content4" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/bootstrap-switch.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v17"></script>
+    <script src="Scripts/OrdersClient.js?type=v18"></script>
     <script src="Scripts/getServices.js?type=v10"></script>
     <script src="Scripts/createquotation.js?type=v26"></script>
 

@@ -7,6 +7,7 @@ var ordersClient = new OrdersClient();
 var adminId = $("#hdnAdminId").val();
 var TestCreditsAdminId = $('#hdnTestCreditsAdminId').val();
 var AccountTypeId = $('#hdnAccountTypeId').val();
+var OwnerShipId = 0;
 var stateCodes = [];
 $(document).ready(function () {
 
@@ -69,7 +70,7 @@ $(document).ready(function () {
 
             }
               
-        });        
+        });
         if ($("#state option[value='"+userDetails["States"]+"']").attr('statecode') != userDetails["GSTIN"].substring(0, 2) && userDetails["GSTIN"].trim()!="") {
             alert('GSTIN code does not match with state');
             return false;
@@ -100,7 +101,7 @@ $(document).ready(function () {
         //$("#state [value='" + stateId + "']").attr("selected", true);
     }
     else {
-        $("#state [value='" + stateId + "']").attr("selected", true);
+    $("#state [value='" + stateId + "']").attr("selected", true);
     }
     
     $("#ddlCountry [value='" + countryId + "']").attr("selected", true);
@@ -147,10 +148,17 @@ $(document).ready(function () {
 
             $("#ddlRechargeType").html(plans);
             $("#ddlAccountOwner").html(employees);
-            $("#ddlAccountOwner option[email='" + $("#hdnAccountOwnerEmail").val() + "']").prop('selected',true);
+            $("#ddlAccountOwner option[email='" + $("#hdnAccountOwnerEmail").val() + "']").prop('selected', true);
+            OwnerShipId = $("#ddlAccountOwner option:selected").val();
         }
 
-    })
+    });
+    if (accessRole == "SUPER_USER" || accessRole == "ACCOUNTS" || accessRole == "ACCOUNTS_MANAGER" || OwnerShipId == 1) {
+        $('#ddlAccountOwner').prop("disabled", false);
+
+    }
+    else
+        $('#ddlAccountOwner').prop("disabled", true);
 
     $("#txtGSTIN").keyup(function () {
         var GSTIN = $("#txtGSTIN").val().trim();

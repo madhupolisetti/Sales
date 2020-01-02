@@ -27,7 +27,7 @@ namespace Orders
                     accessRole == OC.Role.SALES_TL ||
                     accessRole == OC.Role.SALES ||
                     accessRole == OC.Role.ACCOUNTS_MANAGER ||
-                    accessRole == OC.Role.ACCOUNTS ||
+                     accessRole == OC.Role.ACCOUNTS ||
                     accessRole == OC.Role.IT_SOFTWARE ||
                     accessRole == OC.Role.IT_SOFTWARE_TL)
                 {
