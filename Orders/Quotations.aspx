@@ -292,7 +292,7 @@
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
     <script src="JsFiles/jquery-ui.js"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
-    <script src="Scripts/OrdersClient.js?type=18july" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=19july" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=7"></script>
     <script type="text/javascript">
         $(function () {

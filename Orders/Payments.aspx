@@ -479,7 +479,7 @@
     <script src="JsFiles/daterangepicker.js"></script>
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v2" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v3" type="text/javascript"></script>
     <script src="Scripts/getUserDetailsForCreateQuotation.js?type=7"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script src="Scripts/payments.js?type=v8" type="text/javascript"></script>

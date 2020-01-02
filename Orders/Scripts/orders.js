@@ -159,7 +159,7 @@ $(document).ready(function () {
                         //    ordersData += "<td class='activation' id='active_" + res.Orders[i].OrderId + "'>Activated</td>"
                         //}
                             
-                        if ((res.Orders[i].BillingModeId == 3 || (res.Orders[i].BillingModeId == 1 && res.Orders[i].ActivationStatusId != "1")) && res.Orders[i].InvoiceNumber == "")
+                            if ((((res.Orders[i].BillingModeId == 1 || res.Orders[i].BillingModeId == 3) && res.Orders[i].ActivationStatusId != "1")) && res.Orders[i].InvoiceNumber == "")
                             ordersData += '<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_' + res.Orders[i].InvoiceId + '" invoiceId="' + res.Orders[i].InvoiceId + '" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
                         else
                             ordersData += "<td></td>";
@@ -237,7 +237,7 @@ $(document).ready(function () {
         var totalAmount = $(this).attr("TotalAmt");
         var amountPaid = $(this).attr("AmountPaid");
         var orderAmount = $(this).attr("OrderAmount");
-        
+        var isActivated = $(this).attr('value');
         var taxAmount = $(this).attr("taxAmount");
         var pendingAmount = $(this).attr("dueamount");
         var pendingAmountToActivate = orderAmount - activatedAmount;
@@ -285,6 +285,16 @@ $(document).ready(function () {
                 $("#divQuotationservices").html(quotationServices);
                 if (service != '')
                     $("#quotationServicesModal").modal('show');
+                else if (res.QuotationServices.ServiceId = 7) {
+                    if (isActivated == 'Activated' || InvoiceNumber != '')
+                        return false;
+                    var isConfirmActivate = confirm("Activate Unlimited Service ?");
+                    if (isConfirmActivate == false) {
+                        return false;
+                    } else {
+                        activateUnlimitedService(orderId);
+                    }
+                }
                 else
                     alert('Activations are only for grptalk Per-Minute Service');
 
@@ -296,7 +306,7 @@ $(document).ready(function () {
 
     });
 
-    $("#btnActivate").click(function () {
+$("#btnActivate").click(function () {
         var searchData = "";
         var quotationId = $(this).attr("QuotationId");
         var billingMode = $(this).attr("BillingMode");
@@ -360,7 +370,17 @@ $(document).ready(function () {
 
 });
 
-
+function activateUnlimitedService(orderId) {
+    ordersClient.UpdateUnlimitedActivation(orderId, function (res) {
+        if (res.Success == true) {
+            alert('Activated Successfully');
+            window.location.reload();
+        }
+        else {
+            alert('Something Went Wrong. Try Again')
+        }
+    });
+}
 
 $(document).delegate('.AccountStatus', 'change', function () {
     AccountStatusorderid = $(this).attr("id");

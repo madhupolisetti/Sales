@@ -56,7 +56,7 @@
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
-    <script type="text/javascript" src="Scripts/OrdersClient.js"></script>
+    <script type="text/javascript" src="Scripts/OrdersClient.js?type=v19"></script>
     <script type="text/javascript">
         $(document).ready(function () {
             var quotationId = $("#hdnQuotationId").val();

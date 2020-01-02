@@ -55,7 +55,7 @@ namespace Orders.AjaxHandlers
                         break;
                     case "GetInputDataTypes":
                         GetInputDataTypes(context);
-                        break;
+                        break;                    
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
                         break;
@@ -72,6 +72,8 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(500, e.Message);
             }
         }
+
+       
         private void GetServices(HttpContext context)
         {
             short serviceId = 0;
