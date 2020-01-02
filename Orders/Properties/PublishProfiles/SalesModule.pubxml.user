@@ -511,19 +511,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/05/2019 14:10:12</publishTime>
     </File>
     <File Include="bin/OrdersManagement.dll">
-      <publishTime>11/27/2019 10:00:40</publishTime>
+      <publishTime>01/02/2020 21:39:45</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>12/05/2019 11:43:42</publishTime>
+      <publishTime>01/02/2020 21:39:58</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>12/05/2019 11:43:41</publishTime>
+      <publishTime>01/02/2020 21:39:57</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>01/02/2020 19:59:02</publishTime>
+      <publishTime>01/02/2020 21:39:59</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>12/05/2019 11:43:41</publishTime>
+      <publishTime>01/02/2020 21:39:57</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
       <publishTime>03/26/2019 17:43:50</publishTime>
@@ -544,7 +544,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CreateQuotation.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:55:21</publishTime>
     </File>
     <File Include="CssFiles/accordion.css">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -805,10 +805,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Invoice.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:53:47</publishTime>
     </File>
     <File Include="Invoices.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:53:54</publishTime>
     </File>
     <File Include="JsFiles/addImage.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -973,16 +973,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Orders.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:53:11</publishTime>
     </File>
     <File Include="packages.config">
       <publishTime>08/05/2019 12:50:17</publishTime>
     </File>
     <File Include="Payment.aspx">
-      <publishTime>11/12/2019 13:40:53</publishTime>
+      <publishTime>01/02/2020 21:54:01</publishTime>
     </File>
     <File Include="Payments.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:54:06</publishTime>
     </File>
     <File Include="PostLogin.Master">
       <publishTime>01/02/2020 19:57:48</publishTime>
@@ -991,13 +991,13 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/01/2019 13:53:19</publishTime>
     </File>
     <File Include="ProformaInvoices.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:54:11</publishTime>
     </File>
     <File Include="Quotation.aspx">
       <publishTime>01/02/2020 19:57:48</publishTime>
     </File>
     <File Include="Quotations.aspx">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:54:20</publishTime>
     </File>
     <File Include="Scripts/AdminAccess.js">
       <publishTime>11/12/2019 13:40:53</publishTime>
@@ -1015,10 +1015,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>11/12/2019 13:40:53</publishTime>
     </File>
     <File Include="Scripts/orders.js">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:51:11</publishTime>
     </File>
     <File Include="Scripts/OrdersClient.js">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 21:21:17</publishTime>
     </File>
     <File Include="Scripts/OrdersManagement.js">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -1036,7 +1036,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2019 16:10:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>01/02/2020 20:07:53</publishTime>
+      <publishTime>01/02/2020 21:55:23</publishTime>
     </File>
   </ItemGroup>
 </Project>

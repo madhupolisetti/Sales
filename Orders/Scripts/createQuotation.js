@@ -45,7 +45,12 @@ $(document).ready(function () {
             if (res.States.length > 0) {
                 states = "<option value=0>Select</option>";
                 for (var i = 0; i < res.States.length; i++) {
-                    states += "<option value='" + res.States[i].Id + "' statecode='"+res.States[i].StateCode+"' >" + res.States[i].State + "</option>";
+                    states += "<option value='" + res.States[i].Id + "'  statecode='" + (res.States[i].StateCode < 10 ? "0" : "") + res.States[i].StateCode + "' >" + res.States[i].State + "</option>";
+                    //if (res.States[i].StateCode < 10)
+                    //    states += "0" + res.States[i].StateCode;
+                    //else
+                    //    states += res.States[i].StateCode;
+                    //states+="' >" + res.States[i].State + "</option>";
                     stateCodes[i] = (res.States[i].StateCode.length == 1 ? '0' + res.States[i].StateCode : res.States[i].StateCode);
                 }
                 $("#state").html(states);
