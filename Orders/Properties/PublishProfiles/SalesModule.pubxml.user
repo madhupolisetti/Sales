@@ -544,7 +544,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="CreateQuotation.aspx">
-      <publishTime>01/02/2020 21:55:21</publishTime>
+      <publishTime>01/02/2020 23:30:10</publishTime>
     </File>
     <File Include="CssFiles/accordion.css">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -1006,7 +1006,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>03/26/2019 17:44:22</publishTime>
     </File>
     <File Include="Scripts/createQuotation.js">
-      <publishTime>01/02/2020 19:57:48</publishTime>
+      <publishTime>01/02/2020 23:28:43</publishTime>
     </File>
     <File Include="Scripts/getServices.js">
       <publishTime>11/12/2019 13:40:53</publishTime>

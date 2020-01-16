@@ -264,7 +264,7 @@
                                     <%--<label>Alternate Mobile / Landline</label>
                                     <input type="text" id="txtAlternateMobile" class="txtAlternateMobile form-control" />--%>
                                     <label>GSTIN</label>
-                                    <input type="text" id="txtGSTINEdit"  name ="GSTIN" class="updateValues txtGSTIN form-control" />
+                                    <input type="text" id="txtGSTINEdit" maxlength="15"  name ="GSTIN" class="updateValues txtGSTIN form-control" />
                                 </td>
                                 <td colspan="2">
                                     <label>Address</label>
@@ -367,7 +367,7 @@
                     if (res.States.length > 0) {
                         states = "<option value=0>Select</option>";
                         for (var i = 0; i < res.States.length; i++) {
-                            states += "<option value='" + res.States[i].Id + "' >" + res.States[i].State + "</option>";
+                            states += "<option value='" + res.States[i].Id + "' statecode='" + (res.States[i].StateCode < 10 ? "0" : "") + res.States[i].StateCode + "' >" + res.States[i].State + "</option>";
                         }
                         $("#stateEdit").html(states);
                         //$("#state option[value='" + $("#hdnStateId").val() + "']").prop('selected', true);
@@ -451,7 +451,9 @@
                 if(quotationId){
                     //getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0, quotationType);
                     ordersClient.getInvoiceAccountDetails(invoiceId, function (res) {
-                        if(res.Success==true){
+                        if (res.Success == true) {
+                            var gstin = res.InvoiceAccountDetails.GSTIN;
+                            var gstincode = "";
                             $('#txtCompanyNameEdit').val(res.InvoiceAccountDetails.CompanyName);
                             $('#txtBusinessMailIDEdit').val(res.InvoiceAccountDetails.EmailID);
                             $('#txtMobileEdit').val(res.InvoiceAccountDetails.MobileNumber);
@@ -460,6 +462,18 @@
                             $("#stateEdit option[value='" + res.InvoiceAccountDetails.StateId + "']").prop('selected', true);
                             $("#btnUpdateEdit").attr('invoiceId',invoiceId);
                             $('#editInvoice').modal('show');
+                            if (gstin != "")
+                            {
+                                gstincode = gstin.substring(0, 2);
+                                $("#stateEdit,#txtGSTINEdit").attr("disabled", "disabled");        
+                                //$("#state [value='" + stateId + "']").attr("selected", true);
+                            }
+                            if (accessRole == "SUPER_USER" || accessRole == "ACCOUNTS" || accessRole == "ACCOUNTS_MANAGER" ) {
+                                $("#txtGSTINEdit").prop("disabled", false);
+                            }
+                            else {
+                                $("#txtGSTINEdit").prop("disabled", true);
+                            }
                         }
                         else
                         {
@@ -473,6 +487,17 @@
                     alert("Select an Invoice to edit!");
                     return ;
                 }
+            });
+
+            $("#txtGSTINEdit").keyup(function () {
+                var GSTIN = $("#txtGSTINEdit").val().trim();
+                if (GSTIN.length>=2){
+                    $("#stateEdit option[statecode='" + GSTIN.substring(0, 2) + "']").prop('selected', true);
+                    $('#stateEdit').attr('disabled', true);
+                }
+                else {
+                    $('#stateEdit').attr('disabled', false);
+                }        
             });
 
             $("#btnUpdateEdit").click(function (res) {

@@ -98,11 +98,11 @@ $(document).ready(function () {
     });
 
     var gstin = $("#hdnGstin").val().trim();
-    var gstincode = ""
+    var gstincode = "";
     if (gstin != "")
     {
         gstincode = gstin.substring(0, 2);
-        $("#state,#txtGSTIN").attr("disabled", "disabled");
+        $("#state,#txtGSTIN").attr("disabled", "disabled");        
         //$("#state [value='" + stateId + "']").attr("selected", true);
     }
     else {
@@ -160,10 +160,12 @@ $(document).ready(function () {
     });
     if (accessRole == "SUPER_USER" || accessRole == "ACCOUNTS" || accessRole == "ACCOUNTS_MANAGER" || OwnerShipId == 1) {
         $('#ddlAccountOwner').prop("disabled", false);
-
+        $("#txtGSTIN").prop("disabled", false);
     }
-    else
+    else {
         $('#ddlAccountOwner').prop("disabled", true);
+        $("#txtGSTIN").prop("disabled", true);
+    }
 
     $("#txtGSTIN").keyup(function () {
         var GSTIN = $("#txtGSTIN").val().trim();
