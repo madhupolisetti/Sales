@@ -45,12 +45,14 @@
       <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>\\192.168.72.90\Websites\Orders 26 March 2019\OrdersManagement\OrdersManagement\bin\Debug\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement">
       <HintPath>\\192.168.72.90\Websites\Orders 26 March 2019\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+    </Reference>
+    <Reference Include="Razorpay">
+      <HintPath>C:\Users\smsc\Downloads\razorpay-dot-net-2.2\razorpay-dot-net-2.2\net45\bin\Debug\Razorpay.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -284,6 +286,7 @@
     <Content Include="JsFiles\moment.min.js" />
     <Content Include="LoginWithGoogle.aspx" />
     <Content Include="logout.aspx" />
+    <Content Include="OnlineOrder.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Profile.aspx" />
@@ -412,6 +415,13 @@
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
+    <Compile Include="OnlineOrder.aspx.cs">
+      <DependentUpon>OnlineOrder.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineOrder.aspx.designer.cs">
+      <DependentUpon>OnlineOrder.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
