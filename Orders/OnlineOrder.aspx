@@ -21,8 +21,8 @@
     {
         var ordersClient = new OrdersClient();
         InitiateInOrders();
-    });    
-    
+    });
+
     var options = {
         "key": "rzp_test_NM2snZJrPHBYS4",
         "name": "Telebu",
@@ -65,7 +65,7 @@
 
     function InitiateInOrders()
     {
-        ordersClient.InitiateRazorpayTransaction(<%=this._productId%>, <%=_userId%>, <%=_userName%>, <%=_mobile%>, <%=_emailId%>, <%=_rawAmount%>, <%=_tax%>, <%=_totalAmount%>, <%=orderId%>, function (res)
+        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, <%=_userName%>, <%=_mobile%>, <%=_emailId%>, <%=_rawAmount%>, <%=_tax%>, <%=_totalAmount%>, <%=orderId%>, function (res)
         {
             if (res.Success == true)
             {
