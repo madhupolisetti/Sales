@@ -1736,7 +1736,7 @@
                 if (CanCallBack(callBackFunction))
                     callBackFunction(actionResponse);
             }
-        })
+        });
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }

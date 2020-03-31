@@ -18,13 +18,12 @@
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     $(document).ready(function ()
-    {
-        var ordersClient = new OrdersClient();
+    {        
         InitiateInOrders();
     });
 
     var options = {
-        "key": "rzp_test_NM2snZJrPHBYS4",
+        "key": "rzp_test_NM2snZJrPHBYS4",           /////////////////////////////////////
         "name": "Telebu",
         "order_id": "<%=orderId%>",
         "description": "Grptalk payment",
@@ -65,11 +64,14 @@
 
     function InitiateInOrders()
     {
-        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, <%=_userName%>, <%=_mobile%>, <%=_emailId%>, <%=_rawAmount%>, <%=_tax%>, <%=_totalAmount%>, <%=orderId%>, function (res)
+        var ordersClient = new OrdersClient();
+        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, <%=_totalAmount%>, "<%=orderId%>", function (res)
         {
+            console.log(res);
             if (res.Success == true)
             {
                 // carry forward
+                alert("Archit checkpoint 1");
             }
             else
             {

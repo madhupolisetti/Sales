@@ -33,7 +33,7 @@ namespace Orders
             _totalAmount = float.Parse(Request.Form["amountToPay"]);
 
             keyId = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeyId"];
-            keySecret = System.Configuration.ConfigurationManager.AppSettings["ProductId"];
+            keySecret = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeySecret"];
             
             ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
             RazorpayClient client = new RazorpayClient(keyId, keySecret);

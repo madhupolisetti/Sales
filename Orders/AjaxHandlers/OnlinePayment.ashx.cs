@@ -50,14 +50,15 @@ namespace Orders.AjaxHandlers
         private void InitiateInOrders(HttpContext context)
         {
             OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            OMClient.InitiateRazorpayInOrders(context.Request["ProductId"], context.Request["UserId"], context.Request["Name"], context.Request["Mobile"], context.Request["EmailId"], context.Request["RawAmount"], context.Request["Tax"], context.Request["TotalAmount"], context.Request["OrderId"],);
+            OMClient.InitiateRazorpayInOrders(Convert.ToInt32(context.Request["ProductId"]), Convert.ToInt32(context.Request["UserId"]), context.Request["Name"], context.Request["Mobile"], context.Request["EmailId"], float.Parse(context.Request["RawAmount"]), float.Parse(context.Request["Tax"]), float.Parse(context.Request["TotalAmount"]), context.Request["OrderId"]);
         }
 
-        private Boolean VerifySignature(HttpContext context)
+        private void VerifySignature(HttpContext context)
         {            
             string message = context.Request["OrderId"] + "|" + context.Request["PaymentId"];
             string keyId = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeyId"];
             string keySecret = System.Configuration.ConfigurationManager.AppSettings["ProductId"];
+            string status = "";
 
             byte[] MsgInBytes = Encoding.ASCII.GetBytes(message);
             byte[] secretInBytes = Encoding.ASCII.GetBytes(keySecret);
@@ -71,9 +72,11 @@ namespace Orders.AjaxHandlers
                 builder.Append(msgByteArray[i].ToString("x2"));
             }
             if (context.Request["Signature"] == builder.ToString())
-                return true;
+                status = "Signature verification success";
             else
-                return false;
+                status = "Signature verification failed";
+            OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            OMClient.UpdateRazorpayResponse(context.Request["OrderId"], context.Request["PaymentId"], context.Request["Signature"], status);
         }
 
         private void GenerateErrorResponse(int statusCode, string message)
