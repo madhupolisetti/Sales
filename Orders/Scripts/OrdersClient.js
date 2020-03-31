@@ -16,6 +16,7 @@
             ordersHandler: "/AjaxHandlers/Orders.ashx",
             genericHandler: "/AjaxHandlers/Generic.ashx",
             accountHandler: "/AjaxHandlers/Accounts.ashx",
+            onlinePaymentHandler: "/AjaxHandlers/OnlinePayment.ashx",
             async: true
         }
         // Create options by extending defaults with the passed in arugments
@@ -1700,5 +1701,82 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
+
+    OrdersClient.prototype.InitiateRazorpayTransaction = function (productId, userId, name, mobile, email, rawAmount, tax, totalAmount, orderId, callBackFunction)
+    {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.onlinePaymentHandler,
+            async: false,
+            dataType: "JSON",
+            traditional: true,
+            data:
+            {
+                "Action": "OrdersInitiation",
+                "ProductId": productId,
+                "UserId": userId,
+                "Name": name,
+                "Mobile": mobile,
+                "EmailId": email,
+                "RawAmount": rawAmount,
+                "Tax": tax,
+                "TotalAmount": totalAmount,
+                "OrderId": orderId
+            },
+            success: function (response)
+            {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response)
+            {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
+    OrdersClient.prototype.VerifySignature = function (orderId, paymentId, signature, callBackFunction)
+    {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.onlinePaymentHandler,
+            async: false,
+            dataType: "JSON",
+            traditional: true,
+            data:
+            {
+                "Action": "RazorpayVerification",                
+                "OrderId": orderId,
+                "PaymentId": paymentId,
+                "Signature": signature,
+            },
+            success: function (response)
+            {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response)
+            {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        })
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
 }());
 

@@ -45,8 +45,8 @@
       <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -335,6 +335,9 @@
     <Compile Include="AjaxHandlers\Invoices.ashx.cs">
       <DependentUpon>Invoices.ashx</DependentUpon>
     </Compile>
+    <Compile Include="AjaxHandlers\OnlinePayment.ashx.cs">
+      <DependentUpon>OnlinePayment.ashx</DependentUpon>
+    </Compile>
     <Compile Include="AjaxHandlers\Orders.ashx.cs">
       <DependentUpon>Orders.ashx</DependentUpon>
     </Compile>
@@ -572,6 +575,7 @@
     <Content Include="AjaxHandlers\Products.ashx" />
     <Content Include="AjaxHandlers\AdminAccess.ashx" />
     <Content Include="packages.config" />
+    <Content Include="AjaxHandlers\OnlinePayment.ashx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\OrdersPublish.pubxml" />
     <None Include="Properties\PublishProfiles\SalesModule.pubxml" />

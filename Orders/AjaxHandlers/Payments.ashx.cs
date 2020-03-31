@@ -70,8 +70,7 @@ namespace Orders.AjaxHandlers
                         break;
                     case "UpdatePaymentStatus":
                         UpdatePaymentStatus(context);
-                        break;  
-
+                        break;                    
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -356,7 +355,7 @@ namespace Orders.AjaxHandlers
             }
             catch (System.Threading.ThreadAbortException e)
             { }
-        }
+        }        
 
         public bool IsReusable
         {
