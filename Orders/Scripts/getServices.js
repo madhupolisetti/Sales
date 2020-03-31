@@ -14,7 +14,14 @@ $(document).ready(function () {
         alert('Cannot Raise Quotation for SubAccount');
     else {
         if (billingModeId == 1)
-            getServices(productId, 8, true, false, false);
+            {
+            if(productId!=2){
+                getServices(productId, 8, true, false, false);
+            }
+            else {
+                getServices(productId, 0, true, false, false);
+            }
+        }
         else if (billingModeId == 3 && adminId != TestCreditsAdminId)
             getServices(productId, 7, true, false, false);
         else {
@@ -29,8 +36,13 @@ $(document).ready(function () {
 
 $(document).on("change", ".check_tool", function () {
     if(quotationId==0){
-        if ($(this).attr("type") == "checkbox") {                    
-            $('.check_tool').removeAttr('checked');
+        if ($(this).attr("type") == "checkbox") {  
+            var propId = $(this).attr("id");
+            //$('.check_tool').removeAttr('checked');
+            if ($("div").hasClass("properties_"+propId)) {
+                $("[class^= properties_" + propId + "]").remove();
+                return;
+            }
             $(this).prop("checked", true);
             toolId = "";
             toolId += $(this).val().trim();
@@ -272,7 +284,7 @@ function getServiceProperties(serviceId) {
                 str += "<label class='block'><input type='textbox' style='font-size:11px' placeholder='Amount' class='form-control extracharges' id='extAmount' onkeypress='return isNumberKey(event)'></label>";
                 str += "</div></div></div>";
                 
-                $("[class^=div_]").find("[class^=properties_]").remove();
+                //$("[class^=div_]").find("[class^=properties_]").remove();
                 $(".div_" + serviceId).find(".service-label").append(str);
                 $(".make-switch[id='IsBalanceValidity_" + serviceId + "']").bootstrapSwitch();
                 $(".VAS").prop('checked', true);

@@ -12,6 +12,7 @@ namespace Orders.UserDefinedClasses
     {
         #region Products Related
         public const string GET_ACCOUNT_PRODUCT_DETAILS = "GetAccountProductDetails";
+        public const string GET_PRODUCT_DETAILS = "GetProductDetails";
         #endregion
         #region Account Related
         public const string CREATE_ACCOUNT_PRODUCT = "CreateAccountProduct";

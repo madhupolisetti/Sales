@@ -241,11 +241,11 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(400, string.Format("ActivationAmount is Mandatory"));
             else
                activationAmount= float.Parse(context.Request["ActivationAmount"].ToString(),System.Globalization.CultureInfo.InvariantCulture);
-                
 
+            string activationComments = context.Request["ActivationComments"].ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
 
-            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activationAmount: activationAmount, activationUrl: activationUrl, employeeId: Convert.ToInt32(HttpContext.Current.Session["AdminId"]), tablePreferences: null));
+            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activationAmount: activationAmount, activationUrl: activationUrl, activationComments: activationComments, employeeId: Convert.ToInt32(HttpContext.Current.Session["AdminId"]), tablePreferences: null));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

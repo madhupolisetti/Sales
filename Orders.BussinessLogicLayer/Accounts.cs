@@ -23,7 +23,7 @@ namespace Orders.BussinessLogicLayer
         private XmlDocument xmlDoc = null;
         private XmlElement rootElement = null;
         private bool _isOutputXmlFormat = false;
-
+      
         public static JObject responseObj = new JObject();
         DataSet _ds = null;
 
@@ -31,22 +31,22 @@ namespace Orders.BussinessLogicLayer
         {
             responseObj = new JObject();
         }
-        public JObject CreateAccountProducts(string sConnString, byte productId, string accountUrl, string mobileNumber)
+        public JObject CreateAccountProducts(string sConnString, byte productId, string accountUrl, string mobileNumber, string userName)
         {
             bool success = false;
             decimal accountId = 0 , accountProductID = 0;
             bool isFirstTime = false;
             JObject userObj;
             Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
-            
+           
 
             //if (!success)
             //{
                 //if (_ds.Tables.Count > 0 && _ds.Tables[0].Rows.Count > 0)
                 //{
-                responseObj = GetAccountDetailApi(accountUrl, mobileNumber);
+                responseObj = GetAccountDetailApi(sConnString,accountUrl, mobileNumber,productId,userName);
                 isFirstTime = true;
-
+                
                 //}
                 //else
                 //{
@@ -58,6 +58,8 @@ namespace Orders.BussinessLogicLayer
 
             if (Convert.ToBoolean(responseObj.SelectToken("Success").ToString()) == true )
             {
+
+              
              
                 AccountProducts accountProductProperties = new AccountProducts();
                 accountProductProperties.ProductAccountName = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("NickName").ToString();
@@ -80,8 +82,12 @@ namespace Orders.BussinessLogicLayer
                 account.CreateAccountProduct(accountProductProperties, out accountId , out accountProductID);
                 responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);
                 responseObj[Label.USER_DETAILS][Label.ACCOUNT_PRODUCT_ID] = Convert.ToInt64(accountProductID);
-                
+                if (mobileNumber == "")
+                {
+                    mobileNumber = accountProductProperties.MobileNo;
+                }
             }
+            
             responseObj = accountsObj.GetAccountProductDetails(productId, mobileNumber, out success);
                 responseObj.Add(new JProperty(Label.ISFIRSTTIME, isFirstTime));
             
@@ -89,7 +95,7 @@ namespace Orders.BussinessLogicLayer
         }
 
 
-        public JObject GetAccountDetailApi(string httpUrl, string mobileNumber)
+        public JObject GetAccountDetailApi(string sConnString, string httpUrl, string mobileNumber,byte productId,string userName)
         {
             JObject accountObj = null;
             JObject reqObj = new JObject();
@@ -101,9 +107,20 @@ namespace Orders.BussinessLogicLayer
             string _ApiKey = "fDZjHHybyM";
             string _ApiSecret = "zu5nKlRQFbPCQrihQn51";
             CredentialCache _credentialCache = new CredentialCache();
+            if (productId == 2)
+            {
+                reqObj = new JObject(new JProperty("AccountName", userName));
+            }
+            else
+            {
+                 reqObj = new JObject(new JProperty("MobileNumber", mobileNumber));
+            }
             try
             {
-                reqObj = new JObject(new JProperty("MobileNumber", mobileNumber));
+                Orders.DataAccessLayer.Accounts accountsObj = new DataAccessLayer.Accounts(sConnString);
+                dynamic ds = accountsObj.GetProductDetails(productId);
+                _ApiKey = ds.Table.ApiKey;
+                _ApiSecret = ds.Table.ApiSecret;
                 _Req = HttpWebRequest.Create(httpUrl);
                 _credentialCache.Add(new Uri(httpUrl), "Basic", new NetworkCredential(_ApiKey, _ApiSecret));
                 _Req.Credentials = _credentialCache;

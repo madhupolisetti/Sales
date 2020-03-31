@@ -61,8 +61,9 @@ namespace Orders.DataAccessLayer
                 _sqlConnection = Connection;
                 this._sqlCommand = new SqlCommand(StoredProcedure.GET_ACCOUNT_PRODUCT_DETAILS, this._sqlConnection);
                 this._sqlCommand.CommandType = CommandType.StoredProcedure;
-                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Bit).Value = productId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.Int).Value = productId;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.MOBILE, SqlDbType.VarChar, 15).Value = mobileNumber;
+               
                 this.PopulateCommonOutputParameters(ref this._sqlCommand);
                 _da = new SqlDataAdapter(_sqlCommand);
                 _ds = new DataSet();
@@ -225,7 +226,33 @@ namespace Orders.DataAccessLayer
             return this._helper.GetResponse();
         }
 
-
+        public dynamic GetProductDetails(int productId, Dictionary<string, TablePreferences> tablePreferences = null)
+        {
+            try
+            {
+                _sqlConnection = Connection;
+                this._sqlCommand = new SqlCommand(StoredProcedure.GET_PRODUCT_DETAILS, this._sqlConnection);
+                this._sqlCommand.Parameters.Add(ProcedureParameters.PRODUCT_ID, SqlDbType.BigInt).Value = productId;
+                this._helper.PopulateCommonOutputParameters(ref this._sqlCommand);
+                this._da = new SqlDataAdapter(this._sqlCommand);
+                this._da.Fill(this._ds = new DataSet());
+                if (!this._sqlCommand.IsSuccess())
+                    return this.ErrorResponse();
+                this._ds.Tables.Add(this._helper.ConvertOutputParametersToDataTable(this._sqlCommand.Parameters));
+                this._helper.ParseDataSet(this._ds, tablePreferences);
+                
+            }
+            catch (Exception e)
+            {
+                Logger.Error(string.Format("Unable to Get ProductDetails. {0}", e.ToString()));
+                //throw new QuotationException(string.Format("Unable to Get ProductDetails. {0}", e.Message));
+            }
+            finally
+            {
+                this.Clean();
+            }
+            return this._helper.GetResponse();
+        }
 
         internal void PopulateCommonOutputParameters(ref System.Data.SqlClient.SqlCommand sqlCommand)
         {

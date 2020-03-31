@@ -62,14 +62,16 @@ namespace Orders.AjaxHandlers
                 }
 
             }
-            catch (Exception ex) { }
+            catch (Exception ex) {
+                context.Response.Write(ex.ToString());
+            }
         }
 
         public void GetAccountDetails(HttpContext context)
         {
 
             Orders.BussinessLogicLayer.Accounts accountsObj = new BussinessLogicLayer.Accounts();
-            context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["accountInformationUrl"]), Convert.ToString(context.Request["mobileNumber"])));
+            context.Response.Write(accountsObj.CreateAccountProducts(MyConf.MyConnectionString, Convert.ToByte(context.Request["productId"]), Convert.ToString(context.Request["accountInformationUrl"]), Convert.ToString(context.Request["mobileNumber"]), Convert.ToString(context.Request["userName"])));
 
         }
         public void GetCountries(HttpContext context)

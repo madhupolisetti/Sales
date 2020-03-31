@@ -1151,7 +1151,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, accountUrl, mobileNumber, callBackFunction) {
+    OrdersClient.prototype.GetProductWiseAccountRelatedInformation = function (productId, accountUrl, mobileNumber,userName, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1164,7 +1164,8 @@
                     action: "CreateOrUpdateAccountDetails",
                     productId: productId,
                     accountInformationUrl: accountUrl,
-                    mobileNumber: mobileNumber
+                    mobileNumber: mobileNumber,
+                    userName: userName
 
                 },
             success: function (response) {
@@ -1511,7 +1512,7 @@
             window.open(urltodownload);
         }
     }
-    OrdersClient.prototype.ActivateOrder = function (activationUrl, quotationId, isPostPaid, activationAmount, callBackFunction) {
+    OrdersClient.prototype.ActivateOrder = function (activationUrl, quotationId, isPostPaid, activationAmount, activationComments, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -1526,7 +1527,8 @@
                    
                     "ActivationUrl": activationUrl,
                     "IsPostPaid": isPostPaid,
-                    "ActivationAmount": activationAmount
+                "ActivationAmount": activationAmount,
+                "ActivationComments": activationComments
                 },
             success: function (response) {
                 actionResponse = response;

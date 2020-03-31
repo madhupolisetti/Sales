@@ -265,10 +265,10 @@ $(document).ready(function () {
                 quotationServices += "<th >Amount Activated</th> <th >Pending Amount to Activate</th> </tr></thead>"
                 for (var i = 0; i < res.QuotationServices.length; i++) {
 
-                    if (res.QuotationServices[i].Service == "PerMinutePlan") {
-                        service = "PerMinutePlan";
+                    if (res.QuotationServices[i].Service == "AmountActivation") {
+                        service = res.QuotationServices[i].ServiceName;
                         //quotationServices += "<input type='checkbox' IsPerMinutePlan='True' class='chkQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'/> <span> " + res.QuotationServices[i].Service + " </span>&nbsp;&nbsp;&nbsp;</br>"
-                        quotationServices += "<tr><td><label IsPerMinutePlan='True' class='LabelQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'>" + res.QuotationServices[i].Service + " </label></td>"
+                        quotationServices += "<tr><td><label IsPerMinutePlan='True' class='LabelQuotationServices' ServiceId='" + res.QuotationServices[i].Id + "' Service='" + res.QuotationServices[i].Service + "'>" + res.QuotationServices[i].ServiceName + " </label></td>"
                         quotationServices += "<td>" + InvoiceNumber + "</td><td>" + orderId + "</td>"
                         quotationServices += "<td>" + activatedAmount + "</td><td>" + pendingAmountToActivate + "</td>"
                     }
@@ -278,14 +278,14 @@ $(document).ready(function () {
 
                 }
                 quotationServices += "</tr></table></div>"
-                quotationServices += "<div style='text-align:center;'> <label><strong> Activation Amount :  </strong></label> <input type='text' style='width:30%;display:inline-block;margin-top: 10px;' placeholder='Enter Amount to be Activated' class='form-control' onkeypress='return isNumberKey(event)' id='activationAmount'";
+                quotationServices += "<div style='text-align:center;'> <label><strong> Activation Amount :  </strong></label> <input type='text' style='width:20%;display:inline-block;margin-top: 10px;margin-right: 75px;' placeholder='Enter Amount' class='form-control' onkeypress='return isNumberKey(event)' id='activationAmount'";
                 if (pendingAmountToActivate <= 0)
                     quotationServices+=" disabled title='total Amount Activated'";
-                quotationServices += "/> </div>"
+                quotationServices += "/> <label><strong> Comments :  </strong></label> <input type='text' style='width:40%;display:inline-block;margin-top: 10px;' placeholder='Enter Comments' class='form-control'  id='activationComments'/>  </div>"
                 $("#divQuotationservices").html(quotationServices);
                 if (service != '')
                     $("#quotationServicesModal").modal('show');
-                else if (res.QuotationServices.ServiceId = 7) {
+                else if (res.QuotationServices.ServiceId == 7) {
                     if (isActivated == 'Activated' || InvoiceNumber != '')
                         return false;
                     var isConfirmActivate = confirm("Activate Unlimited Service ?");
@@ -317,7 +317,8 @@ $("#btnActivate").click(function () {
         var pendingActivationAmount = $(this).attr("pendingActivationAmount");
         var taxAmount = $(this).attr("taxAmount");
         //var activatePercentage = $(this).attr("activatePercentage");
-        var activationAmount = parseFloat($("#activationAmount").val().trim());
+    var activationAmount = parseFloat($("#activationAmount").val().trim());
+    var activationComments = $("#activationComments").val();
         var isPostPaid = false;
         var success='';
         if (billingMode == 2)
@@ -343,8 +344,8 @@ $("#btnActivate").click(function () {
         
             //var activatedPercentage = $("#ddlActivatePercentage").val();
 
-            ordersClient.ActivateOrder(activationUrl, quotationId, isPostPaid, activationAmount, function (res) {
-                if (res.success == "true") {
+    ordersClient.ActivateOrder(activationUrl, quotationId, isPostPaid, activationAmount, activationComments, function (res) {
+                if (res.success == "true"|| res.success==true) {
                     success = true;
                     SuccessNotifier("Amount Activated Succesfully");
                     ordersClient.VerifyOrderStatuses(orderId, activationAmount, success, function (res) {
