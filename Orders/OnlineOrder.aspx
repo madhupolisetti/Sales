@@ -17,73 +17,72 @@
 <script src="Scripts/OrdersClient.js?type=v4" type="text/javascript"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
+    var _imageURL = "", _productName = "", _redirectURL = "";
+    var ordersClient = new OrdersClient();
     $(document).ready(function ()
     {        
-        InitiateInOrders();
-    });
-
-    var options = {
-        "key": "rzp_test_NM2snZJrPHBYS4",           /////////////////////////////////////
-        "name": "Telebu",
-        "order_id": "<%=orderId%>",
-        "description": "Grptalk payment",
-        "amount": "<%=_totalAmount%>",
-        "currency": "<%=_currency%>",
-        "image": "https://www.grptalk.com/images/logo-grp.png",  // need to change image
-        "handler": function (response)
-        {
-            VerifySignature(response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature);
-            //var _razorOrderId = response.razorpay_order_id;
-            //var _razorPaymentId = response.razorpay_payment_id;
-            //var _razorSignature = response.razorpay_signature
-            //VerifySignature(_razorOrderId, _razorPaymentId, _razorSignature);
-        },
-        "prefill": {
-            "name": "<%=_userName%>",
-            "email": "<%=_emailId%>",
-            "contact": "<%=_mobile%>"
-        },        
-        "theme": {
-            "color": "#007bff"
-        },
-        "modal": {
-            "ondismiss": function ()
-            {
-                alert("Redirect user back to the source URL");
-                // need to be implemented
-            }
-        }
-    };
-    var rzp1 = new Razorpay(options);
-    document.getElementById('btnRazorPay').onclick = function (e)
-    {
-        rzp1.open();
-        e.preventDefault();
-    }
-    document.getElementById("btnRazorPay").click();
-
-    function InitiateInOrders()
-    {
-        var ordersClient = new OrdersClient();
-        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, <%=_totalAmount%>, "<%=orderId%>", function (res)
+        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, "<%=orderId%>", function (res)
         {
             console.log(res);
+            _imageURL = res.Table.ProductImageURL;
+            _productName = res.Table.ProductName;
+            _redirectURL = res.Table.RedirectionURL;
+            
             if (res.Success == true)
-            {
-                // carry forward
-                alert("Archit checkpoint 1");
+            {                
+                alert(res.Table.ProductName);
+                InitiateCheckout();
             }
             else
             {
-                alert("Unable to Initiate transaction in Orders");
+                alert("Unable to Initiate transaction in Orders at script level");
                 return false;
             }
-        });       
-    }
+        });
+    });
+
+    function InitiateCheckout()
+    {
+        var options = {
+            "key": "<%=keyId%>",
+            "name": "Telebu",
+            "order_id": "<%=orderId%>",
+            "description": _productName,
+            "amount": "<%=_totalAmount%>",
+            "currency": "<%=_currency%>",
+            "image": _imageURL,
+            "handler": function (response)
+            {
+                VerifySignature(response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature);
+            },
+            "prefill": {
+                "name": "<%=_userName%>",
+            "email": "<%=_emailId%>",
+            "contact": "<%=_mobile%>"
+            },
+            "theme": {
+                "color": "#007bff"
+            },
+            "modal": {
+                "ondismiss": function ()
+                {
+                    window.location.replace(_redirectURL);
+                }
+            }
+        };
+        var rzp1 = new Razorpay(options);
+        document.getElementById('btnRazorPay').onclick = function (e)
+        {
+            rzp1.open();
+            e.preventDefault();
+        }
+        document.getElementById("btnRazorPay").click();
+    }    
+    
 
     function VerifySignature(rOrderId, rPaymentId, rSignature)
     {
-        if (rOrderId != <%=orderId%> )
+        if (rOrderId != "<%=orderId%>" )
         {
             alert("Razorpay incorrect orderId received");
             return false;
@@ -94,7 +93,9 @@
         {
             if (res.Success == true)
             {
-                // redirect to Invoice download page
+                alert("Success payment, will now redirect to source");
+                window.location.replace(_redirectURL);
+                // show option to download invoice                
             }
             else
             {

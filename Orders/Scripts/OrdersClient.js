@@ -1700,7 +1700,7 @@
             return actionResponse;
     }
 
-    OrdersClient.prototype.InitiateRazorpayTransaction = function (productId, userId, name, mobile, email, rawAmount, tax, totalAmount, orderId, callBackFunction)
+    OrdersClient.prototype.InitiateRazorpayTransaction = function (productId, userId, name, mobile, email, rawAmount, tax, orderId, callBackFunction)
     {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
@@ -1718,8 +1718,7 @@
                 "Mobile": mobile,
                 "EmailId": email,
                 "RawAmount": rawAmount,
-                "Tax": tax,
-                "TotalAmount": totalAmount,
+                "Tax": tax,                
                 "OrderId": orderId
             },
             success: function (response)
