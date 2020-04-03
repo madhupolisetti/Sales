@@ -1,5 +1,8 @@
 ﻿var ordersClient = new OrdersClient();
 $(document).ready(function () {
+    $("#mobiletr").hide();
+    $("#usertr").hide();
+   
     bindProducts();
    
 })
@@ -8,7 +11,16 @@ $("#btnAddNewQuotation,#btncreate").click(function () {
 });
 
 $("#ddlProducts").change(function () {
+    var product=$('option:selected', $(this)).text();
     var IsShowInvoiceTypes = $("#ddlProducts option:selected").attr("istestinvoiceavailable");
+    if (product == 'RestApi') {
+        $("#mobiletr").hide();
+        $("#usertr").show();
+    }
+    else {
+        $("#mobiletr").show();
+        $("#usertr").hide();
+    }
     if (IsShowInvoiceTypes == "true") {
         $('#ddlQuotationTypes').prop('selectedIndex', 0);
         $('#ddlQuotationTypes').attr("disabled", false);
@@ -29,13 +41,13 @@ $("#btnSubmit").click(function () {
         alert("Please select quotation type");
         return true;
     }
-    getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0, quotationType);
+    getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0, quotationType, $("#txtUser").val());
 
 });
 
-function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quotationId, billMode, quotationType) {
+function getProductRelatedUserInformation(productId, accountUrl, mobileNo, quotationId, billMode, quotationType,userName) {
 
-    ordersClient.GetProductWiseAccountRelatedInformation(productId, accountUrl, mobileNo, function (res) {
+    ordersClient.GetProductWiseAccountRelatedInformation(productId, accountUrl, mobileNo,userName, function (res) {
         if (res.Success == true) {
 
             var accountId = res.UserDetails.AccountId;

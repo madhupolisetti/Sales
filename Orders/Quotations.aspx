@@ -227,14 +227,24 @@
 
                                 </td>
                             </tr>
-                            <tr>
-                                <td><span>Mobile </span>
+                            <tr id="mobiletr">
+                                <td><span id="mobie">Mobile </span>
 
                                 </td>
                                 <td>
 
                                     <input type="text" id="txtUserMobile" class="form-control" onkeypress='return isNumberKey(event)' />
                                     <span id="lblerrMobile" style="color: Red;"></span>
+                                </td>
+                            </tr>
+                            <tr id="usertr">
+                                <td><span id="user">Username </span>
+
+                                </td>
+                                <td>
+
+                                    <input type="text" id="txtUser" class="form-control" />
+                                    <span id="lblerrUser" style="color: Red;"></span>
                                 </td>
                             </tr>
                             <%--<tr>
@@ -380,7 +390,7 @@
                 if(quotationId){
                     var $form = $("<form/>").attr("id", "data_form")
                                             .attr("action", "Quotation.aspx")
-                                            .attr("target","_blank")
+                                            //.attr("target","_blank")
                                             .attr("method", "post");
                     $("body").append($form);
                     AddParameter($form, "QuotationId", quotationId);
