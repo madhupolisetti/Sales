@@ -76,7 +76,7 @@ namespace Orders.AjaxHandlers
             else
                 status = 3;
             OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(OMClient.UpdateRazorpayResponse(context.Request["OrderId"], context.Request["PaymentId"], context.Request["Signature"], status));
+            context.Response.Write(OMClient.UpdateRazorpayResponse(Convert.ToInt32(context.Request["Id"]), context.Request["OrderId"], context.Request["PaymentId"], context.Request["Signature"], status));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

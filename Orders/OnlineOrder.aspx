@@ -17,25 +17,24 @@
 <script src="Scripts/OrdersClient.js?type=v4" type="text/javascript"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
-    var _imageURL = "", _productName = "", _redirectURL = "";
+    var _imageURL = "", _productName = "", _redirectURL = "", _insertedId;
     var ordersClient = new OrdersClient();
     $(document).ready(function ()
     {        
         ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, "<%=orderId%>", function (res)
-        {
-            console.log(res);
+        {            
             _imageURL = res.Table.ProductImageURL;
             _productName = res.Table.ProductName;
             _redirectURL = res.Table.RedirectionURL;
+            _insertedId = res.Table1.Id;
             
             if (res.Success == true)
             {                
-                alert(res.Table.ProductName);
                 InitiateCheckout();
             }
             else
             {
-                alert("Unable to Initiate transaction in Orders at script level");
+                alert("Unable to Initiate transaction in Telebu Orders");
                 return false;
             }
         });
@@ -53,7 +52,7 @@
             "image": _imageURL,
             "handler": function (response)
             {
-                VerifySignature(response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature);
+                VerifySignature(_insertedId, response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature);
             },
             "prefill": {
                 "name": "<%=_userName%>",
@@ -80,26 +79,26 @@
     }    
     
 
-    function VerifySignature(rOrderId, rPaymentId, rSignature)
+    function VerifySignature(insertedId, rOrderId, rPaymentId, rSignature)
     {
         if (rOrderId != "<%=orderId%>" )
         {
             alert("Razorpay incorrect orderId received");
-            return false;
+            return false;            
             // might need to escalate further with Razorpay
         }
 
-        ordersClient.VerifySignature(rOrderId, rPaymentId, rSignature, function (res)
+        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, function (res)
         {
             if (res.Success == true)
             {
-                alert("Success payment, will now redirect to source");
-                window.location.replace(_redirectURL);
-                // show option to download invoice                
+                alert("Invoice & redirect");
+                window.location.replace(_redirectURL);                             
             }
             else
-            {
+            {                
                 alert("Unable to process transaction");
+                alert(res.Message);
                 return false;
             }
         });      

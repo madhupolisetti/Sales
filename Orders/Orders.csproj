@@ -50,7 +50,7 @@
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>..\..\..\..\Orders\Aug 29\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="Razorpay">
       <HintPath>C:\Users\smsc\Downloads\razorpay-dot-net-2.2\razorpay-dot-net-2.2\net45\bin\Debug\Razorpay.dll</HintPath>

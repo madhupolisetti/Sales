@@ -21,7 +21,8 @@ namespace Orders
         public float _rawAmount, _tax, _totalAmount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (!IsPostBack)
+            // IsPostBack returning false for both redirection & direct URL enter
+            if (Convert.ToInt32(Request.Form["productId"]) < 1)
                 return;
 
             _productId = Convert.ToInt32(Request.Form["productId"]);

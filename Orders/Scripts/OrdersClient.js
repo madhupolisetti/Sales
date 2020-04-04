@@ -1742,7 +1742,7 @@
             return actionResponse;
     }
 
-    OrdersClient.prototype.VerifySignature = function (orderId, paymentId, signature, callBackFunction)
+    OrdersClient.prototype.VerifySignature = function (insertedId, orderId, paymentId, signature, callBackFunction)
     {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
@@ -1753,7 +1753,8 @@
             traditional: true,
             data:
             {
-                "Action": "RazorpayVerification",                
+                "Action": "RazorpayVerification",
+                "Id": insertedId,
                 "OrderId": orderId,
                 "PaymentId": paymentId,
                 "Signature": signature,
