@@ -21,7 +21,10 @@ namespace Orders
         public float _rawAmount, _tax, _totalAmount;
         protected void Page_Load(object sender, EventArgs e)
         {
-            // use try block to catch when someone accesses the page by manually entering URL or if !IsPostBack 
+            // IsPostBack returning false for both redirection & direct URL enter
+            if (Convert.ToInt32(Request.Form["productId"]) < 1)
+                return;
+
             _productId = Convert.ToInt32(Request.Form["productId"]);
             _userId = Convert.ToInt32(Request.Form["userId"]);
             _userName = Request.Form["userName"];
@@ -31,6 +34,16 @@ namespace Orders
             _rawAmount = float.Parse(Request.Form["rawAmount"]);
             _tax = float.Parse(Request.Form["tax"]);
             _totalAmount = float.Parse(Request.Form["amountToPay"]);
+
+            //_productId = 1;
+            //_userId = 79872;
+            //_userName = "Archit";
+            //_mobile = "9887870158";
+            //_emailId = "test@gmail.com";
+            //_currency = "INR";
+            //_rawAmount = 100;
+            //_tax = 18;
+            //_totalAmount = 11800;
 
             keyId = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeyId"];
             keySecret = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeySecret"];
