@@ -36,10 +36,10 @@ namespace Orders
             _totalAmount = float.Parse(Request.Form["amountToPay"]);
 
             //_productId = 1;
-            //_userId = 79872;
-            //_userName = "Archit";
-            //_mobile = "9887870158";
-            //_emailId = "test@gmail.com";
+            //_userId = 5;
+            //_userName = "Narasimha";
+            //_mobile = "919966359584";
+            //_emailId = "narasimha@gmail.com";
             //_currency = "INR";
             //_rawAmount = 100;
             //_tax = 18;

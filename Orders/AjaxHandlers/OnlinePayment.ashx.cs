@@ -33,6 +33,9 @@ namespace Orders.AjaxHandlers
                     case "RazorpayVerification":
                         VerifySignature(context);
                         break;
+                    case "GenerateOrderForOnlinePayments":
+                        GenerateOrderForOnlinePayments(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -46,7 +49,11 @@ namespace Orders.AjaxHandlers
                 GenerateErrorResponse(500, e.Message);
             }
         }
-
+        private void GenerateOrderForOnlinePayments(HttpContext context)
+        {
+            OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(OMClient.GenerateOrderForOnlinePayments(1, Convert.ToInt32(context.Request["ProductId"]), Convert.ToInt32(context.Request["ProductUserId"]),"", float.Parse(context.Request["OrderAmount"]), float.Parse(context.Request["Tax"]), float.Parse(context.Request["TotalAmount"]), Convert.ToString(context.Request["PaymentGatewayOrderId"]), Convert.ToString(context.Request["PaymentGatewayPaymentId"])));
+        }
         private void InitiateInOrders(HttpContext context)
         {
             OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);

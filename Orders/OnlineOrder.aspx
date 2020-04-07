@@ -92,8 +92,32 @@
         {
             if (res.Success == true)
             {
-                alert("Invoice & redirect");
-                window.location.replace(_redirectURL);                             
+                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>,<% =_totalAmount%>,rOrderId , rPaymentId, function (orderRes) {
+                    console.log(orderRes);
+                    if (orderRes.Success == true) {
+                        alert(orderRes.InvoiceDetails.QuotationId);
+                        alert(orderRes.InvoiceDetails.ActivationUrl);
+                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId , 0, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes) {
+                            if (activationRes.success == "true" || activationRes.success == true) {
+                                var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", _redirectURL)
+                                    .attr("method", "post");
+                                $("body").append($form);
+                                AddParameter($form, "rOrderId", res.InvoiceId);
+                                AddParameter($form, "rPaymentId", BillMode);
+                                AddParameter($form, "InvoiceNumber", orderRes.InvoiceDetails.InvoiceNumber);
+
+                                $form[0].submit();
+                            }
+                            else {
+                                
+                            }
+
+                        });
+                    }
+                });
+                //alert("Invoice & redirect");
+                //window.location.replace(_redirectURL);                             
             }
             else
             {                

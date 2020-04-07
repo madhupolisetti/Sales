@@ -288,6 +288,7 @@
     <Content Include="LoginWithGoogle.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="OnlineOrder.aspx" />
+    <Content Include="OnlineTest.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Profile.aspx" />
@@ -425,6 +426,13 @@
     </Compile>
     <Compile Include="OnlineOrder.aspx.designer.cs">
       <DependentUpon>OnlineOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTest.aspx.cs">
+      <DependentUpon>OnlineTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineTest.aspx.designer.cs">
+      <DependentUpon>OnlineTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
