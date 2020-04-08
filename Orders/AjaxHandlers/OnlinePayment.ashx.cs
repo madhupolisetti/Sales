@@ -5,6 +5,7 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Web;
+using Razorpay.Api;
 
 namespace Orders.AjaxHandlers
 {
@@ -50,7 +51,7 @@ namespace Orders.AjaxHandlers
         private void InitiateInOrders(HttpContext context)
         {
             OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(OMClient.InitiateRazorpayInOrders(Convert.ToInt32(context.Request["ProductId"]), Convert.ToInt32(context.Request["UserId"]), context.Request["Name"], context.Request["Mobile"], context.Request["EmailId"], float.Parse(context.Request["RawAmount"]), float.Parse(context.Request["Tax"]), context.Request["OrderId"]));
+            context.Response.Write(OMClient.InitiateRazorpayInOrders(Convert.ToInt32(context.Request["ProductId"]), Convert.ToInt32(context.Request["UserId"]), context.Request["Name"], context.Request["Mobile"], context.Request["EmailId"], float.Parse(context.Request["RawAmount"]), float.Parse(context.Request["Tax"]), float.Parse(context.Request["Fee"]), context.Request["OrderId"]));
         }
 
         private void VerifySignature(HttpContext context)
@@ -71,10 +72,23 @@ namespace Orders.AjaxHandlers
             {
                 builder.Append(msgByteArray[i].ToString("x2"));
             }
+            
             if (context.Request["Signature"] == builder.ToString())
+            {
+                // begin payment capture
+                RazorpayClient client = new RazorpayClient(keyId, keySecret);
+                Razorpay.Api.Payment payment = client.Payment.Fetch(context.Request["PaymentId"]);                
+
+                Dictionary <string, object> options = new Dictionary<string, object>();
+                options.Add("amount", context.Request["Amount"]);
+                options.Add("currency", context.Request["Currency"]);
+                Razorpay.Api.Payment paymentCaptured = payment.Capture(options);
+
                 status = 2;
+            }                
             else
                 status = 3;
+
             OrdersManagement.Core.Client OMClient = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
             context.Response.Write(OMClient.UpdateRazorpayResponse(Convert.ToInt32(context.Request["Id"]), context.Request["OrderId"], context.Request["PaymentId"], context.Request["Signature"], status));
         }

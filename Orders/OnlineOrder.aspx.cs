@@ -17,8 +17,8 @@ namespace Orders
     public partial class OnlineOrder : System.Web.UI.Page
     {
         public string orderId, _userName, _mobile, _emailId, _currency, razorOrderId, razorPaymentId, razorSignature, message, keyId, keySecret;
-        public int _productId, _userId;
-        public float _rawAmount, _tax, _totalAmount;
+        public int _productId, _productDBpaymentId, _userId;
+        public float _rawAmount, _tax, _fee, _totalAmount;
         protected void Page_Load(object sender, EventArgs e)
         {
             // IsPostBack returning false for both redirection & direct URL enter
@@ -26,6 +26,7 @@ namespace Orders
                 return;
 
             _productId = Convert.ToInt32(Request.Form["productId"]);
+            _productDBpaymentId = Convert.ToInt32(Request.Form["productDBpaymentId"]);
             _userId = Convert.ToInt32(Request.Form["userId"]);
             _userName = Request.Form["userName"];
             _mobile = Request.Form["userMobile"];
@@ -33,17 +34,20 @@ namespace Orders
             _currency = Request.Form["currencyCode"];
             _rawAmount = float.Parse(Request.Form["rawAmount"]);
             _tax = float.Parse(Request.Form["tax"]);
+            _fee = float.Parse(Request.Form["fee"]);
             _totalAmount = float.Parse(Request.Form["amountToPay"]);
 
             //_productId = 1;
+            //_productDBpaymentId = 2;
             //_userId = 79872;
             //_userName = "Archit";
             //_mobile = "9887870158";
             //_emailId = "test@gmail.com";
-            //_currency = "INR";
+            //_currency = "USD";
             //_rawAmount = 100;
             //_tax = 18;
-            //_totalAmount = 11800;
+            //_fee = 3;
+            //_totalAmount = 121;
 
             keyId = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeyId"];
             keySecret = System.Configuration.ConfigurationManager.AppSettings["RazorpayKeySecret"];
