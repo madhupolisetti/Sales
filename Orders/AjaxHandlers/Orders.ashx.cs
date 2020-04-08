@@ -20,7 +20,7 @@ namespace Orders.AjaxHandlers
         private JObject errorJSon = new JObject(new JProperty("Success", false), new JProperty("Message", ""));
         public void ProcessRequest(HttpContext context)
         {
-            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+            if (context.Request["Action"].ToString()!= "Activate"&&(HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty))
             {
                 context.Response.StatusCode = 401;
                 context.Response.StatusDescription = "Invalid Session";
@@ -244,8 +244,12 @@ namespace Orders.AjaxHandlers
 
             string activationComments = context.Request["ActivationComments"].ToString();
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-
-            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activationAmount: activationAmount, activationUrl: activationUrl, activationComments: activationComments, employeeId: Convert.ToInt32(HttpContext.Current.Session["AdminId"]), tablePreferences: null));
+            int adminId = 0;
+            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+                adminId = 1;
+            else
+                adminId =Convert.ToInt32(HttpContext.Current.Session["AdminId"]);
+            context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activationAmount: activationAmount, activationUrl: activationUrl, activationComments: activationComments, employeeId: adminId, tablePreferences: null));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

@@ -1781,5 +1781,46 @@
             return actionResponse;
     }
 
+    OrdersClient.prototype.GenerateOrderForOnlinePayments = function (productId, productUserId, orderAmount, tax, totalAmount, PaymentGatewayOrderId, PaymentGatewayPaymentId, callBackFunction)
+    { 
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.onlinePaymentHandler,
+            async: false,
+            dataType: "JSON",
+            traditional: true,
+            data:
+            {
+                "Action": "GenerateOrderForOnlinePayments",
+                "ProductId": productId,
+                "ProductUserId": productUserId,
+                "OrderAmount": orderAmount,
+                "Tax": tax,
+                "TotalAmount": totalAmount,
+                "PaymentGatewayOrderId": PaymentGatewayOrderId,
+                "PaymentGatewayPaymentId": PaymentGatewayPaymentId
+            },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        })
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
 }());
+
+
+
+
 

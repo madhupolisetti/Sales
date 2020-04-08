@@ -46,11 +46,11 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\Orders\Aug 29\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="Razorpay">
       <HintPath>C:\Users\smsc\Downloads\razorpay-dot-net-2.2\razorpay-dot-net-2.2\net45\bin\Debug\Razorpay.dll</HintPath>
@@ -288,6 +288,7 @@
     <Content Include="LoginWithGoogle.aspx" />
     <Content Include="logout.aspx" />
     <Content Include="OnlineOrder.aspx" />
+    <Content Include="OnlineTest.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Profile.aspx" />
@@ -425,6 +426,13 @@
     </Compile>
     <Compile Include="OnlineOrder.aspx.designer.cs">
       <DependentUpon>OnlineOrder.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="OnlineTest.aspx.cs">
+      <DependentUpon>OnlineTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OnlineTest.aspx.designer.cs">
+      <DependentUpon>OnlineTest.aspx</DependentUpon>
     </Compile>
     <Compile Include="Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
