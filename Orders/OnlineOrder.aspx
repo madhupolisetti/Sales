@@ -19,8 +19,10 @@
 <script>
     var _imageURL = "", _productName = "", _redirectURL = "", _insertedId;
     var ordersClient = new OrdersClient();
-    $(document).ready(function () {
-        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, "<%=orderId%>", function (res) {
+    $(document).ready(function ()
+    {        
+        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>,  <%=_fee%>, "<%=orderId%>", function (res)
+        {            
             _imageURL = res.Table.ProductImageURL;
             _productName = res.Table.ProductName;
             _redirectURL = res.Table.RedirectionURL;
@@ -113,29 +115,36 @@
                                 $form[0].submit();
                             }
 
-                        });
-                    }
-                });
-                //alert("Invoice & redirect");
-                //window.location.replace(_redirectURL);                             
+        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, "<%=_currency%>", "<%=_totalAmount%>", function (res)
+        {
+            if (res.Success == true)
+            {
+                alert("Invoice");                               
             }
-            else {
-                var $form = $("<form/>").attr("id", "data_form")
-                    .attr("action", _redirectURL)
-                    .attr("method", "post");
-                $("body").append($form);
-                AddParameter($form, "PaymentStatusId", 2);
-                $form[0].submit();
+            else
+            {                
+                alert("Unable to process transaction: " + res.Message);                               
             }
-        });
+            
+            var paymentStatus = res.Success ? 2 : 3;
+            
+            var $form = $("<form/>").attr("id", "data_form")
+                .attr("action", _redirectURL)
+                .attr("method", "post");
+            $("body").append($form);
 
+            AddParameter($form, "productDBpaymentId", <%=_productDBpaymentId%>);
+            AddParameter($form, "paymentStatusId", paymentStatus);
+            $form[0].submit();
+        });      
+    }
 
-        function AddParameter(form, name, value) {
-            var $input = $("<input />").attr("type", "hidden")
-                .attr("name", name)
-                .attr("value", value);
-            form.append($input);
-        }
+    function AddParameter(form, number, value)
+    {
+        var $input = $("<input />").attr("type", "hidden")
+            .attr("name", number)
+            .attr("value", value);
+        form.append($input);
     }
 
 </script>

@@ -1702,7 +1702,7 @@
             return actionResponse;
     }
 
-    OrdersClient.prototype.InitiateRazorpayTransaction = function (productId, userId, name, mobile, email, rawAmount, tax, orderId, callBackFunction)
+    OrdersClient.prototype.InitiateRazorpayTransaction = function (productId, userId, name, mobile, email, rawAmount, tax, fee, orderId, callBackFunction)
     {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
@@ -1720,7 +1720,8 @@
                 "Mobile": mobile,
                 "EmailId": email,
                 "RawAmount": rawAmount,
-                "Tax": tax,                
+                "Tax": tax,               
+                "Fee": fee,
                 "OrderId": orderId
             },
             success: function (response)
@@ -1742,7 +1743,7 @@
             return actionResponse;
     }
 
-    OrdersClient.prototype.VerifySignature = function (insertedId, orderId, paymentId, signature, callBackFunction)
+    OrdersClient.prototype.VerifySignature = function (insertedId, orderId, paymentId, signature, currency, totalAmount, callBackFunction)
     {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
@@ -1758,6 +1759,8 @@
                 "OrderId": orderId,
                 "PaymentId": paymentId,
                 "Signature": signature,
+                "Currency": currency,
+                "Amount": totalAmount
             },
             success: function (response)
             {
