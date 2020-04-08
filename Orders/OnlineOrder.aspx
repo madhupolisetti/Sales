@@ -19,29 +19,24 @@
 <script>
     var _imageURL = "", _productName = "", _redirectURL = "", _insertedId;
     var ordersClient = new OrdersClient();
-    $(document).ready(function ()
-    {        
-        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, "<%=orderId%>", function (res)
-        {            
+    $(document).ready(function () {
+        ordersClient.InitiateRazorpayTransaction(<%=_productId%>, <%=_userId%>, "<%=_userName%>", "<%=_mobile%>", "<%=_emailId%>", <%=_rawAmount%>, <%=_tax%>, "<%=orderId%>", function (res) {
             _imageURL = res.Table.ProductImageURL;
             _productName = res.Table.ProductName;
             _redirectURL = res.Table.RedirectionURL;
             _insertedId = res.Table1.Id;
-            
-            if (res.Success == true)
-            {                
+
+            if (res.Success == true) {
                 InitiateCheckout();
             }
-            else
-            {
+            else {
                 alert("Unable to Initiate transaction in Telebu Orders");
                 return false;
             }
         });
     });
 
-    function InitiateCheckout()
-    {
+    function InitiateCheckout() {
         var options = {
             "key": "<%=keyId%>",
             "name": "Telebu",
@@ -50,67 +45,72 @@
             "amount": "<%=_totalAmount%>",
             "currency": "<%=_currency%>",
             "image": _imageURL,
-            "handler": function (response)
-            {
+            "handler": function (response) {
                 VerifySignature(_insertedId, response.razorpay_order_id, response.razorpay_payment_id, response.razorpay_signature);
             },
             "prefill": {
                 "name": "<%=_userName%>",
-            "email": "<%=_emailId%>",
-            "contact": "<%=_mobile%>"
+                "email": "<%=_emailId%>",
+                "contact": "<%=_mobile%>"
             },
             "theme": {
                 "color": "#007bff"
             },
             "modal": {
-                "ondismiss": function ()
-                {
+                "ondismiss": function () {
                     window.location.replace(_redirectURL);
                 }
             }
         };
         var rzp1 = new Razorpay(options);
-        document.getElementById('btnRazorPay').onclick = function (e)
-        {
+        document.getElementById('btnRazorPay').onclick = function (e) {
             rzp1.open();
             e.preventDefault();
         }
         document.getElementById("btnRazorPay").click();
-    }    
-    
+    }
 
-    function VerifySignature(insertedId, rOrderId, rPaymentId, rSignature)
-    {
-        if (rOrderId != "<%=orderId%>" )
-        {
-            alert("Razorpay incorrect orderId received");
-            return false;            
-            // might need to escalate further with Razorpay
+
+    function VerifySignature(insertedId, rOrderId, rPaymentId, rSignature) {
+        //_redirectURL = "http://localhost:3779/Recharges.aspx";
+        if (rOrderId != "<%=orderId%>") {
+            var $form = $("<form/>").attr("id", "data_form")
+                .attr("action", _redirectURL)
+                .attr("method", "post");
+            $("body").append($form);
+            AddParameter($form, "PaymentStatusId", 2);
+            $form[0].submit();
         }
 
-        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, function (res)
-        {
-            if (res.Success == true)
-            {
-                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>,<% =_totalAmount%>,rOrderId , rPaymentId, function (orderRes) {
+        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, function (res) {
+            if (res.Success == true) {
+                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>,<% =_totalAmount%>, rOrderId, rPaymentId, function (orderRes) {
                     console.log(orderRes);
                     if (orderRes.Success == true) {
-                        alert(orderRes.InvoiceDetails.QuotationId);
-                        alert(orderRes.InvoiceDetails.ActivationUrl);
-                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId , 0, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes) {
+                        //alert(orderRes.InvoiceDetails.QuotationId);
+                        //alert(orderRes.InvoiceDetails.ActivationUrl);
+                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId, false, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes) {
                             if (activationRes.success == "true" || activationRes.success == true) {
                                 var $form = $("<form/>").attr("id", "data_form")
                                     .attr("action", _redirectURL)
                                     .attr("method", "post");
                                 $("body").append($form);
-                                AddParameter($form, "rOrderId", res.InvoiceId);
-                                AddParameter($form, "rPaymentId", BillMode);
+                                AddParameter($form, "PaymentStatusId", 1);
+                                AddParameter($form, "rOrderId", rOrderId);
+                                AddParameter($form, "rPaymentId", rPaymentId);
                                 AddParameter($form, "InvoiceNumber", orderRes.InvoiceDetails.InvoiceNumber);
-
+                                AddParameter($form, "OrderAmount", <%=_rawAmount %>, );
+                                AddParameter($form, "Tax", <%=_tax %>, );
+                                AddParameter($form, "TotalAmount", <%=_totalAmount %>, );
                                 $form[0].submit();
                             }
                             else {
-                                
+                                var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", _redirectURL)
+                                    .attr("method", "post");
+                                $("body").append($form);
+                                AddParameter($form, "PaymentStatusId", 2);
+                                $form[0].submit();
                             }
 
                         });
@@ -119,13 +119,23 @@
                 //alert("Invoice & redirect");
                 //window.location.replace(_redirectURL);                             
             }
-            else
-            {                
-                alert("Unable to process transaction");
-                alert(res.Message);
-                return false;
+            else {
+                var $form = $("<form/>").attr("id", "data_form")
+                    .attr("action", _redirectURL)
+                    .attr("method", "post");
+                $("body").append($form);
+                AddParameter($form, "PaymentStatusId", 2);
+                $form[0].submit();
             }
-        });      
+        });
+
+
+        function AddParameter(form, name, value) {
+            var $input = $("<input />").attr("type", "hidden")
+                .attr("name", name)
+                .attr("value", value);
+            form.append($input);
+        }
     }
 
 </script>
