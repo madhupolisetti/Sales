@@ -283,20 +283,20 @@ $(document).ready(function () {
                     quotationServices+=" disabled title='total Amount Activated'";
                 quotationServices += "/> <label><strong> Comments :  </strong></label> <input type='text' style='width:40%;display:inline-block;margin-top: 10px;' placeholder='Enter Comments' class='form-control'  id='activationComments'/>  </div>"
                 $("#divQuotationservices").html(quotationServices);
-                //if (service != '')
+                if (service != '')
                     $("#quotationServicesModal").modal('show');
-                //else if (res.QuotationServices[0].ServiceId == 7) {
-                //    if (isActivated == 'Activated' || InvoiceNumber != '')
-                //        return false;
-                //    var isConfirmActivate = confirm("Activate Unlimited Service ?");
-                //    if (isConfirmActivate == false) {
-                //        return false;
-                //    } else {
-                //        activateUnlimitedService(orderId);
-                //    }
-                //}
-                //else
-                //    alert('Activations are only for grptalk Per-Minute Service');
+                else if (res.QuotationServices[0].ServiceId == 7) {
+                    if (isActivated == 'Activated' || InvoiceNumber != '')
+                        return false;
+                    var isConfirmActivate = confirm("Activate Unlimited Service ?");
+                    if (isConfirmActivate == false) {
+                        return false;
+                    } else {
+                        activateUnlimitedService(orderId);
+                    }
+                }
+                else
+                    alert('Activations are only for grptalk Per-Minute Service');
 
             }
             else {
