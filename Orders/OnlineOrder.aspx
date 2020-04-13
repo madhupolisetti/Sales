@@ -73,58 +73,65 @@
     }
 
 
-    function VerifySignature(insertedId, rOrderId, rPaymentId, rSignature) {
-        //_redirectURL = "http://localhost:3779/Recharges.aspx";
-        if (rOrderId != "<%=orderId%>") {
+    function VerifySignature(insertedId, rOrderId, rPaymentId, rSignature)
+    {
+        
+        if (rOrderId != "<%=orderId%>")
+        {
+            alert("Razorpay incorrect orderId received");            
+
             var $form = $("<form/>").attr("id", "data_form")
                 .attr("action", _redirectURL)
                 .attr("method", "post");
             $("body").append($form);
-            AddParameter($form, "PaymentStatusId", 2);
+            AddParameter($form, "PaymentStatusId", 3);
             $form[0].submit();
-        }
-
-        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, function (res) {
-            if (res.Success == true) {
-                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>,<% =_totalAmount%>, rOrderId, rPaymentId, function (orderRes) {
-                    console.log(orderRes);
-                    if (orderRes.Success == true) {
-                        //alert(orderRes.InvoiceDetails.QuotationId);
-                        //alert(orderRes.InvoiceDetails.ActivationUrl);
-                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId, false, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes) {
-                            if (activationRes.success == "true" || activationRes.success == true) {
-                                var $form = $("<form/>").attr("id", "data_form")
-                                    .attr("action", _redirectURL)
-                                    .attr("method", "post");
-                                $("body").append($form);
-                                AddParameter($form, "PaymentStatusId", 1);
-                                AddParameter($form, "rOrderId", rOrderId);
-                                AddParameter($form, "rPaymentId", rPaymentId);
-                                AddParameter($form, "InvoiceNumber", orderRes.InvoiceDetails.InvoiceNumber);
-                                AddParameter($form, "OrderAmount", <%=_rawAmount %>, );
-                                AddParameter($form, "Tax", <%=_tax %>, );
-                                AddParameter($form, "TotalAmount", <%=_totalAmount %>, );
-                                $form[0].submit();
-                            }
-                            else {
-                                var $form = $("<form/>").attr("id", "data_form")
-                                    .attr("action", _redirectURL)
-                                    .attr("method", "post");
-                                $("body").append($form);
-                                AddParameter($form, "PaymentStatusId", 2);
-                                $form[0].submit();
-                            }
+        }        
+        
 
         ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, "<%=_currency%>", "<%=_totalAmount%>", function (res)
         {
             if (res.Success == true)
             {
-                alert("Invoice");                               
+                var totalAmount = "<%=_totalAmount %>" / 100;
+
+                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>, <%=_userId %>, <%=_rawAmount %>,<%=_tax %> , totalAmount, rOrderId, rPaymentId, function (orderRes)
+                {                    
+                    if (orderRes.Success == true)
+                    {                        
+                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId, false, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes)
+                        {
+                            if (activationRes.success == "true" || activationRes.success == true)
+                            {
+                                var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", _redirectURL)
+                                    .attr("method", "post");
+                                $("body").append($form);
+                                AddParameter($form, "PaymentStatusId", 2);
+                                AddParameter($form, "rOrderId", rOrderId);
+                                AddParameter($form, "rPaymentId", rPaymentId);
+                                AddParameter($form, "InvoiceNumber", orderRes.InvoiceDetails.InvoiceNumber);
+                                AddParameter($form, "OrderAmount", <%=_rawAmount %>);
+                                AddParameter($form, "Tax", <%=_tax %>);
+                                AddParameter($form, "TotalAmount", totalAmount);
+                                $form[0].submit();
+                            }
+                            else
+                            {
+                                var $form = $("<form/>").attr("id", "data_form")
+                                    .attr("action", _redirectURL)
+                                    .attr("method", "post");
+                                $("body").append($form);
+                                AddParameter($form, "PaymentStatusId", 3);
+                                $form[0].submit();
+                            }
+                        });
+                    }
+                });
             }
-            else
-            {                
-                alert("Unable to process transaction: " + res.Message);                               
-            }
+            
+            else                            
+                alert("Unable to process transaction: " + res.Message);            
             
             var paymentStatus = res.Success ? 2 : 3;
             
@@ -145,7 +152,7 @@
             .attr("name", number)
             .attr("value", value);
         form.append($input);
-    }
+    }  
 
 </script>
 

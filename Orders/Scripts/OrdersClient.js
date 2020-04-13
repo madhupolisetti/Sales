@@ -1522,14 +1522,12 @@
             dataType: "JSON",
             data:
                 {
-                    "Action": "Activate",
-                   
-                    "QuotationId": quotationId,
-                   
+                    "Action": "Activate",                   
+                    "QuotationId": quotationId,                   
                     "ActivationUrl": activationUrl,
                     "IsPostPaid": isPostPaid,
-                "ActivationAmount": activationAmount,
-                "ActivationComments": activationComments
+                    "ActivationAmount": activationAmount,
+                    "ActivationComments": activationComments
                 },
             success: function (response) {
                 actionResponse = response;
