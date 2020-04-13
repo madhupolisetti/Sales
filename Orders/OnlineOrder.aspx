@@ -80,13 +80,15 @@
                 .attr("action", _redirectURL)
                 .attr("method", "post");
             $("body").append($form);
-            AddParameter($form, "PaymentStatusId", 2);
+            AddParameter($form, "PaymentStatusId", 3);
             $form[0].submit();
         }
 
         ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, function (res) {
             if (res.Success == true) {
-                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>,<% =_totalAmount%>, rOrderId, rPaymentId, function (orderRes) {
+                var _totalAmount =<% =_totalAmount%>;
+                _totalAmount /= 100;
+                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>,<%=_userId %>,<%=_rawAmount %>,<%=_tax %>, _totalAmount, rOrderId, rPaymentId, function (orderRes) {
                     console.log(orderRes);
                     if (orderRes.Success == true) {
                         //alert(orderRes.InvoiceDetails.QuotationId);
@@ -103,42 +105,25 @@
                                 AddParameter($form, "InvoiceNumber", orderRes.InvoiceDetails.InvoiceNumber);
                                 AddParameter($form, "OrderAmount", <%=_rawAmount %>, );
                                 AddParameter($form, "Tax", <%=_tax %>, );
-                                AddParameter($form, "TotalAmount", <%=_totalAmount %>, );
+                                AddParameter($form, "TotalAmount", _totalAmount);
                                 $form[0].submit();
                             }
                             else {
                                 var $form = $("<form/>").attr("id", "data_form")
                                     .attr("action", _redirectURL)
                                     .attr("method", "post");
+                                //transactioId to be passed later
                                 $("body").append($form);
                                 AddParameter($form, "PaymentStatusId", 2);
                                 $form[0].submit();
                             }
+                        });
 
-        ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, "<%=_currency%>", "<%=_totalAmount%>", function (res)
-        {
-            if (res.Success == true)
-            {
-                alert("Invoice");                               
+                    }
+                });
             }
-            else
-            {                
-                alert("Unable to process transaction: " + res.Message);                               
-            }
-            
-            var paymentStatus = res.Success ? 2 : 3;
-            
-            var $form = $("<form/>").attr("id", "data_form")
-                .attr("action", _redirectURL)
-                .attr("method", "post");
-            $("body").append($form);
-
-            AddParameter($form, "productDBpaymentId", <%=_productDBpaymentId%>);
-            AddParameter($form, "paymentStatusId", paymentStatus);
-            $form[0].submit();
-        });      
+        });
     }
-
     function AddParameter(form, number, value)
     {
         var $input = $("<input />").attr("type", "hidden")
