@@ -121,6 +121,7 @@
                                 var $form = $("<form/>").attr("id", "data_form")
                                     .attr("action", _redirectURL)
                                     .attr("method", "post");
+                                //transactioId to be passed later
                                 $("body").append($form);
                                 AddParameter($form, "PaymentStatusId", 3);
                                 $form[0].submit();
@@ -145,7 +146,6 @@
             $form[0].submit();
         });      
     }
-
     function AddParameter(form, number, value)
     {
         var $input = $("<input />").attr("type", "hidden")
