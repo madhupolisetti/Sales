@@ -107,7 +107,6 @@
                                     <label>Account Owner</label>
                                     <select id="ddlAccountOwner" disabled name ="AccountOwner" class="ddlCountry form-control updateValues" name="AccountOwner">
                                     </select><br />
-
                                 </td>
                                 <td style ="display:none;">
                                     <label>Plans</label>

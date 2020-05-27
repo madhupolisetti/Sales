@@ -192,12 +192,13 @@ namespace Orders.AjaxHandlers
         {
             
             JObject InvoiceDetails = JObject.Parse(context.Request["payload"]);
-
             string mobile = string.Empty;
             string email = string.Empty;
             string address = string.Empty;
             string GSTIN = string.Empty;
             string companyName = string.Empty;
+            string ponumber = string.Empty;
+            int ownership = 0;
             int stateId = 0;
             int invoiceId = 0;
 
@@ -209,15 +210,19 @@ namespace Orders.AjaxHandlers
                 address = Convert.ToString(InvoiceDetails.SelectToken("ContactAddress"));
             if (InvoiceDetails.SelectToken("GSTIN") != null)
                 GSTIN = Convert.ToString(InvoiceDetails.SelectToken("GSTIN"));
+            if (InvoiceDetails.SelectToken("PONumber") != null)
+                ponumber = Convert.ToString(InvoiceDetails.SelectToken("PONumber"));
             if (InvoiceDetails.SelectToken("CompanyName") != null)
                 companyName = Convert.ToString(InvoiceDetails.SelectToken("CompanyName"));
             if (InvoiceDetails.SelectToken("States") != null)
                 stateId = Convert.ToInt32(InvoiceDetails.SelectToken("States"));
             if (InvoiceDetails.SelectToken("InvoiceId") != null)
                 invoiceId = Convert.ToInt32(InvoiceDetails.SelectToken("InvoiceId"));
+            if (InvoiceDetails.SelectToken("Ownership") != null)
+                ownership = Convert.ToInt32(InvoiceDetails.SelectToken("Ownership"));
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.UpdateInvoice(invoiceId:invoiceId,mobile: mobile, email: email, address: address, GSTIN: GSTIN, companyName: companyName, stateId: stateId));                     
+            context.Response.Write(client.UpdateInvoice(invoiceId:invoiceId,mobile: mobile, email: email, address: address, GSTIN: GSTIN, companyName: companyName, stateId: stateId,ownership:ownership,ponumber:ponumber));                     
            
         }
 

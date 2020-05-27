@@ -258,7 +258,12 @@
 
                             <tr>
 
+                                 <td>
+                                    <label>Ownership</label>
+                                    <select id="txtOwnership"  name ="Ownership" class="txtOwnership form-control updateValues">
+                                    </select><br />
 
+                                </td>
                               
                                 <td>
                                     <%--<label>Alternate Mobile / Landline</label>
@@ -266,12 +271,17 @@
                                     <label>GSTIN</label>
                                     <input type="text" id="txtGSTINEdit" maxlength="15"  name ="GSTIN" class="updateValues txtGSTIN form-control" />
                                 </td>
-                                <td colspan="2">
+                                <td>                                 
+                                    <label>PO Number</label>
+                                    <input type="text" id="txtPONumber" name ="PONumber" class="updateValues txtPONumber form-control" />
+                                </td>
+                               
+                            </tr>
+                            <tr>
+                                 <td colspan="2">
                                     <label>Address</label>
                                     <textarea id="txtContactAddressEdit" name ="ContactAddress" class="txtContactAddress form-control updateValues" rows="3" cols="5"></textarea>
                                 </td>
-                            </tr>
-                            <tr>
                                 <td>
                                     <%--<label>Country</label>
                                     <select id="ddlCountry" class="ddlCountry form-control updateValues" name="Country">
@@ -310,7 +320,6 @@
             </div>
              </div>
     </div>
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
@@ -442,6 +451,7 @@
             });
             //Edit Invoice
             $("#btnEdit").click(function () {
+                var OwnerShip=0;
                 var quotationId = $('.check_tool.Checked').attr("QuotationId");
                 var invoiceId = $('.check_tool.Checked').attr("InvoiceId");
                 var billMode = $('.check_tool.Checked').attr("BillMode");
@@ -452,6 +462,16 @@
                     //getProductRelatedUserInformation(productId, accountUrl, $("#txtUserMobile").val(), 0, 0, quotationType);
                     ordersClient.getInvoiceAccountDetails(invoiceId, function (res) {
                         if (res.Success == true) {
+                            var ownershipNames ="";
+                            if (res.OwnershipNames.length > 0) {
+                                for (var i = 0; i < res.OwnershipNames.length; i++) {
+                                    ownershipNames += "<option value='" + res.OwnershipNames[i].Id + "'>" + res.OwnershipNames[i].Name + "</option>";
+                                }
+
+                            }
+                            $('#txtOwnership').html(ownershipNames);                           
+                            $('#txtOwnership').val(res.InvoiceAccountDetails.OwnershipId);
+                            $('#txtPONumber').val(res.InvoiceAccountDetails.PONumber);
                             var gstin = res.InvoiceAccountDetails.GSTIN;
                             var gstincode = "";
                             $('#txtCompanyNameEdit').val(res.InvoiceAccountDetails.CompanyName);
