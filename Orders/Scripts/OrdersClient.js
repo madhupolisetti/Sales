@@ -1518,7 +1518,7 @@
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
             url: this.options.ordersHandler,
-            async: true,
+            async: false,
             dataType: "JSON",
             data:
                 {

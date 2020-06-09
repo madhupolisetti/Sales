@@ -238,6 +238,7 @@
     <Content Include="images\bg-white-lock.png" />
     <Content Include="images\bg3.jpg" />
     <Content Include="images\cancel-red.png" />
+    <Content Include="images\PaymentPageBanner.jpg" />
     <Content Include="images\plus.png" />
     <Content Include="images\sms-logo.png" />
     <Content Include="images\user.png" />
@@ -287,7 +288,7 @@
     <Content Include="JsFiles\moment.min.js" />
     <Content Include="LoginWithGoogle.aspx" />
     <Content Include="logout.aspx" />
-    <Content Include="OnlineOrder.aspx" />    
+    <Content Include="OnlineOrder.aspx" />
     <Content Include="Payments.aspx" />
     <Content Include="Orders.aspx" />
     <Content Include="Profile.aspx" />
@@ -425,7 +426,7 @@
     </Compile>
     <Compile Include="OnlineOrder.aspx.designer.cs">
       <DependentUpon>OnlineOrder.aspx</DependentUpon>
-    </Compile>    
+    </Compile>
     <Compile Include="Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

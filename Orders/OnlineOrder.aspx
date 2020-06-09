@@ -6,7 +6,7 @@
 <head runat="server">
     <title></title>
 </head>
-<body>
+<body style="background-image: url(/images/PaymentPageBanner.jpg);width:100%;height:100%;background-size:cover">
     <form id="form1" runat="server">
         <div>
             <button id="btnRazorPay" style="display:none">Pay</button>
@@ -14,7 +14,7 @@
     </form>
 </body>
 <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-<script src="Scripts/OrdersClient.js?type=v4" type="text/javascript"></script>
+<script src="Scripts/OrdersClient.js?type=v5" type="text/javascript"></script>
 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 <script>
     var _imageURL = "", _productName = "", _redirectURL = "", _insertedId;
@@ -91,18 +91,13 @@
 
         ordersClient.VerifySignature(insertedId, rOrderId, rPaymentId, rSignature, "<%=_currency%>", "<%=_totalAmount%>", function (res)
         {
-            if (res.Success == true)
-            {
+            if (res.Success == true) {
                 var totalAmount = "<%=_totalAmount %>" / 100;
 
-                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>, <%=_userId %>, <%=_rawAmount %>,<%=_tax %> , totalAmount, rOrderId, rPaymentId, function (orderRes)
-                {                    
-                    if (orderRes.Success == true)
-                    {                        
-                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId, false, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes)
-                        {
-                            if (activationRes.success == "true" || activationRes.success == true)
-                            {
+                ordersClient.GenerateOrderForOnlinePayments(<%=_productId %>, <%=_userId %>, <%=_rawAmount %>,<%=_tax %> , totalAmount, rOrderId, rPaymentId, function (orderRes) {
+                    if (orderRes.Success == true) {
+                        ordersClient.ActivateOrder(orderRes.InvoiceDetails.ActivationUrl, orderRes.InvoiceDetails.QuotationId, false, <%=_rawAmount %>, "Activated through RazorPay", function (activationRes) {
+                            if (activationRes.success == "true" || activationRes.success == true) {
                                 var $form = $("<form/>").attr("id", "data_form")
                                     .attr("action", _redirectURL)
                                     .attr("method", "post");
@@ -116,8 +111,7 @@
                                 AddParameter($form, "TotalAmount", totalAmount);
                                 $form[0].submit();
                             }
-                            else
-                            {
+                            else {
                                 var $form = $("<form/>").attr("id", "data_form")
                                     .attr("action", _redirectURL)
                                     .attr("method", "post");
@@ -128,22 +122,32 @@
                             }
                         });
                     }
+                    else {
+                        var $form = $("<form/>").attr("id", "data_form")
+                            .attr("action", _redirectURL)
+                            .attr("method", "post");
+                        //transactioId to be passed later
+                        $("body").append($form);
+                        AddParameter($form, "PaymentStatusId", 3);
+                        $form[0].submit();
+                    }
                 });
             }
-            
-            else                            
-                alert("Unable to process transaction: " + res.Message);            
-            
-            var paymentStatus = res.Success ? 2 : 3;
-            
-            var $form = $("<form/>").attr("id", "data_form")
-                .attr("action", _redirectURL)
-                .attr("method", "post");
-            $("body").append($form);
 
-            AddParameter($form, "productDBpaymentId", <%=_productDBpaymentId%>);
-            AddParameter($form, "paymentStatusId", paymentStatus);
-            $form[0].submit();
+            else {
+                alert("Unable to process transaction: " + res.Message);
+
+                var paymentStatus =  3;
+
+                var $form = $("<form/>").attr("id", "data_form")
+                    .attr("action", _redirectURL)
+                    .attr("method", "post");
+                $("body").append($form);
+
+                AddParameter($form, "productDBpaymentId", <%=_productDBpaymentId%>);
+                AddParameter($form, "paymentStatusId", paymentStatus);
+                $form[0].submit();
+            }
         });      
     }
     function AddParameter(form, number, value)

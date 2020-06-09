@@ -37,7 +37,6 @@ namespace Orders
             _fee = float.Parse(Request.Form["fee"]);
             _totalAmount = float.Parse(Request.Form["amountToPay"]);
 
-            // for paise
             if (_currency == "INR")
                 _totalAmount *= 100;
 
