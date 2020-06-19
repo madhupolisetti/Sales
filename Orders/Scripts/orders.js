@@ -285,14 +285,14 @@ $(document).ready(function () {
                 $("#divQuotationservices").html(quotationServices);
                 if (service != '')
                     $("#quotationServicesModal").modal('show');
-                else if (res.QuotationServices[0].ServiceId == 7) {
+                else if (res.QuotationServices[0].ServiceId == 7 || res.IsAutoActivate==true) {
                     if (isActivated == 'Activated' || InvoiceNumber != '')
                         return false;
-                    var isConfirmActivate = confirm("Activate Unlimited Service ?");
+                    var isConfirmActivate = confirm("Activate Service ?");
                     if (isConfirmActivate == false) {
                         return false;
                     } else {
-                        activateUnlimitedService(orderId);
+                        autoActivateService(orderId);
                     }
                 }
                 else
@@ -371,8 +371,8 @@ $("#btnActivate").click(function () {
 
 });
 
-function activateUnlimitedService(orderId) {
-    ordersClient.UpdateUnlimitedActivation(orderId, function (res) {
+function autoActivateService(orderId) {
+    ordersClient.AutoActivateService(orderId, function (res) {
         if (res.Success == true) {
             alert('Activated Successfully');
             window.location.reload();

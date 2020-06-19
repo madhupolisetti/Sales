@@ -56,8 +56,8 @@ namespace Orders.AjaxHandlers
                     case "downloadOrderActivations":
                         downloadOrderActivations(context);
                         break;
-                    case "UpdateUnlimitedActivation":
-                        UpdateUnlimitedActivation(context);
+                    case "AutoActivateService":
+                        AutoActivateService(context);
                         break;
                 }
             }
@@ -73,13 +73,13 @@ namespace Orders.AjaxHandlers
             }
         }
 
-        private void UpdateUnlimitedActivation(HttpContext context)
+        private void AutoActivateService(HttpContext context)
         {
             Int32 orderId = 0;
             if (context.Request["OrderId"] != null && !Int32.TryParse(context.Request["OrderId"].ToString(), out orderId))
                 GenerateErrorResponse(400, string.Format("OrderId value ({0}) is not a valid number", context.Request["OrderId"].ToString()));
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.UpdateUnlimitedActivation(orderId: orderId, tablePreferences: null));
+            context.Response.Write(client.AutoActivateService(orderId: orderId, tablePreferences: null));
         }
         private void downloadOrderActivations(HttpContext context)
         {

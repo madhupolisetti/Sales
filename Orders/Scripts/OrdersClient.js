@@ -868,7 +868,7 @@
         if (!CanCallBack(callBackFunction))
             return actionResponse;
     }
-    OrdersClient.prototype.UpdateUnlimitedActivation = function (orderId, callBackFunction) {
+    OrdersClient.prototype.AutoActivateService = function (orderId, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
         $.ajax({
@@ -877,7 +877,7 @@
             dataType: "JSON",            
             data:
                 {
-                    "Action": "UpdateUnlimitedActivation",
+                    "Action": "AutoActivateService",
                     "OrderId": orderId
 
                 },

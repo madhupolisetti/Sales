@@ -62,26 +62,28 @@ namespace Orders.BussinessLogicLayer
               
              
                 AccountProducts accountProductProperties = new AccountProducts();
-                accountProductProperties.ProductAccountName = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("NickName").ToString();
-                accountProductProperties.MobileNo = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("MobileNumber").ToString();
-                accountProductProperties.Email = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("EmailID").ToString();
-                accountProductProperties.Address = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Address").ToString();
-                accountProductProperties.Gstin = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("GSTIN").ToString();
-                accountProductProperties.Company = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Company").ToString();
-                accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("StateId").ToString());
-                accountProductProperties.Country = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Country").ToString();
-                accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
-                accountProductProperties.ProductId = productId;
-                accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString(); ;
-                accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
-                accountProductProperties.AccessToken = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccessToken").ToString();
-                accountProductProperties.BillingDay = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingDay"));
-                accountProductProperties.BillingMode=Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingModeId"));
-                accountProductProperties.AccountTypeId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccountTypeId"));
-                Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
-                account.CreateAccountProduct(accountProductProperties, out accountId , out accountProductID);
-                responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);
-                responseObj[Label.USER_DETAILS][Label.ACCOUNT_PRODUCT_ID] = Convert.ToInt64(accountProductID);
+                
+                    accountProductProperties.ProductAccountName = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("NickName").ToString();
+                    accountProductProperties.MobileNo = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("MobileNumber").ToString();
+                    accountProductProperties.Email = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("EmailID").ToString();
+                    accountProductProperties.Address = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Address").ToString();
+                    accountProductProperties.Gstin = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("GSTIN").ToString();
+                    accountProductProperties.Company = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Company").ToString();
+                    accountProductProperties.StateId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("StateId").ToString());
+                    accountProductProperties.Country = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Country").ToString();
+                    accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
+                    accountProductProperties.ProductId = productId;
+                    accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString(); ;
+                    accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
+                    accountProductProperties.AccessToken = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccessToken").ToString();
+                    accountProductProperties.BillingDay = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingDay"));
+                    accountProductProperties.BillingMode = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingModeId"));
+                    accountProductProperties.AccountTypeId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccountTypeId"));
+                    Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
+                    account.CreateAccountProduct(accountProductProperties, out accountId, out accountProductID);
+                    responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);
+                    responseObj[Label.USER_DETAILS][Label.ACCOUNT_PRODUCT_ID] = Convert.ToInt64(accountProductID);
+                
                 if (mobileNumber == "")
                 {
                     mobileNumber = accountProductProperties.MobileNo;
@@ -133,6 +135,8 @@ namespace Orders.BussinessLogicLayer
                 SReader = new StreamReader(_Req.GetResponse().GetResponseStream());
                 HttpAPIResponseString = SReader.ReadToEnd();
                 SReader.Close();
+                //if(productId==3)
+                //HttpAPIResponseString = "{ 'Success': 'True', 'Message': 'Success', 'UserDetails': { 'UserId': '193', 'NickName': 'HR Team', 'MobileNumber': '918897446974', 'EmailID': 'harika.velaga@smscountry.com', 'StateId': '1', 'Country': 'India', 'Address': '', 'GSTIN': '', 'OwnerShip': '', 'RegisteredDate': '6/6/2020 9:48:50 AM', 'Company': '', 'AccessToken': '', 'BillingModeId': '1', 'BillingDay': '1', 'AccountTypeId': '3' } }";
                 accountObj = JObject.Parse(HttpAPIResponseString);
 
             }

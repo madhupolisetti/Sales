@@ -15,7 +15,7 @@ $(document).ready(function () {
     else {
         if (billingModeId == 1)
             {
-            if(productId!=2){
+            if(productId==1){
                 getServices(productId, 8, true, false, false);
             }
             else {

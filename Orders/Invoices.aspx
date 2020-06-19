@@ -482,11 +482,13 @@
                             $("#stateEdit option[value='" + res.InvoiceAccountDetails.StateId + "']").prop('selected', true);
                             $("#btnUpdateEdit").attr('invoiceId',invoiceId);
                             $('#editInvoice').modal('show');
-                            if (gstin != "")
-                            {
+                            if (gstin != "") {
                                 gstincode = gstin.substring(0, 2);
-                                $("#stateEdit,#txtGSTINEdit").attr("disabled", "disabled");        
+                                $("#stateEdit,#txtGSTINEdit").attr("disabled", "disabled");
                                 //$("#state [value='" + stateId + "']").attr("selected", true);
+                            }
+                            else {
+                                $("#stateEdit").removeAttr("disabled");
                             }
                             if (accessRole == "SUPER_USER" || accessRole == "ACCOUNTS" || accessRole == "ACCOUNTS_MANAGER" ) {
                                 $("#txtGSTINEdit").prop("disabled", false);
