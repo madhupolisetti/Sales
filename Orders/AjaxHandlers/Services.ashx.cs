@@ -313,7 +313,7 @@ namespace Orders.AjaxHandlers
                 {
                     if (propertyFields.SelectToken("MinLength") == null || !byte.TryParse(propertyFields.SelectToken("MinLength").ToString(), out minLength))
                         GenerateErrorResponse(400, string.Format("Parameter Minlength of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
-                    if (propertyFields.SelectToken("MaxLength") == null || !byte.TryParse(propertyFields.SelectToken("MaxLength").ToString(), out minLength))
+                    if (propertyFields.SelectToken("MaxLength") == null || !Int16.TryParse(propertyFields.SelectToken("MaxLength").ToString(), out maxlength))
                         GenerateErrorResponse(400, string.Format("Parameter MaxLength of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
                 }
                 if (serviceProperty.InputTypeId == (int)PropertyInputType.TEXT_BOX || inputTypeId == (int)PropertyInputType.TEXT_AREA)
@@ -321,8 +321,10 @@ namespace Orders.AjaxHandlers
                         GenerateErrorResponse(400, string.Format("Parameter IsAllowSpecialCharacters of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
 
                 if (serviceProperty.InputTypeId != (int)PropertyInputType.TEXT_BOX && inputTypeId == (int)PropertyInputType.TEXT_AREA)
-                    if (propertyFields.SelectToken("Options") == null || !byte.TryParse(propertyFields.SelectToken("Options").ToString(), out minLength))
+                    if (propertyFields.SelectToken("Options") == null || String.IsNullOrEmpty(propertyFields.SelectToken("Options").ToString()) == true)
                         GenerateErrorResponse(400, string.Format("Parameter Options of Property '{0}' is missing or invalid", serviceProperty.DisplayName));
+                    else
+                        options = propertyFields.SelectToken("Options").ToString();
 
                 servicePropertyFields.FieldId = serviceProperty.Id;
                 servicePropertyFields.MetaDataCode = serviceProperty.MetaDataCode;
