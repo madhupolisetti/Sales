@@ -526,28 +526,28 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>01/27/2020 19:14:41</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.dll">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:45</publishTime>
     </File>
     <File Include="bin/Sales.BussinessLogicLayer.pdb">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:45</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.dll">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:45</publishTime>
     </File>
     <File Include="bin/Sales.DataAccessLayer.pdb">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:45</publishTime>
     </File>
     <File Include="bin/Sales.dll">
-      <publishTime>06/16/2020 14:44:32</publishTime>
+      <publishTime>08/09/2020 22:43:33</publishTime>
     </File>
     <File Include="bin/Sales.pdb">
-      <publishTime>06/16/2020 14:44:32</publishTime>
+      <publishTime>08/09/2020 22:43:33</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.dll">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:44</publishTime>
     </File>
     <File Include="bin/Sales.UserDefinedClasses.pdb">
-      <publishTime>06/16/2020 11:22:05</publishTime>
+      <publishTime>08/09/2020 22:14:44</publishTime>
     </File>
     <File Include="bin/Select.Html.dep">
       <publishTime>03/26/2019 17:43:50</publishTime>
@@ -784,7 +784,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>08/02/2019 13:11:15</publishTime>
     </File>
     <File Include="Exception_Logs/%28null%29.txt">
-      <publishTime>06/16/2020 14:19:20</publishTime>
+      <publishTime>07/31/2020 18:50:09</publishTime>
     </File>
     <File Include="fonts/axhdx.lnk">
       <publishTime>03/26/2019 17:44:22</publishTime>
@@ -1066,7 +1066,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>06/22/2019 16:10:55</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>06/16/2020 14:44:32</publishTime>
+      <publishTime>08/09/2020 22:14:47</publishTime>
     </File>
   </ItemGroup>
 </Project>

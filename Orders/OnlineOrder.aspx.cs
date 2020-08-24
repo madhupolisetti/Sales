@@ -24,34 +24,38 @@ namespace Orders
             // IsPostBack returning false for both redirection & direct URL enter
             //if (Convert.ToInt32(Request.Form["productId"]) < 1)
             //    return;
+            _userId = Convert.ToInt32(Request.Form["userId"]);
 
-            //_productId = Convert.ToInt32(Request.Form["productId"]);
-            //_productDBpaymentId = Convert.ToInt32(Request.Form["productDBpaymentId"]);
-            //_userId = Convert.ToInt32(Request.Form["userId"]);
-            //_userName = Request.Form["userName"];
-            //_mobile = Request.Form["userMobile"];
-            //_emailId = Request.Form["userEmail"];
-            //_currency = Request.Form["currencyCode"];
-            //_rawAmount = float.Parse(Request.Form["rawAmount"]);
-            //_tax = float.Parse(Request.Form["tax"]);
-            //_fee = float.Parse(Request.Form["fee"]);
-            //_totalAmount = float.Parse(Request.Form["amountToPay"]);
+            if (_userId != 82536)
+            {
+                _productId = Convert.ToInt32(Request.Form["productId"]);
+                _productDBpaymentId = Convert.ToInt32(Request.Form["productDBpaymentId"]);
 
-            if (_currency == "INR")
-                _totalAmount *= 100;
+                _userName = Request.Form["userName"];
+                _mobile = Request.Form["userMobile"];
+                _emailId = Request.Form["userEmail"];
+                _currency = Request.Form["currencyCode"];
+                _rawAmount = float.Parse(Request.Form["rawAmount"]);
+                _tax = float.Parse(Request.Form["tax"]);
+                _fee = float.Parse(Request.Form["fee"]);
+                _totalAmount = float.Parse(Request.Form["amountToPay"]);
 
-            _productId = 1;
-            _productDBpaymentId = 2;
-            _userId = 79872;
-            _userName = "Archit";
-            _mobile = "9887870158";
-            _emailId = "test@gmail.com";
-            _currency = "INR";
-            _rawAmount = 100;
-            _tax = 18;
-            _fee = 3;
-            _totalAmount = 121;
-
+                
+            }
+            else
+            {
+                _productId = 1;
+                _productDBpaymentId = 2;
+                _userId = 82536;
+                _userName = "Anudeep";
+                _mobile = "8688985915";
+                _emailId = "test@gmail.com";
+                _currency = "INR";
+                _rawAmount = 100;
+                _tax = 18;
+                _fee = 3;
+                _totalAmount = 121;
+            }
             if (_currency == "INR")
                 _totalAmount *= 100;
 
