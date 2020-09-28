@@ -42,15 +42,14 @@
   <ItemGroup>
     <Reference Include="log4net, Version=2.0.8.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\log4net.dll</HintPath>
+      <HintPath>\\192.168.75.38\d\DLL\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\..\..\Sales-Development\Orders\bin\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="OrdersManagement, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
+    <Reference Include="OrdersManagement">
+      <HintPath>..\..\..\..\Orders-portal_development\Orders_management_Development_git\OrdersManagement\OrdersManagement\bin\Debug\OrdersManagement.dll</HintPath>
     </Reference>
     <Reference Include="Razorpay">
       <HintPath>C:\Users\smsc\Downloads\razorpay-dot-net-2.2\razorpay-dot-net-2.2\net45\bin\Debug\Razorpay.dll</HintPath>
@@ -333,6 +332,9 @@
     <Compile Include="AjaxHandlers\AdminAccess.ashx.cs">
       <DependentUpon>AdminAccess.ashx</DependentUpon>
     </Compile>
+    <Compile Include="AjaxHandlers\ApiServices.ashx.cs">
+      <DependentUpon>ApiServices.ashx</DependentUpon>
+    </Compile>
     <Compile Include="AjaxHandlers\Invoices.ashx.cs">
       <DependentUpon>Invoices.ashx</DependentUpon>
     </Compile>
@@ -577,6 +579,7 @@
     <Content Include="AjaxHandlers\AdminAccess.ashx" />
     <Content Include="packages.config" />
     <Content Include="AjaxHandlers\OnlinePayment.ashx" />
+    <Content Include="AjaxHandlers\ApiServices.ashx" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Properties\PublishProfiles\OrdersPublish.pubxml" />
     <None Include="Properties\PublishProfiles\SalesModule.pubxml" />
