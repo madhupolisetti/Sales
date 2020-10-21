@@ -1546,7 +1546,37 @@
             return actionResponse;
     }
     // Public Methods End
-
+    OrdersClient.prototype.UpdateInvoiceNumber = function (invoicesDataUrl, quotationId, OrderId, adminId, InvoiceNumber, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.ordersHandler,
+            async: false,
+            dataType: "JSON",
+            data:
+            {
+                "Action": "UpdateInvoiceNumber",
+                "OrderId": OrderId,
+                "QuotationId":quotationId,
+                "InvoicesDataUrl": invoicesDataUrl,
+                "InvoiceNumber": InvoiceNumber
+            },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
     OrdersClient.prototype.GetQuotationDetails = function (quotationId, isPostPaidQuotation, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;

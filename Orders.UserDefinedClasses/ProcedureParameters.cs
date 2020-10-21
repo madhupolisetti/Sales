@@ -24,6 +24,7 @@ namespace Orders.UserDefinedClasses
         public const string QUOTATION_ID = "@QuotationId";
         public const string QUOTATION_NUMBER = "@QuotationNumber";
         public const string ACCOUNT_ID = "@AccountId";
+        public const string UNIQUE_ID = "@UniqueId";
         public const string EMPLOYEE_ID = "@EmployeeId";
         public const string OWNERSHIP_ID = "@OwnerShipId";
         public const string STATUS_ID = "@StatusId";

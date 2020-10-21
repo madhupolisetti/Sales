@@ -239,8 +239,8 @@
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
     <script src="JsFiles/DateTimePicker/moment.min.js"></script>
     <script src="JsFiles/DateTimePicker/daterangepicker.js"></script>
-    <script src="Scripts/OrdersClient.js?type=v8" type="text/javascript"></script>
-    <script src="Scripts/orders.js?type=v8" type="text/javascript"></script>
+    <script src="Scripts/OrdersClient.js?type=v9" type="text/javascript"></script>
+    <script src="Scripts/orders.js?type=v9" type="text/javascript"></script>
     <script src="JsFiles/jquery.bootpag.min.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {

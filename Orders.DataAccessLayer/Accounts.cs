@@ -112,6 +112,7 @@ namespace Orders.DataAccessLayer
                 this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_DAY, SqlDbType.Int).Value = accountProperty.BillingDay;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.BILLING_MODE_ID, SqlDbType.Int).Value = accountProperty.BillingMode;
                 this._sqlCommand.Parameters.Add(ProcedureParameters.ACCOUNT_TYPE_ID, SqlDbType.Int).Value = accountProperty.AccountTypeId;
+                this._sqlCommand.Parameters.Add(ProcedureParameters.UNIQUE_ID, SqlDbType.VarChar,100).Value = accountProperty.UniqueId;
                 if (accountProperty.OwnerShipEmail != null)
                 {
                     this._sqlCommand.Parameters.Add(ProcedureParameters.OWNER_EMAIL, SqlDbType.VarChar, 100).Value = accountProperty.OwnerShipEmail;
