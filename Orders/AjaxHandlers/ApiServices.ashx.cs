@@ -48,6 +48,7 @@ namespace Orders.AjaxHandlers
         {
             int userId = 0;
             int productId = 0;
+            string status = "";
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.Date;
             if (context.Request["UserId"] != null && !int.TryParse(context.Request["UserId"].ToString(), out userId))
@@ -66,10 +67,13 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(400, string.Format("ToDateTime must contain value"));
             }
-
+            if (!string.IsNullOrEmpty(context.Request["Status"]))
+            {
+                status = context.Request["Status"];
+            }
 
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetOrderDetails(userid: userId, productid: productId, fromDateTime: fromDateTime, toDateTime: toDateTime, tablePreferences: null));
+            context.Response.Write(client.GetOrderDetails(userid: userId, productid: productId, fromDateTime: fromDateTime, toDateTime: toDateTime,status:status, tablePreferences: null));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {
