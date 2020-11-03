@@ -52,5 +52,6 @@ namespace Orders.UserDefinedClasses
         public int BillingDay { get; set; }
 
         public int AccountTypeId { get; set; }
+        public string UniqueId { get; set; }
     }
 }

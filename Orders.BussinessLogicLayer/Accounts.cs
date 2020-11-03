@@ -73,12 +73,13 @@ namespace Orders.BussinessLogicLayer
                     accountProductProperties.Country = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("Country").ToString();
                     accountProductProperties.ProductAccountId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UserId").ToString());
                     accountProductProperties.ProductId = productId;
-                    accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString(); ;
+                    accountProductProperties.OwnerShipEmail = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("OwnerShip").ToString();
                     accountProductProperties.RegisteredDate = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("RegisteredDate").ToString();
                     accountProductProperties.AccessToken = responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccessToken").ToString();
                     accountProductProperties.BillingDay = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingDay"));
                     accountProductProperties.BillingMode = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("BillingModeId"));
                     accountProductProperties.AccountTypeId = Convert.ToInt32(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("AccountTypeId"));
+                    accountProductProperties.UniqueId = Convert.ToString(responseObj.SelectToken(Label.USER_DETAILS).SelectToken("UniqueId"));
                     Orders.DataAccessLayer.Accounts account = new Orders.DataAccessLayer.Accounts(sConnString);
                     account.CreateAccountProduct(accountProductProperties, out accountId, out accountProductID);
                     responseObj[Label.USER_DETAILS][Label.ACCOUNT_ID] = Convert.ToInt64(accountId);
@@ -124,10 +125,12 @@ namespace Orders.BussinessLogicLayer
                 _ApiKey = ds.Table.ApiKey;
                 _ApiSecret = ds.Table.ApiSecret;
                 _Req = HttpWebRequest.Create(httpUrl);
-                _credentialCache.Add(new Uri(httpUrl), "Basic", new NetworkCredential(_ApiKey, _ApiSecret));
-                _Req.Credentials = _credentialCache;
+                //_credentialCache.Add(new Uri(httpUrl), "Basic", new NetworkCredential(_ApiKey, _ApiSecret));
+                //_Req.Credentials = _credentialCache;
                 _Req.Method = "POST";
                 _Req.ContentType = "application/json";
+                string Credentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(_ApiKey + ":" + _ApiSecret));
+                _Req.Headers.Add("Authorization", "Basic " + Credentials);
                 SWriter = new StreamWriter(_Req.GetRequestStream());
                 SWriter.Write(reqObj.ToString());
                 SWriter.Flush();
@@ -135,8 +138,6 @@ namespace Orders.BussinessLogicLayer
                 SReader = new StreamReader(_Req.GetResponse().GetResponseStream());
                 HttpAPIResponseString = SReader.ReadToEnd();
                 SReader.Close();
-                //if(productId==3)
-                //HttpAPIResponseString = "{ 'Success': 'True', 'Message': 'Success', 'UserDetails': { 'UserId': '193', 'NickName': 'HR Team', 'MobileNumber': '918897446974', 'EmailID': 'harika.velaga@smscountry.com', 'StateId': '1', 'Country': 'India', 'Address': '', 'GSTIN': '', 'OwnerShip': '', 'RegisteredDate': '6/6/2020 9:48:50 AM', 'Company': '', 'AccessToken': '', 'BillingModeId': '1', 'BillingDay': '1', 'AccountTypeId': '3' } }";
                 accountObj = JObject.Parse(HttpAPIResponseString);
 
             }

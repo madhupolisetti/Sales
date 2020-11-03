@@ -59,6 +59,9 @@ namespace Orders.AjaxHandlers
                     case "AutoActivateService":
                         AutoActivateService(context);
                         break;
+                    case "UpdateInvoiceNumber":
+                        UpdateInvoiceNumber(context);
+                        break;
                 }
             }
             catch (System.Threading.ThreadAbortException e)
@@ -250,6 +253,43 @@ namespace Orders.AjaxHandlers
             else
                 adminId =Convert.ToInt32(HttpContext.Current.Session["AdminId"]);
             context.Response.Write(client.ActivateOrder(quotationId: quotationId, isPostPaidQuotation: isPostPaid, activationAmount: activationAmount, activationUrl: activationUrl, activationComments: activationComments, employeeId: adminId, tablePreferences: null));
+        }
+
+        private void UpdateInvoiceNumber(HttpContext context)
+        {
+            string invoicesDataUrl = string.Empty;
+            string invoiceNumber = string.Empty;
+            int OrderId = 0;
+            int quotationId = 0;
+
+            if (string.IsNullOrEmpty(context.Request["InvoicesDataUrl"]))
+                GenerateErrorResponse(400, string.Format("InvoicesDataUrl is Mandatory"));
+            else
+                invoicesDataUrl = context.Request["InvoicesDataUrl"].ToString();
+            
+            if (string.IsNullOrEmpty(context.Request["OrderId"]))
+                GenerateErrorResponse(400, string.Format("OrderId is Mandatory"));
+            else
+                OrderId = Convert.ToInt32(context.Request["OrderId"].ToString());
+
+            if (string.IsNullOrEmpty(context.Request["QuotationId"]))
+                GenerateErrorResponse(400, string.Format("QuotationId is Mandatory"));
+            else
+                quotationId = Convert.ToInt32(context.Request["QuotationId"].ToString());
+
+            if (string.IsNullOrEmpty(context.Request["InvoiceNumber"]))
+                GenerateErrorResponse(400, string.Format("InvoiceNumber is Mandatory"));
+            else
+                invoiceNumber = context.Request["InvoiceNumber"].ToString();
+            
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            int adminId = 0;
+            if (HttpContext.Current.Session["AdminId"] == null || HttpContext.Current.Session["AdminId"].ToString() == string.Empty)
+                adminId = 1;
+            else
+                adminId = Convert.ToInt32(HttpContext.Current.Session["AdminId"]);
+            context.Response.Write(client.UpdateInvoiceNumber(quotationId: quotationId, OrderId: OrderId, invoiceNumber: invoiceNumber, invoicesDataUrl: invoicesDataUrl, tablePreferences: null));
         }
 
         private void GenerateErrorResponse(int statusCode, string message)

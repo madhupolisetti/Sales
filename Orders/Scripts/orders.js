@@ -160,7 +160,7 @@ $(document).ready(function () {
                         //}
                             
                             if ((((res.Orders[i].BillingModeId == 1 || res.Orders[i].BillingModeId == 3) && res.Orders[i].ActivationStatusId != "1")) && res.Orders[i].InvoiceNumber == "")
-                            ordersData += '<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_' + res.Orders[i].InvoiceId + '" invoiceId="' + res.Orders[i].InvoiceId + '" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
+                                ordersData += '<td><input type="button" value="Generate Invoice" id="btnGenerateInvoice_' + res.Orders[i].InvoiceId + '" invoiceId="' + res.Orders[i].InvoiceId + '" class="btnGenerateInvoice btn btn-lg green" style="border-radius: 25px !important; font-size: 13px;" /></td>';
                         else
                             ordersData += "<td></td>";
                         ordersData += "<td></td>";
@@ -199,7 +199,12 @@ $(document).ready(function () {
                 var invoiceId = res.Invoices.InvoiceId;
                 var billMode = res.Invoices.BillingModeId;
                 var employeeId = res.Invoices.EmployeeId;
+                var InvoiceNumber = res.Invoices.InvoiceNumber;
+                var OrderId = res.Invoices.OrderId;
+                var invoicesDataUrl = res.Invoices.InvoicesDataUrl;
                 var isProformaInvoice = false;
+                if(invoicesDataUrl!='')
+                ordersClient.UpdateInvoiceNumber(invoicesDataUrl, quotationId, OrderId, adminId, InvoiceNumber, function (response) { });
                 if (quotationId) {
                     var $form = $("<form/>").attr("id", "Invoicedata_form")
                                             .attr("action", "Invoice.aspx")
