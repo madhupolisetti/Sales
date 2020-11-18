@@ -49,6 +49,7 @@ namespace Orders.AjaxHandlers
             int userId = 0;
             int productId = 0;
             string status = "";
+            bool IsDownLoad;
             DateTime fromDateTime = DateTime.Now.Date;
             DateTime toDateTime = DateTime.Now.Date;
             if (context.Request["UserId"] != null && !int.TryParse(context.Request["UserId"].ToString(), out userId))
@@ -71,9 +72,16 @@ namespace Orders.AjaxHandlers
             {
                 status = context.Request["Status"];
             }
-
+            if (string.IsNullOrEmpty(context.Request["IsDownLoad"]))
+            {
+                IsDownLoad=false;
+            }
+            else
+            {
+                IsDownLoad=Convert.ToBoolean(context.Request["IsDownLoad"]);
+            }
             OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
-            context.Response.Write(client.GetOrderDetails(userid: userId, productid: productId, fromDateTime: fromDateTime, toDateTime: toDateTime,status:status, tablePreferences: null));
+            context.Response.Write(client.GetOrderDetails(userid: userId, productid: productId, fromDateTime: fromDateTime, toDateTime: toDateTime,status:status,IsDownLoad:IsDownLoad, tablePreferences: null));
         }
         private void GenerateErrorResponse(int statusCode, string message)
         {
