@@ -66,6 +66,9 @@ namespace Orders.AjaxHandlers
                     case "UpdateInvoice":
                         UpdateInvoice(context);
                         break;
+                    case "CreditNote":
+                        CreditNote(context);
+                        break;
                     default:
                         GenerateErrorResponse(400, string.Format("Invalid Action ({0})", context.Request["Action"].ToString()));
                         break;
@@ -81,6 +84,26 @@ namespace Orders.AjaxHandlers
             {
                 GenerateErrorResponse(500, e.Message);
             }
+        }
+
+        private void CreditNote(HttpContext context)
+        {
+            int adminId = Convert.ToInt32(context.Session["AdminId"]);
+            int invoiceId = 0;
+            decimal CreditAmount = 0;
+            string Comment = "";
+
+            JObject CreditNoteData = JObject.Parse(context.Request["CreditNoteData"]);
+
+            if (CreditNoteData.SelectToken("CreditAmount") != null)
+                CreditAmount = Convert.ToDecimal(CreditNoteData.SelectToken("CreditAmount"));
+            if (CreditNoteData.SelectToken("InvoiceId") != null)
+                invoiceId = Convert.ToInt32(CreditNoteData.SelectToken("InvoiceId"));
+            if (CreditNoteData.SelectToken("Comment") != null)
+                Comment = Convert.ToString(CreditNoteData.SelectToken("Comment"));
+
+            OrdersManagement.Core.Client client = new OrdersManagement.Core.Client(responseFormat: OrdersManagement.ResponseFormat.JSON);
+            context.Response.Write(client.CreditNote(adminId, invoiceId, CreditAmount, Comment));
         }
 
         private void downloadInvoices(HttpContext context)

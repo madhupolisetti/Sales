@@ -975,6 +975,7 @@
             window.open(urltodownload);
         }
     }
+
     OrdersClient.prototype.DownloadInvoice = function (quotationId, isPostPaidQuotation, isProformaInvoice, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;
@@ -1008,6 +1009,37 @@
             return actionResponse;
     }
     //Cancel Invoice 
+
+    OrdersClient.prototype.UpdateCreditNote = function (CreditNoteData, callBackFunction) {
+        var actionResponse;
+        failedActionResponse.Message = defaultErrorMessage;
+        $.ajax({
+            url: this.options.invoicesHandler,
+            async: this.options.async,
+            dataType: "JSON",
+            traditional: true,
+            data:
+            {
+                Action: "CreditNote",
+                CreditNoteData: JSON.stringify(CreditNoteData)
+            },
+            success: function (response) {
+                actionResponse = response;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            },
+            error: function (response) {
+                failedActionResponse.Response = response;
+                failedActionResponse.Message = response.responseJSON.Message;
+                actionResponse = failedActionResponse;
+                if (CanCallBack(callBackFunction))
+                    callBackFunction(actionResponse);
+            }
+        });
+        if (!CanCallBack(callBackFunction))
+            return actionResponse;
+    }
+
     OrdersClient.prototype.CancelInvoice = function (quotationId,adminId, callBackFunction) {
         var actionResponse;
         failedActionResponse.Message = defaultErrorMessage;

@@ -143,6 +143,7 @@
                                     <th>Quotation #</th>
                                     <th>Invoice #</th>
                                     <th>Total Amount</th>
+                                    <th>Credit Note</th>
                                     <th>Payment Status</th>
                                 </tr>
                             </thead>
@@ -319,6 +320,46 @@
                 </div>
             </div>
              </div>
+        <div class="modal fade in" id="creditNoteModal" tabindex="-1" aria-hidden="true" style="position: absolute;">
+        <div class="modal-dialog modal-lg"> 
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h4 class="modal-title"><b>Credit Note</b></h4>
+    </div>
+                <div class="modal-body">
+        <div class="table-responsive">
+
+                        <table class="table no-border table-head">
+                            <tr>
+                               <%-- <td class="col-sm-4">
+                                    <label>Registered Date</label>
+                                    <input type="text" id="txtRegisteredDate" name ="RegisteredDate" class="txtRegisteredDate form-control updateValues"  />
+                                </td>--%>
+
+                                <td class="col-sm-4">
+                                    <label>Amount</label>
+                                    <input type="text" id="txtCreditNote" class="form-control" style="width: 30%;"/>
+                                </td>
+                                </tr>
+                            <tr>
+                                 <td colspan="2">
+                                    <label>Comment</label>
+                                    <textarea id="txtComment" placeholder ="Enter discription here" class="txtContactAddress form-control updateValues" rows="3" cols="5"></textarea>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    </div>
+
+                <div class="modal-footer">
+                    <input type="button" value="Submit" maxlength="4" id="btnCreditNote" class="btn btn-primary"/>&nbsp;
+                    <button id="btnCloseCreditNote" type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+                </div>
+                </div>
+            </div>
+             </div>
     </div>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="Scripts" runat="server">
@@ -344,6 +385,7 @@
             globalPageSize = 10;
             $("#txtDateRange").daterangepicker();
             dateRange = $("#txtDateRange").val();
+
             if(accessRole == "SUPER_USER" | accessRole == "ACCOUNTS" | accessRole == "ACCOUNTS_MANAGER")
             {
                 $('#btnCancelInvoice,#btnEdit').addClass("enable-icn");
@@ -384,7 +426,73 @@
                 }
             })
 
-            
+            $(document).on('click', '.creditnote',  function () {
+                var billingmode = $(this).attr('BillMode')
+                var QotationTypeId = $(this).attr('QotationTypeId');
+                var InvoiceId = $(this).attr('InvoiceId');
+                var CreditNote = $(this).attr('CreditNote');
+                var OrderAmount = $(this).attr('OrderAmount');
+                if (billingmode == 1 && QotationTypeId == 1) {
+                    if (CreditNote < 1000 && CreditNote < OrderAmount) {
+
+                        var limit = ((OrderAmount > 1000) ? 1000 : OrderAmount) - CreditNote;
+
+                        //$('#txtCreditNote').attr('placeholder', "Amount must be less than " + limit)
+                        //$('#txtCreditNote').val('').attr('CreditNote', CreditNote).attr('OrderAmount', OrderAmount);
+                        $('#txtComment').val('');
+                        $('#txtCreditNote').val('').attr('limit', limit).attr('InvoiceId', InvoiceId).attr('placeholder', "Amount must be less than " + limit);
+
+                        $('#creditNoteModal').modal('show');
+                    } else {
+                        ErrorNotifier("Maximum Credit Note limit Reached")
+                    }
+                } else {
+                    ErrorNotifier("Credit Note is only for Prepaid Tax Invoices")
+                }
+            });
+
+            $('#txtCreditNote').keypress(function (e) {
+                return (!isNaN(e.key) && e.key != " ");
+            });
+
+            $('#btnCreditNote').click(function () {
+
+                if ($('#txtCreditNote').val() == '') {
+                    ErrorNotifier("Enter Amount")
+                }
+                else if ($('#txtComment').val() == '') {
+                    ErrorNotifier("Enter Comment")
+                } 
+                else if (parseFloat($('#txtCreditNote').val()) > parseFloat($('#txtCreditNote').attr('limit')) ) {
+                    ErrorNotifier("You can credit up to " + $('#txtCreditNote').attr('limit') + " only")
+                }
+                else {
+                    var CreditNoteData = {};
+                    CreditNoteData.InvoiceId = $('#txtCreditNote').attr('InvoiceId');
+                    CreditNoteData.CreditAmount = $('#txtCreditNote').val();
+                    CreditNoteData.Comment = $('#txtComment').val();
+
+                    UpdateCreditNote(CreditNoteData);
+                }
+            })
+
+            //$('#txtCreditNote').keyup(function (e) {
+            //    var limit = (($('#txtCreditNote').attr('OrderAmount') > 1000) ? 1000 : $('#txtCreditNote').attr('OrderAmount')) - $('#txtCreditNote').attr('CreditNote');
+
+            //    if ($('#txtCreditNote').val() > limit ) {
+            //        alert("You can credit up to " + limit+" only")
+            //    }
+            //})
+
+            //function ValidateCreditNote(creditAmount, OrderAmount) {
+            //    var filter = /^[0-9]*$/;
+
+            //    if (filter.test(creditAmount)) {
+            //        if()
+            //    } else {
+            //        return false;
+            //    }
+            //}
 
             $("#btnAddNewQuotation,#btncreate").click(function () {
                 $("#createQuotation").modal("show");
@@ -702,8 +810,27 @@
                 });
 
             }
+
+            function UpdateCreditNote(CreditNoteData) {
+                ordersClient.UpdateCreditNote(CreditNoteData, function (res) {
+                    $('#creditNoteModal').modal('hide');
+                    if (res.Success == true) {
+                        SuccessNotifier(res.Message)
+
+                        var obj = $('.creditnote[InvoiceId="' + CreditNoteData.InvoiceId + '"]');
+                        var TotalCreditAmount = parseFloat(obj.attr('CreditNote')) + parseFloat(CreditNoteData.CreditAmount);
+
+                        obj.attr('CreditNote', TotalCreditAmount);
+                        obj.text(TotalCreditAmount);
+                    }
+                    else {
+                        ErrorNotifier(res.Message);
+                    }
+                });
+            }
             
             function getInvoices(isdownload) {
+                //dateRange = '04/02/2020 - 12/11/2020';
                 if (dateRange == "This Month") {
                     var date = new Date();
                     var from = new Date(date.getFullYear(), date.getMonth(), 1);
@@ -727,6 +854,7 @@
                             var invoicesData = renderInvoices(res.Invoices);
                             pagination(res.Count, globalPageSize);
                             $("#data").html(invoicesData);
+                            //$('.creditnote').eq(0).click();
                         }
                         else {
                             $("#data").html("<tr ><td align='center' colspan='14'> No records Found</td></tr>");
@@ -759,6 +887,9 @@
                     var currencyName = Invoices[i].Currency;
                     var taxMessage = "Order Amount: "+parseFloat(Invoices[i].OrderAmount)+" TAX: "+Invoices[i].TaxDetails;
                     invoicesData += "<td><a href='javascript:;' class='font-grey-gallery'><label class='bold' data-toggle='tooltip' title='" + taxMessage + "'>" + amount + " " + currencyName + "</label></a></td>";
+
+                    invoicesData += "<td><a class='creditnote' InvoiceId='" + Invoices[i].InvoiceId + "' BillMode = '" + Invoices[i]["BillingModeId"] + "' QotationTypeId = '" + Invoices[i].QuotationTypeID + "' CreditNote='" + Invoices[i]["CreditNote"] + "' OrderAmount='" + Invoices[i].OrderAmount+"'>" + Invoices[i].CreditNote +"</a></td>"
+
                     //Invoices += "<td><span class='label label-sm label-warning'>" + Invoices[i].Status + "</span></td></tr>";
                     if (Invoices[i].Status == "Cancelled") {
                         invoicesData += "<td><span class='label label-sm label-warning'>" + Invoices[i].Status + "</span></td></tr>";
