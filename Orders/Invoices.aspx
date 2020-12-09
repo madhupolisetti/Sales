@@ -430,8 +430,8 @@
                 var billingmode = $(this).attr('BillMode')
                 var QotationTypeId = $(this).attr('QotationTypeId');
                 var InvoiceId = $(this).attr('InvoiceId');
-                var CreditNote = $(this).attr('CreditNote');
-                var OrderAmount = $(this).attr('OrderAmount');
+                var CreditNote = parseFloat($(this).attr('CreditNote'));
+                var OrderAmount = parseFloat($(this).attr('OrderAmount'));
                 if (billingmode == 1 && QotationTypeId == 1) {
                     if (CreditNote < 1000 && CreditNote < OrderAmount) {
 
